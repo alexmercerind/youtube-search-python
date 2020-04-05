@@ -6,3 +6,5 @@ A small python script that will return URLs and title names of videos when enter
 Feel free to use. 
 Made from scratch.
 
+**Screenshot**
+![Image description](https://github.com/HiteshKumarSaini/youtube-search-python/blob/master/youtube-search-python.PNG)
