@@ -1,4 +1,4 @@
-#Made by https://github.com/HiteshKumarSaini/
+#https://github.com/alexmercerind/
 
 from urllib.request import urlopen
 
