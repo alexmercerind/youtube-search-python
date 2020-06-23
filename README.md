@@ -12,13 +12,13 @@ Made from scratch.
 Working as of June, 2020.
 
 
-:arrow_down: **Install**
+## :arrow_down: Install
 
 
 ```pip3 install youtube-search-python```
 
 
-**Usage**
+## :triangular_ruler: Usage
 
 
 ```python
@@ -36,13 +36,13 @@ print(result[1]) #gives video titles
 ```
 
 
-**Screenshot**
+## :camera: Screenshot
 
 
 ![Image description](https://github.com/HiteshKumarSaini/youtube-search-python/blob/master/youtube-search-python.PNG)
 
 
-**Like the module?**
+## :heart: Like the module?
 
 
 Consider starring the repo. Feel free to use.
