@@ -12,7 +12,7 @@ Made from scratch.
 Working as of June, 2020.
 
 
-**Install**
+:arrow_down: **Install**
 
 
 ```pip3 install youtube-search-python```
