@@ -27,7 +27,7 @@ Working as of June, 2020.
 ```python
 
 from youtubesearchpython.searchyoutube import searchyoutube
-result = searchyoutube("ENTER-YOUR-SEARCH-KEYWORD-HERE", "ENTER-SEARCH-OFFSET-HERE (default is 1)")
+result = searchyoutube("SEARCH-KEYWORD", "SEARCH-OFFSET (default is 1)")
 
 print(result[0]) #gives video links
 print(result[1]) #gives video titles
