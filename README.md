@@ -27,13 +27,15 @@ Working as of June, 2020.
 ```python
 
 from youtubesearchpython.searchyoutube import searchyoutube
-
-##########Returns a array having two sub-arrays with video titles and links##########
 result = searchyoutube("ENTER-YOUR-SEARCH-KEYWORD-HERE", "ENTER-SEARCH-OFFSET-HERE (default is 1)")
 
 print(result[0]) #gives video links
 print(result[1]) #gives video titles
 
+
+
+
+##########Returns a array having two sub-arrays with video titles and links##########
 ##########Returns string "Network Error!" in case a network error is encountered##########
 
 ```
