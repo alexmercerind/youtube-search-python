@@ -1,7 +1,7 @@
 # youtube-search-python
 
 
-**A python script to return video links and titles by searching in YouTube. (Made from scratch without using YouTube API and any other third party library!)**
+**A python script to return video links and titles by searching in YouTube. (Made from scratch without using YouTube Data API v3 and any other third party library!)**
 
 
 A small python script that will return URLs and title names of videos when entering a keyword to search in youtube.
