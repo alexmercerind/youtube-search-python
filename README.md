@@ -12,7 +12,7 @@ Feel free to use.
 Made from scratch.
 
 
-Working as of June, 2020.
+Working as of 2020.
 
 
 ## :arrow_down: Install
