@@ -50,12 +50,12 @@ Consider starring the repo. Feel free to use.
 Currently search result returns:
 
 
-- [x] Video Links
-- [x] Video Titles
-- [ ] Channel Names
+- [x] Video Link
+- [x] Video Title
+- [ ] Channel Name
 - [ ] Video Duration
 - [ ] View Count
-- [ ] Like / Dislikes
+- [ ] Likes / Dislikes
 
 ## :page_with_curl: Example Result
 
