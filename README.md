@@ -27,6 +27,8 @@ search = searchYoutube("NoCopyrightSounds", 1, "json")
 
 print(search.result());
 
+#########searchYoutube(<SEARCH-QUERY>, <OFFSET (default is 1), <MODE ("json"/"list" default is json)>)#########
+
 ```
 
 
