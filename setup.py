@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="youtube-search-python",
-    version="0.0.1",
+    version="0.0.2",
     author="Hitesh Kumar Saini",
     author_email="saini123hitesh@gmail.com",
     description="A python script to return video links and titles by searching in YouTube without Youtube Data API v3.",
