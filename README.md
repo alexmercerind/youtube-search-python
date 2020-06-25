@@ -44,6 +44,19 @@ Consider starring the repo. Feel free to use.
 ![Image description](https://github.com/HiteshKumarSaini/youtube-search-python/blob/master/youtube-search-python.PNG)
 
 
+## :heavy_check_mark: Current Progress
+
+
+Currently search result returns:
+
+
+- [x] Video Links
+- [x] Video Names
+- [ ] Channel Names
+- [ ] Video Duration
+- [ ] View Count
+- [ ] Like / Dislikes
+
 ## :page_with_curl: Example Result
 
 
