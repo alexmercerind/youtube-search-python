@@ -51,7 +51,7 @@ Currently search result returns:
 
 
 - [x] Video Links
-- [x] Video Names
+- [x] Video Titles
 - [ ] Channel Names
 - [ ] Video Duration
 - [ ] View Count
