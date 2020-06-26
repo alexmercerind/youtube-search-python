@@ -42,21 +42,14 @@ Consider starring the repo. Feel free to use.
 Currently search result returns:
 
 
-:heavy_check_mark: Video Link
-
-:heavy_check_mark: Video Title
-
-:x: Channel Name
-
-:heavy_check_mark: Video Duration
-
-:heavy_check_mark: Video View Count
-
-:heavy_check_mark: Video ID
-
-:heavy_check_mark: Video Thumbnails
-
-:x: Likes / Dislikes
+-[x] Video Link
+-[x] Video Title
+-[ ] Channel Name
+-[x] Video Duration
+-[x] Video View Count
+-[x] Video ID
+-[x] Video Thumbnails
+-[ ] Likes / Dislikes
 
 
 ## :camera: Screenshot
