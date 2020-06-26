@@ -43,12 +43,19 @@ Currently search result returns:
 
 
 :heavy_check_mark: Video Link
+
 :heavy_check_mark: Video Title
+
 :x: Channel Name
+
 :heavy_check_mark: Video Duration
+
 :heavy_check_mark: Video View Count
+
 :heavy_check_mark: Video ID
+
 :heavy_check_mark: Video Thumbnails
+
 :x: Likes / Dislikes
 
 
