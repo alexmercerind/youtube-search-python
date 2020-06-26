@@ -49,7 +49,7 @@ Currently search result returns:
 - [x] Video View Count
 - [x] Video ID
 - [x] Video Thumbnails
-- [ ] Likes / Dislikess
+- [ ] Likes / Dislikes
 
 
 ## :camera: Screenshot
