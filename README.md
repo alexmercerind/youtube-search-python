@@ -42,14 +42,14 @@ Consider starring the repo. Feel free to use.
 Currently search result returns:
 
 
--[x] Video Link
--[x] Video Title
--[ ] Channel Name
--[x] Video Duration
--[x] Video View Count
--[x] Video ID
--[x] Video Thumbnails
--[ ] Likes / Dislikes
+- [x] Video Link
+- [x] Video Title
+- [ ] Channel Name
+- [x] Video Duration
+- [x] Video View Count
+- [x] Video ID
+- [x] Video Thumbnails
+- [ ] Likes / Dislikess
 
 
 ## :camera: Screenshot
