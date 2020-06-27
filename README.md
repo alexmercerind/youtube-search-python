@@ -13,7 +13,10 @@ Working as of 2020.
 ## :arrow_down: Install
 
 
-```pip3 install youtube-search-python```
+```pip3 install youtube-search-python
+
+Alternatively you can clone the repo, and run "Usage Example.py"
+```
 
 
 ## :triangular_ruler: Usage
