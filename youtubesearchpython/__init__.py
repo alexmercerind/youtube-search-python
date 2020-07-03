@@ -94,7 +94,7 @@ class searchYoutube:
                 durationBool = False
                 viewBuffer = 0
                 channelBool = True
-                separators = ["second", "hour", "day", "month", "year", "seconds", "hours", "days", "months", "years"]
+                separators = ["second", "minute", "hour", "day", "week", "month", "year", "seconds", "minutes", "hours", "days", "weeks", "months", "years"]
                 timeBool = True
                 for element in infoString.split()[-2]:
                     if element.isnumeric():
