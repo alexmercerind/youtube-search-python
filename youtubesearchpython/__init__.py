@@ -10,7 +10,7 @@ class searchYoutube:
     __networkError = False
     __validResponse = False
 
-    def __init__(self, keyword, offset = 1, mode = "json"):
+    def __init__(self, keyword, offset = 1, mode = "json", max_results = 20):
 
         #########CLASS CONSTRUCTOR#########
 
@@ -19,6 +19,7 @@ class searchYoutube:
         self.__keyword = urllib.parse.quote(keyword)
         self.__offset = offset
         self.__mode = mode
+        self.__max_results = max_results
 
         #########Executing Entry Point Of Class#########
 
@@ -127,6 +128,9 @@ class searchYoutube:
                 self.__titles+=[titleBuffer.rstrip().encode('utf-8').decode('unicode_escape')]
                 self.__views+=[viewBuffer]
                 self.__durations+=[durationBuffer.rstrip(":")]
+            
+            if len(self.__ids) > self.__max_results:
+                break
 
     def __pageResponseHandler(self):
 
@@ -211,6 +215,9 @@ class searchYoutube:
                         buffer+=(" "+this_element)
                     subIndex+=1
 
+            if len(self.__ids) > self.__max_results:
+                break
+
     def __exec(self):
         
         #########EXEC PROPERTY#########
@@ -257,7 +264,7 @@ class searchYoutube:
 
             if self.__mode in ["json", "dict"]:
 
-                for index in range(len(self.__titles) - 1):
+                for index in range(len(self.__ids)):
                     if not self.__validResponse:
                         thisResult = {
                         "index": index,
@@ -288,7 +295,7 @@ class searchYoutube:
 
             elif self.__mode == "list":
                 
-                for index in range(len(self.__titles) - 1):
+                for index in range(len(self.__ids)):
                     if not self.__validResponse:
                         thisResult=[
                             index,
