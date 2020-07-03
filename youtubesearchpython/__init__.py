@@ -119,7 +119,8 @@ class searchYoutube:
                         continue
                     if durationBool:
                         if index <= len(infoString.split())-3:
-                            durationBuffer += infoString.split()[index] + " "
+                            if infoString.split()[index].isnumeric():
+                                durationBuffer += infoString.split()[index] + ":"
                         else:
                             break
                 self.__channels+=[channelBuffer.rstrip().encode('utf-8').decode('unicode_escape')]
@@ -281,7 +282,7 @@ class searchYoutube:
                     result+=[thisResult]
 
                 return json.dumps({"search_result": result}, indent=4) \
-                        if self.__mode == "json" else result
+                        if self.__mode == "json" else {"search_result": result}
             
             #########List Result Handling.#########
 
