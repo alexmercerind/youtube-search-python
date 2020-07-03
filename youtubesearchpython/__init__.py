@@ -87,7 +87,7 @@ class searchYoutube:
             #########Setting Video Channels, Titles, Views And Durations#########
 
             if self.__pageSource[index][-44:] == '"accessibility":{"accessibilityData":{"label' and self.__pageSource[index+1][-36:] == '"descriptionSnippet":{"runs":[{"text':
-                infoString = '"' + self.__pageSource[index+1].split("}}}")[0]
+                infoString = self.__pageSource[index+1].split("}}}")[0]
                 titleBuffer = ""
                 channelBuffer = ""
                 durationBuffer = ""
@@ -124,9 +124,9 @@ class searchYoutube:
                         else:
                             break
                 self.__channels+=[channelBuffer.rstrip().encode('utf-8').decode('unicode_escape')]
-                self.__titles+=[titleBuffer.rstrip()[1:].encode('utf-8').decode('unicode_escape')]
+                self.__titles+=[titleBuffer.rstrip().encode('utf-8').decode('unicode_escape')]
                 self.__views+=[viewBuffer]
-                self.__durations+=[durationBuffer.rstrip()]
+                self.__durations+=[durationBuffer.rstrip(":")]
 
     def __pageResponseHandler(self):
 
