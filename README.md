@@ -69,12 +69,28 @@ Currently search result returns:
     "search_result": [
         {
             "index": 0,
+            "id": "RQ5IkSeMQbc",
+            "link": "https://www.youtube.com/watch?v=RQ5IkSeMQbc",
+            "title": "Teyeq - Demons [NCS Release]",
+            "channel": "NoCopyrightSounds",
+            "duration": "2 minutes, 35 seconds",
+            "views": 164874,
+            "thumbnails": [
+                "https://img.youtube.com/vi/RQ5IkSeMQbc/default.jpg",
+                "https://img.youtube.com/vi/RQ5IkSeMQbc/hqdefault.jpg",
+                "https://img.youtube.com/vi/RQ5IkSeMQbc/mqdefault.jpg",
+                "https://img.youtube.com/vi/RQ5IkSeMQbc/sddefault.jpg",
+                "https://img.youtube.com/vi/RQ5IkSeMQbc/maxresdefault.jpg"
+            ]
+        },
+        {
+            "index": 1,
             "id": "CnekLFazlxo",
             "link": "https://www.youtube.com/watch?v=CnekLFazlxo",
             "title": "Wanden & Slashtaq - Better Off [NCS Release]",
             "channel": "NoCopyrightSounds",
             "duration": "2 minutes, 18 seconds",
-            "views": 335515,
+            "views": 401957,
             "thumbnails": [
                 "https://img.youtube.com/vi/CnekLFazlxo/default.jpg",
                 "https://img.youtube.com/vi/CnekLFazlxo/hqdefault.jpg",
@@ -84,13 +100,13 @@ Currently search result returns:
             ]
         },
         {
-            "index": 1,
+            "index": 2,
             "id": "BG_W8Z74nG8",
             "link": "https://www.youtube.com/watch?v=BG_W8Z74nG8",
             "title": "Jim Yosef - Fall With Me [NCS Release]",
             "channel": "NoCopyrightSounds",
             "duration": "2 minutes, 49 seconds",
-            "views": 739355,
+            "views": 780178,
             "thumbnails": [
                 "https://img.youtube.com/vi/BG_W8Z74nG8/default.jpg",
                 "https://img.youtube.com/vi/BG_W8Z74nG8/hqdefault.jpg",
@@ -100,13 +116,13 @@ Currently search result returns:
             ]
         },
         {
-            "index": 2,
+            "index": 3,
             "id": "ZQHcERGiinM",
             "link": "https://www.youtube.com/watch?v=ZQHcERGiinM",
             "title": "Dark Heart - Crash Test Dummy [NCS Release]",
             "channel": "NoCopyrightSounds",
             "duration": "2 minutes, 42 seconds",
-            "views": 620104,
+            "views": 627903,
             "thumbnails": [
                 "https://img.youtube.com/vi/ZQHcERGiinM/default.jpg",
                 "https://img.youtube.com/vi/ZQHcERGiinM/hqdefault.jpg",
@@ -116,11 +132,11 @@ Currently search result returns:
             ]
         },
         {
-            "index": 3,
+            "index": 4,
             "id": "2W3Y9KMgNw0",
             "link": "https://www.youtube.com/watch?v=2W3Y9KMgNw0",
             "title": "Brook Xiao - Fire (ft. Rachel Horter) [NCS Release]",
-            "channel": "NoCopyrightSounds 1 week ago 2 minutes,",
+            "channel": "NoCopyrightSounds",
             "duration": "2 minutes, 54 seconds",
             "views": 619337,
             "thumbnails": [
@@ -132,11 +148,11 @@ Currently search result returns:
             ]
         },
         {
-            "index": 4,
+            "index": 5,
             "id": "SxfSpqFWJAg",
             "link": "https://www.youtube.com/watch?v=SxfSpqFWJAg",
             "title": "Arlow - Freefall [NCS Release]",
-            "channel": "NoCopyrightSounds 1 week ago 3 minutes,",
+            "channel": "NoCopyrightSounds",
             "duration": "3 minutes, 16 seconds",
             "views": 860716,
             "thumbnails": [
@@ -148,13 +164,13 @@ Currently search result returns:
             ]
         },
         {
-            "index": 5,
+            "index": 6,
             "id": "vIE6cuAhR4o",
             "link": "https://www.youtube.com/watch?v=vIE6cuAhR4o",
             "title": "Facading - Walk Away [NCS Release]",
-            "channel": "NoCopyrightSounds 1 week ago 3 minutes,",
+            "channel": "NoCopyrightSounds",
             "duration": "3 minutes, 19 seconds",
-            "views": 773551,
+            "views": 794532,
             "thumbnails": [
                 "https://img.youtube.com/vi/vIE6cuAhR4o/default.jpg",
                 "https://img.youtube.com/vi/vIE6cuAhR4o/hqdefault.jpg",
@@ -164,13 +180,13 @@ Currently search result returns:
             ]
         },
         {
-            "index": 6,
+            "index": 7,
             "id": "1hxGuyfAErQ",
             "link": "https://www.youtube.com/watch?v=1hxGuyfAErQ",
             "title": "BH - Holding On [NCS Release]",
-            "channel": "NoCopyrightSounds 2 weeks ago 3 minutes,",
+            "channel": "NoCopyrightSounds",
             "duration": "3 minutes, 57 seconds",
-            "views": 856018,
+            "views": 878986,
             "thumbnails": [
                 "https://img.youtube.com/vi/1hxGuyfAErQ/default.jpg",
                 "https://img.youtube.com/vi/1hxGuyfAErQ/hqdefault.jpg",
@@ -180,13 +196,13 @@ Currently search result returns:
             ]
         },
         {
-            "index": 7,
+            "index": 8,
             "id": "klTBagBYXpk",
             "link": "https://www.youtube.com/watch?v=klTBagBYXpk",
             "title": "RudeLies & Clarx - Erase [NCS Release]",
-            "channel": "NoCopyrightSounds 2 weeks ago 2 minutes,",
+            "channel": "NoCopyrightSounds",
             "duration": "2 minutes, 53 seconds",
-            "views": 977438,
+            "views": 1029630,
             "thumbnails": [
                 "https://img.youtube.com/vi/klTBagBYXpk/default.jpg",
                 "https://img.youtube.com/vi/klTBagBYXpk/hqdefault.jpg",
@@ -196,13 +212,13 @@ Currently search result returns:
             ]
         },
         {
-            "index": 8,
+            "index": 9,
             "id": "TeSiiKpbCiM",
             "link": "https://www.youtube.com/watch?v=TeSiiKpbCiM",
             "title": "Heuse & Caravn - Spirits Say [NCS Release]",
-            "channel": "NoCopyrightSounds 2 weeks ago 2 minutes,",
+            "channel": "NoCopyrightSounds",
             "duration": "2 minutes, 47 seconds",
-            "views": 853207,
+            "views": 876066,
             "thumbnails": [
                 "https://img.youtube.com/vi/TeSiiKpbCiM/default.jpg",
                 "https://img.youtube.com/vi/TeSiiKpbCiM/hqdefault.jpg",
@@ -212,29 +228,13 @@ Currently search result returns:
             ]
         },
         {
-            "index": 9,
-            "id": "wJXB_wyEPg4",
-            "link": "https://www.youtube.com/watch?v=wJXB_wyEPg4",
-            "title": "Jonth - Collapse [NCS Release]",
-            "channel": "NoCopyrightSounds 3 weeks ago 2 minutes,",
-            "duration": "2 minutes, 32 seconds",
-            "views": 769047,
-            "thumbnails": [
-                "https://img.youtube.com/vi/wJXB_wyEPg4/default.jpg",
-                "https://img.youtube.com/vi/wJXB_wyEPg4/hqdefault.jpg",
-                "https://img.youtube.com/vi/wJXB_wyEPg4/mqdefault.jpg",
-                "https://img.youtube.com/vi/wJXB_wyEPg4/sddefault.jpg",
-                "https://img.youtube.com/vi/wJXB_wyEPg4/maxresdefault.jpg"
-            ]
-        },
-        {
             "index": 10,
             "id": "K4DyBUG242c",
             "link": "https://www.youtube.com/watch?v=K4DyBUG242c",
             "title": "Cartoon - On & On (feat. Daniel Levi) [NCS Release]",
             "channel": "NoCopyrightSounds",
             "duration": "3 minutes, 28 seconds",
-            "views": 356879371,
+            "views": 357239715,
             "thumbnails": [
                 "https://img.youtube.com/vi/K4DyBUG242c/default.jpg",
                 "https://img.youtube.com/vi/K4DyBUG242c/hqdefault.jpg",
@@ -245,38 +245,6 @@ Currently search result returns:
         },
         {
             "index": 11,
-            "id": "uy5X4LOQYRk",
-            "link": "https://www.youtube.com/watch?v=uy5X4LOQYRk",
-            "title": "Best Music Mix 2020 \u00e2\u0099\u00ab Gaming Music x Nocopyrightsounds \u00e2\u0099\u00ab Best Trap, EDM, Dubstep, DnB, Electro House",
-            "channel": "7even Cloud 40 minutes ago 1 hour, 15 minutes 344",
-            "duration": "1 hour, 15 minutes",
-            "views": 344,
-            "thumbnails": [
-                "https://img.youtube.com/vi/uy5X4LOQYRk/default.jpg",
-                "https://img.youtube.com/vi/uy5X4LOQYRk/hqdefault.jpg",
-                "https://img.youtube.com/vi/uy5X4LOQYRk/mqdefault.jpg",
-                "https://img.youtube.com/vi/uy5X4LOQYRk/sddefault.jpg",
-                "https://img.youtube.com/vi/uy5X4LOQYRk/maxresdefault.jpg"
-            ]
-        },
-        {
-            "index": 12,
-            "id": "-Mypt378fkc",
-            "link": "https://www.youtube.com/watch?v=-Mypt378fkc",
-            "title": "NCS 24/7 Gaming Music Livestream",
-            "channel": "NCS Arcade",
-            "duration": "",
-            "views": 1459578,
-            "thumbnails": [
-                "https://img.youtube.com/vi/-Mypt378fkc/default.jpg",
-                "https://img.youtube.com/vi/-Mypt378fkc/hqdefault.jpg",
-                "https://img.youtube.com/vi/-Mypt378fkc/mqdefault.jpg",
-                "https://img.youtube.com/vi/-Mypt378fkc/sddefault.jpg",
-                "https://img.youtube.com/vi/-Mypt378fkc/maxresdefault.jpg"
-            ]
-        },
-        {
-            "index": 13,
             "id": "EpRJY-hI6Bs",
             "link": "https://www.youtube.com/watch?v=EpRJY-hI6Bs",
             "title": "4 The Most Popular of NCS - NoCopyrightSounds | Cartoon | Disfigure | Electro-Light | Janji",
@@ -292,13 +260,29 @@ Currently search result returns:
             ]
         },
         {
-            "index": 14,
+            "index": 12,
+            "id": "CYhO8vDupik",
+            "link": "https://www.youtube.com/watch?v=CYhO8vDupik",
+            "title": "NoCopyrightSounds - Mini Mix 2020 | Matt McGuire Drum Cover",
+            "channel": "Matt McGuire",
+            "duration": "6 minutes, 51 seconds",
+            "views": 39320,
+            "thumbnails": [
+                "https://img.youtube.com/vi/CYhO8vDupik/default.jpg",
+                "https://img.youtube.com/vi/CYhO8vDupik/hqdefault.jpg",
+                "https://img.youtube.com/vi/CYhO8vDupik/mqdefault.jpg",
+                "https://img.youtube.com/vi/CYhO8vDupik/sddefault.jpg",
+                "https://img.youtube.com/vi/CYhO8vDupik/maxresdefault.jpg"
+            ]
+        },
+        {
+            "index": 13,
             "id": "yJg-Y5byMMw",
             "link": "https://www.youtube.com/watch?v=yJg-Y5byMMw",
             "title": "Warriyo - Mortals (feat. Laura Brehm) [NCS Release]",
             "channel": "NoCopyrightSounds",
             "duration": "3 minutes, 50 seconds",
-            "views": 127466704,
+            "views": 127634474,
             "thumbnails": [
                 "https://img.youtube.com/vi/yJg-Y5byMMw/default.jpg",
                 "https://img.youtube.com/vi/yJg-Y5byMMw/hqdefault.jpg",
@@ -308,61 +292,29 @@ Currently search result returns:
             ]
         },
         {
+            "index": 14,
+            "id": "pLZq3jgE6qA",
+            "link": "https://www.youtube.com/watch?v=pLZq3jgE6qA",
+            "title": "Top 20 songs of Tobu - Best Of Tobu",
+            "channel": "Music Store",
+            "duration": "1 hour, 17 minutes",
+            "views": 10902560,
+            "thumbnails": [
+                "https://img.youtube.com/vi/pLZq3jgE6qA/default.jpg",
+                "https://img.youtube.com/vi/pLZq3jgE6qA/hqdefault.jpg",
+                "https://img.youtube.com/vi/pLZq3jgE6qA/mqdefault.jpg",
+                "https://img.youtube.com/vi/pLZq3jgE6qA/sddefault.jpg",
+                "https://img.youtube.com/vi/pLZq3jgE6qA/maxresdefault.jpg"
+            ]
+        },
+        {
             "index": 15,
-            "id": "XEymPGxopmg",
-            "link": "https://www.youtube.com/watch?v=XEymPGxopmg",
-            "title": "Barren Gates & M.I.M.E - Enslaved [NCS Release]",
-            "channel": "NoCopyrightSounds",
-            "duration": "4 minutes, 4 seconds",
-            "views": 9615052,
-            "thumbnails": [
-                "https://img.youtube.com/vi/XEymPGxopmg/default.jpg",
-                "https://img.youtube.com/vi/XEymPGxopmg/hqdefault.jpg",
-                "https://img.youtube.com/vi/XEymPGxopmg/mqdefault.jpg",
-                "https://img.youtube.com/vi/XEymPGxopmg/sddefault.jpg",
-                "https://img.youtube.com/vi/XEymPGxopmg/maxresdefault.jpg"
-            ]
-        },
-        {
-            "index": 16,
-            "id": "zyXmsVwZqX4",
-            "link": "https://www.youtube.com/watch?v=zyXmsVwZqX4",
-            "title": "Cartoon - Why We Lose (feat. Coleman Trapp) [NCS Release]",
-            "channel": "NoCopyrightSounds",
-            "duration": "3 minutes, 34 seconds",
-            "views": 147691794,
-            "thumbnails": [
-                "https://img.youtube.com/vi/zyXmsVwZqX4/default.jpg",
-                "https://img.youtube.com/vi/zyXmsVwZqX4/hqdefault.jpg",
-                "https://img.youtube.com/vi/zyXmsVwZqX4/mqdefault.jpg",
-                "https://img.youtube.com/vi/zyXmsVwZqX4/sddefault.jpg",
-                "https://img.youtube.com/vi/zyXmsVwZqX4/maxresdefault.jpg"
-            ]
-        },
-        {
-            "index": 17,
-            "id": "_XspQUK22-U",
-            "link": "https://www.youtube.com/watch?v=_XspQUK22-U",
-            "title": "Diamond Eyes - Everything [NCS Release]",
-            "channel": "NoCopyrightSounds",
-            "duration": "4 minutes, 28 seconds",
-            "views": 25027049,
-            "thumbnails": [
-                "https://img.youtube.com/vi/_XspQUK22-U/default.jpg",
-                "https://img.youtube.com/vi/_XspQUK22-U/hqdefault.jpg",
-                "https://img.youtube.com/vi/_XspQUK22-U/mqdefault.jpg",
-                "https://img.youtube.com/vi/_XspQUK22-U/sddefault.jpg",
-                "https://img.youtube.com/vi/_XspQUK22-U/maxresdefault.jpg"
-            ]
-        },
-        {
-            "index": 18,
             "id": "xgcLwtGlgLU",
             "link": "https://www.youtube.com/watch?v=xgcLwtGlgLU",
             "title": "BEAUZ & JVNA - Crazy [NCS Release]",
             "channel": "NoCopyrightSounds",
             "duration": "3 minutes, 9 seconds",
-            "views": 7849319,
+            "views": 7855532,
             "thumbnails": [
                 "https://img.youtube.com/vi/xgcLwtGlgLU/default.jpg",
                 "https://img.youtube.com/vi/xgcLwtGlgLU/hqdefault.jpg",
@@ -372,39 +324,39 @@ Currently search result returns:
             ]
         },
         {
-            "index": 19,
-            "id": "kddC4gi72UE",
-            "link": "https://www.youtube.com/watch?v=kddC4gi72UE",
-            "title": "Rival x Cadmium - Willow Tree (feat. Rosendale) [NCS Release]",
+            "index": 16,
+            "id": "_XspQUK22-U",
+            "link": "https://www.youtube.com/watch?v=_XspQUK22-U",
+            "title": "Diamond Eyes - Everything [NCS Release]",
+            "channel": "NoCopyrightSounds",
+            "duration": "4 minutes, 28 seconds",
+            "views": 25119386,
+            "thumbnails": [
+                "https://img.youtube.com/vi/_XspQUK22-U/default.jpg",
+                "https://img.youtube.com/vi/_XspQUK22-U/hqdefault.jpg",
+                "https://img.youtube.com/vi/_XspQUK22-U/mqdefault.jpg",
+                "https://img.youtube.com/vi/_XspQUK22-U/sddefault.jpg",
+                "https://img.youtube.com/vi/_XspQUK22-U/maxresdefault.jpg"
+            ]
+        },
+        {
+            "index": 17,
+            "id": "Au6fH-6xrEU",
+            "link": "https://www.youtube.com/watch?v=Au6fH-6xrEU",
+            "title": "Mountkid - Dino [NCS Release]",
             "channel": "NoCopyrightSounds",
             "duration": "3 minutes, 9 seconds",
-            "views": 7515810,
+            "views": 5600988,
             "thumbnails": [
-                "https://img.youtube.com/vi/kddC4gi72UE/default.jpg",
-                "https://img.youtube.com/vi/kddC4gi72UE/hqdefault.jpg",
-                "https://img.youtube.com/vi/kddC4gi72UE/mqdefault.jpg",
-                "https://img.youtube.com/vi/kddC4gi72UE/sddefault.jpg",
-                "https://img.youtube.com/vi/kddC4gi72UE/maxresdefault.jpg"
+                "https://img.youtube.com/vi/Au6fH-6xrEU/default.jpg",
+                "https://img.youtube.com/vi/Au6fH-6xrEU/hqdefault.jpg",
+                "https://img.youtube.com/vi/Au6fH-6xrEU/mqdefault.jpg",
+                "https://img.youtube.com/vi/Au6fH-6xrEU/sddefault.jpg",
+                "https://img.youtube.com/vi/Au6fH-6xrEU/maxresdefault.jpg"
             ]
         },
         {
-            "index": 20,
-            "id": "LHvYrn3FAgI",
-            "link": "https://www.youtube.com/watch?v=LHvYrn3FAgI",
-            "title": "Unknown Brain - Superhero (feat. Chris Linton) [NCS Release]",
-            "channel": "NoCopyrightSounds",
-            "duration": "3 minutes, 2 seconds",
-            "views": 79194575,
-            "thumbnails": [
-                "https://img.youtube.com/vi/LHvYrn3FAgI/default.jpg",
-                "https://img.youtube.com/vi/LHvYrn3FAgI/hqdefault.jpg",
-                "https://img.youtube.com/vi/LHvYrn3FAgI/mqdefault.jpg",
-                "https://img.youtube.com/vi/LHvYrn3FAgI/sddefault.jpg",
-                "https://img.youtube.com/vi/LHvYrn3FAgI/maxresdefault.jpg"
-            ]
-        },
-        {
-            "index": 21,
+            "index": 18,
             "id": "tcHJodG5hX8",
             "link": "https://www.youtube.com/watch?v=tcHJodG5hX8",
             "title": "Unknown Brain - Why Do I? (feat. Bri Tolani) [NCS Release]",
@@ -420,29 +372,45 @@ Currently search result returns:
             ]
         },
         {
-            "index": 22,
-            "id": "MEkaqZecpUQ",
-            "link": "https://www.youtube.com/watch?v=MEkaqZecpUQ",
-            "title": "NCS: 2019 \u00e2\u0080\u009820 Million\u00e2\u0080\u0099 Mix | Future Hits",
+            "index": 19,
+            "id": "LHvYrn3FAgI",
+            "link": "https://www.youtube.com/watch?v=LHvYrn3FAgI",
+            "title": "Unknown Brain - Superhero (feat. Chris Linton) [NCS Release]",
             "channel": "NoCopyrightSounds",
-            "duration": "1 hour",
-            "views": 6176216,
+            "duration": "3 minutes, 2 seconds",
+            "views": 79266817,
             "thumbnails": [
-                "https://img.youtube.com/vi/MEkaqZecpUQ/default.jpg",
-                "https://img.youtube.com/vi/MEkaqZecpUQ/hqdefault.jpg",
-                "https://img.youtube.com/vi/MEkaqZecpUQ/mqdefault.jpg",
-                "https://img.youtube.com/vi/MEkaqZecpUQ/sddefault.jpg",
-                "https://img.youtube.com/vi/MEkaqZecpUQ/maxresdefault.jpg"
+                "https://img.youtube.com/vi/LHvYrn3FAgI/default.jpg",
+                "https://img.youtube.com/vi/LHvYrn3FAgI/hqdefault.jpg",
+                "https://img.youtube.com/vi/LHvYrn3FAgI/mqdefault.jpg",
+                "https://img.youtube.com/vi/LHvYrn3FAgI/sddefault.jpg",
+                "https://img.youtube.com/vi/LHvYrn3FAgI/maxresdefault.jpg"
             ]
         },
         {
-            "index": 23,
+            "index": 20,
+            "id": "kddC4gi72UE",
+            "link": "https://www.youtube.com/watch?v=kddC4gi72UE",
+            "title": "Rival x Cadmium - Willow Tree (feat. Rosendale) [NCS Release]",
+            "channel": "NoCopyrightSounds",
+            "duration": "3 minutes, 9 seconds",
+            "views": 7530654,
+            "thumbnails": [
+                "https://img.youtube.com/vi/kddC4gi72UE/default.jpg",
+                "https://img.youtube.com/vi/kddC4gi72UE/hqdefault.jpg",
+                "https://img.youtube.com/vi/kddC4gi72UE/mqdefault.jpg",
+                "https://img.youtube.com/vi/kddC4gi72UE/sddefault.jpg",
+                "https://img.youtube.com/vi/kddC4gi72UE/maxresdefault.jpg"
+            ]
+        },
+        {
+            "index": 21,
             "id": "CLEWmT_8ppM",
             "link": "https://www.youtube.com/watch?v=CLEWmT_8ppM",
             "title": "Clarx - Zig Zag [NCS Release]",
             "channel": "NoCopyrightSounds",
             "duration": "3 minutes, 28 seconds",
-            "views": 9612316,
+            "views": 9623814,
             "thumbnails": [
                 "https://img.youtube.com/vi/CLEWmT_8ppM/default.jpg",
                 "https://img.youtube.com/vi/CLEWmT_8ppM/hqdefault.jpg",
@@ -452,29 +420,45 @@ Currently search result returns:
             ]
         },
         {
-            "index": 24,
-            "id": "gDwVGS75sUA",
-            "link": "https://www.youtube.com/watch?v=gDwVGS75sUA",
-            "title": "Lemon Fight - Stronger (feat. Jessica Reynoso) [NCS Release]",
+            "index": 22,
+            "id": "S19UcWdOA-I",
+            "link": "https://www.youtube.com/watch?v=S19UcWdOA-I",
+            "title": "Lost Sky - Fearless pt.II (feat. Chris Linton) [NCS Release]",
             "channel": "NoCopyrightSounds",
-            "duration": "3 minutes, 14 seconds",
-            "views": 7306293,
+            "duration": "3 minutes, 15 seconds",
+            "views": 64877530,
             "thumbnails": [
-                "https://img.youtube.com/vi/gDwVGS75sUA/default.jpg",
-                "https://img.youtube.com/vi/gDwVGS75sUA/hqdefault.jpg",
-                "https://img.youtube.com/vi/gDwVGS75sUA/mqdefault.jpg",
-                "https://img.youtube.com/vi/gDwVGS75sUA/sddefault.jpg",
-                "https://img.youtube.com/vi/gDwVGS75sUA/maxresdefault.jpg"
+                "https://img.youtube.com/vi/S19UcWdOA-I/default.jpg",
+                "https://img.youtube.com/vi/S19UcWdOA-I/hqdefault.jpg",
+                "https://img.youtube.com/vi/S19UcWdOA-I/mqdefault.jpg",
+                "https://img.youtube.com/vi/S19UcWdOA-I/sddefault.jpg",
+                "https://img.youtube.com/vi/S19UcWdOA-I/maxresdefault.jpg"
             ]
         },
         {
-            "index": 25,
+            "index": 23,
+            "id": "IIwiM777OzQ",
+            "link": "https://www.youtube.com/watch?v=IIwiM777OzQ",
+            "title": "Prismo - Stronger [NCS Release]",
+            "channel": "NoCopyrightSounds",
+            "duration": "3 minutes, 33 seconds",
+            "views": 26558909,
+            "thumbnails": [
+                "https://img.youtube.com/vi/IIwiM777OzQ/default.jpg",
+                "https://img.youtube.com/vi/IIwiM777OzQ/hqdefault.jpg",
+                "https://img.youtube.com/vi/IIwiM777OzQ/mqdefault.jpg",
+                "https://img.youtube.com/vi/IIwiM777OzQ/sddefault.jpg",
+                "https://img.youtube.com/vi/IIwiM777OzQ/maxresdefault.jpg"
+            ]
+        },
+        {
+            "index": 24,
             "id": "ABuNwLP-z9o",
             "link": "https://www.youtube.com/watch?v=ABuNwLP-z9o",
             "title": "\u00f0\u009f\u0094\u00a5 Top 50 NoCopyRightSounds | Best of NCS | Most viewed ! Gaming Music | The Best of All Time | 2020",
-            "channel": "Freeme Music",
+            "channel": "Freeme NCS Music",
             "duration": "3 hours, 8 minutes",
-            "views": 5806665,
+            "views": 5828972,
             "thumbnails": [
                 "https://img.youtube.com/vi/ABuNwLP-z9o/default.jpg",
                 "https://img.youtube.com/vi/ABuNwLP-z9o/hqdefault.jpg",
@@ -484,7 +468,7 @@ Currently search result returns:
             ]
         },
         {
-            "index": 26,
+            "index": 25,
             "id": "-ObdvMkCKws",
             "link": "https://www.youtube.com/watch?v=-ObdvMkCKws",
             "title": "Top 20 Most Popular Songs",
@@ -500,13 +484,13 @@ Currently search result returns:
             ]
         },
         {
-            "index": 27,
+            "index": 26,
             "id": "xzyRoshFFaA",
             "link": "https://www.youtube.com/watch?v=xzyRoshFFaA",
             "title": "Fareoh - Under Water [NCS Release]",
             "channel": "NoCopyrightSounds",
             "duration": "2 minutes, 46 seconds",
-            "views": 9363560,
+            "views": 9390979,
             "thumbnails": [
                 "https://img.youtube.com/vi/xzyRoshFFaA/default.jpg",
                 "https://img.youtube.com/vi/xzyRoshFFaA/hqdefault.jpg",
@@ -516,13 +500,13 @@ Currently search result returns:
             ]
         },
         {
-            "index": 28,
+            "index": 27,
             "id": "Srqs4CitU2U",
             "link": "https://www.youtube.com/watch?v=Srqs4CitU2U",
             "title": "Jarico - Landscape [NCS BEST OF]",
             "channel": "No Copyright Sounds - Best OF",
             "duration": "3 minutes, 37 seconds",
-            "views": 11086685,
+            "views": 11160119,
             "thumbnails": [
                 "https://img.youtube.com/vi/Srqs4CitU2U/default.jpg",
                 "https://img.youtube.com/vi/Srqs4CitU2U/hqdefault.jpg",
@@ -532,77 +516,13 @@ Currently search result returns:
             ]
         },
         {
-            "index": 29,
-            "id": "bM7SZ5SBzyY",
-            "link": "https://www.youtube.com/watch?v=bM7SZ5SBzyY",
-            "title": "Alan Walker - Fade [NCS Release]",
-            "channel": "NoCopyrightSounds",
-            "duration": "4 minutes, 21 seconds",
-            "views": 413626322,
-            "thumbnails": [
-                "https://img.youtube.com/vi/bM7SZ5SBzyY/default.jpg",
-                "https://img.youtube.com/vi/bM7SZ5SBzyY/hqdefault.jpg",
-                "https://img.youtube.com/vi/bM7SZ5SBzyY/mqdefault.jpg",
-                "https://img.youtube.com/vi/bM7SZ5SBzyY/sddefault.jpg",
-                "https://img.youtube.com/vi/bM7SZ5SBzyY/maxresdefault.jpg"
-            ]
-        },
-        {
-            "index": 30,
-            "id": "u1I9ITfzqFs",
-            "link": "https://www.youtube.com/watch?v=u1I9ITfzqFs",
-            "title": "Diviners - Savannah (feat. Philly K) [NCS Release]",
-            "channel": "NoCopyrightSounds",
-            "duration": "3 minutes, 24 seconds",
-            "views": 45089646,
-            "thumbnails": [
-                "https://img.youtube.com/vi/u1I9ITfzqFs/default.jpg",
-                "https://img.youtube.com/vi/u1I9ITfzqFs/hqdefault.jpg",
-                "https://img.youtube.com/vi/u1I9ITfzqFs/mqdefault.jpg",
-                "https://img.youtube.com/vi/u1I9ITfzqFs/sddefault.jpg",
-                "https://img.youtube.com/vi/u1I9ITfzqFs/maxresdefault.jpg"
-            ]
-        },
-        {
-            "index": 31,
-            "id": "triXo_xCqms",
-            "link": "https://www.youtube.com/watch?v=triXo_xCqms",
-            "title": "TOP 100 NoCopyrightSounds | Best Of NCS | 6H NoCopyRightSounds | The Best of all time",
-            "channel": "Musicbot",
-            "duration": "6 hours, 17 minutes",
-            "views": 2945025,
-            "thumbnails": [
-                "https://img.youtube.com/vi/triXo_xCqms/default.jpg",
-                "https://img.youtube.com/vi/triXo_xCqms/hqdefault.jpg",
-                "https://img.youtube.com/vi/triXo_xCqms/mqdefault.jpg",
-                "https://img.youtube.com/vi/triXo_xCqms/sddefault.jpg",
-                "https://img.youtube.com/vi/triXo_xCqms/maxresdefault.jpg"
-            ]
-        },
-        {
-            "index": 32,
-            "id": "vBGiFtb8Rpw",
-            "link": "https://www.youtube.com/watch?v=vBGiFtb8Rpw",
-            "title": "Culture Code - Make Me Move (feat. Karra) [NCS Release]",
-            "channel": "NoCopyrightSounds",
-            "duration": "3 minutes, 17 seconds",
-            "views": 41899931,
-            "thumbnails": [
-                "https://img.youtube.com/vi/vBGiFtb8Rpw/default.jpg",
-                "https://img.youtube.com/vi/vBGiFtb8Rpw/hqdefault.jpg",
-                "https://img.youtube.com/vi/vBGiFtb8Rpw/mqdefault.jpg",
-                "https://img.youtube.com/vi/vBGiFtb8Rpw/sddefault.jpg",
-                "https://img.youtube.com/vi/vBGiFtb8Rpw/maxresdefault.jpg"
-            ]
-        },
-        {
-            "index": 33,
+            "index": 28,
             "id": "QglaLzo_aPk",
             "link": "https://www.youtube.com/watch?v=QglaLzo_aPk",
             "title": "Julius Dreisig & Zeus X Crona - Invisible [NCS Release]",
             "channel": "NoCopyrightSounds",
             "duration": "3 minutes, 22 seconds",
-            "views": 64921046,
+            "views": 65118904,
             "thumbnails": [
                 "https://img.youtube.com/vi/QglaLzo_aPk/default.jpg",
                 "https://img.youtube.com/vi/QglaLzo_aPk/hqdefault.jpg",
@@ -612,19 +532,99 @@ Currently search result returns:
             ]
         },
         {
-            "index": 34,
-            "id": "PTF5xgT-pm8",
-            "link": "https://www.youtube.com/watch?v=PTF5xgT-pm8",
-            "title": "Aero Chord feat. DDARK - Shootin Stars [NCS Release]",
+            "index": 29,
+            "id": "u1I9ITfzqFs",
+            "link": "https://www.youtube.com/watch?v=u1I9ITfzqFs",
+            "title": "Diviners - Savannah (feat. Philly K) [NCS Release]",
             "channel": "NoCopyrightSounds",
-            "duration": "4 minutes, 3 seconds",
-            "views": 52640206,
+            "duration": "3 minutes, 24 seconds",
+            "views": 45128104,
             "thumbnails": [
-                "https://img.youtube.com/vi/PTF5xgT-pm8/default.jpg",
-                "https://img.youtube.com/vi/PTF5xgT-pm8/hqdefault.jpg",
-                "https://img.youtube.com/vi/PTF5xgT-pm8/mqdefault.jpg",
-                "https://img.youtube.com/vi/PTF5xgT-pm8/sddefault.jpg",
-                "https://img.youtube.com/vi/PTF5xgT-pm8/maxresdefault.jpg"
+                "https://img.youtube.com/vi/u1I9ITfzqFs/default.jpg",
+                "https://img.youtube.com/vi/u1I9ITfzqFs/hqdefault.jpg",
+                "https://img.youtube.com/vi/u1I9ITfzqFs/mqdefault.jpg",
+                "https://img.youtube.com/vi/u1I9ITfzqFs/sddefault.jpg",
+                "https://img.youtube.com/vi/u1I9ITfzqFs/maxresdefault.jpg"
+            ]
+        },
+        {
+            "index": 30,
+            "id": "triXo_xCqms",
+            "link": "https://www.youtube.com/watch?v=triXo_xCqms",
+            "title": "TOP 100 NoCopyrightSounds | Best Of NCS | 6H NoCopyRightSounds | The Best of all time",
+            "channel": "Musicbot",
+            "duration": "6 hours, 17 minutes",
+            "views": 2952241,
+            "thumbnails": [
+                "https://img.youtube.com/vi/triXo_xCqms/default.jpg",
+                "https://img.youtube.com/vi/triXo_xCqms/hqdefault.jpg",
+                "https://img.youtube.com/vi/triXo_xCqms/mqdefault.jpg",
+                "https://img.youtube.com/vi/triXo_xCqms/sddefault.jpg",
+                "https://img.youtube.com/vi/triXo_xCqms/maxresdefault.jpg"
+            ]
+        },
+        {
+            "index": 31,
+            "id": "vBGiFtb8Rpw",
+            "link": "https://www.youtube.com/watch?v=vBGiFtb8Rpw",
+            "title": "Culture Code - Make Me Move (feat. Karra) [NCS Release]",
+            "channel": "NoCopyrightSounds",
+            "duration": "3 minutes, 17 seconds",
+            "views": 41928885,
+            "thumbnails": [
+                "https://img.youtube.com/vi/vBGiFtb8Rpw/default.jpg",
+                "https://img.youtube.com/vi/vBGiFtb8Rpw/hqdefault.jpg",
+                "https://img.youtube.com/vi/vBGiFtb8Rpw/mqdefault.jpg",
+                "https://img.youtube.com/vi/vBGiFtb8Rpw/sddefault.jpg",
+                "https://img.youtube.com/vi/vBGiFtb8Rpw/maxresdefault.jpg"
+            ]
+        },
+        {
+            "index": 32,
+            "id": "HPhHr6h4Qjc",
+            "link": "https://www.youtube.com/watch?v=HPhHr6h4Qjc",
+            "title": "Top 30 NoCopyrightSounds | Best of NCS | 2H NoCopyrightSounds | NCS : The Best of all time",
+            "channel": "Music Store",
+            "duration": "1 hour, 52 minutes",
+            "views": 1116020,
+            "thumbnails": [
+                "https://img.youtube.com/vi/HPhHr6h4Qjc/default.jpg",
+                "https://img.youtube.com/vi/HPhHr6h4Qjc/hqdefault.jpg",
+                "https://img.youtube.com/vi/HPhHr6h4Qjc/mqdefault.jpg",
+                "https://img.youtube.com/vi/HPhHr6h4Qjc/sddefault.jpg",
+                "https://img.youtube.com/vi/HPhHr6h4Qjc/maxresdefault.jpg"
+            ]
+        },
+        {
+            "index": 33,
+            "id": "bM7SZ5SBzyY",
+            "link": "https://www.youtube.com/watch?v=bM7SZ5SBzyY",
+            "title": "Alan Walker - Fade [NCS Release]",
+            "channel": "NoCopyrightSounds",
+            "duration": "4 minutes, 21 seconds",
+            "views": 413751193,
+            "thumbnails": [
+                "https://img.youtube.com/vi/bM7SZ5SBzyY/default.jpg",
+                "https://img.youtube.com/vi/bM7SZ5SBzyY/hqdefault.jpg",
+                "https://img.youtube.com/vi/bM7SZ5SBzyY/mqdefault.jpg",
+                "https://img.youtube.com/vi/bM7SZ5SBzyY/sddefault.jpg",
+                "https://img.youtube.com/vi/bM7SZ5SBzyY/maxresdefault.jpg"
+            ]
+        },
+        {
+            "index": 34,
+            "id": "-Mypt378fkc",
+            "link": "https://www.youtube.com/watch?v=-Mypt378fkc",
+            "title": "NCS 24/7 Gaming Music Livestream",
+            "channel": "NCS Arcade",
+            "duration": "",
+            "views": 1476780,
+            "thumbnails": [
+                "https://img.youtube.com/vi/-Mypt378fkc/default.jpg",
+                "https://img.youtube.com/vi/-Mypt378fkc/hqdefault.jpg",
+                "https://img.youtube.com/vi/-Mypt378fkc/mqdefault.jpg",
+                "https://img.youtube.com/vi/-Mypt378fkc/sddefault.jpg",
+                "https://img.youtube.com/vi/-Mypt378fkc/maxresdefault.jpg"
             ]
         },
         {
@@ -634,7 +634,7 @@ Currently search result returns:
             "title": "Spektrum & Sara Skinner - Keep You [NCS Release]",
             "channel": "NoCopyrightSounds",
             "duration": "4 minutes, 50 seconds",
-            "views": 8694105,
+            "views": 8720451,
             "thumbnails": [
                 "https://img.youtube.com/vi/YnmOmNqBWtM/default.jpg",
                 "https://img.youtube.com/vi/YnmOmNqBWtM/hqdefault.jpg",
