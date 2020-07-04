@@ -2,6 +2,6 @@
 
 from youtubesearchpython import searchYoutube
 
-search = searchYoutube("NoCopyrightSounds", 1, "json")
+search = searchYoutube("NoCopyrightSounds", offset = 1, mode = "json", max_results = 20)
 
 print(search.result())
