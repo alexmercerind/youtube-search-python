@@ -1,12 +1,12 @@
 import html
 
-#########v1.2.1#########
+#########v1.2.2#########
 
 class pagehandler:
 
     def pageResponseHandler(self):
 
-        #########MAIN PROPERTY#########
+        #########pageResponseHandler PROPERTY#########
 
         #########This property is later called in the another property exec() of the class.   #########
 
@@ -17,15 +17,16 @@ class pagehandler:
         self.links = []
         self.ids = []
         self.titles = []
+        self.channels = []
         self.views = []
         self.durations = []
         self.thumbnails = []
 
         #########Transversing Through Network Request Array.#########
-
+        
         self.pageSource = self.page.split()
 
-        for index in range(0, len(self.pageSource)-1, 1):
+        for index in range(0, len(self.pageSource) - 1, 1):
 
             element = self.pageSource[index]
             elementNext = self.pageSource[index+1]
@@ -52,6 +53,25 @@ class pagehandler:
                     for mode in modes:
                         thumbnailbuffer+=["https://img.youtube.com/vi/" + element[15:len(element) - 1] + "/" + mode + ".jpg"]
                     self.thumbnails+=[thumbnailbuffer]
+
+            #########Setting Video Channels.#########
+
+            if (element[-15:] == '</a>&nbsp;<span' and self.pageSource[index+1] == 'title="Verified"') or (element[-14:] == '</a></div><div' and self.pageSource[index+1] == 'class="yt-lockup-meta'):
+                channelBuffer = ""
+                channelText = ""
+                for channelIndex in range(0, 10):
+                    if self.pageSource[index - channelIndex][0] == ">":
+                        channelText = self.pageSource[index - channelIndex] + " " + channelText
+                        break
+                    else:
+                        channelText = self.pageSource[index - channelIndex] + " " + channelText
+                channelText = channelText[1:]
+                for index in range(0, len(channelText)):
+                    if channelText[index] == "<":
+                        break
+                    else:
+                        channelBuffer+=channelText[index]
+                self.channels+= [channelBuffer]
 
             #########Setting Video Durations.#########
 
@@ -87,5 +107,14 @@ class pagehandler:
                         buffer+=(" "+this_element)
                     subIndex+=1
 
-            if len(self.ids) > self.max_results:
+            if len(self.titles) + 1 > self.max_results:
                 break
+        
+        limit = min(len(self.links), len(self.ids), len(self.titles), len(self.channels), len(self.views), len(self.durations), len(self.thumbnails))
+        self.links = self.links[0:limit]
+        self.ids = self.ids[0:limit]
+        self.titles = self.titles[0:limit]
+        self.channels = self.channels[0:limit]
+        self.views = self.views[0:limit]
+        self.durations = self.durations[0:limit]
+        self.thumbnails = self.thumbnails[0:limit]

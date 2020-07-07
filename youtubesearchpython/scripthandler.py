@@ -1,10 +1,10 @@
-#########v1.2.1#########
+#########v1.2.2#########
 
 class scripthandler:
 
     def scriptResponseHandler(self):
 
-        #########MAIN PROPERTY#########
+        #########scriptResponseHandler PROPERTY#########
 
         #########This property is later called in the another property exec() of the class.   #########
 
@@ -24,25 +24,26 @@ class scripthandler:
 
         self.pageSource = self.page.split('":"')
 
-        for index in range(0, len(self.pageSource)-1, 1):
+        for index in range(0, len(self.pageSource) - 1, 1):
             
             #########Setting Video Durations And View Counts.#########
 
             if self.pageSource[index][-14:] == '}},"simpleText' and self.pageSource[index+1][-28:] == '"viewCountText":{"simpleText':
-                duration_buffer = ""
-                view_count_buffer = 0
+                durationBuffer = ""
+                viewCountBuffer = 0
                 for character in self.pageSource[index+1]:
                     if character!= '"':
-                        duration_buffer+=character
+                        durationBuffer+=character
                     else:
                         break
                 for character in self.pageSource[index+2].split()[0]:
                     if character.isnumeric():
-                        view_count_buffer = view_count_buffer * 10 + int(character)
-                self.durations[-1] = duration_buffer
-                self.views[-1] = view_count_buffer
+                        viewCountBuffer = viewCountBuffer * 10 + int(character)
+                self.durations[-1] = durationBuffer
+                self.views[-1] = viewCountBuffer
 
             #########Setting Video Links, IDs And Thumbnails.#########
+
             if self.pageSource[index][-98:] == '"commandMetadata":{"webCommandMetadata":{}},"addToPlaylistCommand":{"openMiniplayer":true,"videoId':
                 temp+=1
                 if temp % 2 == 0:
@@ -58,13 +59,13 @@ class scripthandler:
             #########Setting Video Titles.#########
 
             if self.pageSource[index][-23:] == '"title":{"runs":[{"text' and self.pageSource[index+1][-44:] == '"accessibility":{"accessibilityData":{"label':
-                title_buffer = ""
+                titleBuffer = ""
                 for character in self.pageSource[index+1]:
                     if character!= '"':
-                        title_buffer+=character
+                        titleBuffer+=character
                     else:
                         break
-                self.titles+=[title_buffer]
+                self.titles+=[titleBuffer.replace("\\u0026", "&")]
                 self.views+=["LIVE"]
                 self.durations+=["LIVE"]
                 self.channels+= [""]
@@ -72,16 +73,16 @@ class scripthandler:
             #########Setting Video Channels.#########
 
             if self.pageSource[index][-32:] == '"longBylineText":{"runs":[{"text' and self.pageSource[index+1][-42:] == '"navigationEndpoint":{"clickTrackingParams':
-                channel_buffer = ""
+                channelBuffer = ""
                 for character in self.pageSource[index+1]:
                     if character!= '"':
-                        channel_buffer+=character
+                        channelBuffer+=character
                     else:
                         break
                 try:
-                    self.channels[-1] = channel_buffer
+                    self.channels[-1] = channelBuffer.replace("\\u0026", "&")
                 except:
                     pass
 
-            if len(self.ids) > self.max_results:
+            if len(self.ids) + 1 > self.max_results:
                 break

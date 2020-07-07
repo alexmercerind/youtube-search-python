@@ -45,6 +45,9 @@ Consider starring the repo. Feel free to use.
 
 Currently search result returns:
 
+(Nearly everything that YouTube offers in its search result page.)
+
+Feel free to open issue, if you find one.
 
 - [x] Video Link
 - [x] Video Title
@@ -58,7 +61,7 @@ Currently search result returns:
 ## :camera: Screenshot
 
 
-![Image description](https://github.com/alexmercerind/youtube-search-python/blob/master/youtube-search-python.PNG)
+![Screenshot youtube-search-python](https://github.com/alexmercerind/youtube-search-python/blob/master/youtube-search-python.PNG)
 
 
 ## :page_with_curl: Example Result
@@ -69,12 +72,28 @@ Currently search result returns:
     "search_result": [
         {
             "index": 0,
+            "id": "mm460AbveF8",
+            "link": "https://www.youtube.com/watch?v=mm460AbveF8",
+            "title": "Heuse & WOLFHOWL & Riell - Daylight [NCS Release]",
+            "channel": "NoCopyrightSounds",
+            "duration": "2:34",
+            "views": 460246,
+            "thumbnails": [
+                "https://img.youtube.com/vi/mm460AbveF8/default.jpg",
+                "https://img.youtube.com/vi/mm460AbveF8/hqdefault.jpg",
+                "https://img.youtube.com/vi/mm460AbveF8/mqdefault.jpg",
+                "https://img.youtube.com/vi/mm460AbveF8/sddefault.jpg",
+                "https://img.youtube.com/vi/mm460AbveF8/maxresdefault.jpg"
+            ]
+        },
+        {
+            "index": 1,
             "id": "RQ5IkSeMQbc",
             "link": "https://www.youtube.com/watch?v=RQ5IkSeMQbc",
             "title": "Teyeq - Demons [NCS Release]",
             "channel": "NoCopyrightSounds",
             "duration": "2:35",
-            "views": 321971,
+            "views": 550176,
             "thumbnails": [
                 "https://img.youtube.com/vi/RQ5IkSeMQbc/default.jpg",
                 "https://img.youtube.com/vi/RQ5IkSeMQbc/hqdefault.jpg",
@@ -84,13 +103,13 @@ Currently search result returns:
             ]
         },
         {
-            "index": 1,
+            "index": 2,
             "id": "CnekLFazlxo",
             "link": "https://www.youtube.com/watch?v=CnekLFazlxo",
-            "title": "Wanden \\\\u0026 Slashtaq - Better Off [NCS Release]",
+            "title": "Wanden & Slashtaq - Better Off [NCS Release]",
             "channel": "NoCopyrightSounds",
             "duration": "2:18",
-            "views": 455287,
+            "views": 559398,
             "thumbnails": [
                 "https://img.youtube.com/vi/CnekLFazlxo/default.jpg",
                 "https://img.youtube.com/vi/CnekLFazlxo/hqdefault.jpg",
@@ -100,13 +119,13 @@ Currently search result returns:
             ]
         },
         {
-            "index": 2,
+            "index": 3,
             "id": "BG_W8Z74nG8",
             "link": "https://www.youtube.com/watch?v=BG_W8Z74nG8",
             "title": "Jim Yosef - Fall With Me [NCS Release]",
             "channel": "NoCopyrightSounds",
             "duration": "2:49",
-            "views": 819877,
+            "views": 866151,
             "thumbnails": [
                 "https://img.youtube.com/vi/BG_W8Z74nG8/default.jpg",
                 "https://img.youtube.com/vi/BG_W8Z74nG8/hqdefault.jpg",
@@ -116,13 +135,13 @@ Currently search result returns:
             ]
         },
         {
-            "index": 3,
+            "index": 4,
             "id": "ZQHcERGiinM",
             "link": "https://www.youtube.com/watch?v=ZQHcERGiinM",
             "title": "Dark Heart - Crash Test Dummy [NCS Release]",
             "channel": "NoCopyrightSounds",
             "duration": "2:42",
-            "views": 627903,
+            "views": 718530,
             "thumbnails": [
                 "https://img.youtube.com/vi/ZQHcERGiinM/default.jpg",
                 "https://img.youtube.com/vi/ZQHcERGiinM/hqdefault.jpg",
@@ -132,13 +151,13 @@ Currently search result returns:
             ]
         },
         {
-            "index": 4,
+            "index": 5,
             "id": "2W3Y9KMgNw0",
             "link": "https://www.youtube.com/watch?v=2W3Y9KMgNw0",
             "title": "Brook Xiao - Fire (ft. Rachel Horter) [NCS Release]",
             "channel": "NoCopyrightSounds",
             "duration": "2:54",
-            "views": 689570,
+            "views": 746650,
             "thumbnails": [
                 "https://img.youtube.com/vi/2W3Y9KMgNw0/default.jpg",
                 "https://img.youtube.com/vi/2W3Y9KMgNw0/hqdefault.jpg",
@@ -148,13 +167,13 @@ Currently search result returns:
             ]
         },
         {
-            "index": 5,
+            "index": 6,
             "id": "SxfSpqFWJAg",
             "link": "https://www.youtube.com/watch?v=SxfSpqFWJAg",
             "title": "Arlow - Freefall [NCS Release]",
             "channel": "NoCopyrightSounds",
             "duration": "3:16",
-            "views": 891472,
+            "views": 961281,
             "thumbnails": [
                 "https://img.youtube.com/vi/SxfSpqFWJAg/default.jpg",
                 "https://img.youtube.com/vi/SxfSpqFWJAg/hqdefault.jpg",
@@ -164,13 +183,13 @@ Currently search result returns:
             ]
         },
         {
-            "index": 6,
+            "index": 7,
             "id": "vIE6cuAhR4o",
             "link": "https://www.youtube.com/watch?v=vIE6cuAhR4o",
             "title": "Facading - Walk Away [NCS Release]",
             "channel": "NoCopyrightSounds",
             "duration": "3:19",
-            "views": 806660,
+            "views": 847707,
             "thumbnails": [
                 "https://img.youtube.com/vi/vIE6cuAhR4o/default.jpg",
                 "https://img.youtube.com/vi/vIE6cuAhR4o/hqdefault.jpg",
@@ -180,13 +199,13 @@ Currently search result returns:
             ]
         },
         {
-            "index": 7,
+            "index": 8,
             "id": "1hxGuyfAErQ",
             "link": "https://www.youtube.com/watch?v=1hxGuyfAErQ",
             "title": "BH - Holding On [NCS Release]",
             "channel": "NoCopyrightSounds",
             "duration": "3:57",
-            "views": 894190,
+            "views": 936608,
             "thumbnails": [
                 "https://img.youtube.com/vi/1hxGuyfAErQ/default.jpg",
                 "https://img.youtube.com/vi/1hxGuyfAErQ/hqdefault.jpg",
@@ -196,13 +215,13 @@ Currently search result returns:
             ]
         },
         {
-            "index": 8,
+            "index": 9,
             "id": "klTBagBYXpk",
             "link": "https://www.youtube.com/watch?v=klTBagBYXpk",
-            "title": "RudeLies \\\\u0026 Clarx - Erase [NCS Release]",
+            "title": "RudeLies & Clarx - Erase [NCS Release]",
             "channel": "NoCopyrightSounds",
             "duration": "2:53",
-            "views": 1049372,
+            "views": 1093597,
             "thumbnails": [
                 "https://img.youtube.com/vi/klTBagBYXpk/default.jpg",
                 "https://img.youtube.com/vi/klTBagBYXpk/hqdefault.jpg",
@@ -212,29 +231,13 @@ Currently search result returns:
             ]
         },
         {
-            "index": 9,
-            "id": "TeSiiKpbCiM",
-            "link": "https://www.youtube.com/watch?v=TeSiiKpbCiM",
-            "title": "Heuse \\\\u0026 Caravn - Spirits Say [NCS Release]",
-            "channel": "NoCopyrightSounds",
-            "duration": "2:47",
-            "views": 890127,
-            "thumbnails": [
-                "https://img.youtube.com/vi/TeSiiKpbCiM/default.jpg",
-                "https://img.youtube.com/vi/TeSiiKpbCiM/hqdefault.jpg",
-                "https://img.youtube.com/vi/TeSiiKpbCiM/mqdefault.jpg",
-                "https://img.youtube.com/vi/TeSiiKpbCiM/sddefault.jpg",
-                "https://img.youtube.com/vi/TeSiiKpbCiM/maxresdefault.jpg"
-            ]
-        },
-        {
             "index": 10,
             "id": "K4DyBUG242c",
             "link": "https://www.youtube.com/watch?v=K4DyBUG242c",
-            "title": "Cartoon - On \\\\u0026 On (feat. Daniel Levi) [NCS Release]",
+            "title": "Cartoon - On & On (feat. Daniel Levi) [NCS Release]",
             "channel": "NoCopyrightSounds",
             "duration": "3:28",
-            "views": 357410023,
+            "views": 358141460,
             "thumbnails": [
                 "https://img.youtube.com/vi/K4DyBUG242c/default.jpg",
                 "https://img.youtube.com/vi/K4DyBUG242c/hqdefault.jpg",
@@ -245,28 +248,12 @@ Currently search result returns:
         },
         {
             "index": 11,
-            "id": "yJg-Y5byMMw",
-            "link": "https://www.youtube.com/watch?v=yJg-Y5byMMw",
-            "title": "Warriyo - Mortals (feat. Laura Brehm) [NCS Release]",
-            "channel": "NoCopyrightSounds",
-            "duration": "3:50",
-            "views": 127760126,
-            "thumbnails": [
-                "https://img.youtube.com/vi/yJg-Y5byMMw/default.jpg",
-                "https://img.youtube.com/vi/yJg-Y5byMMw/hqdefault.jpg",
-                "https://img.youtube.com/vi/yJg-Y5byMMw/mqdefault.jpg",
-                "https://img.youtube.com/vi/yJg-Y5byMMw/sddefault.jpg",
-                "https://img.youtube.com/vi/yJg-Y5byMMw/maxresdefault.jpg"
-            ]
-        },
-        {
-            "index": 12,
             "id": "EpRJY-hI6Bs",
             "link": "https://www.youtube.com/watch?v=EpRJY-hI6Bs",
             "title": "4 The Most Popular of NCS - NoCopyrightSounds | Cartoon | Disfigure | Electro-Light | Janji",
             "channel": "Monster Boy Music",
             "duration": "15:17",
-            "views": 10556704,
+            "views": 10612191,
             "thumbnails": [
                 "https://img.youtube.com/vi/EpRJY-hI6Bs/default.jpg",
                 "https://img.youtube.com/vi/EpRJY-hI6Bs/hqdefault.jpg",
@@ -276,131 +263,131 @@ Currently search result returns:
             ]
         },
         {
-            "index": 13,
-            "id": "-ObdvMkCKws",
-            "link": "https://www.youtube.com/watch?v=-ObdvMkCKws",
-            "title": "Top 20 Most Popular Songs by NCS | Best of NCS | Most Viewed Songs",
-            "channel": "Music Store",
-            "duration": "1:12:47",
-            "views": 12521694,
+            "index": 12,
+            "id": "ABuNwLP-z9o",
+            "link": "https://www.youtube.com/watch?v=ABuNwLP-z9o",
+            "title": "\ud83d\udd25 Top 50 NoCopyRightSounds | Best of NCS | Most viewed ! Gaming Music | The Best of All Time | 2020",
+            "channel": "Freeme NCS Music",
+            "duration": "3:08:06",
+            "views": 5891447,
             "thumbnails": [
-                "https://img.youtube.com/vi/-ObdvMkCKws/default.jpg",
-                "https://img.youtube.com/vi/-ObdvMkCKws/hqdefault.jpg",
-                "https://img.youtube.com/vi/-ObdvMkCKws/mqdefault.jpg",
-                "https://img.youtube.com/vi/-ObdvMkCKws/sddefault.jpg",
-                "https://img.youtube.com/vi/-ObdvMkCKws/maxresdefault.jpg"
+                "https://img.youtube.com/vi/ABuNwLP-z9o/default.jpg",
+                "https://img.youtube.com/vi/ABuNwLP-z9o/hqdefault.jpg",
+                "https://img.youtube.com/vi/ABuNwLP-z9o/mqdefault.jpg",
+                "https://img.youtube.com/vi/ABuNwLP-z9o/sddefault.jpg",
+                "https://img.youtube.com/vi/ABuNwLP-z9o/maxresdefault.jpg"
+            ]
+        },
+        {
+            "index": 13,
+            "id": "yJg-Y5byMMw",
+            "link": "https://www.youtube.com/watch?v=yJg-Y5byMMw",
+            "title": "Warriyo - Mortals (feat. Laura Brehm) [NCS Release]",
+            "channel": "NoCopyrightSounds",
+            "duration": "3:50",
+            "views": 128317911,
+            "thumbnails": [
+                "https://img.youtube.com/vi/yJg-Y5byMMw/default.jpg",
+                "https://img.youtube.com/vi/yJg-Y5byMMw/hqdefault.jpg",
+                "https://img.youtube.com/vi/yJg-Y5byMMw/mqdefault.jpg",
+                "https://img.youtube.com/vi/yJg-Y5byMMw/sddefault.jpg",
+                "https://img.youtube.com/vi/yJg-Y5byMMw/maxresdefault.jpg"
             ]
         },
         {
             "index": 14,
-            "id": "QglaLzo_aPk",
-            "link": "https://www.youtube.com/watch?v=QglaLzo_aPk",
-            "title": "Julius Dreisig \\\\u0026 Zeus X Crona - Invisible [NCS Release]",
-            "channel": "NoCopyrightSounds",
-            "duration": "3:22",
-            "views": 65222602,
+            "id": "pLZq3jgE6qA",
+            "link": "https://www.youtube.com/watch?v=pLZq3jgE6qA",
+            "title": "Top 20 songs of Tobu - Best Of Tobu",
+            "channel": "Music Store",
+            "duration": "1:17:45",
+            "views": 10910877,
             "thumbnails": [
-                "https://img.youtube.com/vi/QglaLzo_aPk/default.jpg",
-                "https://img.youtube.com/vi/QglaLzo_aPk/hqdefault.jpg",
-                "https://img.youtube.com/vi/QglaLzo_aPk/mqdefault.jpg",
-                "https://img.youtube.com/vi/QglaLzo_aPk/sddefault.jpg",
-                "https://img.youtube.com/vi/QglaLzo_aPk/maxresdefault.jpg"
+                "https://img.youtube.com/vi/pLZq3jgE6qA/default.jpg",
+                "https://img.youtube.com/vi/pLZq3jgE6qA/hqdefault.jpg",
+                "https://img.youtube.com/vi/pLZq3jgE6qA/mqdefault.jpg",
+                "https://img.youtube.com/vi/pLZq3jgE6qA/sddefault.jpg",
+                "https://img.youtube.com/vi/pLZq3jgE6qA/maxresdefault.jpg"
             ]
         },
         {
             "index": 15,
-            "id": "CLiXUT3MS34",
-            "link": "https://www.youtube.com/watch?v=CLiXUT3MS34",
-            "title": "Heuse \\\\u0026 Zeus x Crona - Pill (feat. Emma Sameth) [NCS Release]",
+            "id": "zyXmsVwZqX4",
+            "link": "https://www.youtube.com/watch?v=zyXmsVwZqX4",
+            "title": "Cartoon - Why We Lose (feat. Coleman Trapp) [NCS Release]",
             "channel": "NoCopyrightSounds",
-            "duration": "2:16",
-            "views": 28107026,
+            "duration": "3:34",
+            "views": 147982391,
             "thumbnails": [
-                "https://img.youtube.com/vi/CLiXUT3MS34/default.jpg",
-                "https://img.youtube.com/vi/CLiXUT3MS34/hqdefault.jpg",
-                "https://img.youtube.com/vi/CLiXUT3MS34/mqdefault.jpg",
-                "https://img.youtube.com/vi/CLiXUT3MS34/sddefault.jpg",
-                "https://img.youtube.com/vi/CLiXUT3MS34/maxresdefault.jpg"
+                "https://img.youtube.com/vi/zyXmsVwZqX4/default.jpg",
+                "https://img.youtube.com/vi/zyXmsVwZqX4/hqdefault.jpg",
+                "https://img.youtube.com/vi/zyXmsVwZqX4/mqdefault.jpg",
+                "https://img.youtube.com/vi/zyXmsVwZqX4/sddefault.jpg",
+                "https://img.youtube.com/vi/zyXmsVwZqX4/maxresdefault.jpg"
             ]
         },
         {
             "index": 16,
-            "id": "_XspQUK22-U",
-            "link": "https://www.youtube.com/watch?v=_XspQUK22-U",
-            "title": "Diamond Eyes - Everything [NCS Release]",
-            "channel": "NoCopyrightSounds",
-            "duration": "4:28",
-            "views": 25148753,
+            "id": "i7MtYfUhfiQ",
+            "link": "https://www.youtube.com/watch?v=i7MtYfUhfiQ",
+            "title": "Top 20 songs of TheFatRat 2017 - TheFatRat Mega Mix",
+            "channel": "Music Store",
+            "duration": "1:14:54",
+            "views": 15652222,
             "thumbnails": [
-                "https://img.youtube.com/vi/_XspQUK22-U/default.jpg",
-                "https://img.youtube.com/vi/_XspQUK22-U/hqdefault.jpg",
-                "https://img.youtube.com/vi/_XspQUK22-U/mqdefault.jpg",
-                "https://img.youtube.com/vi/_XspQUK22-U/sddefault.jpg",
-                "https://img.youtube.com/vi/_XspQUK22-U/maxresdefault.jpg"
+                "https://img.youtube.com/vi/i7MtYfUhfiQ/default.jpg",
+                "https://img.youtube.com/vi/i7MtYfUhfiQ/hqdefault.jpg",
+                "https://img.youtube.com/vi/i7MtYfUhfiQ/mqdefault.jpg",
+                "https://img.youtube.com/vi/i7MtYfUhfiQ/sddefault.jpg",
+                "https://img.youtube.com/vi/i7MtYfUhfiQ/maxresdefault.jpg"
             ]
         },
         {
             "index": 17,
-            "id": "bLZHcnuqscU",
-            "link": "https://www.youtube.com/watch?v=bLZHcnuqscU",
-            "title": "Unknown Brain x Rival - Control (feat. Jex) [NCS Release]",
+            "id": "LHvYrn3FAgI",
+            "link": "https://www.youtube.com/watch?v=LHvYrn3FAgI",
+            "title": "Unknown Brain - Superhero (feat. Chris Linton) [NCS Release]",
             "channel": "NoCopyrightSounds",
-            "duration": "2:47",
-            "views": 28897461,
+            "duration": "3:02",
+            "views": 79477622,
             "thumbnails": [
-                "https://img.youtube.com/vi/bLZHcnuqscU/default.jpg",
-                "https://img.youtube.com/vi/bLZHcnuqscU/hqdefault.jpg",
-                "https://img.youtube.com/vi/bLZHcnuqscU/mqdefault.jpg",
-                "https://img.youtube.com/vi/bLZHcnuqscU/sddefault.jpg",
-                "https://img.youtube.com/vi/bLZHcnuqscU/maxresdefault.jpg"
+                "https://img.youtube.com/vi/LHvYrn3FAgI/default.jpg",
+                "https://img.youtube.com/vi/LHvYrn3FAgI/hqdefault.jpg",
+                "https://img.youtube.com/vi/LHvYrn3FAgI/mqdefault.jpg",
+                "https://img.youtube.com/vi/LHvYrn3FAgI/sddefault.jpg",
+                "https://img.youtube.com/vi/LHvYrn3FAgI/maxresdefault.jpg"
             ]
         },
         {
             "index": 18,
-            "id": "u1I9ITfzqFs",
-            "link": "https://www.youtube.com/watch?v=u1I9ITfzqFs",
-            "title": "Diviners - Savannah (feat. Philly K) [NCS Release]",
-            "channel": "NoCopyrightSounds",
-            "duration": "3:24",
-            "views": 45159724,
-            "thumbnails": [
-                "https://img.youtube.com/vi/u1I9ITfzqFs/default.jpg",
-                "https://img.youtube.com/vi/u1I9ITfzqFs/hqdefault.jpg",
-                "https://img.youtube.com/vi/u1I9ITfzqFs/mqdefault.jpg",
-                "https://img.youtube.com/vi/u1I9ITfzqFs/sddefault.jpg",
-                "https://img.youtube.com/vi/u1I9ITfzqFs/maxresdefault.jpg"
-            ]
-        },
-        {
-            "index": 19,
-            "id": "L7kF4MXXCoA",
-            "link": "https://www.youtube.com/watch?v=L7kF4MXXCoA",
-            "title": "Lost Sky - Dreams pt. II (feat. Sara Skinner) [NCS Release]",
-            "channel": "NoCopyrightSounds",
-            "duration": "3:36",
-            "views": 33748099,
-            "thumbnails": [
-                "https://img.youtube.com/vi/L7kF4MXXCoA/default.jpg",
-                "https://img.youtube.com/vi/L7kF4MXXCoA/hqdefault.jpg",
-                "https://img.youtube.com/vi/L7kF4MXXCoA/mqdefault.jpg",
-                "https://img.youtube.com/vi/L7kF4MXXCoA/sddefault.jpg",
-                "https://img.youtube.com/vi/L7kF4MXXCoA/maxresdefault.jpg"
-            ]
-        },
-        {
-            "index": 20,
             "id": "CLEWmT_8ppM",
             "link": "https://www.youtube.com/watch?v=CLEWmT_8ppM",
             "title": "Clarx - Zig Zag [NCS Release]",
             "channel": "NoCopyrightSounds",
             "duration": "3:28",
-            "views": 9641714,
+            "views": 9680739,
             "thumbnails": [
                 "https://img.youtube.com/vi/CLEWmT_8ppM/default.jpg",
                 "https://img.youtube.com/vi/CLEWmT_8ppM/hqdefault.jpg",
                 "https://img.youtube.com/vi/CLEWmT_8ppM/mqdefault.jpg",
                 "https://img.youtube.com/vi/CLEWmT_8ppM/sddefault.jpg",
                 "https://img.youtube.com/vi/CLEWmT_8ppM/maxresdefault.jpg"
+            ]
+        },
+        {
+            "index": 19,
+            "id": "8Yue9YYdNLM",
+            "link": "https://www.youtube.com/watch?v=8Yue9YYdNLM",
+            "title": "Dirty Palm - Oblivion (feat. Micah Martin) [NCS Release]",
+            "channel": "NoCopyrightSounds",
+            "duration": "3:51",
+            "views": 21254046,
+            "thumbnails": [
+                "https://img.youtube.com/vi/8Yue9YYdNLM/default.jpg",
+                "https://img.youtube.com/vi/8Yue9YYdNLM/hqdefault.jpg",
+                "https://img.youtube.com/vi/8Yue9YYdNLM/mqdefault.jpg",
+                "https://img.youtube.com/vi/8Yue9YYdNLM/sddefault.jpg",
+                "https://img.youtube.com/vi/8Yue9YYdNLM/maxresdefault.jpg"
             ]
         }
     ]

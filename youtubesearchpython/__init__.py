@@ -1,4 +1,4 @@
-#########v1.2.1#########
+#########v1.2.2#########
 
 import urllib.parse
 import json
@@ -31,17 +31,9 @@ class searchYoutube(requesthandler, pagehandler, scripthandler):
 
     def exec(self):
         
-        #########EXEC PROPERTY#########
-        
-        #########We are calling main property within this exec property because, YouTube randomly returns two types of#########
-        #########responses, one having content as HTML and another as script, and this algorithm is designed to work  #########
-        #########with both of them. So, we have no choice but to just look if the script response is recieved i.e     #########
-        #########self.validResponse = False then we execute self.scriptResponseHandler() instead of                   #########
-        #########self.pageResponseHandler(), finally, we call self.main() and return result to the user.              #########     
+        #########exec PROPERTY#########
 
-        #########We will seek potential fixes in future.#########
-
-        #########Calling the main property.#########
+        #########Calling network request.#########
 
         self.request()
 
@@ -58,14 +50,12 @@ class searchYoutube(requesthandler, pagehandler, scripthandler):
 
     def result(self):
 
-        #########RESULT PROPERTY#########
+        #########result PROPERTY#########
 
         #########Checking for network error and returning None to the user in case of it.#########
 
         if self.networkError:
             return None
-        
-        #########Returning Result.#########
 
         else:
 
@@ -76,8 +66,7 @@ class searchYoutube(requesthandler, pagehandler, scripthandler):
             if self.mode in ["json", "dict"]:
 
                 for index in range(len(self.ids)):
-                    if not self.validResponse:
-                        thisResult = {
+                    result_index = {
                         "index": index,
                         "id": self.ids[index],
                         "link": self.links[index],
@@ -87,28 +76,19 @@ class searchYoutube(requesthandler, pagehandler, scripthandler):
                         "views": self.views[index],
                         "thumbnails": self.thumbnails[index]
                     }
-                    else:
-                        thisResult = {
-                        "index": index,
-                        "id": self.ids[index],
-                        "link": self.links[index],
-                        "title": self.titles[index],
-                        "duration": self.durations[index],
-                        "views": self.views[index],
-                        "thumbnails": self.thumbnails[index]
-                        }
-                    result+=[thisResult]
+                    result+=[result_index]
 
-                return json.dumps({"search_result": result}, indent=4) \
-                        if self.mode == "json" else {"search_result": result}
+                if self.mode == "json":
+                    return json.dumps({"search_result": result}, indent=4)
+                else:
+                    return {"search_result": result}
             
             #########List Result Handling.#########
 
             elif self.mode == "list":
                 
                 for index in range(len(self.ids)):
-                    if not self.validResponse:
-                        thisResult=[
+                    list_index=[
                             index,
                             self.ids[index],
                             self.links[index],
@@ -117,18 +97,7 @@ class searchYoutube(requesthandler, pagehandler, scripthandler):
                             self.durations[index],
                             self.views[index],
                             self.thumbnails[index]
-                        ]
-                    else:
-                        thisResult=[
-                            index,
-                            self.ids[index],
-                            self.links[index],
-                            self.titles[index],
-                            self.durations[index],
-                            self.views[index],
-                            self.thumbnails[index]
-                        ]
-
-                    result+=[thisResult]
+                    ]
+                    result+=[list_index]
                 
                 return result
