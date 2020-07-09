@@ -4,7 +4,7 @@
 **Search for videos in YouTube WITHOUT YouTube Data API v3.**
 
 
-(Made without using YouTube Data API v3 and any other third party library.)
+Made without using YouTube Data API v3 and any other third party library.
 
 This library is intended for personal and non-commercial usage only.
 
@@ -25,11 +25,25 @@ Alternatively you can clone the repo, and run "Usage Example.py"
 ## :triangular_ruler: Usage
 
 
+###### Search for Videos
+
 ```python
 
-from youtubesearchpython import searchYoutube
+from youtubesearchpython import SearchVideos
 
-search = searchYoutube("NoCopyrightSounds", offset = 1, mode = "json", max_results = 20)
+search = SearchVideos("NoCopyrightSounds", offset = 1, mode = "json", max_results = 20)
+
+print(search.result())
+
+```
+
+###### Search for Playlists
+
+```python
+
+from youtubesearchpython import SearchPlaylists
+
+search = SearchPlaylists("NoCopyrightSounds", offset = 1, mode = "json", max_results = 20)
 
 print(search.result())
 
@@ -39,17 +53,14 @@ print(search.result())
 ## :heart: Like the module?
 
 
-Consider starring the repo. Feel free to use.
+Consider :star: starring the repository. Feel free to use.
+It takes a lot of time to deal with the changes that YouTube makes time to time.
 
 
 ## :heavy_check_mark: Current Progress
 
 
 Currently search result returns:
-
-(Nearly everything that YouTube offers in its search result page.)
-
-Feel free to open issue, if you find one.
 
 - [x] Video Link
 - [x] Video Title
@@ -58,6 +69,10 @@ Feel free to open issue, if you find one.
 - [x] Video View Count
 - [x] Video ID
 - [x] Video Thumbnails
+
+(Nearly everything that YouTube offers in its search result page.)
+
+Feel free to open issue, if you find one.
 
 
 ## :camera: Screenshot
