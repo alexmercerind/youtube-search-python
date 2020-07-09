@@ -254,7 +254,7 @@ class searchYoutube:
             
             #########JSON Result Handling.#########
 
-            if self.__mode in ["json", "dict"]:
+            if self.__mode == "json":
 
                 for index in range(len(self.__titles) - 1):
                     if not self.__validResponse:
@@ -280,8 +280,7 @@ class searchYoutube:
                         }
                     result+=[thisResult]
 
-                return json.dumps({"search_result": result}, indent=4) \
-                        if self.__mode == "json" else result
+                return json.dumps({"search_result": result}, indent=4)
             
             #########List Result Handling.#########
 
@@ -296,7 +295,7 @@ class searchYoutube:
                             self.__titles[index],
                             self.__channels[index],
                             self.__durations[index],
-                            self.__views[index],
+                            self.__titles[index],
                             self.__thumbnails[index]
                         ]
                     else:
@@ -306,7 +305,7 @@ class searchYoutube:
                             self.__links[index],
                             self.__titles[index],
                             self.__durations[index],
-                            self.__views[index],
+                            self.__titles[index],
                             self.__thumbnails[index]
                         ]
 
