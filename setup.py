@@ -5,11 +5,11 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="youtube-search-python",
-    version="1.2.2",
+    version="1.2.3",
     author="Hitesh Kumar Saini",
     author_email="saini123hitesh@gmail.com",
     description="Search for YouTube videos WITHOUT YouTube Data API v3",
-    long_description=long_description,
+    long_description="Search for YouTube videos WITHOUT YouTube Data API v3",
     long_description_content_type="text/markdown",
     url="https://github.com/alexmercerind/youtube-search-python",
     packages=setuptools.find_packages(),
