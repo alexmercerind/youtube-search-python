@@ -4,7 +4,9 @@
 **Search for videos in YouTube WITHOUT YouTube Data API v3.**
 
 
-(Made without using YouTube Data API v3 and any other third party library!)
+(Made without using YouTube Data API v3 and any other third party library.)
+
+This library is intended for personal and non-commercial usage only.
 
 
 Working as of 2020.
