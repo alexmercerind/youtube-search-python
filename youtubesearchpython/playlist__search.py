@@ -1,8 +1,6 @@
 #########v1.2.4#########
 import urllib.request
 import json
-import urllib.request
-from urllib.request import Request
 
 from youtubesearchpython.__requesthandler import requesthandler
 from youtubesearchpython.playlist__scripthandler import scripthandler
@@ -23,7 +21,7 @@ class SearchPlaylists(requesthandler, scripthandler):
 
         self.offset = offset
         self.mode = mode
-        self.keyword = urllib.parse.quote(keyword)
+        self.keyword = keyword
         self.max_results = max_results
         self.searchPreferences = "EgIQAw%3D%3D"
 

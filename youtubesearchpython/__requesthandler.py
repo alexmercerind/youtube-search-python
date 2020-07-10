@@ -30,4 +30,4 @@ class requesthandler:
                 self.validResponse = True
 
         except: 
-            self.networkError = False
+            self.networkError = True

@@ -22,7 +22,7 @@ class SearchVideos(requesthandler, pagehandler, scripthandler):
 
         self.offset = offset
         self.mode = mode
-        self.keyword = urllib.parse.quote(keyword)
+        self.keyword = keyword
         self.max_results = max_results
         self.searchPreferences = "EgIQAQ%3D%3D"
 
