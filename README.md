@@ -1,7 +1,7 @@
 # youtube-search-python
 
 
-**Search for videos in YouTube WITHOUT YouTube Data API v3.**
+**Search for videos and playlists in YouTube WITHOUT YouTube Data API v3.**
 
 
 Made without using YouTube Data API v3 and any other third party library.
