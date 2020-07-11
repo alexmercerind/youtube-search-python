@@ -1,4 +1,3 @@
-#########v1.2.4#########
 import urllib.request
 import json
 

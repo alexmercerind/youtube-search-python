@@ -1,5 +1,3 @@
-#########v1.2.4#########
-
 from youtubesearchpython.videos__search import SearchVideos
 from youtubesearchpython.playlist__search import SearchPlaylists
 

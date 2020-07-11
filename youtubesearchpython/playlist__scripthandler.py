@@ -1,6 +1,3 @@
-#########v1.2.4#########
-
-
 class scripthandler:
 
     def scriptResponseHandler(self):
@@ -27,10 +24,13 @@ class scripthandler:
 
             if self.pageSource[index][-10:] == 'playlistId':
                 if self.pageSource[index+1].split('"')[0] not in self.ids:
-                    self.ids+=[self.pageSource[index+1].split('"')[0]]
-                    self.links+=["https://www.youtube.com/playlist?list=" + self.pageSource[index+1].split('"')[0]]
+                    if self.pageSource[index+1].split('"')[0] == "WL":
+                        pass
+                    else:
+                        self.ids+=[self.pageSource[index+1].split('"')[0]]
+                        self.links+=["https://www.youtube.com/playlist?list=" + self.pageSource[index+1].split('"')[0]]
 
-            #########Setting Playlist ID and link.#########
+            #########Setting Playlist Title.#########
 
             if self.pageSource[index][-20:] == '"title":{"simpleText' and self.pageSource[index+1][-3:] == 'url':
                 self.titles+=[self.pageSource[index+1].split('"},"')[0].replace("\\u0026", "&")]

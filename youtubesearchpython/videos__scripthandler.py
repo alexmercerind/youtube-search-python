@@ -1,6 +1,3 @@
-#########v1.2.4#########
-
-
 class scripthandler:
 
     def scriptResponseHandler(self):

@@ -1,1 +1,1 @@
-https://pypi.org/project/youtube-search-python/1.2.4
+https://pypi.org/project/youtube-search-python/1.2.6
