@@ -42,17 +42,15 @@ class scripthandler:
 
             #########Setting Video Links, IDs And Thumbnails.#########
 
-            if self.pageSource[index][-98:] == '"commandMetadata":{"webCommandMetadata":{}},"addToPlaylistCommand":{"openMiniplayer":true,"videoId':
-                temp+=1
-                if temp % 2 == 0:
-                    id = self.pageSource[index+1][0:11]
-                    thumbnailbuffer = []
-                    modes = ["default", "hqdefault", "mqdefault", "sddefault", "maxresdefault"]
-                    self.ids+=[id]
-                    self.links+=['https://www.youtube.com/watch?v='+ id]
-                    for mode in modes:
-                        thumbnailbuffer+=["https://img.youtube.com/vi/" + id + "/" + mode + ".jpg"]
-                    self.thumbnails+=[thumbnailbuffer]
+            if self.pageSource[index][0:9] == '/watch?v=':
+                id = self.pageSource[index][9:20]
+                modes = ["default", "hqdefault", "mqdefault", "sddefault", "maxresdefault"]
+                self.ids+=[id]
+                self.links+=['https://www.youtube.com/watch?v='+ id]
+                thumbnailbuffer = []
+                for mode in modes:
+                    thumbnailbuffer+=["https://img.youtube.com/vi/" + id + "/" + mode + ".jpg"]
+                self.thumbnails+=[thumbnailbuffer]
             
             #########Setting Video Titles.#########
 
