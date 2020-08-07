@@ -1,4 +1,3 @@
-import urllib.request
 import json
 
 from youtubesearchpython.__requesthandler import requesthandler
@@ -24,13 +23,13 @@ class SearchPlaylists(requesthandler, scripthandler):
         self.max_results = max_results
         self.searchPreferences = "EgIQAw%3D%3D"
 
-        #########Executing Entry Point Of Class#########
+        #########mainuting Entry Point Of Class#########
 
-        self.exec()
+        self.main()
 
-    def exec(self):
+    def main(self):
         
-        #########exec PROPERTY#########
+        #########main PROPERTY#########
 
         self.request()
 
