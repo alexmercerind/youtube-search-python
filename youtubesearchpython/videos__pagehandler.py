@@ -1,4 +1,4 @@
-import html
+import HTMLParser
 
 
 class pagehandler:
@@ -22,8 +22,10 @@ class pagehandler:
         self.thumbnails = []
 
         #########Transversing Through Network Request Array.#########
-        
+
         self.pageSource = self.page.split()
+
+        html = HTMLParser.HTMLParser()
 
         for index in range(0, len(self.pageSource) - 1, 1):
 
