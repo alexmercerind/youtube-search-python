@@ -1,5 +1,4 @@
-import urllib.request
-from urllib.request import Request
+import urllib
 
 
 class requesthandler:
@@ -7,19 +6,16 @@ class requesthandler:
     def request(self):
         
         try:
-            query = urllib.parse.urlencode({
+            query = urllib.urlencode({
                 "search_query": self.keyword,
                 "page": self.offset,
                 "sp": self.searchPreferences
             })
-            request = Request(
-                url = "https://www.youtube.com/results" + "?" + query,
-                data = None
-            )
+            request = "https://www.youtube.com/results" + "?" + query
 
             #########Making Network Request#########
 
-            response = urllib.request.urlopen(request).read()
+            response = urllib.urlopen(request).read()
 
             self.page = response.decode('utf_8')
 
