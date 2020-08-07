@@ -1,4 +1,12 @@
-import HTMLParser
+import sys
+
+#########python2#########
+if sys.version_info < (2, 8):
+    import HTMLParser
+
+#########python3#########
+else:
+    import html
 
 
 class pagehandler:
@@ -25,7 +33,9 @@ class pagehandler:
 
         self.pageSource = self.page.split()
 
-        html = HTMLParser.HTMLParser()
+        #########python2#########
+        if sys.version_info < (2, 8):
+            html = HTMLParser.HTMLParser()
 
         for index in range(0, len(self.pageSource) - 1, 1):
 

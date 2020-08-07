@@ -1,4 +1,13 @@
-import urllib
+import sys
+
+#########python2#########
+if sys.version_info < (2, 8):
+    from urllib import urlencode, urlopen
+
+#########python3#########
+else:
+    from urllib.request import urlopen
+    from urllib.parse import urlencode
 
 
 class requesthandler:
@@ -6,7 +15,7 @@ class requesthandler:
     def request(self):
         
         try:
-            query = urllib.urlencode({
+            query = urlencode({
                 "search_query": self.keyword,
                 "page": self.offset,
                 "sp": self.searchPreferences
@@ -15,7 +24,7 @@ class requesthandler:
 
             #########Making Network Request#########
 
-            response = urllib.urlopen(request).read()
+            response = urlopen(request).read()
 
             self.page = response.decode('utf_8')
 
