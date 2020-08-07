@@ -1,4 +1,4 @@
-# youtube-search-python
+# [youtube-search-python](https://github.com/alexmercerind/youtube-search-python)
 
 
 **Search for videos and playlists in YouTube WITHOUT YouTube Data API v3.**
@@ -15,8 +15,11 @@ Working as of 2020.
 ## :arrow_down: Install
 
 
+##### Supports both Python 3 & Python 2
+
+
 ```
-pip3 install youtube-search-python
+pip install youtube-search-python
 
 Alternatively you can clone the repo, and run "Usage Example.py"
 ```
@@ -54,7 +57,10 @@ print(search.result())
 
 
 Consider :star: starring the repository. Feel free to use.
+
 It takes a lot of time to deal with the changes that YouTube makes time to time.
+
+Feel free to open issue, in case you find one.
 
 
 ## :heavy_check_mark: Current Progress
@@ -71,8 +77,6 @@ Currently search result returns:
 - [x] Video Thumbnails
 
 (Nearly everything that YouTube offers in its search result page.)
-
-Feel free to open issue, if you find one.
 
 
 ## :camera: Screenshot
