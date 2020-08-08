@@ -12,4 +12,4 @@ install:
   - pip install youtube-search-python
 # command to run tests
 script:
-  - python Usage Example.py
+  - python "Usage Example.py"
