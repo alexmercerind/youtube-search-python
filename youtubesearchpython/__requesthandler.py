@@ -1,7 +1,7 @@
 import sys
 
 #########python2#########
-if sys.version_info < (2, 8):
+if sys.version_info[0]==2:
     from urllib import urlencode, urlopen
 
 #########python3#########
