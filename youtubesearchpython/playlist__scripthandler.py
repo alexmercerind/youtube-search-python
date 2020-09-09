@@ -1,12 +1,6 @@
-class scripthandler:
+class ScriptHandler:
 
     def scriptResponseHandler(self):
-        
-        #########playlistHandler PROPERTY#########
-
-        #########This property is later called in the another property exec() of the class.   #########
-
-        temp = 0
 
         #########Defining Result Arrays.#########
 
@@ -35,10 +29,10 @@ class scripthandler:
             if self.pageSource[index][-20:] == '"title":{"simpleText' and self.pageSource[index+1][-3:] == 'url':
                 self.titles+=[self.pageSource[index+1].split('"},"')[0].replace("\\u0026", "&")]
 
-            if len(self.titles) > self.max_results and len(self.ids) > self.max_results:
-                max_results = min(len(self.titles), len(self.ids))
-                self.titles = self.titles[0:max_results]
-                self.ids = self.ids[0:max_results]
-                self.links = self.links[0:max_results]
+            if len(self.titles) > self.maxResults and len(self.ids) > self.maxResults:
+                maxResults = min(len(self.titles), len(self.ids))
+                self.titles = self.titles[0:maxResults]
+                self.ids = self.ids[0:maxResults]
+                self.links = self.links[0:maxResults]
                 break
                 

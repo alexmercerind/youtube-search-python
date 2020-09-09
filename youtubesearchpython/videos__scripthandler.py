@@ -1,14 +1,6 @@
-class scripthandler:
+class ScriptHandler:
 
     def scriptResponseHandler(self):
-
-        #########scriptResponseHandler PROPERTY#########
-
-        #########This property is later called in the another property exec() of the class.   #########
-
-        temp = 0
-
-        #########Defining Result Arrays.#########
 
         self.links = []
         self.ids = []
@@ -18,8 +10,6 @@ class scripthandler:
         self.durations = []
         self.thumbnails = []
 
-        #########Transversing Through Network Request Array.#########
-
         self.pageSource = self.page.split('":"')
 
         for index in range(0, len(self.pageSource) - 1, 1):
@@ -27,7 +17,7 @@ class scripthandler:
             #########Setting Video Durations And View Counts.#########
 
             if self.pageSource[index][-14:] == '}},"simpleText' and self.pageSource[index+1][-28:] == '"viewCountText":{"simpleText':
-                durationBuffer = ""
+                durationBuffer = ''
                 viewCountBuffer = 0
                 for character in self.pageSource[index+1]:
                     if character!= '"':
@@ -44,41 +34,41 @@ class scripthandler:
 
             if self.pageSource[index][0:9] == '/watch?v=':
                 id = self.pageSource[index][9:20]
-                modes = ["default", "hqdefault", "mqdefault", "sddefault", "maxresdefault"]
+                modes = ['default', 'hqdefault', 'mqdefault', 'sddefault', 'maxresdefault']
                 self.ids+=[id]
                 self.links+=['https://www.youtube.com/watch?v='+ id]
                 thumbnailbuffer = []
                 for mode in modes:
-                    thumbnailbuffer+=["https://img.youtube.com/vi/" + id + "/" + mode + ".jpg"]
+                    thumbnailbuffer+=['https://img.youtube.com/vi/' + id + '/' + mode + '.jpg']
                 self.thumbnails+=[thumbnailbuffer]
             
             #########Setting Video Titles.#########
 
             if self.pageSource[index][-23:] == '"title":{"runs":[{"text' and self.pageSource[index+1][-44:] == '"accessibility":{"accessibilityData":{"label':
-                titleBuffer = ""
+                titleBuffer = ''
                 for character in self.pageSource[index+1]:
                     if character!= '"':
                         titleBuffer+=character
                     else:
                         break
-                self.titles+=[titleBuffer.replace("\\u0026", "&")]
-                self.views+=["LIVE"]
-                self.durations+=["LIVE"]
-                self.channels+= [""]
+                self.titles+=[titleBuffer.replace('\\u0026', '&')]
+                self.views+=['LIVE']
+                self.durations+=['LIVE']
+                self.channels+= ['']
 
             #########Setting Video Channels.#########
 
             if self.pageSource[index][-32:] == '"longBylineText":{"runs":[{"text' and self.pageSource[index+1][-42:] == '"navigationEndpoint":{"clickTrackingParams':
-                channelBuffer = ""
+                channelBuffer = ''
                 for character in self.pageSource[index+1]:
                     if character!= '"':
                         channelBuffer+=character
                     else:
                         break
                 try:
-                    self.channels[-1] = channelBuffer.replace("\\u0026", "&")
+                    self.channels[-1] = channelBuffer.replace('\\u0026', '&')
                 except:
                     pass
 
-            if len(self.ids) + 1 > self.max_results:
+            if len(self.ids) + 1 > self.maxResults:
                 break
