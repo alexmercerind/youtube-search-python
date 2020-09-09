@@ -19,7 +19,7 @@ class SearchVideos(RequestHandler, PageHandler, ScriptHandler):
         Offset for result pages on YouTube. Defaults to 1.
     mode : str
         Search result mode. Can be 'json', 'dict' or 'list'.
-    max_results : int, optional
+    maxResults : int, optional
         Maximum number of video results. Defaults to 20.
 
     Methods
@@ -34,12 +34,12 @@ class SearchVideos(RequestHandler, PageHandler, ScriptHandler):
     validResponse = False
     searchComplete = False
 
-    def __init__(self, keyword : str, offset : int = 1, mode : str = 'json', max_results : int = 20):
+    def __init__(self, keyword : str, offset : int = 1, mode : str = 'json', maxResults : int = 20):
 
         self.offset = offset
         self.mode = mode
         self.keyword = keyword
-        self.maxResults = max_results
+        self.maxResults = maxResults
         self.searchPreferences = 'EgIQAQ%3D%3D'
 
     async def search(self):
