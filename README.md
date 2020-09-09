@@ -8,11 +8,10 @@ Made without using YouTube Data API v3 and any other third party library.
 
 This library is intended for personal and non-commercial usage only.
 
-
 Working as of 2020.
 
 
-## :arrow_down: Install
+## ⬇ Install
 
 
 ##### Supports both Python 3 & Python 2
@@ -20,23 +19,28 @@ Working as of 2020.
 
 ```
 pip install youtube-search-python
-
-Alternatively you can clone the repo, and run "Usage Example.py"
 ```
 
+###### Alternatively you can clone the repo, and run "Example.py"
 
-## :triangular_ruler: Usage
+
+## 📐 Usage
 
 
 ###### Search for Videos
 
 ```python
 
-from youtubesearchpython import SearchVideos
+import asyncio
+from youtubesearchpython import SearchVideos, SearchPlaylists
 
-search = SearchVideos("NoCopyrightSounds", offset = 1, mode = "json", max_results = 20)
+async def main():
+    videos = SearchVideos('NoCopyrightSounds', offset = 1, mode = 'json', max_results = 20)
+    await videos.search()
+    print(videos.result())
 
-print(search.result())
+if __name__ == '__main__':
+    asyncio.run(main())
 
 ```
 
@@ -44,48 +48,45 @@ print(search.result())
 
 ```python
 
+import asyncio
 from youtubesearchpython import SearchPlaylists
 
-search = SearchPlaylists("NoCopyrightSounds", offset = 1, mode = "json", max_results = 20)
+async def main():
+    playlists = SearchPlaylists('NoCopyrightSounds', offset = 1, mode = 'json', max_results = 20)
+    await playlists.search()
+    print(playlists.result())
 
-print(search.result())
+if __name__ == '__main__':
+    asyncio.run(main())
 
 ```
 
 
-## :heart: Like the module?
+## ❤ Like the module?
 
 
 Consider :star: starring the repository. Feel free to use.
 
-It takes a lot of time to deal with the changes that YouTube makes time to time.
-
 Feel free to open issue, in case you find one.
 
 
-## :heavy_check_mark: Current Progress
+## ✔ Current Progress
 
 
 Currently search result returns:
 
-- [x] Video Link
-- [x] Video Title
-- [x] Channel Name
-- [x] Video Duration
-- [x] Video View Count
-- [x] Video ID
-- [x] Video Thumbnails
+- Video Link
+- Video Title
+- Channel Name
+- Video Duration
+- Video View Count
+- Video ID
+- Video Thumbnails
 
 (Nearly everything that YouTube offers in its search result page.)
 
 
-## :camera: Screenshot
-
-
-![Screenshot youtube-search-python](https://github.com/alexmercerind/youtube-search-python/blob/master/youtube-search-python.PNG)
-
-
-## :page_with_curl: Example Result
+## 📃 Example Result
 
 
 ```json
@@ -413,4 +414,30 @@ Currently search result returns:
         }
     ]
 }
+```
+
+# 📄 LICENSE
+
+```
+MIT License
+
+Copyright (c) 2020 Hitesh Kumar Saini
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 ```
