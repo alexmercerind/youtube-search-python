@@ -32,7 +32,7 @@ pip install youtube-search-python
 ```python
 
 import asyncio
-from youtubesearchpython import SearchVideos, SearchPlaylists
+from youtubesearchpython import SearchVideos
 
 async def main():
     videos = SearchVideos('NoCopyrightSounds', offset = 1, mode = 'json', maxResults = 20)
@@ -416,7 +416,7 @@ Currently search result returns:
 }
 ```
 
-# 📄 LICENSE
+## 📄 LICENSE
 
 ```
 MIT License
