@@ -35,7 +35,7 @@ import asyncio
 from youtubesearchpython import SearchVideos, SearchPlaylists
 
 async def main():
-    videos = SearchVideos('NoCopyrightSounds', offset = 1, mode = 'json', max_results = 20)
+    videos = SearchVideos('NoCopyrightSounds', offset = 1, mode = 'json', maxResults = 20)
     await videos.search()
     print(videos.result())
 
@@ -52,7 +52,7 @@ import asyncio
 from youtubesearchpython import SearchPlaylists
 
 async def main():
-    playlists = SearchPlaylists('NoCopyrightSounds', offset = 1, mode = 'json', max_results = 20)
+    playlists = SearchPlaylists('NoCopyrightSounds', offset = 1, mode = 'json', maxResults = 20)
     await playlists.search()
     print(playlists.result())
 
