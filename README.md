@@ -16,13 +16,10 @@ Working as of 2020.
 
 
 ##### Supports both Python 3 & Python 2
-
-
-```
+```bash
 pip install youtube-search-python
-
-Alternatively you can clone the repo, and run "Usage Example.py"
 ```
+###### Alternatively you can clone the repo, and run "Usage Example.py"
 
 
 ## :triangular_ruler: Usage
@@ -77,12 +74,6 @@ Currently search result returns:
 - [x] Video Thumbnails
 
 (Nearly everything that YouTube offers in its search result page.)
-
-
-## :camera: Screenshot
-
-
-![Screenshot youtube-search-python](https://github.com/alexmercerind/youtube-search-python/blob/master/youtube-search-python.PNG)
 
 
 ## :page_with_curl: Example Result
