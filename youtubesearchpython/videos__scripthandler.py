@@ -44,12 +44,17 @@ class ScriptHandler:
 
             if self.pageSource[index][-23:] == '"title":{"runs":[{"text' and self.pageSource[index+1][-44:] == '"accessibility":{"accessibilityData":{"label':
                 titleBuffer = ""
-                for character in self.pageSource[index+1]:
-                    if character!= '"':
-                        titleBuffer+=character
+                for subIndex in range(len(self.pageSource[index+1])):
+                    if self.pageSource[index+1][subIndex: subIndex+2] != '}]':
+                        ''' For getting rid of " written as \" '''
+                        if self.pageSource[index+1][subIndex] == '"' and self.pageSource[index+1][subIndex+1: subIndex+3] != '}]':
+                            titleBuffer = titleBuffer[:-1]
+                        titleBuffer+=self.pageSource[index+1][subIndex]
                     else:
+                        titleBuffer = titleBuffer[:-1]
                         break
                 self.titles+=[titleBuffer.replace("\\u0026", "&")]
+
                 self.views+=["LIVE"]
                 self.durations+=["LIVE"]
                 self.channels+= [""]
