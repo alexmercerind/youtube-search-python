@@ -1,26 +1,13 @@
 import sys
 
-#########python2#########
-if sys.version_info < (2, 8):
+if sys.version_info[0] == 2:
     import HTMLParser
-
-#########python3#########
 else:
     import html
 
 
-class pagehandler:
-
+class PageHandler:
     def pageResponseHandler(self):
-
-        #########pageResponseHandler PROPERTY#########
-
-        #########This property is later called in the another property exec() of the class.   #########
-
-        temp = 0
-
-        #########Defining Result Arrays.#########
-
         self.links = []
         self.ids = []
         self.titles = []
@@ -29,11 +16,8 @@ class pagehandler:
         self.durations = []
         self.thumbnails = []
 
-        #########Transversing Through Network Request Array.#########
-
         self.pageSource = self.page.split()
 
-        #########python2#########
         if sys.version_info < (2, 8):
             html = HTMLParser.HTMLParser()
 
@@ -43,7 +27,7 @@ class pagehandler:
             elementNext = self.pageSource[index+1]
             elementPrev = self.pageSource[index-1]
 
-            #########Setting Video View Counts.#########
+            ''' Setting Video View Counts. '''
 
             if element == "views</li></ul></div><div":
                 viewCount = 0
@@ -52,20 +36,19 @@ class pagehandler:
                         viewCount = viewCount * 10 + int(character)
                 self.views+=[viewCount]            
 
-            #########Setting Video Links, IDs And Thumbnails.#########
+            ''' Setting Video Links, IDs And Thumbnails. '''
 
             if element[0:15] == 'href="/watch?v=' and len('www.youtube.com'+element[6:len(element)-1]) == 35:
                 thumbnailbuffer = []
                 modes = ["default", "hqdefault", "mqdefault", "sddefault", "maxresdefault"]
-                temp+=1
-                if temp%2 ==0:
+                if element[15:len(element) - 1] not in self.ids:
                     self.links+=['https://www.youtube.com'+element[6:len(element)-1]]
                     self.ids+=[element[15:len(element) - 1]]
                     for mode in modes:
                         thumbnailbuffer+=["https://img.youtube.com/vi/" + element[15:len(element) - 1] + "/" + mode + ".jpg"]
                     self.thumbnails+=[thumbnailbuffer]
 
-            #########Setting Video Channels.#########
+            ''' Setting Video Channels. '''
 
             if (element[-15:] == '</a>&nbsp;<span' and self.pageSource[index+1] == 'title="Verified"') or (element[-14:] == '</a></div><div' and self.pageSource[index+1] == 'class="yt-lockup-meta'):
                 channelBuffer = ""
@@ -84,7 +67,7 @@ class pagehandler:
                         channelBuffer+=channelText[index]
                 self.channels+= [channelBuffer]
 
-            #########Setting Video Durations.#########
+            ''' Setting Video Durations. '''
 
             if element[0:19] == 'aria-hidden="true">' and element[19].isnumeric():
                 buffer = ""
@@ -98,7 +81,7 @@ class pagehandler:
                         break
                 self.durations+=[buffer[1::]]
 
-            #########Setting Video Titles.#########
+            ''' Setting Video Titles. '''
 
             if (element[0:23] == 'data-sessionlink="itct=') and (elementNext[0:7] == 'title="'):
                 buffer = ""

@@ -1,15 +1,5 @@
-class scripthandler:
-
+class ScriptHandler:
     def scriptResponseHandler(self):
-
-        #########scriptResponseHandler PROPERTY#########
-
-        #########This property is later called in the another property exec() of the class.   #########
-
-        temp = 0
-
-        #########Defining Result Arrays.#########
-
         self.links = []
         self.ids = []
         self.titles = []
@@ -18,13 +8,11 @@ class scripthandler:
         self.durations = []
         self.thumbnails = []
 
-        #########Transversing Through Network Request Array.#########
-
         self.pageSource = self.page.split('":"')
 
         for index in range(0, len(self.pageSource) - 1, 1):
             
-            #########Setting Video Durations And View Counts.#########
+            ''' Setting Video Durations And View Counts. '''
 
             if self.pageSource[index][-14:] == '}},"simpleText' and self.pageSource[index+1][-28:] == '"viewCountText":{"simpleText':
                 durationBuffer = ""
@@ -40,7 +28,7 @@ class scripthandler:
                 self.durations[-1] = durationBuffer
                 self.views[-1] = viewCountBuffer
 
-            #########Setting Video Links, IDs And Thumbnails.#########
+            ''' Setting Video Links, IDs And Thumbnails. '''
 
             if self.pageSource[index][0:9] == '/watch?v=':
                 id = self.pageSource[index][9:20]
@@ -52,7 +40,7 @@ class scripthandler:
                     thumbnailbuffer+=["https://img.youtube.com/vi/" + id + "/" + mode + ".jpg"]
                 self.thumbnails+=[thumbnailbuffer]
             
-            #########Setting Video Titles.#########
+            ''' Setting Video Titles. '''
 
             if self.pageSource[index][-23:] == '"title":{"runs":[{"text' and self.pageSource[index+1][-44:] == '"accessibility":{"accessibilityData":{"label':
                 titleBuffer = ""
@@ -66,7 +54,7 @@ class scripthandler:
                 self.durations+=["LIVE"]
                 self.channels+= [""]
 
-            #########Setting Video Channels.#########
+            ''' Setting Video Channels. '''
 
             if self.pageSource[index][-32:] == '"longBylineText":{"runs":[{"text' and self.pageSource[index+1][-42:] == '"navigationEndpoint":{"clickTrackingParams':
                 channelBuffer = ""
