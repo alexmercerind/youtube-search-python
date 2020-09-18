@@ -12,7 +12,7 @@ This library is intended for personal and non-commercial usage only.
 Working as of 2020.
 
 
-## Install
+## :floppy_disk: Install
 
 
 ###### Supports both Python 3 & Python 2
@@ -22,7 +22,7 @@ pip install youtube-search-python
 ###### Alternatively you can clone the repo, and run "Usage Example.py"
 
 
-## Usage
+## :triangular_ruler: Usage
 
 
 ###### Search for Videos
@@ -50,7 +50,7 @@ print(search.result())
 ```
 
 
-## Like the module?
+## :gift_heart: Like the module?
 
 
 Consider starring the repository. Feel free to use.
@@ -60,7 +60,7 @@ It takes a lot of time to deal with the changes that YouTube makes time to time.
 Feel free to open issue, in case you find one.
 
 
-## Current Progress
+## :heavy_check_mark: Current Progress
 
 
 Currently search result returns:
@@ -77,7 +77,7 @@ Currently search result returns:
 (Nearly everything that YouTube offers in its search result page.)
 
 
-## Example Result
+## :page_with_curl: Example Result
 
 
 ```json
