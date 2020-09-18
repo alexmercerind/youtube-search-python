@@ -73,7 +73,8 @@ class SearchVideos(RequestHandler, PageHandler, ScriptHandler):
                         "channel": self.channels[index],
                         "duration": self.durations[index],
                         "views": self.views[index],
-                        "thumbnails": self.thumbnails[index]
+                        "thumbnails": self.thumbnails[index],
+                        "channelId": self.channelIds[index],
                     }
                     result+=[result_index]
 
@@ -93,7 +94,8 @@ class SearchVideos(RequestHandler, PageHandler, ScriptHandler):
                             self.channels[index],
                             self.durations[index],
                             self.views[index],
-                            self.thumbnails[index]
+                            self.thumbnails[index],
+                            self.channelIds[index],
                     ]
                     result+=[list_index]
                 
