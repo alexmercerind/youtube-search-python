@@ -22,9 +22,11 @@ class ScriptHandler:
                         durationBuffer+=character
                     else:
                         break
-                for character in self.pageSource[index+2].split()[0]:
+                for character in self.pageSource[index+2]:
                     if character.isnumeric():
                         viewCountBuffer = viewCountBuffer * 10 + int(character)
+                    elif character == '"':
+                        break
                 self.durations[-1] = durationBuffer
                 self.views[-1] = viewCountBuffer
 
