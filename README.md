@@ -72,6 +72,7 @@ Currently search result returns:
 - [x] Video View Count
 - [x] Video ID
 - [x] Video Thumbnails
+- [x] Channel ID
 
 (Nearly everything that YouTube offers in its search result page.)
 
