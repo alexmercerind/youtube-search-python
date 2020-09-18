@@ -12,6 +12,7 @@ class PageHandler:
         self.ids = []
         self.titles = []
         self.channels = []
+        self.channelIds = []
         self.views = []
         self.durations = []
         self.thumbnails = []
@@ -34,7 +35,9 @@ class PageHandler:
                 for character in elementPrev:
                     if character.isnumeric():
                         viewCount = viewCount * 10 + int(character)
-                self.views+=[viewCount]            
+                self.views+=[viewCount]
+                ''' Unimplemented as this response is not recieved now '''
+                self.channelIds+=[""]         
 
             ''' Setting Video Links, IDs And Thumbnails. '''
 

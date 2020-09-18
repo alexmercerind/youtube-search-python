@@ -4,9 +4,12 @@ class ScriptHandler:
         self.ids = []
         self.titles = []
         self.channels = []
+        self.channelIds = []
         self.views = []
         self.durations = []
         self.thumbnails = []
+
+        indexValue = 0
 
         self.pageSource = self.page.split('":"')
 
@@ -48,7 +51,7 @@ class ScriptHandler:
                 titleBuffer = ""
                 for subIndex in range(len(self.pageSource[index+1])):
                     if self.pageSource[index+1][subIndex: subIndex+2] != '}]':
-                        ''' For getting rid of " written as \" '''
+                        ''' For getting rid of " written as \" in JSON '''
                         if self.pageSource[index+1][subIndex] == '"' and self.pageSource[index+1][subIndex+1: subIndex+3] != '}]':
                             titleBuffer = titleBuffer[:-1]
                         titleBuffer+=self.pageSource[index+1][subIndex]
@@ -60,6 +63,7 @@ class ScriptHandler:
                 self.views+=["LIVE"]
                 self.durations+=["LIVE"]
                 self.channels+= [""]
+                self.channelIds+=[""]
 
             ''' Setting Video Channels. '''
 
@@ -72,6 +76,7 @@ class ScriptHandler:
                         break
                 try:
                     self.channels[-1] = channelBuffer.replace("\\u0026", "&")
+                    self.channelIds[-1] = self.pageSource[index+5].split('"')[0]
                 except:
                     pass
 
