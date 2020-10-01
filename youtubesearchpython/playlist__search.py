@@ -3,7 +3,6 @@ import json
 from youtubesearchpython.__requesthandler import RequestHandler
 from youtubesearchpython.playlist__scripthandler import ScriptHandler
 
-
 class SearchPlaylists(RequestHandler, ScriptHandler):
     '''
     Search for playlists in YouTube.
@@ -63,6 +62,11 @@ class SearchPlaylists(RequestHandler, ScriptHandler):
                         "id": self.ids[index],
                         "link": self.links[index],
                         "title": self.titles[index],
+                        "thumbnails": self.thumbnails[index],
+                        "count": self.count[index],
+                        "channel": self.channel[index],
+
+
                     }
                     result+=[result_index]
 
@@ -79,6 +83,9 @@ class SearchPlaylists(RequestHandler, ScriptHandler):
                         self.ids[index],
                         self.links[index],
                         self.titles[index],
+                        self.thumbnails[index],
+                        self.count[index],
+                        self.channel[index],
                     ]
                     result+=[list_index]
                 
