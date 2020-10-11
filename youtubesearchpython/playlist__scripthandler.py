@@ -38,7 +38,7 @@ class ScriptHandler:
                 if self.pageSource[temp+1][-41:] == 'navigationEndpoint":{"clickTrackingParams':
                     self.count.append(self.pageSource[temp+1].split('","')[0])
                 self.thumbnails.append(self.thumb)
-                #print(self.thumb)
+
                 self.thumb=[]
 
                         

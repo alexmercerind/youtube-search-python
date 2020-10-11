@@ -20,8 +20,6 @@ class SearchVideos(RequestHandler, PageHandler, ScriptHandler):
         Maximum number of video results. Defaults to 20.
     Methods
     -------
-    search()
-        Searches for the videos in YouTube
     result()
         Returns the videos fetched from YouTube by search().
     '''
