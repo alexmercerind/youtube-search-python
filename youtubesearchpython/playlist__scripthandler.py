@@ -27,6 +27,7 @@ class ScriptHandler:
             if self.pageSource[index][-20:] == '"title":{"simpleText' and self.pageSource[index+1][-3:] == 'url':
                 self.titles+=[self.pageSource[index+1].split('"},"')[0].replace("\\u0026", "&")]
 
+            ''' Setting Playlist Thumbnail. '''
                         
             self.thumb=[]
             if self.pageSource[index][-34:] == '"thumbnails":[{"thumbnails":[{"url':
@@ -41,17 +42,11 @@ class ScriptHandler:
 
                 self.thumb=[]
 
+            ''' Setting Playlist Channel. '''
                         
             if self.pageSource[index][-33:]=='"shortBylineText":{"runs":[{"text':
                 self.channel.append(self.pageSource[index+1].split('","')[0])
 
 
-            if len(self.titles) > self.max_results and len(self.ids) > self.max_results:
-                max_results = min(len(self.titles), len(self.ids))
-                self.titles = self.titles[0:max_results]
-                self.ids = self.ids[0:max_results]
-                self.links = self.links[0:max_results]
-                self.thumbnails = self.thumbnails[0:max_results]
-                self.count = self.count[0:max_results]
-                self.channel = self.channel[0:max_results]
+            if len(self.ids) > self.max_results:
                 break

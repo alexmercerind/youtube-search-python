@@ -106,12 +106,3 @@ class PageHandler:
 
             if len(self.titles) + 1 > self.max_results:
                 break
-        
-        limit = min(len(self.links), len(self.ids), len(self.titles), len(self.channels), len(self.views), len(self.durations), len(self.thumbnails))
-        self.links = self.links[0:limit]
-        self.ids = self.ids[0:limit]
-        self.titles = self.titles[0:limit]
-        self.channels = self.channels[0:limit]
-        self.views = self.views[0:limit]
-        self.durations = self.durations[0:limit]
-        self.thumbnails = self.thumbnails[0:limit]

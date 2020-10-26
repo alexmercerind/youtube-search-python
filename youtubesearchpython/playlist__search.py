@@ -19,7 +19,7 @@ class SearchPlaylists(RequestHandler, ScriptHandler):
     Methods
     -------
     result()
-        Returns the playlists fetched from YouTube by search().
+        Returns the playlists fetched from YouTube.
     '''
     networkError = False
     validResponse = False
