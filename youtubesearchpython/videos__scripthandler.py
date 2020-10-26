@@ -5,6 +5,7 @@ class ScriptHandler:
         self.titles = []
         self.channels = []
         self.channelIds = []
+        self.publishTime = []
         self.views = []
         self.durations = []
         self.thumbnails = []
@@ -79,6 +80,11 @@ class ScriptHandler:
                     self.channelIds[-1] = self.pageSource[index+5].split('"')[0]
                 except:
                     pass
+            
+            ''' Setting Video Published Time Text. '''
+
+            if self.pageSource[index][-31:] == 'publishedTimeText":{"simpleText':
+                self.publishTime+=[self.pageSource[index+1].split('"},"')[0]]
 
             if len(self.ids) + 1 > self.max_results:
                 break

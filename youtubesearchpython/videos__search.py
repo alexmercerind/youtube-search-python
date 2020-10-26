@@ -21,7 +21,7 @@ class SearchVideos(RequestHandler, PageHandler, ScriptHandler):
     Methods
     -------
     result()
-        Returns the videos fetched from YouTube by search().
+        Returns the videos fetched from YouTube.
     '''
     networkError = False
     validResponse = False
@@ -73,6 +73,7 @@ class SearchVideos(RequestHandler, PageHandler, ScriptHandler):
                         "views": self.views[index],
                         "thumbnails": self.thumbnails[index],
                         "channelId": self.channelIds[index],
+                        "publishTime": self.publishTime[index],
                     }
                     result+=[result_index]
 
@@ -94,6 +95,7 @@ class SearchVideos(RequestHandler, PageHandler, ScriptHandler):
                             self.views[index],
                             self.thumbnails[index],
                             self.channelIds[index],
+                            self.publishTime[index],
                     ]
                     result+=[list_index]
                 
