@@ -86,5 +86,5 @@ class ScriptHandler:
             if self.pageSource[index][-31:] == 'publishedTimeText":{"simpleText':
                 self.publishTime+=[self.pageSource[index+1].split('"},"')[0]]
 
-            if len(self.ids) + 1 > self.max_results:
+            if min(len(self.links), len(self.ids), len(self.titles), len(self.channels), len(self.channelIds), len(self.publishTime), len(self.views), len(self.durations), len(self.thumbnails)) + 1 > self.max_results:
                 break

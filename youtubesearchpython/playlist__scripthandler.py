@@ -48,5 +48,5 @@ class ScriptHandler:
                 self.channel.append(self.pageSource[index+1].split('","')[0])
 
 
-            if len(self.ids) > self.max_results:
+            if min(len(self.links), len(self.ids), len(self.titles), len(self.thumbnails), len(self.count), len(self.channel)) + 1 > self.max_results:
                 break
