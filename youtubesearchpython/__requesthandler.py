@@ -1,9 +1,9 @@
 import sys
 
 if sys.version_info[0] == 2:
-    from urllib import urlencode, urlopen
+    from urllib import urlencode, urlopen, Request
 else:
-    from urllib.request import urlopen
+    from urllib.request import urlopen, Request
     from urllib.parse import urlencode
 
 
@@ -13,9 +13,14 @@ class RequestHandler:
             query = urlencode({
                 "search_query": self.keyword,
                 "page": self.offset,
-                "sp": self.searchPreferences
+                "sp": self.searchPreferences,
+                "persist_gl": 1,
+                "gl": self.region
             })
-            request = "https://www.youtube.com/results" + "?" + query
+            request = Request(
+                "https://www.youtube.com/results" + "?" + query,
+                headers = {"Accept-Language": f"{self.language},en;q=0.9"}
+            )
             response = urlopen(request).read()
             self.page = response.decode('utf_8')
 

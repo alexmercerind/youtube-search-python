@@ -14,8 +14,12 @@ class SearchPlaylists(RequestHandler, ScriptHandler):
         Offset for result pages on YouTube. Defaults to 1.
     mode : str
         Search result mode. Can be 'json', 'dict' or 'list'.
-    maxResults : int, optional
+    max_results : int, optional
         Maximum number of playlist results. Defaults to 20.
+    language: str, optional
+        Can be used to get results in particular language. Defaults to 'en-US'
+    region: str, optional
+        Can be used to get results according to particular region. Defaults to 'US'.
     Methods
     -------
     result()
@@ -24,13 +28,15 @@ class SearchPlaylists(RequestHandler, ScriptHandler):
     networkError = False
     validResponse = False
 
-    def __init__(self, keyword, offset = 1, mode = "json", max_results = 20):
+    def __init__(self, keyword, offset = 1, mode = "json", max_results = 20, language = "en-US", region = "US"):
 
         self.offset = offset
         self.mode = mode
         self.keyword = keyword
         self.max_results = max_results
         self.searchPreferences = "EgIQAw%3D%3D"
+        self.language = language
+        self.region = region
         self.main()
 
     def main(self):
