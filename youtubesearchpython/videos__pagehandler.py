@@ -1,9 +1,9 @@
 import sys
 
-if sys.version_info[0] == 2:
-    import HTMLParser
-else:
+if sys.version_info[0] == 3:
     import html
+else:
+    import HTMLParser
 
 
 class PageHandler:

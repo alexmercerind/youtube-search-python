@@ -1,10 +1,11 @@
 import sys
 
-if sys.version_info[0] == 2:
-    from urllib import urlencode, urlopen, Request
-else:
+if sys.version_info[0] == 3:
     from urllib.request import urlopen, Request
     from urllib.parse import urlencode
+else:
+    from urllib2 import urlopen, Request
+    from urllib import urlencode
 
 
 class RequestHandler:
@@ -19,7 +20,7 @@ class RequestHandler:
             })
             request = Request(
                 "https://www.youtube.com/results" + "?" + query,
-                headers = {"Accept-Language": f"{self.language},en;q=0.9"}
+                headers = {"Accept-Language": self.language + ",en;q=0.9"}
             )
             response = urlopen(request).read()
             self.page = response.decode('utf_8')
