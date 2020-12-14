@@ -1,5 +1,5 @@
 from youtubesearchpython.base.constants import *
-from typing import Union
+from typing import List, Union
 
 
 class ComponentHandler:
@@ -70,7 +70,7 @@ class ComponentHandler:
             'elements':                        self.__getValue(shelf, ['content', 'verticalListRenderer', 'items']),
         }
 
-    def __getValue(self, component: dict, path: list[str]) -> Union[str, int, dict, None]:
+    def __getValue(self, component: dict, path: List[str]) -> Union[str, int, dict, None]:
         value = component
         for key in path:
             if type(key) is str:

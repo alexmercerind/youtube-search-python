@@ -40,7 +40,7 @@ class Search(BaseSearch):
             if len(self.resultComponents) >= self.limit:
                 break
 
-class SearchVideos(BaseSearch):
+class VideosSearch(BaseSearch):
     '''
     Searches only for videos in YouTube.
     Parameters
@@ -75,7 +75,7 @@ class SearchVideos(BaseSearch):
                 break
 
 
-class SearchChannels(BaseSearch):
+class ChannelsSearch(BaseSearch):
     '''
     Searches only for channels in YouTube.
     Parameters
@@ -107,7 +107,7 @@ class SearchChannels(BaseSearch):
                 break
 
 
-class SearchPlaylists(BaseSearch):
+class PlaylistsSearch(BaseSearch):
     '''
     Searches only for playlists in YouTube.
     Parameters
@@ -138,7 +138,7 @@ class SearchPlaylists(BaseSearch):
             if len(self.resultComponents) >= self.limit:
                 break
 
-class SearchCustom(BaseSearch):
+class CustomSearch(BaseSearch):
     '''
    Used to perform custom search in YouTube.
     Parameters
