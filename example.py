@@ -8,7 +8,7 @@ Searches for all types of results like videos, channels & playlists in YouTube.
 
 'type' key in the JSON/Dictionary can be used to differentiate between the types of result.
 '''
-searchAll = SearchVideos('NoCopyrightSounds', page = 1, limit = 1, language = 'en-US', region = 'US')
+searchAll = Search('NoCopyrightSounds', page = 1, limit = 1, language = 'en-US', region = 'US')
 print(searchAll.result())
 
 
