@@ -12,3 +12,20 @@ class SearchMode:
     videos = 'EgIQAQ%3D%3D'
     channels = 'EgIQAg%3D%3D'
     playlists = 'EgIQAw%3D%3D'
+
+class UploadDateFilter:
+    lastHour = 'EgQIARAB'
+    today = 'EgQIAhAB'
+    thisWeek = 'EgQIAxAB'
+    thisMonth = 'EgQIBBAB'
+    thisYear = 'EgQIBRAB'
+
+class DurationFilter:
+    short = 'EgQQARgB'
+    long = 'EgQQARgC'
+
+class SortOrder:
+    relevance = 'CAASAhAB'
+    uploadDate = 'CAISAhAB'
+    viewCount = 'CAMSAhAB'
+    rating = 'CAESAhAB'
