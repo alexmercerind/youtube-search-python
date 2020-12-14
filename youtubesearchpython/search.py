@@ -1,0 +1,18 @@
+from youtubesearchpython.base.constants import *
+from youtubesearchpython.base.basesearch import BaseSearch
+
+
+class Search(BaseSearch):
+    def __init__(self, query, page = 1, limit = 20, language = 'en-US', region = 'US'):
+        super().__init__(query, page = page, limit = limit, language = language, region = region)
+        self.__makeComponents()
+    
+    def __makeComponents(self) -> None:
+        for element in self.responseSource:
+            if VIDEO_ELEMENT in element.keys():
+                self.resultComponents.append(self.getVideoComponent(element))
+            if CHANNEL_ELEMENT in element.keys():
+                self.resultComponents.append(self.getChannelComponent(element))
+            if SHELF_ELEMENT in element.keys():
+                for shelfElement in self.getShelfComponent(element)['elements']:
+                    self.resultComponents.append(self.getVideoComponent(shelfElement, shelfTitle = self.getShelfComponent(element)['title']))

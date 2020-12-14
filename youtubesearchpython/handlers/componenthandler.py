@@ -1,0 +1,69 @@
+from youtubesearchpython.base.constants import *
+
+
+class ComponentHandler:
+    def getVideoComponent(self, element: dict, shelfTitle: str = None) -> dict:
+        video = element[VIDEO_ELEMENT]
+        component = {
+            'type':                     'video',
+            'id':                        self.__getValue(video, ['videoId']),
+            'title':                     self.__getValue(video, ['title', 'runs', 0, 'text']),
+            'publishedTime':             self.__getValue(video, ['publishedTimeText', 'simpleText']),
+            'duration':                  self.__getValue(video, ['lengthText', 'simpleText']),
+            'viewCount': {
+                'text':                  self.__getValue(video, ['viewCountText', 'simpleText']),
+                'short':                 self.__getValue(video, ['shortViewCountText', 'simpleText']),
+            },
+            'thumbnails':                self.__getValue(video, ['thumbnail', 'thumbnails']),
+            'descriptionSnippet':        self.__getValue(video, ['descriptionSnippet', 'runs']),
+            'channel': {
+                'name':                  self.__getValue(video, ['ownerText', 'runs', 0, 'text']),
+                'id':                    self.__getValue(video, ['ownerText', 'runs', 0, 'navigationEndpoint', 'browseEndpoint', 'browseId']),
+                'thumbnails':            self.__getValue(video, ['channelThumbnailSupportedRenderers', 'channelThumbnailWithLinkRenderer', 'thumbnail', 'thumbnails']),
+            },
+            'accessibility': {
+                'title':                 self.__getValue(video, ['title', 'accessibility', 'accessibilityData', 'label']),
+                'duration':              self.__getValue(video, ['lengthText', 'accessibility', 'accessibilityData', 'label']),
+            },
+        }
+        component['link'] = 'https://www.youtube.com/watch?v=' + component['id']
+        component['shelfTitle'] = shelfTitle
+        return component
+
+    def getChannelComponent(self, element: dict) -> dict:
+        channel = element[CHANNEL_ELEMENT]
+        component = {
+            'type':                     'channel',
+            'id':                        self.__getValue(channel, ['channelId']),
+            'title':                     self.__getValue(channel, ['title', 'simpleText']),
+            'thumbnails':                self.__getValue(channel, ['thumbnail', 'thumbnails']),
+            'videoCount':                self.__getValue(channel, ['videoCountText', 'runs', 0, 'text']),
+            'descriptionSnippet':        self.__getValue(channel, ['descriptionSnippet', 'runs']),
+            'subscribers':               self.__getValue(channel, ['subscriberCountText', 'simpleText']),
+        }
+        component['link'] = 'https://www.youtube.com/' + component['id']
+        return component
+
+    def getShelfComponent(self, element: dict) -> dict:
+        shelf = element[SHELF_ELEMENT]
+        return {
+            'title':                     self.__getValue(shelf, ['title', 'simpleText']),
+            'elements':                  self.__getValue(shelf, ['content', 'verticalListRenderer', 'items']),
+        }
+
+    def __getValue(self, component: dict, path: list[str]) -> [str, int, dict, None]:
+        value = component
+        for key in path:
+            if type(key) is str:
+                if key in value.keys():
+                    value = value[key]
+                else:
+                    value = None
+                    break
+            elif type(key) is int:
+                if len(value) != 0:
+                    value = value[key]
+                else:
+                    value = None
+                    break
+        return value
