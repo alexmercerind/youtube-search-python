@@ -1,0 +1,8 @@
+# vscode
+
+.vscode
+
+# python
+
+__pycache__
+dist
