@@ -6,3 +6,8 @@ SHELF_ELEMENT      = 'shelfRenderer'
 class ResultMode:
     json = 0
     dict = 1
+
+class SearchMode:
+    videos = 'EgIQAQ%3D%3D'
+    channels = 'EgIQAg%3D%3D'
+    playlists = 'EgIQAw%3D%3D'

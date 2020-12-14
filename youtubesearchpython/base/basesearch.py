@@ -5,23 +5,24 @@ import json
 
 
 class BaseSearch(RequestHandler, ComponentHandler):
-    def __init__(self, query: str, page: int = 1, limit: int = 20, language: str = 'en-US', region: str = 'US'):
+    def __init__(self, query: str, page: int = 1, limit: int = 20, language: str = 'en-US', region: str = 'US', searchPreferences: str = None):
         self.page = page
         self.query = query
         self.limit = limit
         self.language = language
         self.region = region
-        self.searchPreferences = None
-        self.networkError = False
+        self.searchPreferences = searchPreferences
+        self.exception = False
         self.resultComponents = []
         self._RequestHandler__request()
         self._RequestHandler__makeSource()
 
     def result(self, mode: str = ResultMode.json) -> [str, dict, None]:
-        if not self.networkError:
+        if self.exception or len(self.resultComponents) == 0:
+            return None
+        else:
             if mode == ResultMode.json:
                 return json.dumps({'result': self.resultComponents}, indent = 4)
             elif mode == ResultMode.dict:
                 return {'result': self.resultComponents}
-        else:
-            return None
+        
