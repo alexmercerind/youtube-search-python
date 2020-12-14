@@ -50,5 +50,6 @@ class SearchPlaylists(BaseSearch):
     
     def __makeComponents(self) -> None:
         for element in self.responseSource:
-            pass
+            if PLAYLIST_ELEMENT in element.keys():
+                self.resultComponents.append(self.getPlaylistComponent(element))
 

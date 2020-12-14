@@ -27,6 +27,7 @@ class ComponentHandler:
             },
         }
         component['link'] = 'https://www.youtube.com/watch?v=' + component['id']
+        component['channel']['link'] = 'https://www.youtube.com/channel/' + component['channel']['id']
         component['shelfTitle'] = shelfTitle
         return component
 
@@ -41,7 +42,24 @@ class ComponentHandler:
             'descriptionSnippet':              self.__getValue(channel, ['descriptionSnippet', 'runs']),
             'subscribers':                     self.__getValue(channel, ['subscriberCountText', 'simpleText']),
         }
-        component['link'] = 'https://www.youtube.com/' + component['id']
+        component['link'] = 'https://www.youtube.com/channel/' + component['id']
+        return component
+
+    def getPlaylistComponent(self, element: dict) -> dict:
+        playlist = element[PLAYLIST_ELEMENT]
+        component = {
+            'type':                           'playlist',
+            'id':                             self.__getValue(playlist, ['playlistId']),
+            'title':                          self.__getValue(playlist, ['title', 'simpleText']),
+            'videoCount':                     self.__getValue(playlist, ['videoCount']),
+            'channel': {
+                'name':                        self.__getValue(playlist, ['shortBylineText', 'runs', 0, 'text']),
+                'id':                          self.__getValue(playlist, ['shortBylineText', 'runs', 0, 'navigationEndpoint', 'browseEndpoint', 'browseId']),
+            },
+            'thumbnails':                     self.__getValue(playlist, ['thumbnailRenderer', 'playlistVideoThumbnailRenderer', 'thumbnail', 'thumbnails']),
+        }
+        component['link'] = 'https://www.youtube.com/playlist?list=' + component['id']
+        component['channel']['link'] = 'https://www.youtube.com/channel/' + component['channel']['id']
         return component
 
     def getShelfComponent(self, element: dict) -> dict:
