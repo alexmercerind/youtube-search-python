@@ -15,6 +15,7 @@ class BaseSearch(RequestHandler, ComponentHandler):
         self.searchPreferences = searchPreferences
         self.exception = False
         self.resultComponents = []
+        self.responseSource = []
         self._RequestHandler__request()
         self._RequestHandler__makeSource()
     def result(self, mode: str = ResultMode.json) -> Union[str, dict, None]:
