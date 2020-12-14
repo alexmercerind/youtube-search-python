@@ -13,18 +13,18 @@ class SearchMode:
     channels = 'EgIQAg%3D%3D'
     playlists = 'EgIQAw%3D%3D'
 
-class UploadDateFilter:
+class VideoUploadDateFilter:
     lastHour = 'EgQIARAB'
     today = 'EgQIAhAB'
     thisWeek = 'EgQIAxAB'
     thisMonth = 'EgQIBBAB'
     thisYear = 'EgQIBRAB'
 
-class DurationFilter:
+class VideoDurationFilter:
     short = 'EgQQARgB'
     long = 'EgQQARgC'
 
-class SortOrder:
+class VideoSortOrder:
     relevance = 'CAASAhAB'
     uploadDate = 'CAISAhAB'
     viewCount = 'CAMSAhAB'
