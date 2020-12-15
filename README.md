@@ -1,6 +1,6 @@
 # [youtube-search-python](https://github.com/alexmercerind/youtube-search-python)
 
-### :mag_right: Search for videos, channels & playlists in YouTube WITHOUT YouTube Data API v3.
+#### :mag_right: Search for videos, channels & playlists in YouTube WITHOUT YouTube Data API v3.
 
 [![PyPI - Version](https://img.shields.io/pypi/v/youtube-search-python?style=for-the-badge)](https://pypi.org/project/youtube-search-python)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/youtube-search-python?label=DOWNLOADS&style=for-the-badge)](https://pypi.org/project/youtube-search-python)
@@ -20,7 +20,7 @@ pip install youtube-search-python
 
 ## :triangular_ruler: Usage
 
-#### Search for everything
+##### Search for everything
 
 ```python
 from youtubesearchpython import Search
@@ -71,7 +71,7 @@ print(allSearch.result())
 
 </details>
 
-#### Search for only videos
+##### Search for only videos
 
 ```python
 from youtubesearchpython import VideosSearch
@@ -175,7 +175,7 @@ print(videosSearch.result())
 
 </details>
 
-#### Search for only channels
+##### Search for only channels
 
 ```python
 from youtubesearchpython import ChannelsSearch
@@ -461,7 +461,7 @@ print(channelsSearch.result())
 
 </details>
 
-#### Search for only playlists
+##### Search for only playlists
 
 ```python
 from youtubesearchpython import PlaylistsSearch
@@ -517,7 +517,7 @@ print(playlistsSearch.result())
 
 </details>
 
-#### Search with a filter or sort
+##### Search with a filter or sort
 
 ```python
 from youtubesearchpython import *
@@ -600,11 +600,15 @@ You may switch between the types of result, by changing the value of ```mode``` 
 ###### Getting JSON
 
 ```py
-result = search.result((mode = ResultMode.json)
+result = search.result((mode = ResultMode.json))
 ```
 
 ###### Getting dictionary
 
 ```py
-result = search.result((mode = ResultMode.dict)
+result = search.result((mode = ResultMode.dict))
 ```
+
+## :page_facing_up: License
+
+MIT
