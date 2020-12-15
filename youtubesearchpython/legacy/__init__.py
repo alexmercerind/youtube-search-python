@@ -28,16 +28,16 @@ class LegacyComponentHandler(RequestHandler, ComponentHandler):
         for mode in modes:
             thumbnails.append('https://img.youtube.com/vi/' + videoId + '/' + mode + '.jpg')
         component = {
-            'index':                           self.index,
-            'id':                              videoId,
-            'link':                            'https://www.youtube.com/watch?v=' + videoId,
-            'title':                           self.__getValue(video, ['title', 'runs', 0, 'text']),
-            'channel':                         self.__getValue(video, ['ownerText', 'runs', 0, 'text']),
-            'duration':                        self.__getValue(video, ['lengthText', 'simpleText']),
-            'views':                           viewCount,
-            'thumbnails':                      thumbnails,
-            'channeId':                        self.__getValue(video, ['ownerText', 'runs', 0, 'navigationEndpoint', 'browseEndpoint', 'browseId']), 
-            'publishTime':                     self.__getValue(video, ['publishedTimeText', 'simpleText']),
+            'index':                          self.index,
+            'id':                             videoId,
+            'link':                           'https://www.youtube.com/watch?v=' + videoId,
+            'title':                          self.__getValue(video, ['title', 'runs', 0, 'text']),
+            'channel':                        self.__getValue(video, ['ownerText', 'runs', 0, 'text']),
+            'duration':                       self.__getValue(video, ['lengthText', 'simpleText']),
+            'views':                          viewCount,
+            'thumbnails':                     thumbnails,
+            'channeId':                       self.__getValue(video, ['ownerText', 'runs', 0, 'navigationEndpoint', 'browseEndpoint', 'browseId']), 
+            'publishTime':                    self.__getValue(video, ['publishedTimeText', 'simpleText']),
         }
         self.index += 1
         return component
@@ -67,8 +67,8 @@ class LegacyComponentHandler(RequestHandler, ComponentHandler):
     def getShelfComponent(self, element: dict) -> dict:
         shelf = element[SHELF_ELEMENT]
         return {
-            'title':                           self.__getValue(shelf, ['title', 'simpleText']),
-            'elements':                        self.__getValue(shelf, ['content', 'verticalListRenderer', 'items']),
+            'title':                          self.__getValue(shelf, ['title', 'simpleText']),
+            'elements':                       self.__getValue(shelf, ['content', 'verticalListRenderer', 'items']),
         }
 
     def __getValue(self, component: dict, path: List[str]) -> Union[str, int, dict]:
@@ -101,13 +101,12 @@ class LegacyBaseSearch(LegacyComponentHandler):
         self.language = language
         self.region = region
     
-    '''
-    Returns
-    -------
-    None, str, dict, list
-        Returns video results from YouTube. Returns None, if network error occurs.
-    '''
     def result(self) -> Union[str, dict, list, None]:
+        '''Returns the search result.
+
+        Returns:
+            Union[str, dict, list, None]: Returns JSON, list or dictionary & None in case of any exception.
+        '''
         if self.exception or len(self.resultComponents) == 0:
             return None
         else:
@@ -127,34 +126,54 @@ class LegacyBaseSearch(LegacyComponentHandler):
 
 class SearchVideos(LegacyBaseSearch):
     '''
-    Search for videos in YouTube.
-    Parameters
+    DEPRECATED
     ----------
-    keyword : str
-        Used as a query to search for videos in YouTube.
-    offset : int, optional
-        Offset for result pages on YouTube. Defaults to 1.
-    mode : str
-        Search result mode. Can be 'json', 'dict' or 'list'.
-    max_results : int, optional
-        Maximum number of playlist results. Defaults to 20.
-    language: str, optional
-        Can be used to get results in particular language. Defaults to 'en-US'
-    region: str, optional
-        Can be used to get results according to particular region. Defaults to 'US'.
-    Methods
-    -------
-    result()
-        Returns the videos fetched from YouTube.
+    Use `VideosSearch` instead.
+    
+    Searches for playlists in YouTube.
+
+    Args:
+        keyword (str): Sets the search query.
+        offset (int, optional): Sets the search result page number. Defaults to 1.
+        mode (str, optional): Sets the result type, can be 'json', 'dict' or 'list'. Defaults to 'json'. 
+        max_results (int, optional): Sets limit to the number of results. Defaults to 20.
+        language (str, optional): Sets the result language. Defaults to 'en-US'.
+        region (str, optional): Sets the result region. Defaults to 'US'.
+
+    Examples:
+        Calling `result` method gives the search result.
+
+        >>> search = SearchPlaylists('Harry Styles', max_results = 1)
+        >>> print(search.result())
+        {
+            "search_result": [
+                {
+                    "index": 0,
+                    "id": "PLj-vAPBrjcxoBfEk3q2Jp-naXRFpekySW",
+                    "link": "https://www.youtube.com/playlist?list=PLj-vAPBrjcxoBfEk3q2Jp-naXRFpekySW",
+                    "title": "Harry Styles - Harry Styles Full Album videos with lyrics",
+                    "thumbnails": [
+                        "https://img.youtube.com/vi/Y9yOG_dJwFg/default.jpg",
+                        "https://img.youtube.com/vi/Y9yOG_dJwFg/hqdefault.jpg",
+                        "https://img.youtube.com/vi/Y9yOG_dJwFg/mqdefault.jpg",
+                        "https://img.youtube.com/vi/Y9yOG_dJwFg/sddefault.jpg",
+                        "https://img.youtube.com/vi/Y9yOG_dJwFg/maxresdefault.jpg"
+                    ],
+                    "count": "10",
+                    "channel": "Jana Hol\u00fabkov\u00e1"
+                }
+            ]
+        }
     '''
-    def __init__(self, keyword, offset = 1, mode = "json", max_results = 20, language = "en-US", region = "US"):
+    def __init__(self, keyword, offset = 1, mode = 'json', max_results = 20, language = 'en-US', region = 'US'):
         super().__init__(keyword, offset = offset, mode = mode, max_results = max_results, language = language, region = region)
-        self.searchPreferences = "EgIQAQ%3D%3D"
+        self.searchPreferences = 'EgIQAQ%3D%3D'
         self._RequestHandler__request()
         self._RequestHandler__makeSource()
         self.__makeComponents()
 
     def __makeComponents(self) -> None:
+        self.resultComponents = []
         for element in self.responseSource:
             if VIDEO_ELEMENT in element.keys():
                 self.resultComponents.append(self.getVideoComponent(element))
@@ -166,34 +185,57 @@ class SearchVideos(LegacyBaseSearch):
 
 class SearchPlaylists(LegacyBaseSearch):
     '''
-    Search for playlists in YouTube.
-    Parameters
+    DEPRECATED
     ----------
-    keyword : str
-        Used as a query to search for playlists in YouTube.
-    offset : int, optional
-        Offset for result pages on YouTube. Defaults to 1.
-    mode : str
-        Search result mode. Can be 'json', 'dict' or 'list'.
-    max_results : int, optional
-        Maximum number of playlist results. Defaults to 20.
-    language: str, optional
-        Can be used to get results in particular language. Defaults to 'en-US'
-    region: str, optional
-        Can be used to get results according to particular region. Defaults to 'US'.
-    Methods
-    -------
-    result()
-        Returns the videos fetched from YouTube.
+    Use `PlaylistsSearch` instead.
+
+    Searches for playlists in YouTube.
+
+    Args:
+        keyword (str): Sets the search query.
+        offset (int, optional): Sets the search result page number. Defaults to 1.
+        mode (str, optional): Sets the result type, can be 'json', 'dict' or 'list'. Defaults to 'json'. 
+        max_results (int, optional): Sets limit to the number of results. Defaults to 20.
+        language (str, optional): Sets the result language. Defaults to 'en-US'.
+        region (str, optional): Sets the result region. Defaults to 'US'.
+
+    Examples:
+        Calling `result` method gives the search result.
+
+        >>> search = SearchVideos('Watermelon Sugar', max_results = 1)
+        >>> print(search.result())
+        {
+            "search_result": [
+                {
+                    "index": 0,
+                    "id": "E07s5ZYygMg",
+                    "link": "https://www.youtube.com/watch?v=E07s5ZYygMg",
+                    "title": "Harry Styles - Watermelon Sugar (Official Video)",
+                    "channel": "Harry Styles",
+                    "duration": "3:09",
+                    "views": 162235006,
+                    "thumbnails": [
+                        "https://img.youtube.com/vi/E07s5ZYygMg/default.jpg",
+                        "https://img.youtube.com/vi/E07s5ZYygMg/hqdefault.jpg",
+                        "https://img.youtube.com/vi/E07s5ZYygMg/mqdefault.jpg",
+                        "https://img.youtube.com/vi/E07s5ZYygMg/sddefault.jpg",
+                        "https://img.youtube.com/vi/E07s5ZYygMg/maxresdefault.jpg"
+                    ],
+                    "channeId": "UCZFWPqqPkFlNwIxcpsLOwew",
+                    "publishTime": "6 months ago"
+                }
+            ]
+        }
     '''
-    def __init__(self, keyword, offset = 1, mode = "json", max_results = 20, language = "en-US", region = "US"):
+    def __init__(self, keyword, offset = 1, mode = 'json', max_results = 20, language = 'en-US', region = 'US'):
         super().__init__(keyword, offset = offset, mode = mode, max_results = max_results, language = language, region = region)
-        self.searchPreferences = "EgIQAw%3D%3D"
+        self.searchPreferences = 'EgIQAw%3D%3D'
         self._RequestHandler__request()
         self._RequestHandler__makeSource()
         self.__makeComponents()
 
     def __makeComponents(self) -> None:
+        self.resultComponents = []
         for element in self.responseSource:
             if PLAYLIST_ELEMENT in element.keys():
                 self.resultComponents.append(self.getPlaylistComponent(element))
