@@ -600,13 +600,13 @@ You may switch between the types of result, by changing the value of ```mode``` 
 ###### Getting JSON
 
 ```py
-result = search.result((mode = ResultMode.json))
+result = search.result(mode = ResultMode.json)
 ```
 
 ###### Getting dictionary
 
 ```py
-result = search.result((mode = ResultMode.dict))
+result = search.result(mode = ResultMode.dict)
 ```
 
 ## :page_facing_up: License
