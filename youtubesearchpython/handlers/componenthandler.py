@@ -54,8 +54,8 @@ class ComponentHandler:
             'title':                          self.__getValue(playlist, ['title', 'simpleText']),
             'videoCount':                     self.__getValue(playlist, ['videoCount']),
             'channel': {
-                'name':                        self.__getValue(playlist, ['shortBylineText', 'runs', 0, 'text']),
-                'id':                          self.__getValue(playlist, ['shortBylineText', 'runs', 0, 'navigationEndpoint', 'browseEndpoint', 'browseId']),
+                'name':                       self.__getValue(playlist, ['shortBylineText', 'runs', 0, 'text']),
+                'id':                         self.__getValue(playlist, ['shortBylineText', 'runs', 0, 'navigationEndpoint', 'browseEndpoint', 'browseId']),
             },
             'thumbnails':                     self.__getValue(playlist, ['thumbnailRenderer', 'playlistVideoThumbnailRenderer', 'thumbnail', 'thumbnails']),
         }
