@@ -3,7 +3,7 @@ from youtubesearchpython.internal.constants import *
 
 
 __title__        = 'youtube-search-python'
-__version__      = '1.3.3'
+__version__      = '1.3.5'
 __author__       = 'alexmercerind'
 __license__      = 'MIT'
 

@@ -8,7 +8,7 @@ class Search(SearchInternal):
     Args:
         query (str): Sets the search query.
         limit (int, optional): Sets limit to the number of results. Defaults to 20.
-        language (str, optional): Sets the result language. Defaults to 'en-US'.
+        language (str, optional): Sets the result language. Defaults to 'en'.
         region (str, optional): Sets the result region. Defaults to 'US'.
 
     Examples:
@@ -67,7 +67,7 @@ class Search(SearchInternal):
             ]
         }
     '''
-    def __init__(self, query: str, limit: int = 20, language: str = 'en-US', region: str = 'US'):
+    def __init__(self, query: str, limit: int = 20, language: str = 'en', region: str = 'US'):
         self.searchMode = (True, True, True)
         super().__init__(query, limit, language, region, None)
         self._SearchInternal__getComponents(*self.searchMode)
@@ -78,7 +78,7 @@ class VideosSearch(SearchInternal):
     Args:
         query (str): Sets the search query.
         limit (int, optional): Sets limit to the number of results. Defaults to 20.
-        language (str, optional): Sets the result language. Defaults to 'en-US'.
+        language (str, optional): Sets the result language. Defaults to 'en'.
         region (str, optional): Sets the result region. Defaults to 'US'.
 
     Examples:
@@ -137,7 +137,7 @@ class VideosSearch(SearchInternal):
             ]
         }
     '''
-    def __init__(self, query: str, limit: int = 20, language: str = 'en-US', region: str = 'US'):
+    def __init__(self, query: str, limit: int = 20, language: str = 'en', region: str = 'US'):
         self.searchMode = (True, False, False)
         super().__init__(query, limit, language, region, SearchMode.videos)
         self._SearchInternal__getComponents(*self.searchMode)
@@ -149,7 +149,7 @@ class ChannelsSearch(SearchInternal):
     Args:
         query (str): Sets the search query.
         limit (int, optional): Sets limit to the number of results. Defaults to 20.
-        language (str, optional): Sets the result language. Defaults to 'en-US'.
+        language (str, optional): Sets the result language. Defaults to 'en'.
         region (str, optional): Sets the result region. Defaults to 'US'.
 
     Examples:
@@ -183,7 +183,7 @@ class ChannelsSearch(SearchInternal):
             ]
         }
     '''
-    def __init__(self, query: str, limit: int = 20, language: str = 'en-US', region: str = 'US'):
+    def __init__(self, query: str, limit: int = 20, language: str = 'en', region: str = 'US'):
         self.searchMode = (False, True, False)
         super().__init__(query, limit, language, region, SearchMode.channels)
         self._SearchInternal__getComponents(*self.searchMode)
@@ -195,7 +195,7 @@ class PlaylistsSearch(SearchInternal):
     Args:
         query (str): Sets the search query.
         limit (int, optional): Sets limit to the number of results. Defaults to 20.
-        language (str, optional): Sets the result language. Defaults to 'en-US'.
+        language (str, optional): Sets the result language. Defaults to 'en'.
         region (str, optional): Sets the result region. Defaults to 'US'.
 
     Examples:
@@ -242,7 +242,7 @@ class PlaylistsSearch(SearchInternal):
             ]
         }
     '''
-    def __init__(self, query: str, limit: int = 20, language: str = 'en-US', region: str = 'US'):
+    def __init__(self, query: str, limit: int = 20, language: str = 'en', region: str = 'US'):
         self.searchMode = (False, False, True)
         super().__init__(query, limit, language, region, SearchMode.playlists)
         self._SearchInternal__getComponents(*self.searchMode)
@@ -264,7 +264,7 @@ class CustomSearch(SearchInternal):
         query (str): Sets the search query.
         searchPreferences (str): Sets the `sp` query parameter in the YouTube search request.
         limit (int, optional): Sets limit to the number of results. Defaults to 20.
-        language (str, optional): Sets the result language. Defaults to 'en-US'.
+        language (str, optional): Sets the result language. Defaults to 'en'.
         region (str, optional): Sets the result region. Defaults to 'US'.
     
     Examples:
@@ -323,7 +323,7 @@ class CustomSearch(SearchInternal):
             ]
         }
     '''
-    def __init__(self, query: str, searchPreferences: str, limit: int = 20, language: str = 'en-US', region: str = 'US'):
+    def __init__(self, query: str, searchPreferences: str, limit: int = 20, language: str = 'en', region: str = 'US'):
         self.searchMode = (True, True, True)
         super().__init__(query, limit, language, region, searchPreferences)
         self._SearchInternal__getComponents(*self.searchMode)
