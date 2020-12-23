@@ -76,7 +76,7 @@ print(allSearch.result())
 ```python
 from youtubesearchpython import VideosSearch
 
-videosSearch = VideosSearch('NoCopyrightSounds', page = 1, limit = 2)
+videosSearch = VideosSearch('NoCopyrightSounds', limit = 2)
 
 print(videosSearch.result())
 ```
@@ -180,7 +180,7 @@ print(videosSearch.result())
 ```python
 from youtubesearchpython import ChannelsSearch
 
-channelsSearch = ChannelsSearch('NoCopyrightSounds', page = 1, limit = 10, region = 'US')
+channelsSearch = ChannelsSearch('NoCopyrightSounds', limit = 10, region = 'US')
 
 print(channelsSearch.result())
 ```
@@ -466,7 +466,7 @@ print(channelsSearch.result())
 ```python
 from youtubesearchpython import PlaylistsSearch
 
-playlistsSearch = PlaylistsSearch('NoCopyrightSounds', page = 1, limit = 1)
+playlistsSearch = PlaylistsSearch('NoCopyrightSounds', limit = 1)
 
 print(playlistsSearch.result())
 ```
@@ -522,7 +522,7 @@ print(playlistsSearch.result())
 ```python
 from youtubesearchpython import *
 
-customSearch = CustomSearch('NoCopyrightSounds', VideoSortOrder.uploadDate, page = 1, limit = 1)
+customSearch = CustomSearch('NoCopyrightSounds', VideoSortOrder.uploadDate, limit = 1)
 
 print(customSearch.result())
 ```
@@ -587,12 +587,34 @@ print(customSearch.result())
 
 You may see the [example](https://github.com/alexmercerind/youtube-search-python/blob/vnext/example.py) for more information.
 
+
+## :mag_right: Getting Result On The Next Pages
+
+You may call ```next``` method as follows, to get the results on the next pages.
+
+Calling ```result``` method after calling ```next``` will give you result on that the next page.
+
+```py
+search = VideosSearch('NoCopyrightSounds')
+print(search.result()['result'])
+# Getting result on 2nd page.
+search.next()
+print(search.result()['result'])
+# Getting result on 3rd page.
+search.next()
+print(search.result()['result'])
+# Getting result on 4th page.
+search.next()
+print(search.result()['result'])
+```
+
+
 ## :wrench: Configuration
 
 While instantiating any of the classes, you may provide optional parameters as follows to get the results accordingly.
 
 ```py
-search = Search('NoCopyrightSounds', page = 1, limit = 20, language = 'en-US', region = 'US')
+search = Search('NoCopyrightSounds', limit = 20, language = 'en-US', region = 'US')
 ```
 
 You may switch between the types of result, by changing the value of ```mode``` optional parameter while calling the ```result``` method.
