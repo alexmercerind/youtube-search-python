@@ -1,0 +1,12 @@
+{
+    "context": {
+        "client": {
+            "clientName": "WEB",
+            "clientVersion": "2.20201220.08.00",
+            "newVisitorCookie": true
+        },
+        "user": {
+            "lockedSafetyMode": false
+        }
+    }
+}
