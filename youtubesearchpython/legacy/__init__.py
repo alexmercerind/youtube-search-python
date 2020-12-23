@@ -1,8 +1,8 @@
-from youtubesearchpython.base.constants import *
-from youtubesearchpython.handlers.componenthandler import ComponentHandler
-from youtubesearchpython.handlers.requesthandler import RequestHandler
 from typing import List, Union
 import json
+from youtubesearchpython.handlers.componenthandler import ComponentHandler
+from youtubesearchpython.handlers.requesthandler import RequestHandler
+from youtubesearchpython.internal.constants import *
 
 
 def overrides(interface_class):
@@ -17,7 +17,7 @@ class LegacyComponentHandler(RequestHandler, ComponentHandler):
 
     @overrides(ComponentHandler)
     def getVideoComponent(self, element: dict, shelfTitle: str = None) -> dict:
-        video = element[VIDEO_ELEMENT]
+        video = element[videoElementKey]
         videoId = self.__getValue(video, ['videoId'])
         viewCount = 0
         thumbnails = []
@@ -44,7 +44,7 @@ class LegacyComponentHandler(RequestHandler, ComponentHandler):
     
     @overrides(ComponentHandler)
     def getPlaylistComponent(self, element: dict) -> dict:
-        playlist = element[PLAYLIST_ELEMENT]
+        playlist = element[playlistElementKey]
         playlistId = self.__getValue(playlist, ['playlistId'])
         thumbnailVideoId = self.__getValue(playlist, ['navigationEndpoint', 'watchEndpoint', 'videoId'])
         thumbnails = []
@@ -65,7 +65,7 @@ class LegacyComponentHandler(RequestHandler, ComponentHandler):
 
     @overrides(ComponentHandler)
     def getShelfComponent(self, element: dict) -> dict:
-        shelf = element[SHELF_ELEMENT]
+        shelf = element[shelfElementKey]
         return {
             'title':                          self.__getValue(shelf, ['title', 'simpleText']),
             'elements':                       self.__getValue(shelf, ['content', 'verticalListRenderer', 'items']),
@@ -88,7 +88,7 @@ class LegacyComponentHandler(RequestHandler, ComponentHandler):
                     break
         return value
 
-class LegacyBaseSearch(LegacyComponentHandler):
+class LegacySearchInternal(LegacyComponentHandler):
     exception = False
     resultComponents = []
     responseSource = []
@@ -100,6 +100,7 @@ class LegacyBaseSearch(LegacyComponentHandler):
         self.limit = max_results
         self.language = language
         self.region = region
+        self.continuationKey = None
     
     def result(self) -> Union[str, dict, list, None]:
         '''Returns the search result.
@@ -124,7 +125,7 @@ class LegacyBaseSearch(LegacyComponentHandler):
                 return result
 
 
-class SearchVideos(LegacyBaseSearch):
+class SearchVideos(LegacySearchInternal):
     '''
     DEPRECATED
     ----------
@@ -165,25 +166,25 @@ class SearchVideos(LegacyBaseSearch):
             ]
         }
     '''
-    def __init__(self, keyword, offset = 1, mode = 'json', max_results = 20, language = 'en-US', region = 'US'):
-        super().__init__(keyword, offset = offset, mode = mode, max_results = max_results, language = language, region = region)
+    def __init__(self, keyword, offset = 1, mode = 'json', max_results = 20, language = 'en', region = 'US'):
+        super().__init__(keyword, offset, mode, max_results, language, region)
         self.searchPreferences = 'EgIQAQ%3D%3D'
-        self._RequestHandler__request()
-        self._RequestHandler__makeSource()
+        self._RequestHandler__makeRequest()
+        self._RequestHandler__parseSource()
         self.__makeComponents()
 
     def __makeComponents(self) -> None:
         self.resultComponents = []
         for element in self.responseSource:
-            if VIDEO_ELEMENT in element.keys():
+            if videoElementKey in element.keys():
                 self.resultComponents.append(self.getVideoComponent(element))
-            if SHELF_ELEMENT in element.keys():
+            if shelfElementKey in element.keys():
                 for shelfElement in self.getShelfComponent(element)['elements']:
                     self.resultComponents.append(self.getVideoComponent(shelfElement))
             if len(self.resultComponents) >= self.limit:
                 break
 
-class SearchPlaylists(LegacyBaseSearch):
+class SearchPlaylists(LegacySearchInternal):
     '''
     DEPRECATED
     ----------
@@ -227,17 +228,17 @@ class SearchPlaylists(LegacyBaseSearch):
             ]
         }
     '''
-    def __init__(self, keyword, offset = 1, mode = 'json', max_results = 20, language = 'en-US', region = 'US'):
-        super().__init__(keyword, offset = offset, mode = mode, max_results = max_results, language = language, region = region)
+    def __init__(self, keyword, offset = 1, mode = 'json', max_results = 20, language = 'en', region = 'US'):
+        super().__init__(keyword, offset, mode, max_results, language, region)
         self.searchPreferences = 'EgIQAw%3D%3D'
-        self._RequestHandler__request()
-        self._RequestHandler__makeSource()
+        self._RequestHandler__makeRequest()
+        self._RequestHandler__parseSource()
         self.__makeComponents()
 
     def __makeComponents(self) -> None:
         self.resultComponents = []
         for element in self.responseSource:
-            if PLAYLIST_ELEMENT in element.keys():
+            if playlistElementKey in element.keys():
                 self.resultComponents.append(self.getPlaylistComponent(element))
             if len(self.resultComponents) >= self.limit:
                 break

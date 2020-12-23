@@ -1,10 +1,10 @@
-from youtubesearchpython.base.constants import *
 from typing import List, Union
+from youtubesearchpython.internal.constants import *
 
 
 class ComponentHandler:
     def getVideoComponent(self, element: dict, shelfTitle: str = None) -> dict:
-        video = element[VIDEO_ELEMENT]
+        video = element[videoElementKey]
         component = {
             'type':                           'video',
             'id':                              self.__getValue(video, ['videoId']),
@@ -33,7 +33,7 @@ class ComponentHandler:
         return component
 
     def getChannelComponent(self, element: dict) -> dict:
-        channel = element[CHANNEL_ELEMENT]
+        channel = element[channelElementKey]
         component = {
             'type':                           'channel',
             'id':                              self.__getValue(channel, ['channelId']),
@@ -47,7 +47,7 @@ class ComponentHandler:
         return component
 
     def getPlaylistComponent(self, element: dict) -> dict:
-        playlist = element[PLAYLIST_ELEMENT]
+        playlist = element[playlistElementKey]
         component = {
             'type':                           'playlist',
             'id':                             self.__getValue(playlist, ['playlistId']),
@@ -64,14 +64,14 @@ class ComponentHandler:
         return component
 
     def getShelfComponent(self, element: dict) -> dict:
-        shelf = element[SHELF_ELEMENT]
+        shelf = element[shelfElementKey]
         return {
             'title':                           self.__getValue(shelf, ['title', 'simpleText']),
             'elements':                        self.__getValue(shelf, ['content', 'verticalListRenderer', 'items']),
         }
 
-    def __getValue(self, component: dict, path: List[str]) -> Union[str, int, dict, None]:
-        value = component
+    def __getValue(self, source: dict, path: List[str]) -> Union[str, int, dict, None]:
+        value = source
         for key in path:
             if type(key) is str:
                 if key in value.keys():

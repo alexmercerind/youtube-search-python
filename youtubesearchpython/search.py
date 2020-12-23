@@ -1,13 +1,12 @@
-from youtubesearchpython.base.constants import *
-from youtubesearchpython.base.basesearch import BaseSearch
+from youtubesearchpython.internal.constants import *
+from youtubesearchpython.internal.search import SearchInternal
 
 
-class Search(BaseSearch):
+class Search(SearchInternal):
     '''Searches for videos, channels & playlists in YouTube.
 
     Args:
         query (str): Sets the search query.
-        page (int, optional): Sets the search result page number. Defaults to 1.
         limit (int, optional): Sets limit to the number of results. Defaults to 20.
         language (str, optional): Sets the result language. Defaults to 'en-US'.
         region (str, optional): Sets the result region. Defaults to 'US'.
@@ -68,16 +67,16 @@ class Search(BaseSearch):
             ]
         }
     '''
-    def __init__(self, query: str, page: int = 1, limit: int = 20, language: str = 'en-US', region: str = 'US'):
-        super().__init__(query, page = page, limit = limit, language = language, region = region)
-        self._BaseSearch__makeComponents(True, True, True)
+    def __init__(self, query: str, limit: int = 20, language: str = 'en-US', region: str = 'US'):
+        self.searchMode = (True, True, True)
+        super().__init__(query, limit, language, region, None)
+        self._SearchInternal__getComponents(*self.searchMode)
 
-class VideosSearch(BaseSearch):
+class VideosSearch(SearchInternal):
     '''Searches for videos in YouTube.
 
     Args:
         query (str): Sets the search query.
-        page (int, optional): Sets the search result page number. Defaults to 1.
         limit (int, optional): Sets limit to the number of results. Defaults to 20.
         language (str, optional): Sets the result language. Defaults to 'en-US'.
         region (str, optional): Sets the result region. Defaults to 'US'.
@@ -138,17 +137,17 @@ class VideosSearch(BaseSearch):
             ]
         }
     '''
-    def __init__(self, query: str, page: int = 1, limit: int = 20, language: str = 'en-US', region: str = 'US'):
-        super().__init__(query, page = page, limit = limit, language = language, region = region, searchPreferences = SearchMode.videos)
-        self._BaseSearch__makeComponents(True, False, False)
+    def __init__(self, query: str, limit: int = 20, language: str = 'en-US', region: str = 'US'):
+        self.searchMode = (True, False, False)
+        super().__init__(query, limit, language, region, SearchMode.videos)
+        self._SearchInternal__getComponents(*self.searchMode)
 
 
-class ChannelsSearch(BaseSearch):
+class ChannelsSearch(SearchInternal):
     '''Searches for channels in YouTube.
 
     Args:
         query (str): Sets the search query.
-        page (int, optional): Sets the search result page number. Defaults to 1.
         limit (int, optional): Sets limit to the number of results. Defaults to 20.
         language (str, optional): Sets the result language. Defaults to 'en-US'.
         region (str, optional): Sets the result region. Defaults to 'US'.
@@ -184,17 +183,17 @@ class ChannelsSearch(BaseSearch):
             ]
         }
     '''
-    def __init__(self, query: str, page: int = 1, limit: int = 20, language: str = 'en-US', region: str = 'US'):
-        super().__init__(query, page = page, limit = limit, language = language, region = region, searchPreferences = SearchMode.channels)
-        self._BaseSearch__makeComponents(False, True, False)
+    def __init__(self, query: str, limit: int = 20, language: str = 'en-US', region: str = 'US'):
+        self.searchMode = (False, True, False)
+        super().__init__(query, limit, language, region, SearchMode.channels)
+        self._SearchInternal__getComponents(*self.searchMode)
 
 
-class PlaylistsSearch(BaseSearch):
+class PlaylistsSearch(SearchInternal):
     '''Searches for playlists in YouTube.
 
     Args:
         query (str): Sets the search query.
-        page (int, optional): Sets the search result page number. Defaults to 1.
         limit (int, optional): Sets limit to the number of results. Defaults to 20.
         language (str, optional): Sets the result language. Defaults to 'en-US'.
         region (str, optional): Sets the result region. Defaults to 'US'.
@@ -243,11 +242,12 @@ class PlaylistsSearch(BaseSearch):
             ]
         }
     '''
-    def __init__(self, query: str, page: int = 1, limit: int = 20, language: str = 'en-US', region: str = 'US'):
-        super().__init__(query, page = page, limit = limit, language = language, region = region, searchPreferences = SearchMode.playlists)
-        self._BaseSearch__makeComponents(False, False, True)
+    def __init__(self, query: str, limit: int = 20, language: str = 'en-US', region: str = 'US'):
+        self.searchMode = (False, False, True)
+        super().__init__(query, limit, language, region, SearchMode.playlists)
+        self._SearchInternal__getComponents(*self.searchMode)
 
-class CustomSearch(BaseSearch):
+class CustomSearch(SearchInternal):
     '''Performs custom search in YouTube with search filters or sorting orders. 
     Few of the predefined filters and sorting orders are:
 
@@ -263,7 +263,6 @@ class CustomSearch(BaseSearch):
     Args:
         query (str): Sets the search query.
         searchPreferences (str): Sets the `sp` query parameter in the YouTube search request.
-        page (int, optional): Sets the search result page number. Defaults to 1.
         limit (int, optional): Sets limit to the number of results. Defaults to 20.
         language (str, optional): Sets the result language. Defaults to 'en-US'.
         region (str, optional): Sets the result region. Defaults to 'US'.
@@ -324,6 +323,7 @@ class CustomSearch(BaseSearch):
             ]
         }
     '''
-    def __init__(self, query: str, searchPreferences: str, page: int = 1, limit: int = 20, language: str = 'en-US', region: str = 'US'):
-        super().__init__(query, page = page, limit = limit, language = language, region = region, searchPreferences = searchPreferences)
-        self._BaseSearch__makeComponents(True, True, True)
+    def __init__(self, query: str, searchPreferences: str, limit: int = 20, language: str = 'en-US', region: str = 'US'):
+        self.searchMode = (True, True, True)
+        super().__init__(query, limit, language, region, searchPreferences)
+        self._SearchInternal__getComponents(*self.searchMode)

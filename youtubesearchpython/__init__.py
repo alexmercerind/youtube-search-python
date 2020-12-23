@@ -1,5 +1,5 @@
 from youtubesearchpython.search import Search, VideosSearch, ChannelsSearch, PlaylistsSearch, CustomSearch
-from youtubesearchpython.base.constants import *
+from youtubesearchpython.internal.constants import *
 
 
 __title__        = 'youtube-search-python'

@@ -1,41 +1,52 @@
+from urllib import request
 from urllib.request import Request, urlopen
 from urllib.parse import urlencode
+import pkg_resources
 import json
+from youtubesearchpython.handlers.componenthandler import ComponentHandler
+from youtubesearchpython.internal.constants import *
 
 
-class RequestHandler:
-    def __request(self) -> None:
-        try:
-            query = {
-                'search_query': self.query,
-                'page': self.page,
-                'sp': self.searchPreferences,
-                'persist_gl': 1,
-                'gl': self.region
-            } if self.searchPreferences is not None else {
-                'search_query': self.query,
-                'page': self.page,
-                'persist_gl': 1,
-                'gl': self.region
+class RequestHandler(ComponentHandler):
+    def __makeRequest(self) -> None:
+        with open(pkg_resources.resource_filename('youtubesearchpython', 'requestPayload.json'), 'r', encoding = 'utf_8') as file:
+            requestPayload = json.loads(file.read())
+            requestPayload['query'] = self.query
+            requestPayload['client'] = {
+                'hl': self.language,
+                'gl': self.region,
             }
+            if self.searchPreferences:
+                requestPayload['params'] = self.searchPreferences
+            if self.continuationKey:
+                requestPayload['continuation'] = self.continuationKey
+            requestPayloadBytes = json.dumps(requestPayload).encode('utf_8')
             request = Request(
-                'https://www.youtube.com/results' + '?' + urlencode(query),
-                headers = {'Accept-Language': self.language + ',en;q=0.9'}
+                'https://www.youtube.com/youtubei/v1/search' + '?' + urlencode({
+                    'key': searchKey,
+                }),
+                data = requestPayloadBytes,
+                headers = {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Content-Length': len(requestPayloadBytes),
+                }
             )
-            self.response = urlopen(request).read().decode('utf_8')
-        except:
-            self.exception = True
+            try:
+                self.response = urlopen(request).read().decode('utf_8')
+            except:
+                raise Exception('ERROR: Could not make request.')
 
-    def __makeSource(self) -> None:
+    def __parseSource(self) -> None:
         try:
-            start = True
-            for index in range(self.response.index('ytInitialData'), len(self.response)):
-                if self.response[index] == '{' and start:
-                    startIndex = index
-                    start = False
-                elif self.response[index: index + 9] == '</script>' and not start:
-                    endIndex = index - 1
-                    break
-            self.responseSource = json.loads(self.response[startIndex: endIndex])['contents']['twoColumnSearchResultsRenderer']['primaryContents']['sectionListRenderer']['contents'][0]['itemSectionRenderer']['contents']
+            if not self.continuationKey:
+                responseContent = self._ComponentHandler__getValue(json.loads(self.response), contentPath)
+            else:
+                responseContent = self._ComponentHandler__getValue(json.loads(self.response), continuationContentPath)
+            
+            for element in responseContent:
+                if itemSectionKey in element.keys():
+                    self.responseSource = self._ComponentHandler__getValue(element, [itemSectionKey, 'contents'])
+                if continuationItemKey in element.keys():
+                    self.continuationKey = self._ComponentHandler__getValue(element, [continuationItemKey, 'continuationEndpoint', 'continuationCommand', 'token'])
         except:
-            self.exception = True
+            raise Exception('ERROR: Could not parse YouTube response.')
