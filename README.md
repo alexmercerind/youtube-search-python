@@ -588,7 +588,7 @@ print(customSearch.result())
 You may see the [example](https://github.com/alexmercerind/youtube-search-python/blob/vnext/example.py) for more information.
 
 
-## :mag_right: Getting Result On The Next Pages
+## :mag_right: Getting Next Page Result
 
 You may call ```next``` method as follows, to get the results on the next pages.
 
@@ -597,13 +597,13 @@ Calling ```result``` method after calling ```next``` will give you result on tha
 ```py
 search = VideosSearch('NoCopyrightSounds')
 print(search.result()['result'])
-# Getting result on 2nd page.
+''' Getting result on 2nd page. '''
 search.next()
 print(search.result()['result'])
-# Getting result on 3rd page.
+''' Getting result on 3rd page. '''
 search.next()
 print(search.result()['result'])
-# Getting result on 4th page.
+''' Getting result on 4th page. '''
 search.next()
 print(search.result()['result'])
 ```
@@ -614,7 +614,7 @@ print(search.result()['result'])
 While instantiating any of the classes, you may provide optional parameters as follows to get the results accordingly.
 
 ```py
-search = Search('NoCopyrightSounds', limit = 20, language = 'en-US', region = 'US')
+search = Search('NoCopyrightSounds', limit = 20, language = 'en', region = 'US')
 ```
 
 You may switch between the types of result, by changing the value of ```mode``` optional parameter while calling the ```result``` method.
@@ -626,6 +626,7 @@ result = search.result(mode = ResultMode.json)
 ```
 
 ###### Getting dictionary
+
 
 ```py
 result = search.result(mode = ResultMode.dict)
