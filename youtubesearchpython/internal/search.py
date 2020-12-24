@@ -1,4 +1,6 @@
 from typing import Union
+from urllib.request import Request, urlopen
+from urllib.parse import urlencode
 import json
 from youtubesearchpython.handlers.requesthandler import RequestHandler
 from youtubesearchpython.handlers.componenthandler import ComponentHandler
@@ -24,7 +26,7 @@ class SearchInternal(RequestHandler, ComponentHandler):
         '''Returns the search result.
 
         Args:
-            mode (int, optional): Sets the type of result. Defaults to ResultMode.json.
+            mode (int, optional): Sets the type of result. Defaults to ResultMode.dict.
 
         Returns:
             Union[str, dict]: Returns JSON or dictionary.
@@ -38,7 +40,7 @@ class SearchInternal(RequestHandler, ComponentHandler):
         '''Gets the subsequent search result. Call result
 
         Args:
-            mode (int, optional): Sets the type of result. Defaults to ResultMode.json.
+            mode (int, optional): Sets the type of result. Defaults to ResultMode.dict.
 
         Returns:
             Union[str, dict]: Returns True if getting more results was successful.
@@ -68,3 +70,82 @@ class SearchInternal(RequestHandler, ComponentHandler):
                     self.resultComponents.append(self.getVideoComponent(shelfElement, shelfTitle = self.getShelfComponent(element)['title']))
             if len(self.resultComponents) >= self.limit:
                 break
+
+class Suggestions:
+    '''Gets search suggestions for the given query.
+
+    Args:
+        language (str, optional): Sets the suggestion language. Defaults to 'en'.
+        region (str, optional): Sets the suggestion region. Defaults to 'US'.
+    
+    Examples:
+        Calling `result` method gives the search result.
+
+        >>> suggestions = Suggestions(language = 'en', region = 'US').get('Harry Styles', mode = ResultMode.json)
+        >>> print(suggestions)
+        {
+            "result": [
+                "harry styles",
+                "harry styles treat people with kindness",
+                "harry styles golden music video",
+                "harry styles interview",
+                "harry styles adore you",
+                "harry styles watermelon sugar",
+                "harry styles snl",
+                "harry styles falling",
+                "harry styles tpwk",
+                "harry styles sign of the times",
+                "harry styles jingle ball 2020",
+                "harry styles christmas",
+                "harry styles live",
+                "harry styles juice"
+            ]
+        }
+    '''
+    def __init__(self, language: str = 'en', region: str = 'US'):
+        self.language = language
+        self.region = region
+
+    def get(self, query: str, mode: int = ResultMode.dict) -> Union[dict, str]:
+        '''Fetches & returns the search suggestions for the given query.
+
+        Args:
+            mode (int, optional): Sets the type of result. Defaults to ResultMode.dict.
+
+        Returns:
+            Union[str, dict]: Returns JSON or dictionary.
+        '''
+        searchSuggestions = []
+        self.__makeRequest(query)
+        self.__parseSource()
+        for element in self.responseSource:
+            if type(element) is list:
+                for searchSuggestionElement in element:
+                    searchSuggestions.append(searchSuggestionElement[0])
+                break
+        if mode == ResultMode.dict:
+            return {'result': searchSuggestions}
+        elif mode == ResultMode.json:
+            return json.dumps({'result': searchSuggestions}, indent = 4)
+        
+    def __parseSource(self) -> None:
+        try:
+            self.responseSource = json.loads(self.response[self.response.index('(') + 1: self.response.index(')')])
+        except:
+            raise Exception('ERROR: Could not parse YouTube response.')
+
+    def __makeRequest(self, query: str) -> str:
+        request = Request(
+            'https://clients1.google.com/complete/search' + '?' + urlencode({
+                'hl': self.language,
+                'gl': self.region,
+                'q': query,
+                'client': 'youtube',
+                'gs_ri': 'youtube',
+                'ds': 'yt',
+            })
+        )
+        try:
+            self.response = urlopen(request).read().decode('utf_8')
+        except:
+            raise Exception('ERROR: Could not make request.')

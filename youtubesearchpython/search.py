@@ -1,5 +1,5 @@
 from youtubesearchpython.internal.constants import *
-from youtubesearchpython.internal.search import SearchInternal
+from youtubesearchpython.internal.search import SearchInternal, Suggestions
 
 
 class Search(SearchInternal):

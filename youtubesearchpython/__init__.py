@@ -1,4 +1,4 @@
-from youtubesearchpython.search import Search, VideosSearch, ChannelsSearch, PlaylistsSearch, CustomSearch
+from youtubesearchpython.search import Search, VideosSearch, ChannelsSearch, PlaylistsSearch, CustomSearch, Suggestions
 from youtubesearchpython.internal.constants import *
 
 
