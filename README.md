@@ -20,7 +20,7 @@ pip install youtube-search-python
 
 ## :triangular_ruler: Usage
 
-##### Search for everything
+#### Search for everything
 
 ```python
 from youtubesearchpython import Search
@@ -71,7 +71,7 @@ print(allSearch.result())
 
 </details>
 
-##### Search for only videos
+#### Search for only videos
 
 ```python
 from youtubesearchpython import VideosSearch
@@ -175,7 +175,7 @@ print(videosSearch.result())
 
 </details>
 
-##### Search for only channels
+#### Search for only channels
 
 ```python
 from youtubesearchpython import ChannelsSearch
@@ -461,7 +461,7 @@ print(channelsSearch.result())
 
 </details>
 
-##### Search for only playlists
+#### Search for only playlists
 
 ```python
 from youtubesearchpython import PlaylistsSearch
@@ -517,7 +517,7 @@ print(playlistsSearch.result())
 
 </details>
 
-##### Search with a filter or sort
+#### Search with a filter or sort
 
 ```python
 from youtubesearchpython import *
@@ -588,25 +588,69 @@ print(customSearch.result())
 You may see the [example](https://github.com/alexmercerind/youtube-search-python/blob/vnext/example.py) for more information.
 
 
-## :mag_right: Getting Next Page Result
+## :safety_pin: More
+
+#### Getting next page results
 
 You may call ```next``` method as follows, to get the results on the next pages.
 
 Calling ```result``` method after calling ```next``` will give you result on that the next page.
 
-```py
+```python
+from youtubesearchpython import VideosSearch
+
 search = VideosSearch('NoCopyrightSounds')
+
 print(search.result()['result'])
-''' Getting result on 2nd page. '''
+
+''' Getting result from 2nd page. '''
 search.next()
 print(search.result()['result'])
-''' Getting result on 3rd page. '''
+
+''' Getting result from 3rd page. '''
 search.next()
 print(search.result()['result'])
-''' Getting result on 4th page. '''
+
+''' Getting result from 4th page. '''
 search.next()
 print(search.result()['result'])
 ```
+
+#### Getting search suggestions
+
+```python
+from youtubesearchpython import Suggestions
+
+suggestions = Suggestions(language = 'en', region = 'US')
+
+print(suggestions.get('NoCopyrightSounds', mode = ResultMode.json))
+```
+
+<details>
+ <summary> :page_with_curl: Example Result</summary>
+
+```json
+{
+    "result": [
+        "nocopyrightsounds",
+        "nocopyrightsounds best songs",
+        "nocopyrightsounds gaming music",
+        "nocopyrightsounds alan walker",
+        "nocopyrightsounds fearless",
+        "nocopyrightsounds invincible",
+        "nocopyrightsounds background music",
+        "nocopyrightsounds instrumental",
+        "nocopyrightsounds fade",
+        "nocopyrightsounds playlist",
+        "nocopyrightsounds on and on",
+        "nocopyrightsounds elektronomia",
+        "nocopyrightsounds stronger",
+        "nocopyrightsounds christmas"
+    ]
+}
+```
+
+</details>
 
 
 ## :wrench: Configuration
@@ -619,13 +663,13 @@ search = Search('NoCopyrightSounds', limit = 20, language = 'en', region = 'US')
 
 You may switch between the types of result, by changing the value of ```mode``` optional parameter while calling the ```result``` method.
 
-###### Getting JSON
+##### Getting JSON
 
 ```py
 result = search.result(mode = ResultMode.json)
 ```
 
-###### Getting dictionary
+##### Getting dictionary
 
 
 ```py

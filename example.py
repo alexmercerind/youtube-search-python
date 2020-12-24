@@ -5,7 +5,6 @@ from youtubesearchpython import *
 
 '''
 Searches for all types of results like videos, channels & playlists in YouTube.
-
 'type' key in the JSON/Dictionary can be used to differentiate between the types of result.
 '''
 allSearch = Search('NoCopyrightSounds', limit = 1, language = 'en', region = 'US')
@@ -70,7 +69,6 @@ print(customSearch.result())
 Getting search results from the next pages on YouTube.
 Generally you'll get maximum of 20 videos in one search, for getting subsequent results, you may call [next] method.
 '''
-
 search = VideosSearch('NoCopyrightSounds')
 index = 0
 for video in search.result()['result']:
@@ -86,6 +84,19 @@ search.next()
 for video in search.result()['result']:
     print(str(index) + ' - ' + video['title'])
     index += 1
+
+
+
+
+
+'''
+Getting search suggestions from YouTube.
+You may show search suggestions to users before making any search.
+'''
+suggestions = Suggestions(language = 'en', region = 'US')
+print(suggestions.get('NoCopyrightSounds', mode = ResultMode.json))
+
+
 
 
 '''
