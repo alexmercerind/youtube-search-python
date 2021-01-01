@@ -5,6 +5,7 @@ playlistElementKey   = 'playlistRenderer'
 shelfElementKey      = 'shelfRenderer'
 itemSectionKey       = 'itemSectionRenderer'
 continuationItemKey  = 'continuationItemRenderer'
+playerResponseKey    = 'playerResponse'
 
 searchKey = 'AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8'
 contentPath = ['contents', 'twoColumnSearchResultsRenderer', 'primaryContents', 'sectionListRenderer', 'contents']
