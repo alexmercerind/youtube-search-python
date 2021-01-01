@@ -5,7 +5,7 @@ from youtubesearchpython import *
 
 '''
 Searches for all types of results like videos, channels & playlists in YouTube.
-'type' key in the JSON/Dictionary can be used to differentiate between the types of result.
+'type' key in the JSON/Dictionary may be used to differentiate between the types of result.
 '''
 allSearch = Search('NoCopyrightSounds', limit = 1, language = 'en', region = 'US')
 print(allSearch.result())
@@ -56,8 +56,8 @@ VideoDurationFilter.long
 VideoSortOrder.viewCount
 There are many other for you to check out.
 
-If this much control isn't enough then, you can pass custom string yourself by seeing the YouTube query in any web browser e.g. 
-"EgQIBRAB" from "https://www.youtube.com/results?search_query=NoCopyrightSounds&sp=EgQIBRAB" can be passed as second parameter to get only videos, which are uploaded this year.
+If this much control isn't enough then, you may pass custom string yourself by seeing the YouTube query in any web browser e.g. 
+"EgQIBRAB" from "https://www.youtube.com/results?search_query=NoCopyrightSounds&sp=EgQIBRAB" may be passed as second parameter to get only videos, which are uploaded this year.
 '''
 customSearch = CustomSearch('NoCopyrightSounds', VideoSortOrder.uploadDate, language = 'en', region = 'US')
 print(customSearch.result())
@@ -88,6 +88,24 @@ for video in search.result()['result']:
 
 
 
+'''
+Getting information about video or its formats using video link or video ID.
+
+`Video.get` method will give both information & formats of the video
+`Video.getInfo` method will give only information about the video.
+`Video.getFormats` method will give only formats of the video.
+
+You may either pass link or ID, method will take care itself.
+'''
+video = Video.get('https://www.youtube.com/watch?v=z0GKGpObgPY', mode = ResultMode.json)
+print(video)
+videoInfo = Video.getInfo('https://youtube.be/z0GKGpObgPY', mode = ResultMode.json)
+print(videoInfo)
+videoFormats = Video.getFormats('z0GKGpObgPY')
+print(videoFormats)
+
+
+
 
 '''
 Getting search suggestions from YouTube.
@@ -100,5 +118,12 @@ print(suggestions.get('NoCopyrightSounds', mode = ResultMode.json))
 
 
 '''
-You can add/omit the optional parameters according to your requirement & use case.
+You may add/omit the optional parameters according to your requirement & use case.
+'''
+
+
+'''
+Thanks for your support & love!
+
+- github.com/alexmercerind
 '''
