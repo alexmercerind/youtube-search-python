@@ -99,7 +99,7 @@ You may either pass link or ID, method will take care itself.
 '''
 video = Video.get('https://www.youtube.com/watch?v=z0GKGpObgPY', mode = ResultMode.json)
 print(video)
-videoInfo = Video.getInfo('https://youtube.be/z0GKGpObgPY', mode = ResultMode.json)
+videoInfo = Video.getInfo('https://youtu.be/z0GKGpObgPY', mode = ResultMode.json)
 print(videoInfo)
 videoFormats = Video.getFormats('z0GKGpObgPY')
 print(videoFormats)

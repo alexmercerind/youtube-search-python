@@ -1,3 +1,2 @@
 include README.md
-include youtubesearchpython/*.json
 recursive-include youtubesearchpython *.py
