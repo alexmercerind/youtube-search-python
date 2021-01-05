@@ -1,6 +1,6 @@
 # [youtube-search-python](https://github.com/alexmercerind/youtube-search-python)
 
-#### :mag_right: Search for videos, channels & playlists in YouTube WITHOUT YouTube Data API v3.
+#### Search for videos, channels & playlists in YouTube WITHOUT YouTube Data API v3.
 
 [![PyPI - Version](https://img.shields.io/pypi/v/youtube-search-python?style=for-the-badge)](https://pypi.org/project/youtube-search-python)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/youtube-search-python?label=DOWNLOADS&style=for-the-badge)](https://pypi.org/project/youtube-search-python)
@@ -12,13 +12,13 @@ This library is intended for personal and non-commercial usage only.
 Working as of 2021.
 
 
-## :floppy_disk: Install
+## Install
 
 ```bash
 pip install youtube-search-python
 ```
 
-## :triangular_ruler: Usage
+## Usage
 
 #### Search for only videos
 
@@ -31,7 +31,7 @@ print(videosSearch.result())
 ```
 
 <details>
- <summary> :page_with_curl: Example Result</summary>
+ <summary> Example Result</summary>
 
 ```json
 {
@@ -135,7 +135,7 @@ print(channelsSearch.result())
 ```
 
 <details>
- <summary> :page_with_curl: Example Result</summary>
+ <summary> Example Result</summary>
 
 ```json
 {
@@ -421,7 +421,7 @@ print(playlistsSearch.result())
 ```
 
 <details>
- <summary> :page_with_curl: Example Result</summary>
+ <summary> Example Result</summary>
 
 ```json
 {
@@ -477,7 +477,7 @@ print(customSearch.result())
 ```
 
 <details>
- <summary> :page_with_curl: Example Result</summary>
+ <summary> Example Result</summary>
 
 ```json
 {
@@ -545,7 +545,7 @@ print(allSearch.result())
 ```
 
 <details>
- <summary> :page_with_curl: Example Result</summary>
+ <summary> Example Result</summary>
 
 ```json
 {
@@ -588,7 +588,7 @@ print(allSearch.result())
 You may see the [example](https://github.com/alexmercerind/youtube-search-python/blob/main/example.py) for more information.
 
 
-## :safety_pin: Advanced
+## Advanced
 
 #### Getting next page search results
 
@@ -637,7 +637,7 @@ print(videoFormats)
 ```
 
 <details>
- <summary> :page_with_curl: Example Result</summary>
+ <summary> Example Result</summary>
 
 ```json
 {
@@ -851,7 +851,7 @@ print(suggestions.get('NoCopyrightSounds', mode = ResultMode.json))
 ```
 
 <details>
- <summary> :page_with_curl: Example Result</summary>
+ <summary> Example Result</summary>
 
 ```json
 {
@@ -877,7 +877,7 @@ print(suggestions.get('NoCopyrightSounds', mode = ResultMode.json))
 </details>
 
 
-## :wrench: Configuration
+## Configuration
 
 While instantiating any of the classes, you may provide optional parameters as follows to get the results accordingly.
 
@@ -900,6 +900,6 @@ result = search.result(mode = ResultMode.json)
 result = search.result(mode = ResultMode.dict)
 ```
 
-## :page_facing_up: License
+## License
 
 MIT
