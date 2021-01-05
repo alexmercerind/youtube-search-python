@@ -8,34 +8,32 @@ from youtubesearchpython.internal.constants import *
 
 
 class RequestHandler(ComponentHandler):
-    def __makeRequest(self) -> None:
-        with open(pkg_resources.resource_filename('youtubesearchpython', 'requestPayload.json'), 'r', encoding = 'utf_8') as file:
-            requestPayload = json.loads(file.read())
-            requestPayload['query'] = self.query
-            requestPayload['client'] = {
-                'hl': self.language,
-                'gl': self.region,
+    def __makeRequest(self, requestBody = requestPayload) -> None:
+        requestBody['query'] = self.query
+        requestBody['client'] = {
+            'hl': self.language,
+            'gl': self.region,
+        }
+        if self.searchPreferences:
+            requestBody['params'] = self.searchPreferences
+        if self.continuationKey:
+            requestBody['continuation'] = self.continuationKey
+        requestBodyBytes = json.dumps(requestBody).encode('utf_8')
+        request = Request(
+            'https://www.youtube.com/youtubei/v1/search' + '?' + urlencode({
+                'key': searchKey,
+            }),
+            data = requestBodyBytes,
+            headers = {
+                'Content-Type': 'application/json; charset=utf-8',
+                'Content-Length': len(requestBodyBytes),
             }
-            if self.searchPreferences:
-                requestPayload['params'] = self.searchPreferences
-            if self.continuationKey:
-                requestPayload['continuation'] = self.continuationKey
-            requestPayloadBytes = json.dumps(requestPayload).encode('utf_8')
-            request = Request(
-                'https://www.youtube.com/youtubei/v1/search' + '?' + urlencode({
-                    'key': searchKey,
-                }),
-                data = requestPayloadBytes,
-                headers = {
-                    'Content-Type': 'application/json; charset=utf-8',
-                    'Content-Length': len(requestPayloadBytes),
-                }
-            )
-            try:
-                self.response = urlopen(request).read().decode('utf_8')
-            except:
-                raise Exception('ERROR: Could not make request.')
-
+        )
+        try:
+            self.response = urlopen(request).read().decode('utf_8')
+        except:
+            raise Exception('ERROR: Could not make request.')
+    
     def __parseSource(self) -> None:
         try:
             if not self.continuationKey:
