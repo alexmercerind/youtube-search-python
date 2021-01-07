@@ -73,7 +73,6 @@ class VideoInternal:
                 'keywords':                       self.__getValue(element, ['videoDetails', 'keywords']),
                 'publishDate':                  self.__getValue(element, ['microformat', 'playerMicroformatRenderer', 'publishDate']),
                 'uploadDate':                  self.__getValue(element, ['microformat', 'playerMicroformatRenderer', 'uploadDate']),
-
             }
             component['link'] = 'https://www.youtube.com/watch?v=' + component['id']
             component['channel']['link'] = 'https://www.youtube.com/channel/' + component['channel']['id']
