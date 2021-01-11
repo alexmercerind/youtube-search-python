@@ -7,8 +7,6 @@
 
 Works without YouTube Data API v3 and has zero dependencies.
 
-This library is intended for personal and non-commercial usage only.
-
 Working as of 2021.
 
 
