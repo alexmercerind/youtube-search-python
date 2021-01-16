@@ -7,10 +7,11 @@ from youtubesearchpython.internal.constants import *
 
 class VideoInternal:
     def __init__(self, videoLink: str, componentMode: str, resultMode: int):
-        self.__makeRequest(self.__getVideoId(videoLink))
-        self.__parseSource()
-        self.__getComponents(componentMode)
-        self.result = self.__result(resultMode)
+        self.resultMode = resultMode
+        statusCode = self.__makeRequest(self.__getVideoId(videoLink))
+        if statusCode == 200:
+            self.__parseSource()
+            self.__getComponents(componentMode)
 
     def __getVideoId(self, videoLink: str) -> str:
         if 'youtu.be' in videoLink:
@@ -24,7 +25,7 @@ class VideoInternal:
         else:
             return videoLink
 
-    def __makeRequest(self, videoId: str) -> None:
+    def __makeRequest(self, videoId: str) -> int:
         request = Request(
             'https://www.youtube.com/watch' + '?' + urlencode({
                 'v': videoId,
@@ -33,7 +34,9 @@ class VideoInternal:
             data = urlencode({}).encode('utf_8'),
         )
         try:
-            self.response = urlopen(request).read().decode('utf_8')
+            response = urlopen(request)
+            self.response = response.read().decode('utf_8')
+            return response.getcode()
         except:
             raise Exception('ERROR: Could not make request.')
     
@@ -46,7 +49,15 @@ class VideoInternal:
     def __getComponents(self, mode: str = None) -> None:
         for element in self.responseSource:
             if playerResponseKey in element.keys():
-                self.__videoComponent = self.__getVideoComponent(element[playerResponseKey], mode)
+                if 'videoDetails' in element[playerResponseKey].keys():
+                    '''
+                    Valid video ID.
+                    '''
+                    self.__videoComponent = self.__getVideoComponent(element[playerResponseKey], mode)
+                    self.result = self.__result(self.resultMode)
+                    break
+                else:
+                    self.result = None
 
     def __result(self, mode: int) -> Union[dict, str]:
         if mode == ResultMode.dict:
@@ -71,17 +82,15 @@ class VideoInternal:
                 },
                 'averageRating':                  self.__getValue(element, ['videoDetails', 'averageRating']),
                 'keywords':                       self.__getValue(element, ['videoDetails', 'keywords']),
-                'publishDate':                  self.__getValue(element, ['microformat', 'playerMicroformatRenderer', 'publishDate']),
-                'uploadDate':                  self.__getValue(element, ['microformat', 'playerMicroformatRenderer', 'uploadDate']),
+                'publishDate':                    self.__getValue(element, ['microformat', 'playerMicroformatRenderer', 'publishDate']),
+                'uploadDate':                     self.__getValue(element, ['microformat', 'playerMicroformatRenderer', 'uploadDate']),
             }
             component['link'] = 'https://www.youtube.com/watch?v=' + component['id']
             component['channel']['link'] = 'https://www.youtube.com/channel/' + component['channel']['id']
             videoComponent.update(component)
         if mode in ['getFormats', None]:
             component = {
-                'adaptiveFormats':                self.__getValue(element, ['streamingData', 'adaptiveFormats']),
-                'formats':                        self.__getValue(element, ['streamingData', 'formats']),
-                'expiresInSeconds':                      self.__getValue(element, ['streamingData', 'expiresInSeconds']),
+                'streamingData':                  self.__getValue(element, ['streamingData']),
             }
             videoComponent.update(component)
         return videoComponent
@@ -117,21 +126,21 @@ class Suggestions:
         >>> suggestions = Suggestions(language = 'en', region = 'US').get('Harry Styles', mode = ResultMode.json)
         >>> print(suggestions)
         {
-            "result": [
-                "harry styles",
-                "harry styles treat people with kindness",
-                "harry styles golden music video",
-                "harry styles interview",
-                "harry styles adore you",
-                "harry styles watermelon sugar",
-                "harry styles snl",
-                "harry styles falling",
-                "harry styles tpwk",
-                "harry styles sign of the times",
-                "harry styles jingle ball 2020",
-                "harry styles christmas",
-                "harry styles live",
-                "harry styles juice"
+            'result': [
+                'harry styles',
+                'harry styles treat people with kindness',
+                'harry styles golden music video',
+                'harry styles interview',
+                'harry styles adore you',
+                'harry styles watermelon sugar',
+                'harry styles snl',
+                'harry styles falling',
+                'harry styles tpwk',
+                'harry styles sign of the times',
+                'harry styles jingle ball 2020',
+                'harry styles christmas',
+                'harry styles live',
+                'harry styles juice'
             ]
         }
     '''
