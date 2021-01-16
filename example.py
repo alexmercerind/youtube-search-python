@@ -67,7 +67,7 @@ print(customSearch.result())
 
 '''
 Getting search results from the next pages on YouTube.
-Generally you'll get maximum of 20 videos in one search, for getting subsequent results, you may call [next] method.
+Generally you'll get maximum of 20 videos in one search, for getting subsequent results, you may call `next` method.
 '''
 search = VideosSearch('NoCopyrightSounds')
 index = 0
@@ -113,6 +113,42 @@ You may show search suggestions to users before making any search.
 '''
 suggestions = Suggestions(language = 'en', region = 'US')
 print(suggestions.get('NoCopyrightSounds', mode = ResultMode.json))
+
+
+
+
+'''
+Getting direct stream URL for a video.
+You may show search suggestions to users before making any search.
+
+To use this, you must have PyTube installed.
+StreamURLFetcher can fetch direct video URLs without any additional network requests (that's really fast).
+Call `get` or `getAll` method of StreamURLFetcher & pass response returned by `Video.get` or `Video.getFormats` as parameter to fetch direct URLs.
+Getting URLs or downloading streams using youtube-dl or PyTube is can be a slow, because of the fact that they make requests to fetch the same content, which one might have already recieved at the time of showing it to the user etc.
+StreamURLFetcher makes use of PyTube (if installed) & makes some slight improvements to functioning of PyTube.
+Avoid instantiating StreamURLFetcher more than once, it will be slow (making global object of the class will be a recommended solution).
+
+`get` method can be handy for getting URL of a particular kind. `getAll` returns all stream URLs in a dictionary.
+'''
+
+'''
+Instantiate the class (do it only once).
+'''
+fetcher = StreamURLFetcher()
+
+'''
+Get video information.
+'''
+videoA = Video.get("https://www.youtube.com/watch?v=aqz-KE-bpKQ")
+videoB = Video.get("https://www.youtube.com/watch?v=YE7VzlLtp-4")
+
+'''
+Get direct stream URLs without any web requests.
+'''
+singleUrlA = fetcher.get(videoA, 22)
+allUrlsB = fetcher.getAll(videoA)
+print(singleUrlA)
+print(allUrlsB)
 
 
 
