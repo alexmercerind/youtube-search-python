@@ -9,7 +9,7 @@ from youtubesearchpython.internal.constants import *
 
 
 class RequestHandler(ComponentHandler):
-    def _makeRequest(self, debug = True) -> None:
+    def _makeRequest(self) -> None:
         ''' Fixes #47 '''
         requestBody = copy.deepcopy(requestPayload)
         requestBody['query'] = self.query
@@ -34,8 +34,6 @@ class RequestHandler(ComponentHandler):
         )
         try:
             self.response = urlopen(request).read().decode('utf_8')
-            with open('response.json', 'w', encoding = 'utf_8') as file:
-                file.write(json.dumps(json.loads(self.response), indent = 4))
         except:
             raise Exception('ERROR: Could not make request.')
     

@@ -10,13 +10,13 @@ requestPayload = {
         }
     }
 }
-videoElementKey      = 'videoRenderer'
-channelElementKey    = 'channelRenderer'
-playlistElementKey   = 'playlistRenderer'
-shelfElementKey      = 'shelfRenderer'
-itemSectionKey       = 'itemSectionRenderer'
-continuationItemKey  = 'continuationItemRenderer'
-playerResponseKey    = 'playerResponse'
+videoElementKey = 'videoRenderer'
+channelElementKey = 'channelRenderer'
+playlistElementKey = 'playlistRenderer'
+shelfElementKey = 'shelfRenderer'
+itemSectionKey = 'itemSectionRenderer'
+continuationItemKey = 'continuationItemRenderer'
+playerResponseKey = 'playerResponse'
 searchKey = 'AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8'
 contentPath = ['contents', 'twoColumnSearchResultsRenderer', 'primaryContents', 'sectionListRenderer', 'contents']
 continuationContentPath = ['onResponseReceivedCommands', 0, 'appendContinuationItemsAction', 'continuationItems']

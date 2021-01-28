@@ -57,6 +57,9 @@ class VideoInternal:
                     self.result = self.__result(self.resultMode)
                     break
                 else:
+                    '''
+                    Invalid video ID.
+                    '''
                     self.result = None
 
     def __result(self, mode: int) -> Union[dict, str]:

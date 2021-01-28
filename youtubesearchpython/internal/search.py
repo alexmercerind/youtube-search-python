@@ -17,8 +17,8 @@ class SearchInternal(RequestHandler, ComponentHandler):
         self.region = region
         self.searchPreferences = searchPreferences
         self.continuationKey = None
-        self._RequestHandler__makeRequest()
-        self._RequestHandler__parseSource()
+        self._makeRequest()
+        self._parseSource()
     
     def result(self, mode: int = ResultMode.dict) -> Union[str, dict]:
         '''Returns the search result.
@@ -47,24 +47,24 @@ class SearchInternal(RequestHandler, ComponentHandler):
             self.response = None
             self.responseSource = None
             self.resultComponents = []
-            self._RequestHandler__makeRequest()
-            self._RequestHandler__parseSource()
-            self._SearchInternal__getComponents(*self.searchMode)
+            self._makeRequest()
+            self._parseSource()
+            self._getComponents(*self.searchMode)
             return True
         else:
             return False
 
-    def __getComponents(self, findVideos: bool, findChannels: bool, findPlaylists: bool) -> None:
+    def _getComponents(self, findVideos: bool, findChannels: bool, findPlaylists: bool) -> None:
         self.resultComponents = []
         for element in self.responseSource:
             if videoElementKey in element.keys() and findVideos:
-                self.resultComponents.append(self.getVideoComponent(element))
+                self.resultComponents.append(self._getVideoComponent(element))
             if channelElementKey in element.keys() and findChannels:
-                self.resultComponents.append(self.getChannelComponent(element))
+                self.resultComponents.append(self._getChannelComponent(element))
             if playlistElementKey in element.keys() and findPlaylists:
-                self.resultComponents.append(self.getPlaylistComponent(element))
+                self.resultComponents.append(self._getPlaylistComponent(element))
             if shelfElementKey in element.keys() and findVideos:
-                for shelfElement in self.getShelfComponent(element)['elements']:
-                    self.resultComponents.append(self.getVideoComponent(shelfElement, shelfTitle = self.getShelfComponent(element)['title']))
+                for shelfElement in self._getShelfComponent(element)['elements']:
+                    self.resultComponents.append(self._getVideoComponent(shelfElement, shelfTitle = self.getShelfComponent(element)['title']))
             if len(self.resultComponents) >= self.limit:
                 break

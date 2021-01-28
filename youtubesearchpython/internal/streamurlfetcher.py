@@ -21,17 +21,17 @@ class StreamURLFetcherInternal(YouTube):
         if isPyTubeInstalled:
             self.js_url = None
             self.js = None
-            self.getJS()
+            self._getJS()
         else:
-            raise Exception("ERROR: PyTube is not installed. To use this functionality of youtube-search-python, PyTube must be installed.")
+            raise Exception('ERROR: PyTube is not installed. To use this functionality of youtube-search-python, PyTube must be installed.')
 
     '''
     Saving videoFormats inside a dictionary with key "player_response" for apply_descrambler & apply_signature methods.
     '''
-    def __getDecipheredURLs(self, videoFormats: dict) -> None:
-        self.player_response = {"player_response": videoFormats}
+    def _getDecipheredURLs(self, videoFormats: dict) -> None:
+        self.player_response = {'player_response': videoFormats}
         self.video_id = videoFormats["id"]
-        self.decipher()
+        self._decipher()
 
     '''
     This method is derived from YouTube.prefetch.
@@ -40,12 +40,12 @@ class StreamURLFetcherInternal(YouTube):
     Uses httpx.AsyncClient in place of requests.
     Removed v parameter from the query. (No idea about why PyTube bothered with that)
     '''
-    def getJS(self) -> None:
-        response = urlopen("https://youtube.com/watch", timeout = None)
+    def _getJS(self) -> None:
+        response = urlopen('https://youtube.com/watch', timeout = None)
         watch_html = response.read().decode('utf_8')
         age_restricted = extract.is_age_restricted(watch_html)
         if age_restricted:
-            response = urlopen("https://www.youtube.com/embed", timeout = None)
+            response = urlopen('https://www.youtube.com/embed', timeout = None)
             embed_html = response.read().decode('utf_8')
             self.js_url = extract.js_url(embed_html)
         else:
@@ -61,14 +61,14 @@ class StreamURLFetcherInternal(YouTube):
     '''
     Not fetching for new player JavaScript if pytube.__js__ is not None or exception is not caused.
     '''
-    def decipher(self, retry: bool = False):
+    def _decipher(self, retry: bool = False):
         if not pytube.__js__ or retry:
-            self.getJS()
+            self._getJS()
         try:
             '''
             These two are the main methods being used from PyTube.
-            Used to decipher the stream URLs using player JavaScript & the player_response passed from the getStream method of this derieved class.
-            These methods operate on the value of "player_response" key in dictionary of self.player_response & save deciphered information in the "url_encoded_fmt_stream_map" key.
+            Used to _decipher the stream URLs using player JavaScript & the player_response passed from the getStream method of this derieved class.
+            These methods operate on the value of "player_response" key in dictionary of self.player_response & save _deciphered information in the "url_encoded_fmt_stream_map" key.
             '''
             apply_descrambler(self.player_response, "url_encoded_fmt_stream_map")
             apply_signature(
@@ -78,4 +78,4 @@ class StreamURLFetcherInternal(YouTube):
             '''
             Fetch updated player JavaScript to get new cipher algorithm.
             '''
-            self.decipher(retry = False)
+            self._decipher(retry = False)

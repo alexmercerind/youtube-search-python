@@ -16,7 +16,7 @@ class LegacyComponentHandler(RequestHandler, ComponentHandler):
     index = 0
 
     @overrides(ComponentHandler)
-    def getVideoComponent(self, element: dict, shelfTitle: str = None) -> dict:
+    def _getVideoComponent(self, element: dict, shelfTitle: str = None) -> dict:
         video = element[videoElementKey]
         videoId = self.__getValue(video, ['videoId'])
         viewCount = 0
@@ -43,7 +43,7 @@ class LegacyComponentHandler(RequestHandler, ComponentHandler):
         return component
     
     @overrides(ComponentHandler)
-    def getPlaylistComponent(self, element: dict) -> dict:
+    def _getPlaylistComponent(self, element: dict) -> dict:
         playlist = element[playlistElementKey]
         playlistId = self.__getValue(playlist, ['playlistId'])
         thumbnailVideoId = self.__getValue(playlist, ['navigationEndpoint', 'watchEndpoint', 'videoId'])
@@ -64,7 +64,7 @@ class LegacyComponentHandler(RequestHandler, ComponentHandler):
         return component
 
     @overrides(ComponentHandler)
-    def getShelfComponent(self, element: dict) -> dict:
+    def _getShelfComponent(self, element: dict) -> dict:
         shelf = element[shelfElementKey]
         return {
             'title':                          self.__getValue(shelf, ['title', 'simpleText']),
@@ -169,18 +169,18 @@ class SearchVideos(LegacySearchInternal):
     def __init__(self, keyword, offset = 1, mode = 'json', max_results = 20, language = 'en', region = 'US'):
         super().__init__(keyword, offset, mode, max_results, language, region)
         self.searchPreferences = 'EgIQAQ%3D%3D'
-        self._RequestHandler__makeRequest()
-        self._RequestHandler__parseSource()
+        self._makeRequest()
+        self._parseSource()
         self.__makeComponents()
 
     def __makeComponents(self) -> None:
         self.resultComponents = []
         for element in self.responseSource:
             if videoElementKey in element.keys():
-                self.resultComponents.append(self.getVideoComponent(element))
+                self.resultComponents.append(self._getVideoComponent(element))
             if shelfElementKey in element.keys():
-                for shelfElement in self.getShelfComponent(element)['elements']:
-                    self.resultComponents.append(self.getVideoComponent(shelfElement))
+                for shelfElement in self._getShelfComponent(element)['elements']:
+                    self.resultComponents.append(self._getVideoComponent(shelfElement))
             if len(self.resultComponents) >= self.limit:
                 break
 
@@ -231,14 +231,14 @@ class SearchPlaylists(LegacySearchInternal):
     def __init__(self, keyword, offset = 1, mode = 'json', max_results = 20, language = 'en', region = 'US'):
         super().__init__(keyword, offset, mode, max_results, language, region)
         self.searchPreferences = 'EgIQAw%3D%3D'
-        self._RequestHandler__makeRequest()
-        self._RequestHandler__parseSource()
+        self._makeRequest()
+        self._parseSource()
         self.__makeComponents()
 
     def __makeComponents(self) -> None:
         self.resultComponents = []
         for element in self.responseSource:
             if playlistElementKey in element.keys():
-                self.resultComponents.append(self.getPlaylistComponent(element))
+                self.resultComponents.append(self._getPlaylistComponent(element))
             if len(self.resultComponents) >= self.limit:
                 break
