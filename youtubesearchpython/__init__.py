@@ -5,7 +5,7 @@ from youtubesearchpython.internal.constants import *
 
 
 __title__        = 'youtube-search-python'
-__version__      = '1.3.6'
+__version__      = '1.3.7'
 __author__       = 'alexmercerind'
 __license__      = 'MIT'
 
