@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="youtube-search-python",
-    version="1.3.7",
+    version="1.3.8",
     author="Hitesh Kumar Saini",
     license = 'MIT',
     author_email="saini123hitesh@gmail.com",
@@ -18,7 +18,7 @@ setuptools.setup(
     zip_safe=False,
     install_requires=[
         'httpx'
-    ]
+    ],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
