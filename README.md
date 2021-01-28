@@ -9,7 +9,7 @@ Works without YouTube Data API v3 and has zero dependencies.
 
 Working as of 2021.
 
-## ⚡ Wanna try out new asynchronous version? Checkout [here](https://github.com/alexmercerind/youtube-search-python/tree/main/__future__).
+## ⚡ Wanna try out new asynchronous version? Checkout [here](https://github.com/alexmercerind/youtube-search-python/tree/main/youtubesearchpython/__future__).
 
 ## Install
 
