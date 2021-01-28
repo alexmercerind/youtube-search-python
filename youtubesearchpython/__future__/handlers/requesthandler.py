@@ -33,10 +33,6 @@ class RequestHandler(ComponentHandler):
                 responseContent = await self._getValue(self.response, contentPath)
             else:
                 responseContent = await self._getValue(self.response, continuationContentPath)
-            if responseContent == None:
-                with open('debug.json', 'w', encoding = 'utf_8') as file:
-                    import json
-                    file.write(json.dumps(self.response, indent = 4))
             for element in responseContent:
                 if itemSectionKey in element.keys():
                     self.responseSource = await self._getValue(element, [itemSectionKey, 'contents'])
