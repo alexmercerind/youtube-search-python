@@ -5,17 +5,7 @@
 [![PyPI - Version](https://img.shields.io/pypi/v/youtube-search-python?style=for-the-badge)](https://pypi.org/project/youtube-search-python)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/youtube-search-python?label=DOWNLOADS&style=for-the-badge)](https://pypi.org/project/youtube-search-python)
 
-Works without YouTube Data API v3 and has zero dependencies.
-
-Working as of 2021.
-
-## ⚡ Wanna try out new asynchronous version? Checkout [here](https://github.com/alexmercerind/youtube-search-python/tree/main/youtubesearchpython/__future__).
-
-## Install
-
-```bash
-pip install youtube-search-python
-```
+## Wanna try out new async version? Checkout [here](https://github.com/alexmercerind/youtube-search-python/tree/main/youtubesearchpython/__future__).
 
 ## Usage
 
