@@ -66,5 +66,11 @@ class SearchInternal(RequestHandler, ComponentHandler):
             if shelfElementKey in element.keys() and findVideos:
                 for shelfElement in self._getShelfComponent(element)['elements']:
                     self.resultComponents.append(self._getVideoComponent(shelfElement, shelfTitle = self.getShelfComponent(element)['title']))
+            if richItemKey in element.keys():
+                richItemElement = await self._getValue(element, [richItemKey, 'content'])
+                ''' Initial fallback handling for VideosSearch '''
+                if videoElementKey in richItemElement.keys():
+                    videoComponent = await self._getVideoComponent(richItemElement)
+                    self.resultComponents.append(videoComponent)
             if len(self.resultComponents) >= self.limit:
                 break

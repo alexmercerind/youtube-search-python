@@ -33,10 +33,14 @@ class RequestHandler(ComponentHandler):
                 responseContent = await self._getValue(self.response, contentPath)
             else:
                 responseContent = await self._getValue(self.response, continuationContentPath)
-            for element in responseContent:
-                if itemSectionKey in element.keys():
-                    self.responseSource = await self._getValue(element, [itemSectionKey, 'contents'])
-                if continuationItemKey in element.keys():
-                    self.continuationKey = await self._getValue(element, [continuationItemKey, 'continuationEndpoint', 'continuationCommand', 'token'])
+            if responseContent:
+                for element in responseContent:
+                    if itemSectionKey in element.keys():
+                        self.responseSource = await self._getValue(element, [itemSectionKey, 'contents'])
+                    if continuationItemKey in element.keys():
+                        self.continuationKey = await self._getValue(element, continuationKeyPath)
+            else:
+                self.responseSource = await self._getValue(self.response, fallbackContentPath)
+                self.continuationKey = await self._getValue(self.responseSource[-1], continuationKeyPath)
         except:
             raise Exception('ERROR: Could not parse YouTube response.')

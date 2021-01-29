@@ -40,13 +40,17 @@ class RequestHandler(ComponentHandler):
     def _parseSource(self) -> None:
         try:
             if not self.continuationKey:
-                responseContent = self._getValue(json.loads(self.response), contentPath)
+                responseContent = await self._getValue(self.response, contentPath)
             else:
-                responseContent = self._getValue(json.loads(self.response), continuationContentPath)
-            for element in responseContent:
-                if itemSectionKey in element.keys():
-                    self.responseSource = self._getValue(element, [itemSectionKey, 'contents'])
-                if continuationItemKey in element.keys():
-                    self.continuationKey = self._getValue(element, [continuationItemKey, 'continuationEndpoint', 'continuationCommand', 'token'])
+                responseContent = await self._getValue(self.response, continuationContentPath)
+            if responseContent:
+                for element in responseContent:
+                    if itemSectionKey in element.keys():
+                        self.responseSource = await self._getValue(element, [itemSectionKey, 'contents'])
+                    if continuationItemKey in element.keys():
+                        self.continuationKey = await self._getValue(element, continuationKeyPath)
+            else:
+                self.responseSource = await self._getValue(self.response, fallbackContentPath)
+                self.continuationKey = await self._getValue(self.responseSource[-1], continuationKeyPath)
         except:
             raise Exception('ERROR: Could not parse YouTube response.')

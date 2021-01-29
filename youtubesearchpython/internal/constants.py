@@ -17,9 +17,12 @@ shelfElementKey = 'shelfRenderer'
 itemSectionKey = 'itemSectionRenderer'
 continuationItemKey = 'continuationItemRenderer'
 playerResponseKey = 'playerResponse'
+richItemKey = 'richItemRenderer'
 searchKey = 'AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8'
 contentPath = ['contents', 'twoColumnSearchResultsRenderer', 'primaryContents', 'sectionListRenderer', 'contents']
+fallbackContentPath = ['contents', 'twoColumnSearchResultsRenderer', 'primaryContents', 'richGridRenderer', 'contents']
 continuationContentPath = ['onResponseReceivedCommands', 0, 'appendContinuationItemsAction', 'continuationItems']
+continuationKeyPath = ['continuationItemRenderer', 'continuationEndpoint', 'continuationCommand', 'token']
 
 
 class ResultMode:
