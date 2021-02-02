@@ -37,16 +37,19 @@ class StreamURLFetcherInternal(YouTube):
     async def getJavaScript(self) -> None:
         '''Gets player JavaScript from YouTube, avoid calling more than once.
         '''
-        global js_url
-        async with httpx.AsyncClient() as client:
-            response = await client.get('https://youtube.com/watch', timeout = None)
-        watchHTML = response.text
-        loop = asyncio.get_running_loop()
-        self.js_url = await loop.run_in_executor(None, extract.js_url, watchHTML)
-        if js_url != self.js_url:
+        try:
+            global js_url
             async with httpx.AsyncClient() as client:
-                response = await client.get(self.js_url, timeout = None)
-            self.js = response.text
+                response = await client.get('https://www.youtube.com/watch', timeout = None)
+            watchHTML = response.text
+            loop = asyncio.get_running_loop()
+            self.js_url = await loop.run_in_executor(None, extract.js_url, watchHTML)
+            if js_url != self.js_url:
+                async with httpx.AsyncClient() as client:
+                    response = await client.get(self.js_url, timeout = None)
+                self.js = response.text
+        except:
+            raise Exception('ERROR: Could not make request.')
 
     '''
     Saving videoFormats inside a dictionary with key 'player_response' for apply_descrambler & apply_signature methods.
@@ -54,20 +57,23 @@ class StreamURLFetcherInternal(YouTube):
     async def _getDecipheredURLs(self, videoFormats: dict) -> None:
         self.player_response = {'player_response': videoFormats}
         if not videoFormats['streamingData']:
-            ''' For getting streamingData in age restricted video. '''
-            async with httpx.AsyncClient() as client:
-                ''' Derived from extract.video_info_url_age_restricted '''
-                response = await client.post(
-                    'https://youtube.com/get_video_info',
-                    params = {
-                        'video_id': videoFormats['id'],
-                        'eurl': f'https://youtube.googleapis.com/v/{videoFormats["id"]}',
-                        'sts': None,
-                    },
-                    timeout = None,
-                )
-                ''' Google returns content as a query string instead of a JSON. '''
-                self.player_response['player_response'] = await loads(parse_qs(response.text)["player_response"][0])
+            try:
+                ''' For getting streamingData in age restricted video. '''
+                async with httpx.AsyncClient() as client:
+                    ''' Derived from extract.video_info_url_age_restricted '''
+                    response = await client.post(
+                        'https://youtube.com/get_video_info',
+                        params = {
+                            'video_id': videoFormats['id'],
+                            'eurl': f'https://youtube.googleapis.com/v/{videoFormats["id"]}',
+                            'sts': None,
+                        },
+                        timeout = None,
+                    )
+                    ''' Google returns content as a query string instead of a JSON. '''
+                    self.player_response['player_response'] = await loads(parse_qs(response.text)["player_response"][0])
+            except:
+                raise Exception('ERROR: Could not make request.')
         self.video_id = videoFormats["id"]
         await self._decipher()
 
@@ -84,8 +90,8 @@ class StreamURLFetcherInternal(YouTube):
             These methods operate on the value of "player_response" key in dictionary of self.player_response & save _deciphered information in the "url_encoded_fmt_stream_map" key.
             '''
             loop = asyncio.get_running_loop()
-            loop.run_in_executor(None, apply_descrambler, self.player_response, 'url_encoded_fmt_stream_map')
-            loop.run_in_executor(None, apply_signature, self.player_response, 'url_encoded_fmt_stream_map', self.js)
+            await loop.run_in_executor(None, apply_descrambler, self.player_response, 'url_encoded_fmt_stream_map')
+            await loop.run_in_executor(None, apply_signature, self.player_response, 'url_encoded_fmt_stream_map', self.js)
             
         except:
             '''
