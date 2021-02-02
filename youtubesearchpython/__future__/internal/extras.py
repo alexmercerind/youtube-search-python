@@ -1,5 +1,5 @@
 from typing import Union, List
-import json
+from youtubesearchpython.__future__.internal.json import loads
 import httpx
 from youtubesearchpython.__future__.internal.constants import *
 
@@ -85,6 +85,7 @@ class VideoInternal:
             videoComponent.update(component)
         if mode in ['getFormats', None]:
             component = {
+                'id':                             await self.__getValue(element, ['videoDetails', 'videoId']),
                 'streamingData':                  await self.__getValue(element, ['streamingData']),
             }
             videoComponent.update(component)
@@ -131,7 +132,7 @@ class SuggestionsInternal:
         
     async def __parseSource(self) -> None:
         try:
-            self.responseSource = json.loads(self.response[self.response.index('(') + 1: self.response.index(')')])
+            self.responseSource = await loads(self.response[self.response.index('(') + 1: self.response.index(')')])
         except:
             raise Exception('ERROR: Could not parse YouTube response.')
 

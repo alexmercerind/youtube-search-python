@@ -1,11 +1,12 @@
 isPyTubeInstalled = False
 
-
 import asyncio
 import httpx
 try:
+    from youtubesearchpython.__future__.internal.json import loads
     from pytube.__main__ import apply_descrambler, apply_signature
     from pytube import YouTube, extract
+    from urllib.parse import parse_qs
     isPyTubeInstalled = True
 except:
     class YouTube:
@@ -39,25 +40,34 @@ class StreamURLFetcherInternal(YouTube):
         global js_url
         async with httpx.AsyncClient() as client:
             response = await client.get('https://youtube.com/watch', timeout = None)
-        watch_html = response.text
-        age_restricted = extract.is_age_restricted(watch_html)
-        if age_restricted:
-            async with httpx.AsyncClient() as client:
-                response = await client.get('https://www.youtube.com/embed', timeout = None)
-            embed_html = response.text
-            self.js_url = extract.js_url(embed_html)
-        else:
-            self.js_url = extract.js_url(watch_html)
+        watchHTML = response.text
+        loop = asyncio.get_running_loop()
+        self.js_url = await loop.run_in_executor(None, extract.js_url, watchHTML)
         if js_url != self.js_url:
             async with httpx.AsyncClient() as client:
                 response = await client.get(self.js_url, timeout = None)
             self.js = response.text
 
     '''
-    Saving videoFormats inside a dictionary with key "player_response" for apply_descrambler & apply_signature methods.
+    Saving videoFormats inside a dictionary with key 'player_response' for apply_descrambler & apply_signature methods.
     '''
     async def _getDecipheredURLs(self, videoFormats: dict) -> None:
         self.player_response = {'player_response': videoFormats}
+        if not videoFormats['streamingData']:
+            ''' For getting streamingData in age restricted video. '''
+            async with httpx.AsyncClient() as client:
+                ''' Derived from extract.video_info_url_age_restricted '''
+                response = await client.post(
+                    'https://youtube.com/get_video_info',
+                    params = {
+                        'video_id': videoFormats['id'],
+                        'eurl': f'https://youtube.googleapis.com/v/{videoFormats["id"]}',
+                        'sts': None,
+                    },
+                    timeout = None,
+                )
+                ''' Google returns content as a query string instead of a JSON. '''
+                self.player_response['player_response'] = await loads(parse_qs(response.text)["player_response"][0])
         self.video_id = videoFormats["id"]
         await self._decipher()
 
