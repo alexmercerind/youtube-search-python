@@ -140,13 +140,13 @@ fetcher = StreamURLFetcher()
 Get video information.
 '''
 videoA = Video.get("https://www.youtube.com/watch?v=aqz-KE-bpKQ")
-videoB = Video.get("https://www.youtube.com/watch?v=YE7VzlLtp-4")
+videoB = Video.get("https://www.youtube.com/watch?v=ZwNxYJfW-eU")
 
 '''
 Get direct stream URLs without any web requests.
 '''
 singleUrlA = fetcher.get(videoA, 22)
-allUrlsB = fetcher.getAll(videoA)
+allUrlsB = fetcher.getAll(videoB)
 print(singleUrlA)
 print(allUrlsB)
 

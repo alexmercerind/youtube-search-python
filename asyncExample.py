@@ -145,13 +145,13 @@ async def main():
     Get video information.
     '''
     videoA = await Video.get("https://www.youtube.com/watch?v=aqz-KE-bpKQ")
-    videoB = await Video.get("https://www.youtube.com/watch?v=YE7VzlLtp-4")
+    videoB = await Video.get("https://www.youtube.com/watch?v=ZwNxYJfW-eU")
 
     '''
     Get direct stream URLs without any web requests.
     '''
     singleUrlA = await fetcher.get(videoA, 22)
-    allUrlsB = await fetcher.getAll(videoA)
+    allUrlsB = await fetcher.getAll(videoB)
     print(singleUrlA)
     print(allUrlsB)
 
