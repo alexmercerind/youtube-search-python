@@ -6,3 +6,7 @@
 
 __pycache__
 dist
+
+# testing
+
+test.py
