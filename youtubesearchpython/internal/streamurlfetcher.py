@@ -2,6 +2,7 @@ isPyTubeInstalled = False
 
 
 from urllib.request import urlopen
+from urllib.parse import parse_qs, urlencode
 try:
     from pytube.__main__ import apply_descrambler, apply_signature
     from pytube import YouTube, extract
@@ -30,6 +31,19 @@ class StreamURLFetcherInternal(YouTube):
     '''
     def _getDecipheredURLs(self, videoFormats: dict) -> None:
         self.player_response = {'player_response': videoFormats}
+        if not videoFormats['streamingData']:
+            ''' For getting streamingData in age restricted video. '''
+            response = urlopen(
+                'https://youtube.com/get_video_info' + '?' + urlencode({
+                    'video_id': videoFormats['id'],
+                    'eurl': f'https://youtube.googleapis.com/v/{videoFormats["id"]}',
+                    'sts': None,
+                }),
+                data = urlencode({}),
+            )
+            ''' Derived from extract.video_info_url_age_restricted '''
+            ''' Google returns content as a query string instead of a JSON. '''
+            self.player_response['player_response'] = json.loads(parse_qs(response.text)["player_response"][0])
         self.video_id = videoFormats["id"]
         self._decipher()
 
@@ -44,12 +58,7 @@ class StreamURLFetcherInternal(YouTube):
         response = urlopen('https://youtube.com/watch', timeout = None)
         watch_html = response.read().decode('utf_8')
         age_restricted = extract.is_age_restricted(watch_html)
-        if age_restricted:
-            response = urlopen('https://www.youtube.com/embed', timeout = None)
-            embed_html = response.read().decode('utf_8')
-            self.js_url = extract.js_url(embed_html)
-        else:
-            self.js_url = extract.js_url(watch_html)
+        self.js_url = extract.js_url(watch_html)
         if pytube.__js_url__ != self.js_url:
             response = urlopen(self.js_url, timeout = None)
             self.js = response.read().decode('utf_8')
