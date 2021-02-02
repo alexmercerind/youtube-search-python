@@ -7,6 +7,12 @@
 
 ## Wanna try out new async version? Checkout [here](https://github.com/alexmercerind/youtube-search-python/tree/main/youtubesearchpython/__future__).
 
+## Install
+
+```bash
+pip3 install youtube-search-python
+```
+
 ## Usage
 
 #### Search for only videos
