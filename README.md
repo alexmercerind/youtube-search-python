@@ -5,17 +5,29 @@
 [![PyPI - Version](https://img.shields.io/pypi/v/youtube-search-python?style=for-the-badge)](https://pypi.org/project/youtube-search-python)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/youtube-search-python?label=DOWNLOADS&style=for-the-badge)](https://pypi.org/project/youtube-search-python)
 
-## Wanna try out new async version? Checkout [here](https://github.com/alexmercerind/youtube-search-python/tree/main/youtubesearchpython/__future__).
-
-## Install
+## 💾 Install
 
 ```bash
 pip3 install youtube-search-python
 ```
 
-## Usage
+## ⚡ Async Usage
 
-#### Search for only videos
+#### 🔎 Search for only videos
+
+```python
+from youtubesearchpython.__future__ import VideosSearch
+
+videosSearch = VideosSearch('NoCopyrightSounds', limit = 2)
+videosResult = await videosSearch.next()
+print(videosResult)
+```
+
+Read more about usage & examples of newer asynchronous version of this library [here](https://github.com/alexmercerind/youtube-search-python/tree/main/youtubesearchpython/__future__).
+
+## 📐 Sync Usage
+
+#### 🔎 Search for only videos
 
 ```python
 from youtubesearchpython import VideosSearch
@@ -119,7 +131,7 @@ print(videosSearch.result())
 
 </details>
 
-#### Search for only channels
+#### 🔎 Search for only channels
 
 ```python
 from youtubesearchpython import ChannelsSearch
@@ -405,7 +417,7 @@ print(channelsSearch.result())
 
 </details>
 
-#### Search for only playlists
+#### 🔎 Search for only playlists
 
 ```python
 from youtubesearchpython import PlaylistsSearch
@@ -461,7 +473,7 @@ print(playlistsSearch.result())
 
 </details>
 
-#### Search with a filter or sort
+#### 🔎 Search with a filter or sort
 
 ```python
 from youtubesearchpython import *
@@ -529,7 +541,7 @@ print(customSearch.result())
 
 </details>
 
-#### Search for everything
+#### 🔎 Search for everything
 
 ```python
 from youtubesearchpython import Search
@@ -583,9 +595,9 @@ print(allSearch.result())
 You may see the [example](https://github.com/alexmercerind/youtube-search-python/blob/main/syncExample.py) for more information.
 
 
-## Advanced
+## 🔧 Advanced
 
-#### Getting next page search results
+#### 📑 Getting next page search results
 
 You may call ```next``` method as follows, to get the results on the next pages.
 
@@ -611,7 +623,7 @@ search.next()
 print(search.result()['result'])
 ```
 
-#### Getting video information using video link or video ID
+#### 🎞 Getting video information using video link or video ID
 
 ```python
 '''
@@ -837,7 +849,7 @@ print(videoFormats)
 
 </details>
 
-#### Getting search suggestions
+#### 🔖 Getting search suggestions
 
 ```python
 from youtubesearchpython import Suggestions
@@ -873,7 +885,7 @@ print(suggestions.get('NoCopyrightSounds', mode = ResultMode.json))
 
 </details>
 
-#### Getting direct stream URL of a video
+#### 🎬 Getting direct stream URL of a video
 
 This class is able fetch video URLs without any additional web requests (that's fast), as one might already have same response at the time of showing it to the user.
 
@@ -901,29 +913,6 @@ print(url)
 
 </details>
 
-## Configuration
-
-While instantiating any of the classes, you may provide optional parameters as follows to get the results accordingly.
-
-```py
-search = Search('NoCopyrightSounds', limit = 20, language = 'en', region = 'US')
-```
-
-You may switch between the types of result, by changing the value of ```mode``` optional parameter while calling the ```result``` method.
-
-##### Getting JSON
-
-```py
-result = search.result(mode = ResultMode.json)
-```
-
-##### Getting dictionary
-
-
-```py
-result = search.result(mode = ResultMode.dict)
-```
-
-## License
+## 📄 License
 
 MIT
