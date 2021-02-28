@@ -5,27 +5,13 @@
 [![PyPI - Version](https://img.shields.io/pypi/v/youtube-search-python?style=for-the-badge)](https://pypi.org/project/youtube-search-python)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/youtube-search-python?label=DOWNLOADS&style=for-the-badge)](https://pypi.org/project/youtube-search-python)
 
-## Install
+## Installing
 
 ```bash
 pip3 install youtube-search-python
 ```
 
-## Async Usage
-
-#### Search for only videos
-
-```python
-from youtubesearchpython.__future__ import VideosSearch
-
-videosSearch = VideosSearch('NoCopyrightSounds', limit = 2)
-videosResult = await videosSearch.next()
-print(videosResult)
-```
-
-Read more about usage & examples of newer asynchronous version of this library [HERE](https://github.com/alexmercerind/youtube-search-python/tree/main/youtubesearchpython/__future__).
-
-## Sync Usage
+## Sync
 
 #### Search for only videos
 
@@ -130,6 +116,31 @@ print(videosSearch.result())
 ```
 
 </details>
+
+## Async
+
+#### Search for only videos
+
+```python
+from youtubesearchpython.__future__ import VideosSearch
+
+videosSearch = VideosSearch('NoCopyrightSounds', limit = 2)
+videosResult = await videosSearch.next()
+print(videosResult)
+```
+
+Read more about usage & examples of newer asynchronous version of this library [HERE](https://github.com/alexmercerind/youtube-search-python/tree/main/youtubesearchpython/__future__).
+
+
+## Support
+
+If you really want to be kind to me, then you may buy me a coffee.
+
+<a href="https://www.buymeacoffee.com/alexmercerind"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=alexmercerind&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff"></a>
+
+Thankyou! I appreciate it.
+
+## More Examples
 
 #### Search for only channels
 
@@ -595,14 +606,6 @@ print(allSearch.result())
 You may see the [example](https://github.com/alexmercerind/youtube-search-python/blob/main/syncExample.py) for more information.
 
 
-## Support
-
-If you really want to be kind to me, then you may buy me a coffee.
-
-<a href="https://www.buymeacoffee.com/alexmercerind"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=alexmercerind&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff"></a>
-
-Thankyou!
-
 ## Advanced
 
 #### Getting next page search results
@@ -650,28 +653,6 @@ print(videoInfo)
 videoFormats = Video.getFormats('z0GKGpObgPY')
 print(videoFormats)
 ```
-
-#### Getting playlist information using link
-
-```python
-'''
-Getting information about playlist or videos in it using its link.
-
-`Playlist.get` method will give both information & formats of the playlist
-`Playlist.getInfo` method will give only information about the playlist.
-`Playlist.getVideos` method will give only videos in the playlist.
-
-'''
-playlist = Playlist.get('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK', mode = ResultMode.json)
-print(playlist)
-playlistInfo = Playlist.getInfo('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK', mode = ResultMode.json)
-print(playlistInfo)
-playlistVideos = Playlist.getVideos('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK')
-print(playlistVideos)
-```
-
-#### Getting playlist information using video link or video ID
-
 
 <details>
  <summary> Example Result</summary>
@@ -874,6 +855,199 @@ print(playlistVideos)
         ],
     ],
     "expiresInSeconds": "21540"
+}
+```
+
+</details>
+
+#### Getting playlist information using link
+
+```python
+'''
+Getting information about playlist or videos in it using its link.
+
+`Playlist.get` method will give both information & formats of the playlist
+`Playlist.getInfo` method will give only information about the playlist.
+`Playlist.getVideos` method will give only videos in the playlist.
+
+'''
+playlist = Playlist.get('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK', mode = ResultMode.json)
+print(playlist)
+playlistInfo = Playlist.getInfo('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK', mode = ResultMode.json)
+print(playlistInfo)
+playlistVideos = Playlist.getVideos('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK')
+print(playlistVideos)
+```
+
+<details>
+ <summary> Example Result</summary>
+
+```json
+{
+    "id": "PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK",
+    "title": "NCS: House",
+    "videoCount": "209",
+    "viewCount": "155,772,054 views",
+    "thumbnails": {
+        "thumbnails": [
+            {
+                "url": "https://i.ytimg.com/vi/LIvSF0fQPJc/hqdefault.jpg?sqp=-oaymwEWCKgBEF5IWvKriqkDCQgBFQAAiEIYAQ==&rs=AOn4CLDHZYoB-WNHmvT3CZy6SpdqygsO4A",
+                "width": 168,
+                "height": 94
+            },
+            {
+                "url": "https://i.ytimg.com/vi/LIvSF0fQPJc/hqdefault.jpg?sqp=-oaymwEWCMQBEG5IWvKriqkDCQgBFQAAiEIYAQ==&rs=AOn4CLACCxCIRvCn65_OS1z_4tLAq5Jb8Q",
+                "width": 196,
+                "height": 110
+            },
+            {
+                "url": "https://i.ytimg.com/vi/LIvSF0fQPJc/hqdefault.jpg?sqp=-oaymwEXCPYBEIoBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLBt00cYTIVBdrnHsSNLinhq7meCpQ",
+                "width": 246,
+                "height": 138
+            },
+            {
+                "url": "https://i.ytimg.com/vi/LIvSF0fQPJc/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLBFaqqO6kCAuqya1SIJo5Cf45Ndxg",
+                "width": 336,
+                "height": 188
+            }
+        ]
+    },
+    "link": "https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK",
+    "channel": {
+        "name": "NoCopyrightSounds",
+        "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+        "thumbnails": [
+            {
+                "url": "https://yt3.ggpht.com/ytc/AAUvwnhwQpPaPL_w-2bQM3TXQN0bdsQQSeEW74TDNXDfHQ=s48-c-k-c0x00ffffff-no-rj",
+                "width": 48,
+                "height": 48
+            },
+            {
+                "url": "https://yt3.ggpht.com/ytc/AAUvwnhwQpPaPL_w-2bQM3TXQN0bdsQQSeEW74TDNXDfHQ=s88-c-k-c0x00ffffff-no-rj",
+                "width": 88,
+                "height": 88
+            },
+            {
+                "url": "https://yt3.ggpht.com/ytc/AAUvwnhwQpPaPL_w-2bQM3TXQN0bdsQQSeEW74TDNXDfHQ=s176-c-k-c0x00ffffff-no-rj",
+                "width": 176,
+                "height": 176
+            }
+        ],
+        "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+    },
+    "videos": [
+        {
+            "id": "gQjAEbWZEgU",
+            "title": "Mangoo - Happi (ft. bby ivy) [NCS Release]",
+            "thumbnails": [
+                {
+                    "url": "https://i.ytimg.com/vi/gQjAEbWZEgU/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLB8IrOoqB1vSj2SMptjc5pG8fyKOQ",
+                    "width": 168,
+                    "height": 94
+                },
+                {
+                    "url": "https://i.ytimg.com/vi/gQjAEbWZEgU/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDjI1SuDEFCqskIfGEqr8HZi3v54Q",
+                    "width": 196,
+                    "height": 110
+                },
+                {
+                    "url": "https://i.ytimg.com/vi/gQjAEbWZEgU/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCAFP_0cHcbUnt_eJwozqM0mOPkHg",
+                    "width": 246,
+                    "height": 138
+                },
+                {
+                    "url": "https://i.ytimg.com/vi/gQjAEbWZEgU/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLD4WajUJ8zGjQDuwT6uHBbvZzaCPA",
+                    "width": 336,
+                    "height": 188
+                }
+            ],
+            "channel": {
+                "name": "NoCopyrightSounds",
+                "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+            },
+            "duration": "2:41",
+            "accessibility": {
+                "title": "Mangoo - Happi (ft. bby ivy) [NCS Release] by NoCopyrightSounds 7 months ago 2 minutes, 41 seconds",
+                "duration": "2 minutes, 41 seconds"
+            },
+            "link": "https://www.youtube.com/watch?v=gQjAEbWZEgU"
+        },
+        {
+            "id": "2Kh4y7pJjfQ",
+            "title": "MAGNUS x Unread - Cool (feat. Alessia Labate) [NCS Release]",
+            "thumbnails": [
+                {
+                    "url": "https://i.ytimg.com/vi/2Kh4y7pJjfQ/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDBtmR1aLs9b5ULxWBpTitm2qfZgQ",
+                    "width": 168,
+                    "height": 94
+                },
+                {
+                    "url": "https://i.ytimg.com/vi/2Kh4y7pJjfQ/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLA1_KVxp3eun3REQPZM3qgdhGGKhw",
+                    "width": 196,
+                    "height": 110
+                },
+                {
+                    "url": "https://i.ytimg.com/vi/2Kh4y7pJjfQ/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDXxtiCKSoQ7qWsmbyK60HytHlKNg",
+                    "width": 246,
+                    "height": 138
+                },
+                {
+                    "url": "https://i.ytimg.com/vi/2Kh4y7pJjfQ/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAO6xgKiU0ObnMbcsaLgd5Sp-HA_Q",
+                    "width": 336,
+                    "height": 188
+                }
+            ],
+            "channel": {
+                "name": "NoCopyrightSounds",
+                "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+            },
+            "duration": "2:22",
+            "accessibility": {
+                "title": "MAGNUS x Unread - Cool (feat. Alessia Labate) [NCS Release] by NoCopyrightSounds 8 months ago 2 minutes, 22 seconds",
+                "duration": "2 minutes, 22 seconds"
+            },
+            "link": "https://www.youtube.com/watch?v=2Kh4y7pJjfQ"
+        },
+        {
+            "id": "7dw8wphQ118",
+            "title": "Jim Yosef - Let You Go [NCS Release]",
+            "thumbnails": [
+                {
+                    "url": "https://i.ytimg.com/vi/7dw8wphQ118/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLAI2xKhoLZTQSKy_E2qLI8vmmLwzQ",
+                    "width": 168,
+                    "height": 94
+                },
+                {
+                    "url": "https://i.ytimg.com/vi/7dw8wphQ118/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBm88JTaXMyMXgPpH0ANOP-5M7cdg",
+                    "width": 196,
+                    "height": 110
+                },
+                {
+                    "url": "https://i.ytimg.com/vi/7dw8wphQ118/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDKDPLNxX6SpNNSCmp4oPA7gXZh2w",
+                    "width": 246,
+                    "height": 138
+                },
+                {
+                    "url": "https://i.ytimg.com/vi/7dw8wphQ118/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCoilNTqi_D4Xu-EQFbiqcjyuewUw",
+                    "width": 336,
+                    "height": 188
+                }
+            ],
+            "channel": {
+                "name": "NoCopyrightSounds",
+                "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+            },
+            "duration": "3:40",
+            "accessibility": {
+                "title": "Jim Yosef - Let You Go [NCS Release] by NoCopyrightSounds 9 months ago 3 minutes, 40 seconds",
+                "duration": "3 minutes, 40 seconds"
+            },
+            "link": "https://www.youtube.com/watch?v=7dw8wphQ118"
+        }
+    ]
 }
 ```
 
