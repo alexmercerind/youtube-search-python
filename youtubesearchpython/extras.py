@@ -253,7 +253,7 @@ class Video(VideoInternal):
     
     @staticmethod
     def getInfo(videoLink: str, mode: int = ResultMode.dict) -> Union[dict, str, None]:
-        '''Fetches only information  for the given video link or ID.
+        '''Fetches only information for the given video link or ID.
         Returns None if video is unavailable.
 
         Args:
@@ -518,3 +518,1128 @@ class Video(VideoInternal):
             }
         '''
         return Video(videoLink, "getFormats", mode).result
+
+
+
+class Playlist(PlaylistInternal):
+    @staticmethod
+    def get(playlistLink: str, mode: int = ResultMode.dict) -> Union[dict, str, None]:
+        '''Fetches information and videos for the given playlist link.
+        Returns None if playlist is unavailable.
+
+        Args:
+            playlistLink (str): link of the playlist on YouTube.
+            mode (int, optional): Sets the type of result. Defaults to ResultMode.dict.
+
+        Examples:
+
+            >>> playlist = Playlist.get("https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK", mode = ResultMode.dict)
+            >>> print(playlist)
+            {
+                "id": "PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK",
+                "title": "🔥 NCS: House",
+                "videoCount": "209",
+                "viewCount": "155,772,054 views",
+                "thumbnails": {
+                    "thumbnails": [
+                        {
+                            "url": "https://i.ytimg.com/vi/LIvSF0fQPJc/hqdefault.jpg?sqp=-oaymwEWCKgBEF5IWvKriqkDCQgBFQAAiEIYAQ==&rs=AOn4CLDHZYoB-WNHmvT3CZy6SpdqygsO4A",
+                            "width": 168,
+                            "height": 94
+                        },
+                        {
+                            "url": "https://i.ytimg.com/vi/LIvSF0fQPJc/hqdefault.jpg?sqp=-oaymwEWCMQBEG5IWvKriqkDCQgBFQAAiEIYAQ==&rs=AOn4CLACCxCIRvCn65_OS1z_4tLAq5Jb8Q",
+                            "width": 196,
+                            "height": 110
+                        },
+                        {
+                            "url": "https://i.ytimg.com/vi/LIvSF0fQPJc/hqdefault.jpg?sqp=-oaymwEXCPYBEIoBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLBt00cYTIVBdrnHsSNLinhq7meCpQ",
+                            "width": 246,
+                            "height": 138
+                        },
+                        {
+                            "url": "https://i.ytimg.com/vi/LIvSF0fQPJc/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLBFaqqO6kCAuqya1SIJo5Cf45Ndxg",
+                            "width": 336,
+                            "height": 188
+                        }
+                    ]
+                },
+                "link": "https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK",
+                "channel": {
+                    "name": "NoCopyrightSounds",
+                    "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                    "thumbnails": [
+                        {
+                            "url": "https://yt3.ggpht.com/ytc/AAUvwnhwQpPaPL_w-2bQM3TXQN0bdsQQSeEW74TDNXDfHQ=s48-c-k-c0x00ffffff-no-rj",
+                            "width": 48,
+                            "height": 48
+                        },
+                        {
+                            "url": "https://yt3.ggpht.com/ytc/AAUvwnhwQpPaPL_w-2bQM3TXQN0bdsQQSeEW74TDNXDfHQ=s88-c-k-c0x00ffffff-no-rj",
+                            "width": 88,
+                            "height": 88
+                        },
+                        {
+                            "url": "https://yt3.ggpht.com/ytc/AAUvwnhwQpPaPL_w-2bQM3TXQN0bdsQQSeEW74TDNXDfHQ=s176-c-k-c0x00ffffff-no-rj",
+                            "width": 176,
+                            "height": 176
+                        }
+                    ],
+                    "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                },
+                "videos": [
+                    {
+                        "id": "0oq2Ej36nlY",
+                        "title": "Axol - Mars [NCS Release]",
+                        "thumbnails": [
+                            {
+                                "url": "https://i.ytimg.com/vi/0oq2Ej36nlY/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLAYA8xOuVJyq4ZdmdZEy3128mkHSg",
+                                "width": 168,
+                                "height": 94
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/0oq2Ej36nlY/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBVen9Zle-8QDR10u73EEHbHc_MAQ",
+                                "width": 196,
+                                "height": 110
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/0oq2Ej36nlY/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBFv2xNC53WtsAQahBV1kRW2knJ2w",
+                                "width": 246,
+                                "height": 138
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/0oq2Ej36nlY/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBMkco75LBzq-XCblRqQZkcFbDf4w",
+                                "width": 336,
+                                "height": 188
+                            }
+                        ],
+                        "channel": {
+                            "name": "NoCopyrightSounds",
+                            "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                            "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                        },
+                        "duration": "2:56",
+                        "accessibility": {
+                            "title": "Axol - Mars [NCS Release] by NoCopyrightSounds 3 years ago 2 minutes, 56 seconds",
+                            "duration": "2 minutes, 56 seconds"
+                        },
+                        "link": "https://www.youtube.com/watch?v=0oq2Ej36nlY"
+                    },
+                    {
+                        "id": "iv7ZJecuu_o",
+                        "title": "NIVIRO - The Floor Is Lava [NCS Release]",
+                        "thumbnails": [
+                            {
+                                "url": "https://i.ytimg.com/vi/iv7ZJecuu_o/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLCkw6PB0tE3tROCegrF7uPK0tHM4w",
+                                "width": 168,
+                                "height": 94
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/iv7ZJecuu_o/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDxeEJ7qhh1Du1V2GiStjP0XGTniQ",
+                                "width": 196,
+                                "height": 110
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/iv7ZJecuu_o/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLB_0R_xsvuIqYr30BgvOdcHsSCoUQ",
+                                "width": 246,
+                                "height": 138
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/iv7ZJecuu_o/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCcr_u0591ANz4Mes7MCECuvRikUA",
+                                "width": 336,
+                                "height": 188
+                            }
+                        ],
+                        "channel": {
+                            "name": "NoCopyrightSounds",
+                            "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                            "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                        },
+                        "duration": "3:16",
+                        "accessibility": {
+                            "title": "NIVIRO - The Floor Is Lava [NCS Release] by NoCopyrightSounds 3 years ago 3 minutes, 16 seconds",
+                            "duration": "3 minutes, 16 seconds"
+                        },
+                        "link": "https://www.youtube.com/watch?v=iv7ZJecuu_o"
+                    },
+                    {
+                        "id": "cmVdgWL5548",
+                        "title": "Raven & Kreyn - So Happy [NCS Official Video]",
+                        "thumbnails": [
+                            {
+                                "url": "https://i.ytimg.com/vi/cmVdgWL5548/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBa3HKnW5uNkAP25X5668d5Yxx_GQ",
+                                "width": 168,
+                                "height": 94
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/cmVdgWL5548/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBghyhFRtdIWD4AT3BZBuOhlzB4JA",
+                                "width": 196,
+                                "height": 110
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/cmVdgWL5548/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDgYP3wdhqlhDEMPuAW6vMt415fIQ",
+                                "width": 246,
+                                "height": 138
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/cmVdgWL5548/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLD94rVwtv3iglKBdtQ_oKtxZT1iJA",
+                                "width": 336,
+                                "height": 188
+                            }
+                        ],
+                        "channel": {
+                            "name": "NoCopyrightSounds",
+                            "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                            "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                        },
+                        "duration": "2:41",
+                        "accessibility": {
+                            "title": "Raven & Kreyn - So Happy [NCS Official Video] by NoCopyrightSounds 3 years ago 2 minutes, 41 seconds",
+                            "duration": "2 minutes, 41 seconds"
+                        },
+                        "link": "https://www.youtube.com/watch?v=cmVdgWL5548"
+                    },
+                    {
+                        "id": "ldDCHrBeOlg",
+                        "title": "Phantom Sage - Kingdom (feat. Miss Lina) [NCS Release]",
+                        "thumbnails": [
+                            {
+                                "url": "https://i.ytimg.com/vi/ldDCHrBeOlg/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDFrVolfV84PcVgXzpjZNaxJqqTyw",
+                                "width": 168,
+                                "height": 94
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/ldDCHrBeOlg/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDEOg15NmmhCRL9_lQQmK-6axAqyw",
+                                "width": 196,
+                                "height": 110
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/ldDCHrBeOlg/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDt3q3px1x8SQ8flQYJebkg9fef5g",
+                                "width": 246,
+                                "height": 138
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/ldDCHrBeOlg/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBB0B2f0D7RuCc420npQdZpYGb7QQ",
+                                "width": 336,
+                                "height": 188
+                            }
+                        ],
+                        "channel": {
+                            "name": "NoCopyrightSounds",
+                            "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                            "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                        },
+                        "duration": "4:39",
+                        "accessibility": {
+                            "title": "Phantom Sage - Kingdom (feat. Miss Lina) [NCS Release] by NoCopyrightSounds 3 years ago 4 minutes, 39 seconds",
+                            "duration": "4 minutes, 39 seconds"
+                        },
+                        "link": "https://www.youtube.com/watch?v=ldDCHrBeOlg"
+                    },
+                    {
+                        "id": "PhzDIABahyc",
+                        "title": "Jensation - Delicious [NCS Release]",
+                        "thumbnails": [
+                            {
+                                "url": "https://i.ytimg.com/vi/PhzDIABahyc/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBwntSl_7Buk4Udzrvko_zJ4nQf8Q",
+                                "width": 168,
+                                "height": 94
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/PhzDIABahyc/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLCUyQIjjZ0eA5ZgHfBXZOYdDtfHGQ",
+                                "width": 196,
+                                "height": 110
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/PhzDIABahyc/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBQKS12wSDYhcIBYFeBjiT1VQLSxQ",
+                                "width": 246,
+                                "height": 138
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/PhzDIABahyc/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAE72b5ac2xa9x1ccrKiXsFQwsACA",
+                                "width": 336,
+                                "height": 188
+                            }
+                        ],
+                        "channel": {
+                            "name": "NoCopyrightSounds",
+                            "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                            "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                        },
+                        "duration": "2:49",
+                        "accessibility": {
+                            "title": "Jensation - Delicious [NCS Release] by NoCopyrightSounds 3 years ago 2 minutes, 49 seconds",
+                            "duration": "2 minutes, 49 seconds"
+                        },
+                        "link": "https://www.youtube.com/watch?v=PhzDIABahyc"
+                    },
+                    {
+                        "id": "Y5TnYaZ31b0",
+                        "title": "Waysons - Running [NCS Release]",
+                        "thumbnails": [
+                            {
+                                "url": "https://i.ytimg.com/vi/Y5TnYaZ31b0/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLAEY6qDwWgh6QjKsRN_hB92IiZlMw",
+                                "width": 168,
+                                "height": 94
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/Y5TnYaZ31b0/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLATd9F2LOxmWU7cirUbLqwTfq75xg",
+                                "width": 196,
+                                "height": 110
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/Y5TnYaZ31b0/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCBDUIuqcX7vg17NY21ykR8JNyd3A",
+                                "width": 246,
+                                "height": 138
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/Y5TnYaZ31b0/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCBXImJda2jfUE9_L10N5KJLsQTuA",
+                                "width": 336,
+                                "height": 188
+                            }
+                        ],
+                        "channel": {
+                            "name": "NoCopyrightSounds",
+                            "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                            "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                        },
+                        "duration": "3:08",
+                        "accessibility": {
+                            "title": "Waysons - Running [NCS Release] by NoCopyrightSounds 3 years ago 3 minutes, 8 seconds",
+                            "duration": "3 minutes, 8 seconds"
+                        },
+                        "link": "https://www.youtube.com/watch?v=Y5TnYaZ31b0"
+                    },
+                    {
+                        "id": "2Nv5juZKhKo",
+                        "title": "NIVIRO - You [NCS Release]",
+                        "thumbnails": [
+                            {
+                                "url": "https://i.ytimg.com/vi/2Nv5juZKhKo/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLCBLGyqDfAqaZ3nTk15H4k7EhAaxg",
+                                "width": 168,
+                                "height": 94
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/2Nv5juZKhKo/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLCoyqiY8380ua84NIqVNaDDn6zecg",
+                                "width": 196,
+                                "height": 110
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/2Nv5juZKhKo/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCxW4Qnr1k3EE5MWbuJlThIm02oYg",
+                                "width": 246,
+                                "height": 138
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/2Nv5juZKhKo/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBDOvAvcUtCAVB519ww32RtplBkNw",
+                                "width": 336,
+                                "height": 188
+                            }
+                        ],
+                        "channel": {
+                            "name": "NoCopyrightSounds",
+                            "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                            "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                        },
+                        "duration": "3:50",
+                        "accessibility": {
+                            "title": "NIVIRO - You [NCS Release] by NoCopyrightSounds 3 years ago 3 minutes, 50 seconds",
+                            "duration": "3 minutes, 50 seconds"
+                        },
+                        "link": "https://www.youtube.com/watch?v=2Nv5juZKhKo"
+                    },
+                    {
+                        "id": "odThebFOFVg",
+                        "title": "Elektronomia - The Other Side [NCS Release]",
+                        "thumbnails": [
+                            {
+                                "url": "https://i.ytimg.com/vi/odThebFOFVg/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDhut1THu5o6SRzgEfCmEURV3ob7Q",
+                                "width": 168,
+                                "height": 94
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/odThebFOFVg/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBkgcLev1knPC0x_aWkEjsKj8HMpA",
+                                "width": 196,
+                                "height": 110
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/odThebFOFVg/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDhHu2Y4U_b05FEskx70NHqnReNFw",
+                                "width": 246,
+                                "height": 138
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/odThebFOFVg/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLD1FR4CWnJbkrWD_QsVWEpjq_CzjQ",
+                                "width": 336,
+                                "height": 188
+                            }
+                        ],
+                        "channel": {
+                            "name": "NoCopyrightSounds",
+                            "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                            "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                        },
+                        "duration": "4:11",
+                        "accessibility": {
+                            "title": "Elektronomia - The Other Side [NCS Release] by NoCopyrightSounds 3 years ago 4 minutes, 11 seconds",
+                            "duration": "4 minutes, 11 seconds"
+                        },
+                        "link": "https://www.youtube.com/watch?v=odThebFOFVg"
+                    },
+                    {
+                        "id": "9phWj3Iygq8",
+                        "title": "Raven & Kreyn - Get This Party [NCS Release]",
+                        "thumbnails": [
+                            {
+                                "url": "https://i.ytimg.com/vi/9phWj3Iygq8/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBxD8ouCe61I6X4oiHQhPjmu7G8rw",
+                                "width": 168,
+                                "height": 94
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/9phWj3Iygq8/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDRVh4TEJG0WTAWz-LnFPjQQxhQaw",
+                                "width": 196,
+                                "height": 110
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/9phWj3Iygq8/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLARKdRufUYSduQ3IPGO831vvoQ_8w",
+                                "width": 246,
+                                "height": 138
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/9phWj3Iygq8/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAuGbI8xMrYBZ46shlinaj7Na9chg",
+                                "width": 336,
+                                "height": 188
+                            }
+                        ],
+                        "channel": {
+                            "name": "NoCopyrightSounds",
+                            "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                            "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                        },
+                        "duration": "2:39",
+                        "accessibility": {
+                            "title": "Raven & Kreyn - Get This Party [NCS Release] by NoCopyrightSounds 3 years ago 2 minutes, 39 seconds",
+                            "duration": "2 minutes, 39 seconds"
+                        },
+                        "link": "https://www.youtube.com/watch?v=9phWj3Iygq8"
+                    },
+                    {
+                        "id": "dM2hrLwdaoU",
+                        "title": "Distrion & Alex Skrindo - Lightning [NCS Release]",
+                        "thumbnails": [
+                            {
+                                "url": "https://i.ytimg.com/vi/dM2hrLwdaoU/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDuprc64g80t_DXa9UE5SrzLEkAdw",
+                                "width": 168,
+                                "height": 94
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/dM2hrLwdaoU/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLA3bgMR8b2UKtbCpbYzSmsLhgTK7g",
+                                "width": 196,
+                                "height": 110
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/dM2hrLwdaoU/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLB3LNf1rjgiGHtMa7UH9cQ9B29-yQ",
+                                "width": 246,
+                                "height": 138
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/dM2hrLwdaoU/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBXvevJvz3sTF4ZjpunveJF8Z-gSg",
+                                "width": 336,
+                                "height": 188
+                            }
+                        ],
+                        "channel": {
+                            "name": "NoCopyrightSounds",
+                            "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                            "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                        },
+                        "duration": "3:27",
+                        "accessibility": {
+                            "title": "Distrion & Alex Skrindo - Lightning [NCS Release] by NoCopyrightSounds 3 years ago 3 minutes, 27 seconds",
+                            "duration": "3 minutes, 27 seconds"
+                        },
+                        "link": "https://www.youtube.com/watch?v=dM2hrLwdaoU"
+                    },
+                    {
+                        "id": "vKAHowm3Ry0",
+                        "title": "Kontinuum - Lost (feat. Savoi) [Sunroof Remix] | NCS Release",
+                        "thumbnails": [
+                            {
+                                "url": "https://i.ytimg.com/vi/vKAHowm3Ry0/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLC4BvoPiuOIA_mTbacI2BobXfm8gA",
+                                "width": 168,
+                                "height": 94
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/vKAHowm3Ry0/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDOmyUcbQL2EffQm7T19yI9FIe89w",
+                                "width": 196,
+                                "height": 110
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/vKAHowm3Ry0/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBsI7UIpQCI3Ty6CJxL1R4wRF2EqQ",
+                                "width": 246,
+                                "height": 138
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/vKAHowm3Ry0/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBJivP3UVcYXjkKjdTYLKJO7L329g",
+                                "width": 336,
+                                "height": 188
+                            }
+                        ],
+                        "channel": {
+                            "name": "NoCopyrightSounds",
+                            "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                            "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                        },
+                        "duration": "3:02",
+                        "accessibility": {
+                            "title": "Kontinuum - Lost (feat. Savoi) [Sunroof Remix] | NCS Release by NoCopyrightSounds 3 years ago 3 minutes, 2 seconds",
+                            "duration": "3 minutes, 2 seconds"
+                        },
+                        "link": "https://www.youtube.com/watch?v=vKAHowm3Ry0"
+                    },
+                    {
+                        "id": "FseAiTb8Se0",
+                        "title": "Kovan & Electro-Light - Skyline [NCS Release]",
+                        "thumbnails": [
+                            {
+                                "url": "https://i.ytimg.com/vi/FseAiTb8Se0/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBQ5gJjpS6VprS0z0SxgZxEVxGaJA",
+                                "width": 168,
+                                "height": 94
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/FseAiTb8Se0/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLC5oJlZLpCbxAxQHUceUuVIvUKNSw",
+                                "width": 196,
+                                "height": 110
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/FseAiTb8Se0/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDyWw_4fzlujqrtOT90Ya6_cpLeFg",
+                                "width": 246,
+                                "height": 138
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/FseAiTb8Se0/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBytsYOYycFUOdBrF47tyEUjnC_-A",
+                                "width": 336,
+                                "height": 188
+                            }
+                        ],
+                        "channel": {
+                            "name": "NoCopyrightSounds",
+                            "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                            "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                        },
+                        "duration": "3:50",
+                        "accessibility": {
+                            "title": "Kovan & Electro-Light - Skyline [NCS Release] by NoCopyrightSounds 3 years ago 3 minutes, 50 seconds",
+                            "duration": "3 minutes, 50 seconds"
+                        },
+                        "link": "https://www.youtube.com/watch?v=FseAiTb8Se0"
+                    },
+                    {
+                        "id": "BoI6g46zuU4",
+                        "title": "RetroVision & Domastic - SICC [NCS Release]",
+                        "thumbnails": [
+                            {
+                                "url": "https://i.ytimg.com/vi/BoI6g46zuU4/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLC-hfMNYvUViQKf8jD1d1XwQDtfNA",
+                                "width": 168,
+                                "height": 94
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/BoI6g46zuU4/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDlXueYSIv8fVNN0k4s7CLlJBUw8w",
+                                "width": 196,
+                                "height": 110
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/BoI6g46zuU4/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLD2PqxAsUQcuqNP_uxtZDeMaWd5sA",
+                                "width": 246,
+                                "height": 138
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/BoI6g46zuU4/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCNtEtObJdzEJykxkMqkcR6qYin0w",
+                                "width": 336,
+                                "height": 188
+                            }
+                        ],
+                        "channel": {
+                            "name": "NoCopyrightSounds",
+                            "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                            "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                        },
+                        "duration": "2:46",
+                        "accessibility": {
+                            "title": "RetroVision & Domastic - SICC [NCS Release] by NoCopyrightSounds 3 years ago 2 minutes, 46 seconds",
+                            "duration": "2 minutes, 46 seconds"
+                        },
+                        "link": "https://www.youtube.com/watch?v=BoI6g46zuU4"
+                    }
+                ]
+            }
+        '''
+        return Playlist(playlistLink, None, mode).result
+    
+    @staticmethod
+    def getInfo(playlistLink: str, mode: int = ResultMode.dict) -> Union[dict, str, None]:
+        '''Fetches only information for the given playlist link.
+        Returns None if playlist is unavailable.
+
+        Args:
+            playlistLink (str): link of the playlist on YouTube.
+            mode (int, optional): Sets the type of result. Defaults to ResultMode.dict.
+
+        Examples:
+
+            >>> playlist = Playlist.getInfo("https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK", mode = ResultMode.dict)
+            >>> print(playlist)
+            {
+                "id": "PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK",
+                "title": "🔥 NCS: House",
+                "videoCount": "209",
+                "viewCount": "155,772,054 views",
+                "thumbnails": {
+                    "thumbnails": [
+                        {
+                            "url": "https://i.ytimg.com/vi/LIvSF0fQPJc/hqdefault.jpg?sqp=-oaymwEWCKgBEF5IWvKriqkDCQgBFQAAiEIYAQ==&rs=AOn4CLDHZYoB-WNHmvT3CZy6SpdqygsO4A",
+                            "width": 168,
+                            "height": 94
+                        },
+                        {
+                            "url": "https://i.ytimg.com/vi/LIvSF0fQPJc/hqdefault.jpg?sqp=-oaymwEWCMQBEG5IWvKriqkDCQgBFQAAiEIYAQ==&rs=AOn4CLACCxCIRvCn65_OS1z_4tLAq5Jb8Q",
+                            "width": 196,
+                            "height": 110
+                        },
+                        {
+                            "url": "https://i.ytimg.com/vi/LIvSF0fQPJc/hqdefault.jpg?sqp=-oaymwEXCPYBEIoBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLBt00cYTIVBdrnHsSNLinhq7meCpQ",
+                            "width": 246,
+                            "height": 138
+                        },
+                        {
+                            "url": "https://i.ytimg.com/vi/LIvSF0fQPJc/hqdefault.jpg?sqp=-oaymwEXCNACELwBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLBFaqqO6kCAuqya1SIJo5Cf45Ndxg",
+                            "width": 336,
+                            "height": 188
+                        }
+                    ]
+                },
+                "link": "https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK",
+                "channel": {
+                    "name": "NoCopyrightSounds",
+                    "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                    "thumbnails": [
+                        {
+                            "url": "https://yt3.ggpht.com/ytc/AAUvwnhwQpPaPL_w-2bQM3TXQN0bdsQQSeEW74TDNXDfHQ=s48-c-k-c0x00ffffff-no-rj",
+                            "width": 48,
+                            "height": 48
+                        },
+                        {
+                            "url": "https://yt3.ggpht.com/ytc/AAUvwnhwQpPaPL_w-2bQM3TXQN0bdsQQSeEW74TDNXDfHQ=s88-c-k-c0x00ffffff-no-rj",
+                            "width": 88,
+                            "height": 88
+                        },
+                        {
+                            "url": "https://yt3.ggpht.com/ytc/AAUvwnhwQpPaPL_w-2bQM3TXQN0bdsQQSeEW74TDNXDfHQ=s176-c-k-c0x00ffffff-no-rj",
+                            "width": 176,
+                            "height": 176
+                        }
+                    ],
+                    "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                }
+            }
+        '''
+        return Playlist(playlistLink, 'getInfo', mode).result
+
+    @staticmethod
+    def getVideos(playlistLink: str, mode: int = ResultMode.dict) -> Union[dict, str, None]:
+        '''Fetches only videos in the given playlist from link.
+        Returns None if playlist is unavailable.
+
+        Args:
+            playlistLink (str): link of the playlist on YouTube.
+            mode (int, optional): Sets the type of result. Defaults to ResultMode.dict.
+
+        Examples:
+
+            >>> playlist = Playlist.getInfo("https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK", mode = ResultMode.dict)
+            >>> print(playlist)
+            {
+                "videos": [
+                    {
+                        "id": "0oq2Ej36nlY",
+                        "title": "Axol - Mars [NCS Release]",
+                        "thumbnails": [
+                            {
+                                "url": "https://i.ytimg.com/vi/0oq2Ej36nlY/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLAYA8xOuVJyq4ZdmdZEy3128mkHSg",
+                                "width": 168,
+                                "height": 94
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/0oq2Ej36nlY/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBVen9Zle-8QDR10u73EEHbHc_MAQ",
+                                "width": 196,
+                                "height": 110
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/0oq2Ej36nlY/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBFv2xNC53WtsAQahBV1kRW2knJ2w",
+                                "width": 246,
+                                "height": 138
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/0oq2Ej36nlY/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBMkco75LBzq-XCblRqQZkcFbDf4w",
+                                "width": 336,
+                                "height": 188
+                            }
+                        ],
+                        "channel": {
+                            "name": "NoCopyrightSounds",
+                            "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                            "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                        },
+                        "duration": "2:56",
+                        "accessibility": {
+                            "title": "Axol - Mars [NCS Release] by NoCopyrightSounds 3 years ago 2 minutes, 56 seconds",
+                            "duration": "2 minutes, 56 seconds"
+                        },
+                        "link": "https://www.youtube.com/watch?v=0oq2Ej36nlY"
+                    },
+                    {
+                        "id": "iv7ZJecuu_o",
+                        "title": "NIVIRO - The Floor Is Lava [NCS Release]",
+                        "thumbnails": [
+                            {
+                                "url": "https://i.ytimg.com/vi/iv7ZJecuu_o/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLCkw6PB0tE3tROCegrF7uPK0tHM4w",
+                                "width": 168,
+                                "height": 94
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/iv7ZJecuu_o/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDxeEJ7qhh1Du1V2GiStjP0XGTniQ",
+                                "width": 196,
+                                "height": 110
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/iv7ZJecuu_o/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLB_0R_xsvuIqYr30BgvOdcHsSCoUQ",
+                                "width": 246,
+                                "height": 138
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/iv7ZJecuu_o/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCcr_u0591ANz4Mes7MCECuvRikUA",
+                                "width": 336,
+                                "height": 188
+                            }
+                        ],
+                        "channel": {
+                            "name": "NoCopyrightSounds",
+                            "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                            "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                        },
+                        "duration": "3:16",
+                        "accessibility": {
+                            "title": "NIVIRO - The Floor Is Lava [NCS Release] by NoCopyrightSounds 3 years ago 3 minutes, 16 seconds",
+                            "duration": "3 minutes, 16 seconds"
+                        },
+                        "link": "https://www.youtube.com/watch?v=iv7ZJecuu_o"
+                    },
+                    {
+                        "id": "cmVdgWL5548",
+                        "title": "Raven & Kreyn - So Happy [NCS Official Video]",
+                        "thumbnails": [
+                            {
+                                "url": "https://i.ytimg.com/vi/cmVdgWL5548/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBa3HKnW5uNkAP25X5668d5Yxx_GQ",
+                                "width": 168,
+                                "height": 94
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/cmVdgWL5548/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBghyhFRtdIWD4AT3BZBuOhlzB4JA",
+                                "width": 196,
+                                "height": 110
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/cmVdgWL5548/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDgYP3wdhqlhDEMPuAW6vMt415fIQ",
+                                "width": 246,
+                                "height": 138
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/cmVdgWL5548/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLD94rVwtv3iglKBdtQ_oKtxZT1iJA",
+                                "width": 336,
+                                "height": 188
+                            }
+                        ],
+                        "channel": {
+                            "name": "NoCopyrightSounds",
+                            "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                            "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                        },
+                        "duration": "2:41",
+                        "accessibility": {
+                            "title": "Raven & Kreyn - So Happy [NCS Official Video] by NoCopyrightSounds 3 years ago 2 minutes, 41 seconds",
+                            "duration": "2 minutes, 41 seconds"
+                        },
+                        "link": "https://www.youtube.com/watch?v=cmVdgWL5548"
+                    },
+                    {
+                        "id": "ldDCHrBeOlg",
+                        "title": "Phantom Sage - Kingdom (feat. Miss Lina) [NCS Release]",
+                        "thumbnails": [
+                            {
+                                "url": "https://i.ytimg.com/vi/ldDCHrBeOlg/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDFrVolfV84PcVgXzpjZNaxJqqTyw",
+                                "width": 168,
+                                "height": 94
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/ldDCHrBeOlg/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDEOg15NmmhCRL9_lQQmK-6axAqyw",
+                                "width": 196,
+                                "height": 110
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/ldDCHrBeOlg/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDt3q3px1x8SQ8flQYJebkg9fef5g",
+                                "width": 246,
+                                "height": 138
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/ldDCHrBeOlg/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBB0B2f0D7RuCc420npQdZpYGb7QQ",
+                                "width": 336,
+                                "height": 188
+                            }
+                        ],
+                        "channel": {
+                            "name": "NoCopyrightSounds",
+                            "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                            "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                        },
+                        "duration": "4:39",
+                        "accessibility": {
+                            "title": "Phantom Sage - Kingdom (feat. Miss Lina) [NCS Release] by NoCopyrightSounds 3 years ago 4 minutes, 39 seconds",
+                            "duration": "4 minutes, 39 seconds"
+                        },
+                        "link": "https://www.youtube.com/watch?v=ldDCHrBeOlg"
+                    },
+                    {
+                        "id": "PhzDIABahyc",
+                        "title": "Jensation - Delicious [NCS Release]",
+                        "thumbnails": [
+                            {
+                                "url": "https://i.ytimg.com/vi/PhzDIABahyc/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBwntSl_7Buk4Udzrvko_zJ4nQf8Q",
+                                "width": 168,
+                                "height": 94
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/PhzDIABahyc/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLCUyQIjjZ0eA5ZgHfBXZOYdDtfHGQ",
+                                "width": 196,
+                                "height": 110
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/PhzDIABahyc/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBQKS12wSDYhcIBYFeBjiT1VQLSxQ",
+                                "width": 246,
+                                "height": 138
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/PhzDIABahyc/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAE72b5ac2xa9x1ccrKiXsFQwsACA",
+                                "width": 336,
+                                "height": 188
+                            }
+                        ],
+                        "channel": {
+                            "name": "NoCopyrightSounds",
+                            "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                            "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                        },
+                        "duration": "2:49",
+                        "accessibility": {
+                            "title": "Jensation - Delicious [NCS Release] by NoCopyrightSounds 3 years ago 2 minutes, 49 seconds",
+                            "duration": "2 minutes, 49 seconds"
+                        },
+                        "link": "https://www.youtube.com/watch?v=PhzDIABahyc"
+                    },
+                    {
+                        "id": "Y5TnYaZ31b0",
+                        "title": "Waysons - Running [NCS Release]",
+                        "thumbnails": [
+                            {
+                                "url": "https://i.ytimg.com/vi/Y5TnYaZ31b0/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLAEY6qDwWgh6QjKsRN_hB92IiZlMw",
+                                "width": 168,
+                                "height": 94
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/Y5TnYaZ31b0/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLATd9F2LOxmWU7cirUbLqwTfq75xg",
+                                "width": 196,
+                                "height": 110
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/Y5TnYaZ31b0/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCBDUIuqcX7vg17NY21ykR8JNyd3A",
+                                "width": 246,
+                                "height": 138
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/Y5TnYaZ31b0/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCBXImJda2jfUE9_L10N5KJLsQTuA",
+                                "width": 336,
+                                "height": 188
+                            }
+                        ],
+                        "channel": {
+                            "name": "NoCopyrightSounds",
+                            "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                            "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                        },
+                        "duration": "3:08",
+                        "accessibility": {
+                            "title": "Waysons - Running [NCS Release] by NoCopyrightSounds 3 years ago 3 minutes, 8 seconds",
+                            "duration": "3 minutes, 8 seconds"
+                        },
+                        "link": "https://www.youtube.com/watch?v=Y5TnYaZ31b0"
+                    },
+                    {
+                        "id": "2Nv5juZKhKo",
+                        "title": "NIVIRO - You [NCS Release]",
+                        "thumbnails": [
+                            {
+                                "url": "https://i.ytimg.com/vi/2Nv5juZKhKo/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLCBLGyqDfAqaZ3nTk15H4k7EhAaxg",
+                                "width": 168,
+                                "height": 94
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/2Nv5juZKhKo/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLCoyqiY8380ua84NIqVNaDDn6zecg",
+                                "width": 196,
+                                "height": 110
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/2Nv5juZKhKo/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCxW4Qnr1k3EE5MWbuJlThIm02oYg",
+                                "width": 246,
+                                "height": 138
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/2Nv5juZKhKo/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBDOvAvcUtCAVB519ww32RtplBkNw",
+                                "width": 336,
+                                "height": 188
+                            }
+                        ],
+                        "channel": {
+                            "name": "NoCopyrightSounds",
+                            "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                            "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                        },
+                        "duration": "3:50",
+                        "accessibility": {
+                            "title": "NIVIRO - You [NCS Release] by NoCopyrightSounds 3 years ago 3 minutes, 50 seconds",
+                            "duration": "3 minutes, 50 seconds"
+                        },
+                        "link": "https://www.youtube.com/watch?v=2Nv5juZKhKo"
+                    },
+                    {
+                        "id": "odThebFOFVg",
+                        "title": "Elektronomia - The Other Side [NCS Release]",
+                        "thumbnails": [
+                            {
+                                "url": "https://i.ytimg.com/vi/odThebFOFVg/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDhut1THu5o6SRzgEfCmEURV3ob7Q",
+                                "width": 168,
+                                "height": 94
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/odThebFOFVg/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBkgcLev1knPC0x_aWkEjsKj8HMpA",
+                                "width": 196,
+                                "height": 110
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/odThebFOFVg/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDhHu2Y4U_b05FEskx70NHqnReNFw",
+                                "width": 246,
+                                "height": 138
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/odThebFOFVg/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLD1FR4CWnJbkrWD_QsVWEpjq_CzjQ",
+                                "width": 336,
+                                "height": 188
+                            }
+                        ],
+                        "channel": {
+                            "name": "NoCopyrightSounds",
+                            "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                            "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                        },
+                        "duration": "4:11",
+                        "accessibility": {
+                            "title": "Elektronomia - The Other Side [NCS Release] by NoCopyrightSounds 3 years ago 4 minutes, 11 seconds",
+                            "duration": "4 minutes, 11 seconds"
+                        },
+                        "link": "https://www.youtube.com/watch?v=odThebFOFVg"
+                    },
+                    {
+                        "id": "9phWj3Iygq8",
+                        "title": "Raven & Kreyn - Get This Party [NCS Release]",
+                        "thumbnails": [
+                            {
+                                "url": "https://i.ytimg.com/vi/9phWj3Iygq8/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBxD8ouCe61I6X4oiHQhPjmu7G8rw",
+                                "width": 168,
+                                "height": 94
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/9phWj3Iygq8/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDRVh4TEJG0WTAWz-LnFPjQQxhQaw",
+                                "width": 196,
+                                "height": 110
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/9phWj3Iygq8/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLARKdRufUYSduQ3IPGO831vvoQ_8w",
+                                "width": 246,
+                                "height": 138
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/9phWj3Iygq8/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAuGbI8xMrYBZ46shlinaj7Na9chg",
+                                "width": 336,
+                                "height": 188
+                            }
+                        ],
+                        "channel": {
+                            "name": "NoCopyrightSounds",
+                            "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                            "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                        },
+                        "duration": "2:39",
+                        "accessibility": {
+                            "title": "Raven & Kreyn - Get This Party [NCS Release] by NoCopyrightSounds 3 years ago 2 minutes, 39 seconds",
+                            "duration": "2 minutes, 39 seconds"
+                        },
+                        "link": "https://www.youtube.com/watch?v=9phWj3Iygq8"
+                    },
+                    {
+                        "id": "dM2hrLwdaoU",
+                        "title": "Distrion & Alex Skrindo - Lightning [NCS Release]",
+                        "thumbnails": [
+                            {
+                                "url": "https://i.ytimg.com/vi/dM2hrLwdaoU/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDuprc64g80t_DXa9UE5SrzLEkAdw",
+                                "width": 168,
+                                "height": 94
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/dM2hrLwdaoU/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLA3bgMR8b2UKtbCpbYzSmsLhgTK7g",
+                                "width": 196,
+                                "height": 110
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/dM2hrLwdaoU/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLB3LNf1rjgiGHtMa7UH9cQ9B29-yQ",
+                                "width": 246,
+                                "height": 138
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/dM2hrLwdaoU/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBXvevJvz3sTF4ZjpunveJF8Z-gSg",
+                                "width": 336,
+                                "height": 188
+                            }
+                        ],
+                        "channel": {
+                            "name": "NoCopyrightSounds",
+                            "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                            "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                        },
+                        "duration": "3:27",
+                        "accessibility": {
+                            "title": "Distrion & Alex Skrindo - Lightning [NCS Release] by NoCopyrightSounds 3 years ago 3 minutes, 27 seconds",
+                            "duration": "3 minutes, 27 seconds"
+                        },
+                        "link": "https://www.youtube.com/watch?v=dM2hrLwdaoU"
+                    },
+                    {
+                        "id": "vKAHowm3Ry0",
+                        "title": "Kontinuum - Lost (feat. Savoi) [Sunroof Remix] | NCS Release",
+                        "thumbnails": [
+                            {
+                                "url": "https://i.ytimg.com/vi/vKAHowm3Ry0/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLC4BvoPiuOIA_mTbacI2BobXfm8gA",
+                                "width": 168,
+                                "height": 94
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/vKAHowm3Ry0/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDOmyUcbQL2EffQm7T19yI9FIe89w",
+                                "width": 196,
+                                "height": 110
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/vKAHowm3Ry0/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBsI7UIpQCI3Ty6CJxL1R4wRF2EqQ",
+                                "width": 246,
+                                "height": 138
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/vKAHowm3Ry0/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBJivP3UVcYXjkKjdTYLKJO7L329g",
+                                "width": 336,
+                                "height": 188
+                            }
+                        ],
+                        "channel": {
+                            "name": "NoCopyrightSounds",
+                            "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                            "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                        },
+                        "duration": "3:02",
+                        "accessibility": {
+                            "title": "Kontinuum - Lost (feat. Savoi) [Sunroof Remix] | NCS Release by NoCopyrightSounds 3 years ago 3 minutes, 2 seconds",
+                            "duration": "3 minutes, 2 seconds"
+                        },
+                        "link": "https://www.youtube.com/watch?v=vKAHowm3Ry0"
+                    },
+                    {
+                        "id": "FseAiTb8Se0",
+                        "title": "Kovan & Electro-Light - Skyline [NCS Release]",
+                        "thumbnails": [
+                            {
+                                "url": "https://i.ytimg.com/vi/FseAiTb8Se0/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBQ5gJjpS6VprS0z0SxgZxEVxGaJA",
+                                "width": 168,
+                                "height": 94
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/FseAiTb8Se0/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLC5oJlZLpCbxAxQHUceUuVIvUKNSw",
+                                "width": 196,
+                                "height": 110
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/FseAiTb8Se0/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLDyWw_4fzlujqrtOT90Ya6_cpLeFg",
+                                "width": 246,
+                                "height": 138
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/FseAiTb8Se0/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLBytsYOYycFUOdBrF47tyEUjnC_-A",
+                                "width": 336,
+                                "height": 188
+                            }
+                        ],
+                        "channel": {
+                            "name": "NoCopyrightSounds",
+                            "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                            "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                        },
+                        "duration": "3:50",
+                        "accessibility": {
+                            "title": "Kovan & Electro-Light - Skyline [NCS Release] by NoCopyrightSounds 3 years ago 3 minutes, 50 seconds",
+                            "duration": "3 minutes, 50 seconds"
+                        },
+                        "link": "https://www.youtube.com/watch?v=FseAiTb8Se0"
+                    },
+                    {
+                        "id": "BoI6g46zuU4",
+                        "title": "RetroVision & Domastic - SICC [NCS Release]",
+                        "thumbnails": [
+                            {
+                                "url": "https://i.ytimg.com/vi/BoI6g46zuU4/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLC-hfMNYvUViQKf8jD1d1XwQDtfNA",
+                                "width": 168,
+                                "height": 94
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/BoI6g46zuU4/hqdefault.jpg?sqp=-oaymwEiCMQBEG5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLDlXueYSIv8fVNN0k4s7CLlJBUw8w",
+                                "width": 196,
+                                "height": 110
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/BoI6g46zuU4/hqdefault.jpg?sqp=-oaymwEjCPYBEIoBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLD2PqxAsUQcuqNP_uxtZDeMaWd5sA",
+                                "width": 246,
+                                "height": 138
+                            },
+                            {
+                                "url": "https://i.ytimg.com/vi/BoI6g46zuU4/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLCNtEtObJdzEJykxkMqkcR6qYin0w",
+                                "width": 336,
+                                "height": 188
+                            }
+                        ],
+                        "channel": {
+                            "name": "NoCopyrightSounds",
+                            "id": "UC_aEa8K-EOJ3D6gOs7HcyNg",
+                            "link": "https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg"
+                        },
+                        "duration": "2:46",
+                        "accessibility": {
+                            "title": "RetroVision & Domastic - SICC [NCS Release] by NoCopyrightSounds 3 years ago 2 minutes, 46 seconds",
+                            "duration": "2 minutes, 46 seconds"
+                        },
+                        "link": "https://www.youtube.com/watch?v=BoI6g46zuU4"
+                    }
+                ]
+            }
+        '''
+        return Playlist(playlistLink, 'getVideos', mode).result

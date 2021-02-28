@@ -23,7 +23,11 @@ contentPath = ['contents', 'twoColumnSearchResultsRenderer', 'primaryContents', 
 fallbackContentPath = ['contents', 'twoColumnSearchResultsRenderer', 'primaryContents', 'richGridRenderer', 'contents']
 continuationContentPath = ['onResponseReceivedCommands', 0, 'appendContinuationItemsAction', 'continuationItems']
 continuationKeyPath = ['continuationItemRenderer', 'continuationEndpoint', 'continuationCommand', 'token']
-
+playlistInfoPath = ['response', 'sidebar', 'playlistSidebarRenderer', 'items']
+playlistVideosPath = ['response', 'contents', 'twoColumnBrowseResultsRenderer', 'tabs', 0, 'tabRenderer', 'content', 'sectionListRenderer', 'contents', 0, 'itemSectionRenderer', 'contents', 0, 'playlistVideoListRenderer', 'contents']
+playlistPrimaryInfoKey = 'playlistSidebarPrimaryInfoRenderer'
+playlistSecondaryInfoKey = 'playlistSidebarSecondaryInfoRenderer'
+playlistVideoKey = 'playlistVideoRenderer'
 
 class ResultMode:
     json = 0
