@@ -5,15 +5,15 @@
 [![PyPI - Version](https://img.shields.io/pypi/v/youtube-search-python?style=for-the-badge)](https://pypi.org/project/youtube-search-python)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/youtube-search-python?label=DOWNLOADS&style=for-the-badge)](https://pypi.org/project/youtube-search-python)
 
-## 💾 Install
+## Install
 
 ```bash
 pip3 install youtube-search-python
 ```
 
-## ⚡ Async Usage
+## Async Usage
 
-#### 🔎 Search for only videos
+#### Search for only videos
 
 ```python
 from youtubesearchpython.__future__ import VideosSearch
@@ -23,11 +23,11 @@ videosResult = await videosSearch.next()
 print(videosResult)
 ```
 
-Read more about usage & examples of newer asynchronous version of this library [here](https://github.com/alexmercerind/youtube-search-python/tree/main/youtubesearchpython/__future__).
+Read more about usage & examples of newer asynchronous version of this library [HERE](https://github.com/alexmercerind/youtube-search-python/tree/main/youtubesearchpython/__future__).
 
-## 📐 Sync Usage
+## Sync Usage
 
-#### 🔎 Search for only videos
+#### Search for only videos
 
 ```python
 from youtubesearchpython import VideosSearch
@@ -131,7 +131,7 @@ print(videosSearch.result())
 
 </details>
 
-#### 🔎 Search for only channels
+#### Search for only channels
 
 ```python
 from youtubesearchpython import ChannelsSearch
@@ -417,7 +417,7 @@ print(channelsSearch.result())
 
 </details>
 
-#### 🔎 Search for only playlists
+#### Search for only playlists
 
 ```python
 from youtubesearchpython import PlaylistsSearch
@@ -473,7 +473,7 @@ print(playlistsSearch.result())
 
 </details>
 
-#### 🔎 Search with a filter or sort
+#### Search with a filter or sort
 
 ```python
 from youtubesearchpython import *
@@ -541,7 +541,7 @@ print(customSearch.result())
 
 </details>
 
-#### 🔎 Search for everything
+#### Search for everything
 
 ```python
 from youtubesearchpython import Search
@@ -595,9 +595,17 @@ print(allSearch.result())
 You may see the [example](https://github.com/alexmercerind/youtube-search-python/blob/main/syncExample.py) for more information.
 
 
-## 🔧 Advanced
+## Support
 
-#### 📑 Getting next page search results
+If you really want to be kind to me, then you may buy me a coffee.
+
+<a href="https://www.buymeacoffee.com/alexmercerind"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=alexmercerind&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff"></a>
+
+Thankyou!
+
+## Advanced
+
+#### Getting next page search results
 
 You may call ```next``` method as follows, to get the results on the next pages.
 
@@ -623,7 +631,7 @@ search.next()
 print(search.result()['result'])
 ```
 
-#### 🎞 Getting video information using video link or video ID
+#### Getting video information using video link or video ID
 
 ```python
 '''
@@ -642,6 +650,28 @@ print(videoInfo)
 videoFormats = Video.getFormats('z0GKGpObgPY')
 print(videoFormats)
 ```
+
+#### Getting playlist information using link
+
+```python
+'''
+Getting information about playlist or videos in it using its link.
+
+`Playlist.get` method will give both information & formats of the playlist
+`Playlist.getInfo` method will give only information about the playlist.
+`Playlist.getVideos` method will give only videos in the playlist.
+
+'''
+playlist = Playlist.get('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK', mode = ResultMode.json)
+print(playlist)
+playlistInfo = Playlist.getInfo('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK', mode = ResultMode.json)
+print(playlistInfo)
+playlistVideos = Playlist.getVideos('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK')
+print(playlistVideos)
+```
+
+#### Getting playlist information using video link or video ID
+
 
 <details>
  <summary> Example Result</summary>
@@ -849,7 +879,7 @@ print(videoFormats)
 
 </details>
 
-#### 🔖 Getting search suggestions
+#### Getting search suggestions
 
 ```python
 from youtubesearchpython import Suggestions
@@ -885,7 +915,7 @@ print(suggestions.get('NoCopyrightSounds', mode = ResultMode.json))
 
 </details>
 
-#### 🎬 Getting direct stream URL of a video
+#### Getting direct stream URL of a video
 
 This class is able fetch video URLs without any additional web requests (that's fast), as one might already have same response at the time of showing it to the user.
 
@@ -913,6 +943,6 @@ print(url)
 
 </details>
 
-## 📄 License
+## License
 
 MIT
