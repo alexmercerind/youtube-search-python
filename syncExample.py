@@ -89,6 +89,24 @@ for video in search.result()['result']:
 
 
 '''
+Getting information about playlist or videos in it using its link.
+
+`Playlist.get` method will give both information & formats of the playlist
+`Playlist.getInfo` method will give only information about the playlist.
+`Playlist.getVideos` method will give only videos in the playlist.
+
+'''
+playlist = Playlist.get('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK', mode = ResultMode.json)
+print(playlist)
+playlistInfo = Playlist.getInfo('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK', mode = ResultMode.json)
+print(playlistInfo)
+playlistVideos = Playlist.getVideos('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK')
+print(playlistVideos)
+
+
+
+
+'''
 Getting information about video or its formats using video link or video ID.
 
 `Video.get` method will give both information & formats of the video

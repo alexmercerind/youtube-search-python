@@ -113,6 +113,23 @@ async def main():
 
 
     '''
+    Getting information about playlist or videos in it using link.
+
+    `Playlist.get` method will give both information & videos in the playlist
+    `Playlist.getInfo` method will give only information about the playlist.
+    `Playlist.getFormats` method will give only formats of the playlist.
+
+    '''
+    playlist = await Playlist.get('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK')
+    print(playlist)
+    playlistInfo = await Playlist.getInfo('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK')
+    print(playlistInfo)
+    playlistVideos = await Playlist.getVideos('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK')
+    print(playlistVideos)
+
+
+
+    '''
     Getting search suggestions from YouTube.
     You may show search suggestions to users before making any search.
     '''
