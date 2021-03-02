@@ -1121,4 +1121,14 @@ print(url)
 
 ## License
 
-MIT
+MIT License
+
+Copyright (c) 2021 [Hitesh Kumar Saini](https://github.com/alexmercerind)
+
+## Information
+
+- All the research, for making this library possible, is entirely done by myself.
+- You can use this library & segments of code from it in your projects in any way you want. Just respect the MIT license & credit the original author of the project.
+- Current version of this project (`main` branch) simulates the requests made by YouTube's web client during client side rendering. In simple words, it does not fetch any specific webpage's HTML, but the JSONs internally fetched by YouTube when you navigate the website, after loading the webpage completely.
+- I do not resist you from using this library in any possible manner, but YouTube T&C stop you from using this library commercially. Respect the law.
+- As you might tell by the name of the project, this library initially only used to support searching of videos. Later on, as the project grew, I added a lot of additional features after requests from people. Now, its really powerful.
