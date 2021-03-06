@@ -136,11 +136,11 @@ Read more about usage & examples of newer asynchronous version of this library [
 
 ## Support
 
-If you really want to be kind to me, then you may buy me a coffee.
+Please consider buying me a coffee, if you like this library.
 
 <a href="https://www.buymeacoffee.com/alexmercerind"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=alexmercerind&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff"></a>
 
-Thankyou! I appreciate it.
+Thankyou.
 
 ## More Examples
 
