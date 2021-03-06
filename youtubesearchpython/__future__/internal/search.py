@@ -46,14 +46,14 @@ class SearchInternal(RequestHandler, ComponentHandler):
                 playlistComponent = await self._getPlaylistComponent(element)
                 self.resultComponents.append(playlistComponent)
             if shelfElementKey in element.keys() and findVideos:
-                shelfComponent = self._getShelfComponent(element)
+                shelfComponent = await self._getShelfComponent(element)
                 for shelfElement in shelfComponent['elements']:
                     videoComponent = await self._getVideoComponent(
                         shelfElement,
                         shelfTitle = shelfComponent['title']
                     )
                     self.resultComponents.append(videoComponent)
-            if richItemKey in element.keys():
+            if richItemKey in element.keys() and findVideos:
                 richItemElement = await self._getValue(element, [richItemKey, 'content'])
                 ''' Initial fallback handling for VideosSearch '''
                 if videoElementKey in richItemElement.keys():
