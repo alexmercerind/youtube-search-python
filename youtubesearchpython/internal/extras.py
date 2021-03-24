@@ -122,7 +122,9 @@ class VideoInternal:
 
 
 class PlaylistInternal:
+    playlistComponent = None
     result = None
+    continuationKey = None
 
     def __init__(self, playlistLink: str, componentMode: str, resultMode: int):
         self.componentMode = componentMode
@@ -134,12 +136,42 @@ class PlaylistInternal:
         else:
             raise Exception('ERROR: Invalid status code.')
 
+    def next(self):
+        if self.continuationKey:
+            statusCode = self.__makeNextRequest()
+            if statusCode == 200:
+                self.__parseSource()
+                self.__getNextComponents()
+            else:
+                raise Exception('ERROR: Invalid status code.')
+
     def __makeRequest(self, playlistLink: str) -> int:
         playlistLink.strip('/')
         request = Request(
             playlistLink + '&pbj=1',
             data = urlencode({}).encode('utf_8'),
             headers = {
+                'User-Agent': userAgent,
+            },
+        )
+        try:
+            response = urlopen(request)
+            self.response = response.read().decode('utf_8')
+            return response.getcode()
+        except:
+            raise Exception('ERROR: Could not make request.')
+    
+    def __makeNextRequest(self, requestBody = requestPayload) -> int:
+        requestBody['continuation'] = self.continuationKey
+        requestBodyBytes = json.dumps(requestBody).encode('utf_8')
+        request = Request(
+            'https://www.youtube.com/youtubei/v1/browse' + '?' + urlencode({
+                'key': searchKey,
+            }),
+            data = requestBodyBytes,
+            headers = {
+                'Content-Type': 'application/json; charset=utf-8',
+                'Content-Length': len(requestBodyBytes),
                 'User-Agent': userAgent,
             },
         )
@@ -165,8 +197,37 @@ class PlaylistInternal:
                 }
                 if not playlistElement['info']:
                     raise Exception('ERROR: Could not parse YouTube response.')
-                self.__playlistComponent = self.__getPlaylistComponent(playlistElement, self.componentMode)
+                self.playlistComponent = self.__getPlaylistComponent(playlistElement, self.componentMode)
                 self.result = self.__result(self.resultMode)
+
+    def __getNextComponents(self) -> None:
+        self.continuationKey = None
+        playlistComponent = {
+            'videos': [],
+        }
+        continuationElements = self.__getValue(self.responseSource, ['onResponseReceivedActions', 0, 'appendContinuationItemsAction', 'continuationItems'])
+        for videoElement in continuationElements:
+            if playlistVideoKey in videoElement.keys():
+                videoComponent = {
+                    'id':                             self.__getValue(videoElement, [playlistVideoKey, 'videoId']),
+                    'title':                          self.__getValue(videoElement, [playlistVideoKey, 'title', 'runs', 0, 'text']),
+                    'thumbnails':                     self.__getValue(videoElement, [playlistVideoKey, 'thumbnail', 'thumbnails']),
+                    'channel': {
+                        'name':                       self.__getValue(videoElement, [playlistVideoKey, 'shortBylineText', 'runs', 0, 'text']),
+                        'id':                         self.__getValue(videoElement, [playlistVideoKey, 'shortBylineText', 'runs', 0, 'navigationEndpoint', 'browseEndpoint', 'browseId']),
+                    },
+                    'duration':                       self.__getValue(videoElement, [playlistVideoKey, 'lengthText', 'simpleText']),
+                    'accessibility': {
+                        'title':                      self.__getValue(videoElement, [playlistVideoKey, 'title', 'accessibility', 'accessibilityData', 'label']),
+                        'duration':                   self.__getValue(videoElement, [playlistVideoKey, 'lengthText', 'accessibility', 'accessibilityData', 'label']),
+                    },
+                }
+                playlistComponent['videos'].append(
+                    videoComponent
+                )
+            if continuationItemKey in videoElement.keys():
+                self.continuationKey = self.__getValue(videoElement, continuationKeyPath)
+        self.playlistComponent['videos'].extend(playlistComponent['videos'])
                 
     def __getPlaylistComponent(self, element: dict, mode: str) -> dict:
         playlistComponent = {}
@@ -195,9 +256,10 @@ class PlaylistInternal:
                     component['channel']['link'] = 'https://www.youtube.com/channel/' + component['channel']['id']
                     playlistComponent.update(component)
         if mode in ['getVideos', None]:
+            self.continuationKey = None
             playlistComponent['videos'] = []
             for videoElement in element['videos']:
-                if playlistVideoKey in videoElement:
+                if playlistVideoKey in videoElement.keys():
                     videoComponent = {
                         'id':                             self.__getValue(videoElement, [playlistVideoKey, 'videoId']),
                         'title':                          self.__getValue(videoElement, [playlistVideoKey, 'title', 'runs', 0, 'text']),
@@ -217,13 +279,15 @@ class PlaylistInternal:
                     playlistComponent['videos'].append(
                         videoComponent
                     )
+                if continuationItemKey in videoElement.keys():
+                    self.continuationKey = self.__getValue(videoElement, continuationKeyPath)
         return playlistComponent
 
     def __result(self, mode: int) -> Union[dict, str]:
         if mode == ResultMode.dict:
-            return self.__playlistComponent
+            return self.playlistComponent
         elif mode == ResultMode.json:
-            return json.dumps(self.__playlistComponent, indent = 4)
+            return json.dumps(self.playlistComponent, indent = 4)
 
     def __getValue(self, source: dict, path: List[str]) -> Union[str, int, dict, None]:
         value = source

@@ -1,3 +1,4 @@
+import copy
 from youtubesearchpython.internal.extras import *
 from youtubesearchpython.internal.constants import *
 
@@ -521,7 +522,42 @@ class Video(VideoInternal):
 
 
 
-class Playlist(PlaylistInternal):
+class Playlist:
+    '''Fetches information and videos for the given playlist link.
+    Returns None if playlist is unavailable.
+
+    The information of the playlist can be accessed in the `info` field of the class.
+    And the retrieved videos of the playlist are present inside the `videos` field of the class, as a list.
+
+    Due to limit of being able to retrieve only 100 videos at a time, call `getNextVideos` method to get more videos of the playlist,
+    which will be appended to the `videos` list.
+
+    `hasMoreVideos` stores boolean to indicate whether more videos are present in the playlist.
+    If this field is True, then you can call `getNextVideos` method again to get more videos of the playlist.
+
+    Args:
+        playlistLink (str): link of the playlist on YouTube.
+    '''
+    __playlist = None
+    videos = []
+    info = None
+    hasMoreVideos = False
+
+    def __init__(self, playlistLink: str):
+        self.__playlist = PlaylistInternal(playlistLink, None, ResultMode.dict)
+        self.info = copy.deepcopy(self.__playlist.playlistComponent)
+        self.videos = self.__playlist.playlistComponent['videos']
+        self.hasMoreVideos = self.__playlist.continuationKey != None
+        self.info.pop('videos')
+
+    '''Fetches more susequent videos of the playlist, and appends to the `videos` list.
+    `hasMoreVideos` bool indicates whether more videos can be fetched or not.
+    '''
+    def getNextVideos(self) -> None:
+        self.__playlist.next()
+        self.videos = self.__playlist.playlistComponent['videos']
+        self.hasMoreVideos = self.__playlist.continuationKey != None
+
     @staticmethod
     def get(playlistLink: str, mode: int = ResultMode.dict) -> Union[dict, str, None]:
         '''Fetches information and videos for the given playlist link.
