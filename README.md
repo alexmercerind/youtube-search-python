@@ -150,6 +150,8 @@ Please consider buying me a coffee, if you like this library.
 
 <a href="https://www.buymeacoffee.com/alexmercerind"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=alexmercerind&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff"></a>
 
+Feel free to ping me on Discord at alexmercerind#3898 for any kind of help! 👌
+
 Thankyou.
 
 ## More Examples
