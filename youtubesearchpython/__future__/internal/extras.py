@@ -113,16 +113,24 @@ class VideoInternal:
 
 
 class PlaylistInternal:
+    playlistComponent = None
+    result = None
+    continuationKey = None
 
     def __init__(self, playlistLink: str, componentMode: str):
         self.playlistLink = playlistLink
         self.componentMode = componentMode
     
     async def get(self):
-        statusCode = await self.__makeRequest(self.playlistLink)
+        await self.__makeRequest(self.playlistLink)
         await self.__getComponents()
 
-    async def __makeRequest(self, playlistLink: str) -> int:
+    async def next(self):
+        if self.continuationKey:
+            await self.__makeNextRequest()
+            await self.__getNextComponents()
+
+    async def __makeRequest(self, playlistLink: str) -> None:
         playlistLink.strip('/')
         try:
             async with httpx.AsyncClient() as client:
@@ -138,6 +146,24 @@ class PlaylistInternal:
                 self.responseSource = response.json()
         except:
             raise Exception('ERROR: Could not make request.')
+    
+    async def __makeNextRequest(self, requestBody = requestPayload) -> None:
+        requestBody['continuation'] = self.continuationKey
+        try:
+            async with httpx.AsyncClient() as client:
+                response = await client.post(
+                    'https://www.youtube.com/youtubei/v1/browse',
+                    params = {
+                        'key': searchKey,
+                    },
+                    headers = {
+                        'User-Agent': userAgent,
+                    },
+                    json = requestBody,
+                )
+                self.responseSource = response.json()
+        except:
+            raise Exception('ERROR: Could not make request.')
 
     async def __getComponents(self) -> None:
         for response in self.responseSource:
@@ -149,6 +175,35 @@ class PlaylistInternal:
                 if not playlistElement['info']:
                     raise Exception('ERROR: Could not parse YouTube response.')
                 self.playlistComponent = await self.__getPlaylistComponent(playlistElement, self.componentMode)
+
+    async def __getNextComponents(self) -> None:
+        self.continuationKey = None
+        playlistComponent = {
+            'videos': [],
+        }
+        continuationElements = await self.__getValue(self.responseSource, ['onResponseReceivedActions', 0, 'appendContinuationItemsAction', 'continuationItems'])
+        for videoElement in continuationElements:
+            if playlistVideoKey in videoElement.keys():
+                videoComponent = {
+                    'id':                                await self.__getValue(videoElement, [playlistVideoKey, 'videoId']),
+                    'title':                             await self.__getValue(videoElement, [playlistVideoKey, 'title', 'runs', 0, 'text']),
+                    'thumbnails':                        await self.__getValue(videoElement, [playlistVideoKey, 'thumbnail', 'thumbnails']),
+                    'channel': {
+                        'name':                          await self.__getValue(videoElement, [playlistVideoKey, 'shortBylineText', 'runs', 0, 'text']),
+                        'id':                            await self.__getValue(videoElement, [playlistVideoKey, 'shortBylineText', 'runs', 0, 'navigationEndpoint', 'browseEndpoint', 'browseId']),
+                    },
+                    'duration':                          await self.__getValue(videoElement, [playlistVideoKey, 'lengthText', 'simpleText']),
+                    'accessibility': {
+                        'title':                         await self.__getValue(videoElement, [playlistVideoKey, 'title', 'accessibility', 'accessibilityData', 'label']),
+                        'duration':                      await self.__getValue(videoElement, [playlistVideoKey, 'lengthText', 'accessibility', 'accessibilityData', 'label']),
+                    },
+                }
+                playlistComponent['videos'].append(
+                    videoComponent
+                )
+            if continuationItemKey in videoElement.keys():
+                self.continuationKey = await self.__getValue(videoElement, continuationKeyPath)
+        self.playlistComponent['videos'].extend(playlistComponent['videos'])
                 
     async def __getPlaylistComponent(self, element: dict, mode: str) -> dict:
         playlistComponent = {}
@@ -199,6 +254,8 @@ class PlaylistInternal:
                     playlistComponent['videos'].append(
                         videoComponent
                     )
+                if continuationItemKey in videoElement.keys():
+                    self.continuationKey = await self.__getValue(videoElement, continuationKeyPath)
         return playlistComponent
 
     async def __getValue(self, source: dict, path: List[str]) -> Union[str, int, dict, None]:

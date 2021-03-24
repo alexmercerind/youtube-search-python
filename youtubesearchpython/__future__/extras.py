@@ -1,3 +1,4 @@
+import copy
 from youtubesearchpython.__future__.internal.extras import *
 from youtubesearchpython.__future__.internal.constants import *
 
@@ -571,6 +572,46 @@ class Suggestions:
 
 
 class Playlist:
+    '''Fetches information and videos for the given playlist link.
+    Returns None if playlist is unavailable.
+
+    The information of the playlist can be accessed in the `info` field of the class.
+    And the retrieved videos of the playlist are present inside the `videos` field of the class, as a list.
+
+    Due to limit of being able to retrieve only 100 videos at a time, call `getNextVideos` method to get more videos of the playlist,
+    which will be appended to the `videos` list.
+
+    `hasMoreVideos` stores boolean to indicate whether more videos are present in the playlist.
+    If this field is True, then you can call `getNextVideos` method again to get more videos of the playlist.
+
+    Args:
+        playlistLink (str): link of the playlist on YouTube.
+    '''
+    playlistLink = None
+    videos = []
+    info = None
+    hasMoreVideos = True
+    __playlist = None
+
+    def __init__(self, playlistLink: str):
+        self.playlistLink = playlistLink
+
+    '''Fetches more susequent videos of the playlist, and appends to the `videos` list.
+    `hasMoreVideos` bool indicates whether more videos can be fetched or not.
+    '''
+    async def getNextVideos(self) -> None:
+        if not self.info:
+            self.__playlist = PlaylistInternal(self.playlistLink, None)
+            await self.__playlist.get()
+            self.info = copy.deepcopy(self.__playlist.playlistComponent)
+            self.videos = self.__playlist.playlistComponent['videos']
+            self.hasMoreVideos = self.__playlist.continuationKey != None
+            self.info.pop('videos')
+        else:
+            await self.__playlist.next()
+            self.videos = self.__playlist.playlistComponent['videos']
+            self.hasMoreVideos = self.__playlist.continuationKey != None
+    
     @staticmethod
     async def get(playlistLink: str) -> Union[dict, str, None]:
         '''Fetches information and videos for the given playlist link.
