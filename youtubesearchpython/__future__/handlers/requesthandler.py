@@ -21,6 +21,9 @@ class RequestHandler(ComponentHandler):
                     params = {
                         'key': searchKey,
                     },
+                    headers = {
+                        'User-Agent': userAgent,
+                    },
                     json = requestBody,
                 )
                 self.response = response.json()

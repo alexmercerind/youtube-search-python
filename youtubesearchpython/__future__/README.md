@@ -486,7 +486,7 @@ print(playlistsResult)
 from youtubesearchpython.__future__ import *
 
 customSearch = CustomSearch('NoCopyrightSounds', VideoSortOrder.uploadDate, limit = 1)
-customResult = await customSearch.result()
+customResult = await customSearch.next()
 print(customResult)
 ```
 
@@ -555,7 +555,7 @@ from youtubesearchpython.__future__ import Search
 
 search = Search('NoCopyrightSounds', limit = 1)
 result = await search.next()
-print(allSearch.result())
+print(result)
 ```
 
 <details>

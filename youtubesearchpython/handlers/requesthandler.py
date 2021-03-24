@@ -30,6 +30,7 @@ class RequestHandler(ComponentHandler):
             headers = {
                 'Content-Type': 'application/json; charset=utf-8',
                 'Content-Length': len(requestBodyBytes),
+                'User-Agent': userAgent,
             }
         )
         try:

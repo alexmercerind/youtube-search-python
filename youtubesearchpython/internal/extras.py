@@ -33,6 +33,9 @@ class VideoInternal:
                 'v': videoId,
                 'pbj': 1,
             }),
+            headers = {
+                'User-Agent': userAgent,
+            },
             data = urlencode({}).encode('utf_8'),
         )
         try:
@@ -136,6 +139,9 @@ class PlaylistInternal:
         request = Request(
             playlistLink + '&pbj=1',
             data = urlencode({}).encode('utf_8'),
+            headers = {
+                'User-Agent': userAgent,
+            },
         )
         try:
             response = urlopen(request)
@@ -309,7 +315,10 @@ class Suggestions:
                 'client': 'youtube',
                 'gs_ri': 'youtube',
                 'ds': 'yt',
-            })
+            }),
+            headers = {
+                'User-Agent': userAgent,
+            },
         )
         try:
             self.response = urlopen(request).read().decode('utf_8')

@@ -40,6 +40,9 @@ class VideoInternal:
                         'v': self.videoId,
                         'pbj': 1,
                     },
+                    headers = {
+                        'User-Agent': userAgent,
+                    },
                 )
                 self.responseSource = response.json()
         except:
@@ -127,6 +130,9 @@ class PlaylistInternal:
                     playlistLink,
                     params = {
                         'pbj': '1',
+                    },
+                    headers = {
+                        'User-Agent': userAgent,
                     },
                 )
                 self.responseSource = response.json()

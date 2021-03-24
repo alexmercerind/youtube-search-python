@@ -16,6 +16,7 @@ class ComponentHandler:
                 'short':                       await self._getValue(video, ['shortViewCountText', 'simpleText']),
             },
             'thumbnails':                      await self._getValue(video, ['thumbnail', 'thumbnails']),
+            'richThumbnail':                   await self._getValue(video, ['richThumbnail', 'movingThumbnailRenderer', 'movingThumbnailDetails', 'thumbnails', 0]),
             'descriptionSnippet':              await self._getValue(video, ['descriptionSnippet', 'runs']),
             'channel': {
                 'name':                        await self._getValue(video, ['ownerText', 'runs', 0, 'text']),

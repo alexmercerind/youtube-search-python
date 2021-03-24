@@ -16,6 +16,7 @@ class ComponentHandler:
                 'short':                       self._getValue(video, ['shortViewCountText', 'simpleText']),
             },
             'thumbnails':                      self._getValue(video, ['thumbnail', 'thumbnails']),
+            'richThumbnail':                   self._getValue(video, ['richThumbnail', 'movingThumbnailRenderer', 'movingThumbnailDetails', 'thumbnails', 0]),
             'descriptionSnippet':              self._getValue(video, ['descriptionSnippet', 'runs']),
             'channel': {
                 'name':                        self._getValue(video, ['ownerText', 'runs', 0, 'text']),

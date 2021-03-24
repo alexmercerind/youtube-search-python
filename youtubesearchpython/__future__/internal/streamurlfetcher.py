@@ -68,6 +68,9 @@ class StreamURLFetcherInternal(YouTube):
                             'eurl': f'https://youtube.googleapis.com/v/{videoFormats["id"]}',
                             'sts': None,
                         },
+                        headers = {
+                            'User-Agent': userAgent,
+                        },
                         timeout = None,
                     )
                     ''' Google returns content as a query string instead of a JSON. '''
