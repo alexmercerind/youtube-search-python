@@ -21,8 +21,8 @@ class StreamURLFetcherInternal(YouTube):
     '''
     def __init__(self):
         if isPyTubeInstalled:
-            self.js_url = None
-            self.js = None
+            self._js_url = None
+            self._js = None
             self._getJS()
         else:
             raise Exception('ERROR: PyTube is not installed. To use this functionality of youtube-search-python, PyTube must be installed.')
@@ -31,7 +31,7 @@ class StreamURLFetcherInternal(YouTube):
     Saving videoFormats inside a dictionary with key "player_response" for apply_descrambler & apply_signature methods.
     '''
     def _getDecipheredURLs(self, videoFormats: dict) -> None:
-        self.player_response = {'player_response': videoFormats}
+        self._player_response = {'player_response': videoFormats}
         if not videoFormats['streamingData']:
             try:
                 ''' For getting streamingData in age restricted video. '''
@@ -46,7 +46,7 @@ class StreamURLFetcherInternal(YouTube):
                 )
                 ''' Derived from extract.video_info_url_age_restricted '''
                 ''' Google returns content as a query string instead of a JSON. '''
-                self.player_response['player_response'] = json.loads(parse_qs(response.read().decode('utf_8'))["player_response"][0])
+                self._player_response['player_response'] = json.loads(parse_qs(response.read().decode('utf_8'))["player_response"][0])
             except:
                 raise Exception('ERROR: Could not make request.')
         self.video_id = videoFormats["id"]
@@ -64,14 +64,14 @@ class StreamURLFetcherInternal(YouTube):
             response = urlopen('https://youtube.com/watch', timeout = None)
             watch_html = response.read().decode('utf_8')
             age_restricted = extract.is_age_restricted(watch_html)
-            self.js_url = extract.js_url(watch_html)
-            if pytube.__js_url__ != self.js_url:
-                response = urlopen(self.js_url, timeout = None)
-                self.js = response.read().decode('utf_8')
-                pytube.__js__ = self.js
-                pytube.__js_url__ = self.js_url
+            self._js_url = extract.js_url(watch_html)
+            if pytube.__js_url__ != self._js_url:
+                response = urlopen(self._js_url, timeout = None)
+                self._js = response.read().decode('utf_8')
+                pytube.__js__ = self._js
+                pytube.__js_url__ = self._js_url
             else:
-                self.js = pytube.__js__
+                self._js = pytube.__js__
         except:
             raise Exception('ERROR: Could not make request.')
 
@@ -84,12 +84,12 @@ class StreamURLFetcherInternal(YouTube):
         try:
             '''
             These two are the main methods being used from PyTube.
-            Used to _decipher the stream URLs using player JavaScript & the player_response passed from the getStream method of this derieved class.
-            These methods operate on the value of "player_response" key in dictionary of self.player_response & save _deciphered information in the "url_encoded_fmt_stream_map" key.
+            Used to decipher the stream URLs using player JavaScript & the player_response passed from the getStream method of this derieved class.
+            These methods operate on the value of "player_response" key in dictionary of self._player_response & save _deciphered information in the "url_encoded_fmt_stream_map" key.
             '''
-            apply_descrambler(self.player_response, "url_encoded_fmt_stream_map")
+            apply_descrambler(self._player_response, "url_encoded_fmt_stream_map")
             apply_signature(
-                self.player_response, "url_encoded_fmt_stream_map", pytube.__js__
+                self._player_response, "url_encoded_fmt_stream_map", pytube.__js__
             )
         except:
             '''

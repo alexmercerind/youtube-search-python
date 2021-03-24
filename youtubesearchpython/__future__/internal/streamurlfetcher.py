@@ -22,8 +22,8 @@ class StreamURLFetcherInternal(YouTube):
     Overrided parent's constructor.
     '''
     def __init__(self):
-        self.js_url = None
-        self.js = None
+        self._js_url = None
+        self._js = None
         if not isPyTubeInstalled:
             raise Exception('ERROR: PyTube is not installed. To use this functionality of youtube-search-python, PyTube must be installed.')
 
@@ -43,11 +43,11 @@ class StreamURLFetcherInternal(YouTube):
                 response = await client.get('https://www.youtube.com/watch', timeout = None)
             watchHTML = response.text
             loop = asyncio.get_running_loop()
-            self.js_url = await loop.run_in_executor(None, extract.js_url, watchHTML)
-            if js_url != self.js_url:
+            self._js_url = await loop.run_in_executor(None, extract.js_url, watchHTML)
+            if js_url != self._js_url:
                 async with httpx.AsyncClient() as client:
-                    response = await client.get(self.js_url, timeout = None)
-                self.js = response.text
+                    response = await client.get(self._js_url, timeout = None)
+                self._js = response.text
         except:
             raise Exception('ERROR: Could not make request.')
 
@@ -55,7 +55,7 @@ class StreamURLFetcherInternal(YouTube):
     Saving videoFormats inside a dictionary with key 'player_response' for apply_descrambler & apply_signature methods.
     '''
     async def _getDecipheredURLs(self, videoFormats: dict) -> None:
-        self.player_response = {'player_response': videoFormats}
+        self._player_response = {'player_response': videoFormats}
         if not videoFormats['streamingData']:
             try:
                 ''' For getting streamingData in age restricted video. '''
@@ -74,7 +74,7 @@ class StreamURLFetcherInternal(YouTube):
                         timeout = None,
                     )
                     ''' Google returns content as a query string instead of a JSON. '''
-                    self.player_response['player_response'] = await loads(parse_qs(response.text)["player_response"][0])
+                    self._player_response['player_response'] = await loads(parse_qs(response.text)["player_response"][0])
             except:
                 raise Exception('ERROR: Could not make request.')
         self.video_id = videoFormats["id"]
@@ -82,19 +82,19 @@ class StreamURLFetcherInternal(YouTube):
 
     async def _decipher(self, retry: bool = False):
         '''
-        Not fetching for new player JavaScript if self.js is not None or exception is not caused.
+        Not fetching for new player JavaScript if self._js is not None or exception is not caused.
         '''
-        if not self.js or retry:
+        if not self._js or retry:
             await self.getJavaScript()
         try:
             '''
             These two are the main methods being used from PyTube.
             Used to _decipher the stream URLs using player JavaScript & the player_response passed from the getStream method of this derieved class.
-            These methods operate on the value of "player_response" key in dictionary of self.player_response & save _deciphered information in the "url_encoded_fmt_stream_map" key.
+            These methods operate on the value of "player_response" key in dictionary of self._player_response & save _deciphered information in the "url_encoded_fmt_stream_map" key.
             '''
             loop = asyncio.get_running_loop()
-            await loop.run_in_executor(None, apply_descrambler, self.player_response, 'url_encoded_fmt_stream_map')
-            await loop.run_in_executor(None, apply_signature, self.player_response, 'url_encoded_fmt_stream_map', self.js)
+            await loop.run_in_executor(None, apply_descrambler, self._player_response, 'url_encoded_fmt_stream_map')
+            await loop.run_in_executor(None, apply_signature, self._player_response, 'url_encoded_fmt_stream_map', self._js)
             
         except:
             '''
