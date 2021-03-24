@@ -48,6 +48,11 @@ print(videosSearch.result())
                     "height": 270
                 }
             ],
+            "richThumbnail": {
+                "url": "https://i.ytimg.com/an_webp/K4DyBUG242c/mqdefault_6s.webp?du=3000&sqp=COCn64IG&rs=AOn4CLBeYxeJ_5lME4jXbFQlv7kIN37kmw",
+                "width": 320,
+                "height": 180
+            },
             "descriptionSnippet": [
                 {
                     "text": "NCS: Music Without Limitations NCS Spotify: http://spoti.fi/NCS Free Download / Stream: http://ncs.io/onandon \u25bd Connect with\u00a0..."
@@ -89,6 +94,11 @@ print(videosSearch.result())
                     "height": 270
                 }
             ],
+            "richThumbnail": {
+                "url": "https://i.ytimg.com/an_webp/K4DyBUG242c/mqdefault_6s.webp?du=3000&sqp=COCn64IG&rs=AOn4CLBeYxeJ_5lME4jXbFQlv7kIN37kmw",
+                "width": 320,
+                "height": 180
+            },
             "descriptionSnippet": [
                 {
                     "text": "NCS: Music Without Limitations NCS Spotify: http://spoti.fi/NCS Free Download / Stream: http://ncs.io/mortals Connect with NCS:\u00a0..."
@@ -524,6 +534,11 @@ print(customSearch.result())
                     "height": 404
                 }
             ],
+            "richThumbnail": {
+                "url": "https://i.ytimg.com/an_webp/K4DyBUG242c/mqdefault_6s.webp?du=3000&sqp=COCn64IG&rs=AOn4CLBeYxeJ_5lME4jXbFQlv7kIN37kmw",
+                "width": 320,
+                "height": 180
+            },
             "descriptionSnippet": [
                 {
                     "text": "Don't forget to like & share if you enjoy it."
@@ -1051,6 +1066,44 @@ print(playlistVideos)
         }
     ]
 }
+```
+
+</details>
+
+#### More to the playlists
+
+You can directly instanciate the `Playlist` class as follows to access its information & videos in the `info` and `videos` fields respectively.
+
+YouTube offers only 100 videos in a single request, for getting more videos present in the playlist, you can check `hasMoreVideos` bool to see if playlist contains more videos.
+If playlist has more videos, then you can call `getNextVideos` to fetch more videos.
+
+Example below demonstrates a simple way to retrive all videos of a playlist.
+
+```python
+from youtubesearchpython import *
+
+playlist = Playlist('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK')
+
+print(f'Videos Retrieved: {len(playlist.videos)}')
+
+while playlist.hasMoreVideos:
+    print('Getting more videos...')
+    playlist.getNextVideos()
+    print(f'Videos Retrieved: {len(playlist.videos)}')
+
+print('Found all the videos.')
+```
+
+<details>
+ <summary> Example Result</summary>
+
+```bash
+Videos Retrieved: 100
+Getting more videos...
+Videos Retrieved: 200
+Getting more videos...
+Videos Retrieved: 209
+Found all the videos.
 ```
 
 </details>
