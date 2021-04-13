@@ -5,7 +5,7 @@ from urllib.request import urlopen
 from urllib.parse import parse_qs, urlencode
 import json
 try:
-    from pytube.__main__ import apply_descrambler, apply_signature
+    from pytube.extract import apply_descrambler, apply_signature
     from pytube import YouTube, extract
     import pytube
     isPyTubeInstalled = True
