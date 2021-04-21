@@ -17,7 +17,7 @@ class ComponentHandler:
             },
             'thumbnails':                      self._getValue(video, ['thumbnail', 'thumbnails']),
             'richThumbnail':                   self._getValue(video, ['richThumbnail', 'movingThumbnailRenderer', 'movingThumbnailDetails', 'thumbnails', 0]),
-            'descriptionSnippet':              self._getValue(video, ['descriptionSnippet', 'runs']),
+            'descriptionSnippet':              self._getValue(video, ['detailedMetadataSnippets', 0, 'snippetText', 'runs']),
             'channel': {
                 'name':                        self._getValue(video, ['ownerText', 'runs', 0, 'text']),
                 'id':                          self._getValue(video, ['ownerText', 'runs', 0, 'navigationEndpoint', 'browseEndpoint', 'browseId']),

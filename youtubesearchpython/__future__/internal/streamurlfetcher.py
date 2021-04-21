@@ -4,7 +4,7 @@ import asyncio
 import httpx
 try:
     from youtubesearchpython.__future__.internal.json import loads
-    from pytube.__main__ import apply_descrambler, apply_signature
+    from pytube.extract import apply_descrambler, apply_signature
     from pytube import YouTube, extract
     from urllib.parse import parse_qs
     isPyTubeInstalled = True
