@@ -1108,7 +1108,7 @@ class Playlist:
                 ]
             }
         '''
-        return Playlist(playlistLink, None, mode).result
+        return PlaylistInternal(playlistLink, None, mode).result
     
     @staticmethod
     def getInfo(playlistLink: str, mode: int = ResultMode.dict) -> Union[dict, str, None]:
@@ -1177,7 +1177,7 @@ class Playlist:
                 }
             }
         '''
-        return Playlist(playlistLink, 'getInfo', mode).result
+        return PlaylistInternal(playlistLink, 'getInfo', mode).result
 
     @staticmethod
     def getVideos(playlistLink: str, mode: int = ResultMode.dict) -> Union[dict, str, None]:
@@ -1678,4 +1678,4 @@ class Playlist:
                 ]
             }
         '''
-        return Playlist(playlistLink, 'getVideos', mode).result
+        return PlaylistInternal(playlistLink, 'getVideos', mode).result
