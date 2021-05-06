@@ -1,7 +1,5 @@
-from urllib import request
 from urllib.request import Request, urlopen
 from urllib.parse import urlencode
-import pkg_resources
 import json
 import copy
 from youtubesearchpython.handlers.componenthandler import ComponentHandler

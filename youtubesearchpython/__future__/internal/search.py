@@ -1,4 +1,3 @@
-from typing import Union
 from youtubesearchpython.__future__.handlers.requesthandler import RequestHandler
 from youtubesearchpython.__future__.handlers.componenthandler import ComponentHandler
 from youtubesearchpython.__future__.internal.constants import *

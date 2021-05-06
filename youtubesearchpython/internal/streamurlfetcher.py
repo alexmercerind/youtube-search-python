@@ -1,6 +1,5 @@
 isPyTubeInstalled = False
 
-import httpx
 from urllib.request import urlopen
 from urllib.parse import parse_qs, urlencode
 import json
