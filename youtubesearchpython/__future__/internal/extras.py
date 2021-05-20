@@ -7,10 +7,12 @@ from youtubesearchpython.__future__.internal.constants import *
 class VideoInternal:
     videoId = None
     videoComponent = None
+    timeout = None
 
-    def __init__(self, videoLink: str, componentMode: str):
+    def __init__(self, videoLink: str, componentMode: str, timeout: int = None):
         self.videoLink = videoLink
         self.componentMode = componentMode
+        self.timeout = timeout
     
     async def get(self):
         self.videoId = await self.__getVideoId(self.videoLink)
@@ -43,6 +45,7 @@ class VideoInternal:
                     headers = {
                         'User-Agent': userAgent,
                     },
+                    timeout = self.timeout,
                 )
                 self.responseSource = response.json()
         except:
@@ -116,10 +119,12 @@ class PlaylistInternal:
     playlistComponent = None
     result = None
     continuationKey = None
+    timeout = None
 
-    def __init__(self, playlistLink: str, componentMode: str):
+    def __init__(self, playlistLink: str, componentMode: str, timeout: int = None):
         self.playlistLink = playlistLink
         self.componentMode = componentMode
+        self.timeout = timeout
     
     async def get(self):
         await self.__makeRequest(self.playlistLink)
@@ -142,6 +147,7 @@ class PlaylistInternal:
                     headers = {
                         'User-Agent': userAgent,
                     },
+                    timeout = self.timeout,
                 )
                 self.responseSource = response.json()
         except:
@@ -160,6 +166,7 @@ class PlaylistInternal:
                         'User-Agent': userAgent,
                     },
                     json = requestBody,
+                    timeout = self.timeout,
                 )
                 self.responseSource = response.json()
         except:
@@ -278,14 +285,17 @@ class PlaylistInternal:
 
 class SuggestionsInternal:
     searchSuggestions = []
+    timeout = None
     
     def __init__(self):
         pass
     
-    async def get(self, query: str, language: str = 'en', region: str = 'US') -> dict:
+    async def get(self, query: str, language: str = 'en', region: str = 'US', timeout: int = None) -> dict:
         self.query = query
         self.language = language
         self.region = region
+        self.timeout = timeout
+
         await self.__makeRequest()
         await self.__parseSource()
         for element in self.responseSource:
@@ -316,6 +326,7 @@ class SuggestionsInternal:
                         'gs_ri': 'youtube',
                         'ds': 'yt',
                     },
+                    timeout = self.timeout,
                 )
                 self.response = response.text
         except:

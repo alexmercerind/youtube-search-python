@@ -7,14 +7,16 @@ class SearchInternal(RequestHandler, ComponentHandler):
     response = None
     responseSource = None
     resultComponents = []
+    timeout = None
 
-    def __init__(self, query: str, limit: int, language: str, region: str, searchPreferences: str):
+    def __init__(self, query: str, limit: int, language: str, region: str, searchPreferences: str, timeout: int):
         self.query = query
         self.limit = limit
         self.language = language
         self.region = region
         self.searchPreferences = searchPreferences
         self.continuationKey = None
+        self.timeout = timeout
 
     async def next(self) -> dict:
         '''Searches & returns the search result on the next page.
@@ -25,7 +27,7 @@ class SearchInternal(RequestHandler, ComponentHandler):
         self.response = None
         self.responseSource = None
         self.resultComponents = []
-        await self._makeRequest()
+        await self._makeRequest(timeout = self.timeout)
         await self._parseSource()
         await self._getComponents(*self.searchMode)
         return {

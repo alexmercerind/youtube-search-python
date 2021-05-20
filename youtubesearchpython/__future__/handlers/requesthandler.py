@@ -4,7 +4,7 @@ from youtubesearchpython.__future__.internal.constants import *
 
 
 class RequestHandler(ComponentHandler):
-    async def _makeRequest(self, requestBody = requestPayload) -> None:
+    async def _makeRequest(self, requestBody = requestPayload, timeout = None) -> None:
         requestBody['query'] = self.query
         requestBody['client'] = {
             'hl': self.language,
@@ -25,6 +25,7 @@ class RequestHandler(ComponentHandler):
                         'User-Agent': userAgent,
                     },
                     json = requestBody,
+                    timeout = timeout
                 )
                 self.response = response.json()
         except:
