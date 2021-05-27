@@ -284,7 +284,6 @@ class PlaylistInternal:
 
 
 class SuggestionsInternal:
-    searchSuggestions = []
     timeout = None
     
     def __init__(self):
@@ -296,15 +295,17 @@ class SuggestionsInternal:
         self.region = region
         self.timeout = timeout
 
+        searchSuggestions = []
+
         await self.__makeRequest()
         await self.__parseSource()
         for element in self.responseSource:
             if type(element) is list:
                 for searchSuggestionElement in element:
-                    self.searchSuggestions.append(searchSuggestionElement[0])
+                    searchSuggestions.append(searchSuggestionElement[0])
                 break
         return {
-            'result': self.searchSuggestions,
+            'result': searchSuggestions,
         }
         
     async def __parseSource(self) -> None:
