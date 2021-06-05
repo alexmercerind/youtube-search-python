@@ -17,7 +17,7 @@ class ComponentHandler:
             },
             'thumbnails':                      await self._getValue(video, ['thumbnail', 'thumbnails']),
             'richThumbnail':                   await self._getValue(video, ['richThumbnail', 'movingThumbnailRenderer', 'movingThumbnailDetails', 'thumbnails', 0]),
-            'descriptionSnippet':              await self._getValue(video, ["detailedMetadataSnippets", 0, "snippetText", "runs"]),
+            'descriptionSnippet':              await self._getValue(video, ['detailedMetadataSnippets', 0, 'snippetText', 'runs']),
             'channel': {
                 'name':                        await self._getValue(video, ['ownerText', 'runs', 0, 'text']),
                 'id':                          await self._getValue(video, ['ownerText', 'runs', 0, 'navigationEndpoint', 'browseEndpoint', 'browseId']),
