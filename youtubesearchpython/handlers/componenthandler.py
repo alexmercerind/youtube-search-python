@@ -63,6 +63,81 @@ class ComponentHandler:
         component['link'] = 'https://www.youtube.com/playlist?list=' + component['id']
         component['channel']['link'] = 'https://www.youtube.com/channel/' + component['channel']['id']
         return component
+    
+    def _getVideoFromChannelSearch(self, elements: list) -> list:
+        channelsearch = []
+        for element in elements:
+            element = element["childVideoRenderer"]
+            json = {
+                "id":                                    element["videoId"],
+                "title":                                 element["title"]["simpleText"],
+                "uri":                                   element["navigationEndpoint"]["commandMetadata"]["webCommandMetadata"]["url"],
+                "duration": {
+                    "simpleText":                        element["lengthText"]["simpleText"],
+                    "text":                              element["lengthText"]["accessibility"]["accessibilityData"]["label"]
+                }
+            }
+            channelsearch.append(json)
+        return channelsearch
+    
+    def _getChannelSearchComponent(self, elements: list) -> list:
+        channelsearch = []
+        for element in elements:
+            responsetype = None
+            try:
+                element = element["itemSectionRenderer"]["contents"][0]["videoRenderer"]
+                responsetype = "video"
+            except:
+                element = element["itemSectionRenderer"]["contents"][0]["playlistRenderer"]
+                responsetype = "playlist"
+            
+            try:
+                rich = element["richThumbnail"]["movingThumbnailRenderer"]["movingThumbnailDetails"]["thumbnails"]
+            except:
+                rich = None
+            
+            if responsetype == "video":
+                json = {
+                    "id":                                    element["videoId"],
+                    "thumbnails": {
+                        "normal":                            element["thumbnail"]["thumbnails"],
+                        "rich":                              rich
+                    },
+                    "title":                                 element["title"]["runs"][0]["text"],
+                    "descriptionSnippet":                    element["descriptionSnippet"]["runs"][0]["text"],
+                    "uri":                                   element["navigationEndpoint"]["commandMetadata"]["webCommandMetadata"]["url"],
+                    "views": {
+                        "precise":                           element["viewCountText"]["simpleText"],
+                        "simple":                            element["shortViewCountText"]["simpleText"],
+                        "approximate":                       element["shortViewCountText"]["accessibility"]["accessibilityData"]["label"]
+                    },
+                    "duration": {
+                        "simpleText":                        element["lengthText"]["simpleText"],
+                        "text":                              element["lengthText"]["accessibility"]["accessibilityData"]["label"]
+                    },
+                    "published":                             element["publishedTimeText"]["simpleText"],
+                    "channel": {
+                        "name":                              element["ownerText"]["runs"][0]["text"],
+                        "thumbnails":                        element["channelThumbnailSupportedRenderers"]["channelThumbnailWithLinkRenderer"]["thumbnail"]["thumbnails"]
+                    },
+                    "type":                                  responsetype
+                }
+            else:
+                json = {
+                    "id":                                    element["playlistId"],
+                    "videos":                                self._getVideoFromChannelSearch(element["videos"]),
+                    "thumbnails": {
+                        "normal":                            element["thumbnails"],
+                    },
+                    "title":                                 element["title"]["simpleText"],
+                    "uri":                                   element["navigationEndpoint"]["commandMetadata"]["webCommandMetadata"]["url"],
+                    "channel": {
+                        "name":                              element["longBylineText"]["runs"][0]["text"],
+                    },
+                    "type":                                  responsetype
+                }
+            channelsearch.append(json)
+        return channelsearch
 
     def _getShelfComponent(self, element: dict) -> dict:
         shelf = element[shelfElementKey]
