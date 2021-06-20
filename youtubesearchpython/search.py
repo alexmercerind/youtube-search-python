@@ -247,6 +247,7 @@ class PlaylistsSearch(SearchInternal):
         super().__init__(query, limit, language, region, SearchMode.playlists)
         self._getComponents(*self.searchMode)
 
+# TODO: Port to async version
 class ChannelSearch(ChannelSearchInternal):
     '''Searches for videos in specific channel in YouTube.
 
