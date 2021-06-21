@@ -74,3 +74,33 @@ class SearchInternal(RequestHandler, ComponentHandler):
                     self.resultComponents.append(videoComponent)
             if len(self.resultComponents) >= self.limit:
                 break
+
+class ChannelSearchInternal(RequestHandler, ComponentHandler):
+    response = None
+    responseSource = None
+    resultComponents = []
+
+    def __init__(self, query: str, language: str, region: str, searchPreferences: str, browseId: str):
+        self.query = query
+        self.language = language
+        self.region = region
+        self.browseId = browseId
+        self.searchPreferences = searchPreferences
+        self.continuationKey = None
+        self._makeChannelSearchRequest()
+        self._parseChannelSearchSource()
+        self.response = self._getChannelSearchComponent(self.response)
+    
+    def result(self, mode: int = ResultMode.dict) -> Union[str, dict]:
+        '''Returns the search result.
+
+        Args:
+            mode (int, optional): Sets the type of result. Defaults to ResultMode.dict.
+
+        Returns:
+            Union[str, dict]: Returns JSON or dictionary.
+        '''
+        if mode == ResultMode.json:
+            return json.dumps({'result': self.response}, indent = 4)
+        elif mode == ResultMode.dict:
+            return {'result': self.response}

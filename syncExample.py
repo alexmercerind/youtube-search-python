@@ -133,6 +133,11 @@ suggestions = Suggestions(language = 'en', region = 'US')
 print(suggestions.get('NoCopyrightSounds', mode = ResultMode.json))
 
 
+channel = ChannelSearch("Watermelon Sugar", "UCZFWPqqPkFlNwIxcpsLOwew")
+
+print(channel.result(mode=ResultMode.json))
+
+
 
 
 '''
