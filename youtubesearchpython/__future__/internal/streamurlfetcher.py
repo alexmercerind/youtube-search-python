@@ -66,7 +66,9 @@ class StreamURLFetcherInternal(YouTube):
                         params = {
                             'video_id': videoFormats['id'],
                             'eurl': f'https://youtube.googleapis.com/v/{videoFormats["id"]}',
-                            'sts': None,
+                            'sts': '',
+                            "c": "TVHTML5",
+                            "cver": "7.20201028"
                         },
                         timeout = None,
                     )
