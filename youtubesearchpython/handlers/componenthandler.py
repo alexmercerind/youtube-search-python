@@ -67,14 +67,14 @@ class ComponentHandler:
     def _getVideoFromChannelSearch(self, elements: list) -> list:
         channelsearch = []
         for element in elements:
-            element = element["childVideoRenderer"]
+            element = self._getValue(element, ["childVideoRenderer"])
             json = {
-                "id":                                    element["videoId"],
-                "title":                                 element["title"]["simpleText"],
-                "uri":                                   element["navigationEndpoint"]["commandMetadata"]["webCommandMetadata"]["url"],
+                "id":                                    self._getValue(element, ["videoId"]),
+                "title":                                 self._getValue(element, ["title", "simpleText"]),
+                "uri":                                   self._getValue(element, ["navigationEndpoint", "commandMetadata", "webCommandMetadata", "url"]),
                 "duration": {
-                    "simpleText":                        element["lengthText"]["simpleText"],
-                    "text":                              element["lengthText"]["accessibility"]["accessibilityData"]["label"]
+                    "simpleText":                        self._getValue(element, ["lengthText", "simpleText"]),
+                    "text":                              self._getValue(element, ["lengthText", "accessibility", "accessibilityData", "label"])
                 }
             }
             channelsearch.append(json)
@@ -84,6 +84,7 @@ class ComponentHandler:
         channelsearch = []
         for element in elements:
             responsetype = None
+
             try:
                 element = element["itemSectionRenderer"]["contents"][0]["videoRenderer"]
                 responsetype = "video"
@@ -91,48 +92,43 @@ class ComponentHandler:
                 element = element["itemSectionRenderer"]["contents"][0]["playlistRenderer"]
                 responsetype = "playlist"
             
-            try:
-                rich = element["richThumbnail"]["movingThumbnailRenderer"]["movingThumbnailDetails"]["thumbnails"]
-            except:
-                rich = None
-            
             if responsetype == "video":
                 json = {
-                    "id":                                    element["videoId"],
+                    "id":                                    self._getValue(element, ["videoId"]),
                     "thumbnails": {
-                        "normal":                            element["thumbnail"]["thumbnails"],
-                        "rich":                              rich
+                        "normal":                            self._getValue(element, ["thumbnail", "thumbnails"]),
+                        "rich":                              self._getValue(element, ["richThumbnail", "movingThumbnailRenderer", "movingThumbnailDetails", "thumbnails"])
                     },
-                    "title":                                 element["title"]["runs"][0]["text"],
-                    "descriptionSnippet":                    element["descriptionSnippet"]["runs"][0]["text"],
-                    "uri":                                   element["navigationEndpoint"]["commandMetadata"]["webCommandMetadata"]["url"],
+                    "title":                                 self._getValue(element, ["title", "runs", 0, "text"]),
+                    "descriptionSnippet":                    self._getValue(element, ["descriptionSnippet", "runs", 0, "text"]),
+                    "uri":                                   self._getValue(element, ["navigationEndpoint", "commandMetadata", "webCommandMetadata", "url"]),
                     "views": {
-                        "precise":                           element["viewCountText"]["simpleText"],
-                        "simple":                            element["shortViewCountText"]["simpleText"],
-                        "approximate":                       element["shortViewCountText"]["accessibility"]["accessibilityData"]["label"]
+                        "precise":                           self._getValue(element, ["viewCountText", "simpleText"]),
+                        "simple":                            self._getValue(element, ["shortViewCountText", "simpleText"]),
+                        "approximate":                       self._getValue(element, ["shortViewCountText", "accessibility", "accessibilityData", "label"])
                     },
                     "duration": {
-                        "simpleText":                        element["lengthText"]["simpleText"],
-                        "text":                              element["lengthText"]["accessibility"]["accessibilityData"]["label"]
+                        "simpleText":                        self._getValue(element, ["lengthText", "simpleText"]),
+                        "text":                              self._getValue(element, ["lengthText", "accessibility", "accessibilityData", "label"])
                     },
-                    "published":                             element["publishedTimeText"]["simpleText"],
+                    "published":                             self._getValue(element, ["publishedTimeText", "simpleText"]),
                     "channel": {
-                        "name":                              element["ownerText"]["runs"][0]["text"],
-                        "thumbnails":                        element["channelThumbnailSupportedRenderers"]["channelThumbnailWithLinkRenderer"]["thumbnail"]["thumbnails"]
+                        "name":                              self._getValue(element, ["ownerText", "runs", 0, "text"]),
+                        "thumbnails":                        self._getValue(element, ["channelThumbnailSupportedRenderers", "channelThumbnailWithLinkRenderer", "thumbnail", "thumbnails"])
                     },
                     "type":                                  responsetype
                 }
             else:
                 json = {
-                    "id":                                    element["playlistId"],
-                    "videos":                                self._getVideoFromChannelSearch(element["videos"]),
+                    "id":                                    self._getValue(element, ["playlistId"]),
+                    "videos":                                self._getVideoFromChannelSearch(self._getValue(element, ["videos"])),
                     "thumbnails": {
-                        "normal":                            element["thumbnails"],
+                        "normal":                            self._getValue(element, ["thumbnails"]),
                     },
-                    "title":                                 element["title"]["simpleText"],
-                    "uri":                                   element["navigationEndpoint"]["commandMetadata"]["webCommandMetadata"]["url"],
+                    "title":                                 self._getValue(element, ["title", "simpleText"]),
+                    "uri":                                   self._getValue(element, ["navigationEndpoint", "commandMetadata", "webCommandMetadata", "url"]),
                     "channel": {
-                        "name":                              element["longBylineText"]["runs"][0]["text"],
+                        "name":                              self._getValue(element, ["longBylineText", "runs", 0, "text"]),
                     },
                     "type":                                  responsetype
                 }

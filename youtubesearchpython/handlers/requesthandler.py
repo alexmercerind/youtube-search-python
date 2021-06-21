@@ -61,8 +61,7 @@ class RequestHandler(ComponentHandler):
         )
         try:
             self.response = json.loads(urlopen(request).read().decode('utf_8'))
-        except Exception as e:
-            print(e)
+        except:
             raise Exception('ERROR: Could not make request.')
     
     def _parseSource(self) -> None:

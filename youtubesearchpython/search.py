@@ -247,7 +247,6 @@ class PlaylistsSearch(SearchInternal):
         super().__init__(query, limit, language, region, SearchMode.playlists)
         self._getComponents(*self.searchMode)
 
-# TODO: Port to async version
 class ChannelSearch(ChannelSearchInternal):
     '''Searches for videos in specific channel in YouTube.
 
@@ -322,7 +321,6 @@ class ChannelSearch(ChannelSearchInternal):
 
     def __init__(self, query: str, browseId: str, language: str = 'en', region: str = 'US', searchPreferences: str = "EgZzZWFyY2g%3D"):
         super().__init__(query, language, region, searchPreferences, browseId)
-        #self._getComponents(*self.searchMode)
 
 class CustomSearch(SearchInternal):
     '''Performs custom search in YouTube with search filters or sorting orders. 
