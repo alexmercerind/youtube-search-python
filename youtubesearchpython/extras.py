@@ -4,7 +4,7 @@ from youtubesearchpython.internal.constants import *
 
 class Video(VideoInternal):
     @staticmethod
-    def get(videoLink: str, mode: int = ResultMode.dict) -> Union[dict, str, None]:
+    def get(videoLink: str, mode: int = ResultMode.dict, timeout: int = None) -> Union[dict, str, None]:
         '''Fetches information and formats  for the given video link or ID.
         Returns None if video is unavailable.
 
@@ -250,10 +250,10 @@ class Video(VideoInternal):
                     ]
                 }
         '''
-        return Video(videoLink, None, mode).result
+        return Video(videoLink, None, mode, timeout).result
     
     @staticmethod
-    def getInfo(videoLink: str, mode: int = ResultMode.dict) -> Union[dict, str, None]:
+    def getInfo(videoLink: str, mode: int = ResultMode.dict, timeout: int = None) -> Union[dict, str, None]:
         '''Fetches only information for the given video link or ID.
         Returns None if video is unavailable.
 
@@ -334,10 +334,10 @@ class Video(VideoInternal):
                 "link": "https://www.youtube.com/watch?v=E07s5ZYygMg",
             }
         '''
-        return Video(videoLink, "getInfo", mode).result
+        return Video(videoLink, "getInfo", mode, timeout).result
 
     @staticmethod
-    def getFormats(videoLink: str, mode: int = ResultMode.dict) -> Union[dict, str, None]:
+    def getFormats(videoLink: str, mode: int = ResultMode.dict, timeout: int = None) -> Union[dict, str, None]:
         '''Fetches formats  for the given video link or ID.
         Returns None if video is unavailable.
 
@@ -518,7 +518,7 @@ class Video(VideoInternal):
                 }
             }
         '''
-        return Video(videoLink, "getFormats", mode).result
+        return Video(videoLink, "getFormats", mode, timeout).result
 
 
 
@@ -543,8 +543,9 @@ class Playlist:
     info = None
     hasMoreVideos = False
 
-    def __init__(self, playlistLink: str):
-        self.__playlist = PlaylistInternal(playlistLink, None, ResultMode.dict)
+    def __init__(self, playlistLink: str, timeout: int = None):
+        self.timeout = timeout
+        self.__playlist = PlaylistInternal(playlistLink, None, ResultMode.dict, self.timeout)
         self.info = copy.deepcopy(self.__playlist.playlistComponent)
         self.videos = self.__playlist.playlistComponent['videos']
         self.hasMoreVideos = self.__playlist.continuationKey != None
@@ -559,7 +560,7 @@ class Playlist:
         self.hasMoreVideos = self.__playlist.continuationKey != None
 
     @staticmethod
-    def get(playlistLink: str, mode: int = ResultMode.dict) -> Union[dict, str, None]:
+    def get(playlistLink: str, mode: int = ResultMode.dict, timeout: int = None) -> Union[dict, str, None]:
         '''Fetches information and videos for the given playlist link.
         Returns None if playlist is unavailable.
 
@@ -1108,10 +1109,10 @@ class Playlist:
                 ]
             }
         '''
-        return PlaylistInternal(playlistLink, None, mode).result
+        return PlaylistInternal(playlistLink, None, mode, timeout).result
     
     @staticmethod
-    def getInfo(playlistLink: str, mode: int = ResultMode.dict) -> Union[dict, str, None]:
+    def getInfo(playlistLink: str, mode: int = ResultMode.dict, timeout: int = None) -> Union[dict, str, None]:
         '''Fetches only information for the given playlist link.
         Returns None if playlist is unavailable.
 
@@ -1177,10 +1178,10 @@ class Playlist:
                 }
             }
         '''
-        return PlaylistInternal(playlistLink, 'getInfo', mode).result
+        return PlaylistInternal(playlistLink, 'getInfo', mode, timeout).result
 
     @staticmethod
-    def getVideos(playlistLink: str, mode: int = ResultMode.dict) -> Union[dict, str, None]:
+    def getVideos(playlistLink: str, mode: int = ResultMode.dict, timeout: int = None) -> Union[dict, str, None]:
         '''Fetches only videos in the given playlist from link.
         Returns None if playlist is unavailable.
 
@@ -1678,4 +1679,4 @@ class Playlist:
                 ]
             }
         '''
-        return PlaylistInternal(playlistLink, 'getVideos', mode).result
+        return PlaylistInternal(playlistLink, 'getVideos', mode, timeout).result

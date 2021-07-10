@@ -67,9 +67,9 @@ class Search(SearchInternal):
             ]
         }
     '''
-    def __init__(self, query: str, limit: int = 20, language: str = 'en', region: str = 'US'):
+    def __init__(self, query: str, limit: int = 20, language: str = 'en', region: str = 'US', timeout: int = None):
         self.searchMode = (True, True, True)
-        super().__init__(query, limit, language, region, None)
+        super().__init__(query, limit, language, region, None, timeout)
         self._getComponents(*self.searchMode)
 
 class VideosSearch(SearchInternal):
@@ -137,9 +137,9 @@ class VideosSearch(SearchInternal):
             ]
         }
     '''
-    def __init__(self, query: str, limit: int = 20, language: str = 'en', region: str = 'US'):
+    def __init__(self, query: str, limit: int = 20, language: str = 'en', region: str = 'US', timeout: int = None):
         self.searchMode = (True, False, False)
-        super().__init__(query, limit, language, region, SearchMode.videos)
+        super().__init__(query, limit, language, region, SearchMode.videos, timeout)
         self._getComponents(*self.searchMode)
 
 
@@ -183,9 +183,9 @@ class ChannelsSearch(SearchInternal):
             ]
         }
     '''
-    def __init__(self, query: str, limit: int = 20, language: str = 'en', region: str = 'US'):
+    def __init__(self, query: str, limit: int = 20, language: str = 'en', region: str = 'US', timeout: int = None):
         self.searchMode = (False, True, False)
-        super().__init__(query, limit, language, region, SearchMode.channels)
+        super().__init__(query, limit, language, region, SearchMode.channels, timeout)
         self._getComponents(*self.searchMode)
 
 
@@ -242,9 +242,9 @@ class PlaylistsSearch(SearchInternal):
             ]
         }
     '''
-    def __init__(self, query: str, limit: int = 20, language: str = 'en', region: str = 'US'):
+    def __init__(self, query: str, limit: int = 20, language: str = 'en', region: str = 'US', timeout: int = None):
         self.searchMode = (False, False, True)
-        super().__init__(query, limit, language, region, SearchMode.playlists)
+        super().__init__(query, limit, language, region, SearchMode.playlists, timeout)
         self._getComponents(*self.searchMode)
 
 class ChannelSearch(ChannelSearchInternal):
@@ -319,8 +319,8 @@ class ChannelSearch(ChannelSearchInternal):
         }
     '''
 
-    def __init__(self, query: str, browseId: str, language: str = 'en', region: str = 'US', searchPreferences: str = "EgZzZWFyY2g%3D"):
-        super().__init__(query, language, region, searchPreferences, browseId)
+    def __init__(self, query: str, browseId: str, language: str = 'en', region: str = 'US', searchPreferences: str = "EgZzZWFyY2g%3D", timeout: int = None):
+        super().__init__(query, language, region, searchPreferences, browseId, timeout)
 
 class CustomSearch(SearchInternal):
     '''Performs custom search in YouTube with search filters or sorting orders. 
@@ -398,7 +398,7 @@ class CustomSearch(SearchInternal):
             ]
         }
     '''
-    def __init__(self, query: str, searchPreferences: str, limit: int = 20, language: str = 'en', region: str = 'US'):
+    def __init__(self, query: str, searchPreferences: str, limit: int = 20, language: str = 'en', region: str = 'US', timeout: int = None):
         self.searchMode = (True, True, True)
-        super().__init__(query, limit, language, region, searchPreferences)
+        super().__init__(query, limit, language, region, searchPreferences, timeout)
         self._getComponents(*self.searchMode)

@@ -6,7 +6,8 @@ from youtubesearchpython.internal.constants import *
 
 
 class VideoInternal:
-    def __init__(self, videoLink: str, componentMode: str, resultMode: int):
+    def __init__(self, videoLink: str, componentMode: str, resultMode: int, timeout: int):
+        self.timeout = timeout
         self.resultMode = resultMode
         statusCode = self.__makeRequest(self.__getVideoId(videoLink))
         if statusCode == 200:
@@ -33,18 +34,18 @@ class VideoInternal:
                 'v': videoId,
                 'pbj': 1,
             }),
-            headers = {
+            headers={
                 'User-Agent': userAgent,
             },
-            data = urlencode({}).encode('utf_8'),
+            data=urlencode({}).encode('utf_8'),
         )
         try:
-            response = urlopen(request)
+            response = urlopen(request, timeout=self.timeout)
             self.response = response.read().decode('utf_8')
             return response.getcode()
         except:
             raise Exception('ERROR: Could not make request.')
-    
+
     def __parseSource(self) -> None:
         try:
             self.responseSource = json.loads(self.response)
@@ -71,34 +72,34 @@ class VideoInternal:
         if mode == ResultMode.dict:
             return self.__videoComponent
         elif mode == ResultMode.json:
-            return json.dumps(self.__videoComponent, indent = 4)
+            return json.dumps(self.__videoComponent, indent=4)
 
     def __getVideoComponent(self, element: dict, mode: str) -> dict:
         videoComponent = {}
         if mode in ['getInfo', None]:
             component = {
-                'id':                             self.__getValue(element, ['videoDetails', 'videoId']),
-                'title':                          self.__getValue(element, ['videoDetails', 'title']),
+                'id': self.__getValue(element, ['videoDetails', 'videoId']),
+                'title': self.__getValue(element, ['videoDetails', 'title']),
                 'viewCount': {
-                    'text':                       self.__getValue(element, ['videoDetails', 'viewCount'])
+                    'text': self.__getValue(element, ['videoDetails', 'viewCount'])
                 },
-                'thumbnails':                     self.__getValue(element, ['videoDetails', 'thumbnail', 'thumbnails']),
-                'description':                    self.__getValue(element, ['videoDetails', 'shortDescription']),
+                'thumbnails': self.__getValue(element, ['videoDetails', 'thumbnail', 'thumbnails']),
+                'description': self.__getValue(element, ['videoDetails', 'shortDescription']),
                 'channel': {
-                    'name':                       self.__getValue(element, ['videoDetails', 'author']),
-                    'id':                         self.__getValue(element, ['videoDetails', 'channelId']),
+                    'name': self.__getValue(element, ['videoDetails', 'author']),
+                    'id': self.__getValue(element, ['videoDetails', 'channelId']),
                 },
-                'averageRating':                  self.__getValue(element, ['videoDetails', 'averageRating']),
-                'keywords':                       self.__getValue(element, ['videoDetails', 'keywords']),
-                'publishDate':                    self.__getValue(element, ['microformat', 'playerMicroformatRenderer', 'publishDate']),
-                'uploadDate':                     self.__getValue(element, ['microformat', 'playerMicroformatRenderer', 'uploadDate']),
+                'averageRating': self.__getValue(element, ['videoDetails', 'averageRating']),
+                'keywords': self.__getValue(element, ['videoDetails', 'keywords']),
+                'publishDate': self.__getValue(element, ['microformat', 'playerMicroformatRenderer', 'publishDate']),
+                'uploadDate': self.__getValue(element, ['microformat', 'playerMicroformatRenderer', 'uploadDate']),
             }
             component['link'] = 'https://www.youtube.com/watch?v=' + component['id']
             component['channel']['link'] = 'https://www.youtube.com/channel/' + component['channel']['id']
             videoComponent.update(component)
         if mode in ['getFormats', None]:
             component = {
-                'streamingData':                  self.__getValue(element, ['streamingData']),
+                'streamingData': self.__getValue(element, ['streamingData']),
             }
             videoComponent.update(component)
         return videoComponent
@@ -126,9 +127,10 @@ class PlaylistInternal:
     result = None
     continuationKey = None
 
-    def __init__(self, playlistLink: str, componentMode: str, resultMode: int):
+    def __init__(self, playlistLink: str, componentMode: str, resultMode: int, timeout: int):
         self.componentMode = componentMode
         self.resultMode = resultMode
+        self.timeout = timeout
         statusCode = self.__makeRequest(playlistLink)
         if statusCode == 200:
             self.__parseSource()
@@ -149,27 +151,27 @@ class PlaylistInternal:
         playlistLink.strip('/')
         request = Request(
             playlistLink + '&pbj=1',
-            data = urlencode({}).encode('utf_8'),
-            headers = {
+            data=urlencode({}).encode('utf_8'),
+            headers={
                 'User-Agent': userAgent,
             },
         )
         try:
-            response = urlopen(request)
+            response = urlopen(request, timeout=self.timeout)
             self.response = response.read().decode('utf_8')
             return response.getcode()
         except:
             raise Exception('ERROR: Could not make request.')
-    
-    def __makeNextRequest(self, requestBody = requestPayload) -> int:
+
+    def __makeNextRequest(self, requestBody=requestPayload) -> int:
         requestBody['continuation'] = self.continuationKey
         requestBodyBytes = json.dumps(requestBody).encode('utf_8')
         request = Request(
             'https://www.youtube.com/youtubei/v1/browse' + '?' + urlencode({
                 'key': searchKey,
             }),
-            data = requestBodyBytes,
-            headers = {
+            data=requestBodyBytes,
+            headers={
                 'Content-Type': 'application/json; charset=utf-8',
                 'Content-Length': len(requestBodyBytes),
                 'User-Agent': userAgent,
@@ -177,11 +179,11 @@ class PlaylistInternal:
         )
         try:
             response = urlopen(request)
-            self.response = response.read().decode('utf_8')
+            self.response = response.read(timeout=self.timeout).decode('utf_8')
             return response.getcode()
         except:
             raise Exception('ERROR: Could not make request.')
-    
+
     def __parseSource(self) -> None:
         try:
             self.responseSource = json.loads(self.response)
@@ -192,8 +194,8 @@ class PlaylistInternal:
         for response in self.responseSource:
             if 'response' in response.keys():
                 playlistElement = {
-                    'info':                               self.__getValue(response, playlistInfoPath),
-                    'videos':                             self.__getValue(response, playlistVideosPath),
+                    'info': self.__getValue(response, playlistInfoPath),
+                    'videos': self.__getValue(response, playlistVideosPath),
                 }
                 if not playlistElement['info']:
                     raise Exception('ERROR: Could not parse YouTube response.')
@@ -205,21 +207,28 @@ class PlaylistInternal:
         playlistComponent = {
             'videos': [],
         }
-        continuationElements = self.__getValue(self.responseSource, ['onResponseReceivedActions', 0, 'appendContinuationItemsAction', 'continuationItems'])
+        continuationElements = self.__getValue(self.responseSource,
+                                               ['onResponseReceivedActions', 0, 'appendContinuationItemsAction',
+                                                'continuationItems'])
         for videoElement in continuationElements:
             if playlistVideoKey in videoElement.keys():
                 videoComponent = {
-                    'id':                             self.__getValue(videoElement, [playlistVideoKey, 'videoId']),
-                    'title':                          self.__getValue(videoElement, [playlistVideoKey, 'title', 'runs', 0, 'text']),
-                    'thumbnails':                     self.__getValue(videoElement, [playlistVideoKey, 'thumbnail', 'thumbnails']),
+                    'id': self.__getValue(videoElement, [playlistVideoKey, 'videoId']),
+                    'title': self.__getValue(videoElement, [playlistVideoKey, 'title', 'runs', 0, 'text']),
+                    'thumbnails': self.__getValue(videoElement, [playlistVideoKey, 'thumbnail', 'thumbnails']),
                     'channel': {
-                        'name':                       self.__getValue(videoElement, [playlistVideoKey, 'shortBylineText', 'runs', 0, 'text']),
-                        'id':                         self.__getValue(videoElement, [playlistVideoKey, 'shortBylineText', 'runs', 0, 'navigationEndpoint', 'browseEndpoint', 'browseId']),
+                        'name': self.__getValue(videoElement, [playlistVideoKey, 'shortBylineText', 'runs', 0, 'text']),
+                        'id': self.__getValue(videoElement,
+                                              [playlistVideoKey, 'shortBylineText', 'runs', 0, 'navigationEndpoint',
+                                               'browseEndpoint', 'browseId']),
                     },
-                    'duration':                       self.__getValue(videoElement, [playlistVideoKey, 'lengthText', 'simpleText']),
+                    'duration': self.__getValue(videoElement, [playlistVideoKey, 'lengthText', 'simpleText']),
                     'accessibility': {
-                        'title':                      self.__getValue(videoElement, [playlistVideoKey, 'title', 'accessibility', 'accessibilityData', 'label']),
-                        'duration':                   self.__getValue(videoElement, [playlistVideoKey, 'lengthText', 'accessibility', 'accessibilityData', 'label']),
+                        'title': self.__getValue(videoElement,
+                                                 [playlistVideoKey, 'title', 'accessibility', 'accessibilityData',
+                                                  'label']),
+                        'duration': self.__getValue(videoElement, [playlistVideoKey, 'lengthText', 'accessibility',
+                                                                   'accessibilityData', 'label']),
                     },
                 }
                 playlistComponent['videos'].append(
@@ -228,29 +237,43 @@ class PlaylistInternal:
             if continuationItemKey in videoElement.keys():
                 self.continuationKey = self.__getValue(videoElement, continuationKeyPath)
         self.playlistComponent['videos'].extend(playlistComponent['videos'])
-                
+
     def __getPlaylistComponent(self, element: dict, mode: str) -> dict:
         playlistComponent = {}
         if mode in ['getInfo', None]:
             for infoElement in element['info']:
                 if playlistPrimaryInfoKey in infoElement.keys():
                     component = {
-                        'id':                             self.__getValue(infoElement, [playlistPrimaryInfoKey, 'title', 'runs', 0, 'navigationEndpoint', 'watchEndpoint', 'playlistId']),
-                        'title':                          self.__getValue(infoElement, [playlistPrimaryInfoKey, 'title', 'runs', 0, 'text']),
-                        'videoCount':                     self.__getValue(infoElement, [playlistPrimaryInfoKey, 'stats', 0, 'runs', 0, 'text']),
-                        'viewCount':                      self.__getValue(infoElement, [playlistPrimaryInfoKey, 'stats', 1, 'simpleText']),
-                        'thumbnails':                     self.__getValue(infoElement, [playlistPrimaryInfoKey, 'thumbnailRenderer', 'playlistVideoThumbnailRenderer', 'thumbnail']),
+                        'id': self.__getValue(infoElement,
+                                              [playlistPrimaryInfoKey, 'title', 'runs', 0, 'navigationEndpoint',
+                                               'watchEndpoint', 'playlistId']),
+                        'title': self.__getValue(infoElement, [playlistPrimaryInfoKey, 'title', 'runs', 0, 'text']),
+                        'videoCount': self.__getValue(infoElement,
+                                                      [playlistPrimaryInfoKey, 'stats', 0, 'runs', 0, 'text']),
+                        'viewCount': self.__getValue(infoElement, [playlistPrimaryInfoKey, 'stats', 1, 'simpleText']),
+                        'thumbnails': self.__getValue(infoElement, [playlistPrimaryInfoKey, 'thumbnailRenderer',
+                                                                    'playlistVideoThumbnailRenderer', 'thumbnail']),
                     }
                     if not component['thumbnails']:
-                        component['thumbnails'] =         self.__getValue(infoElement, [playlistPrimaryInfoKey, 'thumbnailRenderer', 'playlistCustomThumbnailRenderer', 'thumbnail', 'thumbnails']),
+                        component['thumbnails'] = self.__getValue(infoElement,
+                                                                  [playlistPrimaryInfoKey, 'thumbnailRenderer',
+                                                                   'playlistCustomThumbnailRenderer', 'thumbnail',
+                                                                   'thumbnails']),
                     component['link'] = 'https://www.youtube.com/playlist?list=' + component['id']
                     playlistComponent.update(component)
                 if playlistSecondaryInfoKey in infoElement.keys():
                     component = {
                         'channel': {
-                            'name':                       self.__getValue(infoElement, [playlistSecondaryInfoKey, 'videoOwner', 'videoOwnerRenderer', 'title', 'runs', 0, 'text']),
-                            'id':                         self.__getValue(infoElement, [playlistSecondaryInfoKey, 'videoOwner', 'videoOwnerRenderer', 'title', 'runs', 0, 'navigationEndpoint', 'browseEndpoint', 'browseId']),
-                            'thumbnails':                 self.__getValue(infoElement, [playlistSecondaryInfoKey, 'videoOwner', 'videoOwnerRenderer', 'thumbnail', 'thumbnails']),
+                            'name': self.__getValue(infoElement,
+                                                    [playlistSecondaryInfoKey, 'videoOwner', 'videoOwnerRenderer',
+                                                     'title', 'runs', 0, 'text']),
+                            'id': self.__getValue(infoElement,
+                                                  [playlistSecondaryInfoKey, 'videoOwner', 'videoOwnerRenderer',
+                                                   'title', 'runs', 0, 'navigationEndpoint', 'browseEndpoint',
+                                                   'browseId']),
+                            'thumbnails': self.__getValue(infoElement,
+                                                          [playlistSecondaryInfoKey, 'videoOwner', 'videoOwnerRenderer',
+                                                           'thumbnail', 'thumbnails']),
                         },
                     }
                     component['channel']['link'] = 'https://www.youtube.com/channel/' + component['channel']['id']
@@ -261,21 +284,28 @@ class PlaylistInternal:
             for videoElement in element['videos']:
                 if playlistVideoKey in videoElement.keys():
                     videoComponent = {
-                        'id':                             self.__getValue(videoElement, [playlistVideoKey, 'videoId']),
-                        'title':                          self.__getValue(videoElement, [playlistVideoKey, 'title', 'runs', 0, 'text']),
-                        'thumbnails':                     self.__getValue(videoElement, [playlistVideoKey, 'thumbnail', 'thumbnails']),
+                        'id': self.__getValue(videoElement, [playlistVideoKey, 'videoId']),
+                        'title': self.__getValue(videoElement, [playlistVideoKey, 'title', 'runs', 0, 'text']),
+                        'thumbnails': self.__getValue(videoElement, [playlistVideoKey, 'thumbnail', 'thumbnails']),
                         'channel': {
-                            'name':                       self.__getValue(videoElement, [playlistVideoKey, 'shortBylineText', 'runs', 0, 'text']),
-                            'id':                         self.__getValue(videoElement, [playlistVideoKey, 'shortBylineText', 'runs', 0, 'navigationEndpoint', 'browseEndpoint', 'browseId']),
+                            'name': self.__getValue(videoElement,
+                                                    [playlistVideoKey, 'shortBylineText', 'runs', 0, 'text']),
+                            'id': self.__getValue(videoElement,
+                                                  [playlistVideoKey, 'shortBylineText', 'runs', 0, 'navigationEndpoint',
+                                                   'browseEndpoint', 'browseId']),
                         },
-                        'duration':                       self.__getValue(videoElement, [playlistVideoKey, 'lengthText', 'simpleText']),
+                        'duration': self.__getValue(videoElement, [playlistVideoKey, 'lengthText', 'simpleText']),
                         'accessibility': {
-                            'title':                      self.__getValue(videoElement, [playlistVideoKey, 'title', 'accessibility', 'accessibilityData', 'label']),
-                            'duration':                   self.__getValue(videoElement, [playlistVideoKey, 'lengthText', 'accessibility', 'accessibilityData', 'label']),
+                            'title': self.__getValue(videoElement,
+                                                     [playlistVideoKey, 'title', 'accessibility', 'accessibilityData',
+                                                      'label']),
+                            'duration': self.__getValue(videoElement, [playlistVideoKey, 'lengthText', 'accessibility',
+                                                                       'accessibilityData', 'label']),
                         },
                     }
                     videoComponent['link'] = 'https://www.youtube.com/watch?v=' + videoComponent['id']
-                    videoComponent['channel']['link'] = 'https://www.youtube.com/channel/' + videoComponent['channel']['id']
+                    videoComponent['channel']['link'] = 'https://www.youtube.com/channel/' + videoComponent['channel'][
+                        'id']
                     playlistComponent['videos'].append(
                         videoComponent
                     )
@@ -287,7 +317,7 @@ class PlaylistInternal:
         if mode == ResultMode.dict:
             return self.playlistComponent
         elif mode == ResultMode.json:
-            return json.dumps(self.playlistComponent, indent = 4)
+            return json.dumps(self.playlistComponent, indent=4)
 
     def __getValue(self, source: dict, path: List[str]) -> Union[str, int, dict, None]:
         value = source
@@ -338,9 +368,11 @@ class Suggestions:
             ]
         }
     '''
-    def __init__(self, language: str = 'en', region: str = 'US'):
+
+    def __init__(self, language: str = 'en', region: str = 'US', timeout: int = None):
         self.language = language
         self.region = region
+        self.timeout = timeout
 
     def get(self, query: str, mode: int = ResultMode.dict) -> Union[dict, str]:
         '''Fetches & returns the search suggestions for the given query.
@@ -362,8 +394,8 @@ class Suggestions:
         if mode == ResultMode.dict:
             return {'result': searchSuggestions}
         elif mode == ResultMode.json:
-            return json.dumps({'result': searchSuggestions}, indent = 4)
-        
+            return json.dumps({'result': searchSuggestions}, indent=4)
+
     def __parseSource(self) -> None:
         try:
             self.responseSource = json.loads(self.response[self.response.index('(') + 1: self.response.index(')')])
@@ -380,11 +412,11 @@ class Suggestions:
                 'gs_ri': 'youtube',
                 'ds': 'yt',
             }),
-            headers = {
+            headers={
                 'User-Agent': userAgent,
             },
         )
         try:
-            self.response = urlopen(request).read().decode('utf_8')
+            self.response = urlopen(request, timeout=self.timeout).read().decode('utf_8')
         except:
             raise Exception('ERROR: Could not make request.')

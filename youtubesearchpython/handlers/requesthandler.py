@@ -32,7 +32,7 @@ class RequestHandler(ComponentHandler):
             }
         )
         try:
-            self.response = urlopen(request).read().decode('utf_8')
+            self.response = urlopen(request, timeout=self.timeout).read().decode('utf_8')
         except:
             raise Exception('ERROR: Could not make request.')
     

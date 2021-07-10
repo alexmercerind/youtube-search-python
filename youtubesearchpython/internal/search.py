@@ -10,12 +10,13 @@ class SearchInternal(RequestHandler, ComponentHandler):
     responseSource = None
     resultComponents = []
 
-    def __init__(self, query: str, limit: int, language: str, region: str, searchPreferences: str):
+    def __init__(self, query: str, limit: int, language: str, region: str, searchPreferences: str, timeout: int):
         self.query = query
         self.limit = limit
         self.language = language
         self.region = region
         self.searchPreferences = searchPreferences
+        self.timeout = timeout
         self.continuationKey = None
         self._makeRequest()
         self._parseSource()
@@ -80,13 +81,14 @@ class ChannelSearchInternal(RequestHandler, ComponentHandler):
     responseSource = None
     resultComponents = []
 
-    def __init__(self, query: str, language: str, region: str, searchPreferences: str, browseId: str):
+    def __init__(self, query: str, language: str, region: str, searchPreferences: str, browseId: str, timeout: int):
         self.query = query
         self.language = language
         self.region = region
         self.browseId = browseId
         self.searchPreferences = searchPreferences
         self.continuationKey = None
+        self.timeout = timeout
         self._makeChannelSearchRequest()
         self._parseChannelSearchSource()
         self.response = self._getChannelSearchComponent(self.response)
