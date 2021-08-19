@@ -1759,6 +1759,6 @@ class HashtagVideos(HashtagVideosInternal):
             ]
         }
     '''
-    def __init__(self, hashtag: str, limit: int = 60, language: str = 'ru', region: str = 'RU', timeout: int = None):
+    def __init__(self, hashtag: str, limit: int = 60, language: str = 'en', region: str = 'US', timeout: int = None):
         super().__init__(hashtag, limit, language, region, timeout)
         self._getComponents()
