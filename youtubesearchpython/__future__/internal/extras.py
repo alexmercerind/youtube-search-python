@@ -383,10 +383,10 @@ class HashtagInternal(ComponentHandler):
                     json = requestBody,
                     timeout = self.timeout
                 )
-                self.response = response.json()
+                response = response.json()
         except:
             raise Exception('ERROR: Could not make request.')
-        content = await self._getValue(response.json(), contentPath)
+        content = await self._getValue(response, contentPath)
         for item in await self._getValue(content, [0, 'itemSectionRenderer', 'contents']):
             if hashtagElementKey in item.keys():
                 self.params = await self._getValue(item[hashtagElementKey], ['onTapCommand', 'browseEndpoint', 'params'])
