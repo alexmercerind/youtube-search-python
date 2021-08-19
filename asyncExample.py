@@ -140,6 +140,16 @@ async def main():
 
 
     '''
+    Getting videos by hashtag.
+    '''
+    hashtag = Hashtag('ncs', limit = 1)
+    result = await hashtag.next()
+    print(result)
+
+
+
+
+    '''
     Getting direct stream URL for a video.
     You may show search suggestions to users before making any search.
 

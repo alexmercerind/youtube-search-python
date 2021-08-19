@@ -1680,3 +1680,85 @@ class Playlist:
             }
         '''
         return PlaylistInternal(playlistLink, 'getVideos', mode, timeout).result
+
+
+
+class Hashtag(HashtagInternal):
+    '''Fetches videos for the given hashtag.
+
+    Args:
+        query (str): Sets the search query.
+        limit (int, optional): Sets limit to the number of results. Defaults to 20.
+        language (str, optional): Sets the result language. Defaults to 'en'.
+        region (str, optional): Sets the result region. Defaults to 'US'.
+    
+    Examples:
+        Calling `result` method gives the search result.
+
+        >>> hashtag = Hashtag('ncs', limit = 1)
+        >>> print(hashtag.result())
+        {
+            "result": [
+                {
+                    "type": "video",
+                    "id": "c9FF4Tfj2w8",
+                    "title": "Ascence - About You [NCS 1 HOUR]",
+                    "publishedTime": "1 year ago",
+                    "duration": "1:00:00",
+                    "viewCount": {
+                        "text": "226,354 views",
+                        "short": "226K views"
+                    },
+                    "thumbnails": [
+                        {
+                            "url": "https://i.ytimg.com/vi/c9FF4Tfj2w8/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLA8V3x_PigkymVQxQcptr8Wfz20-A",
+                            "width": 168,
+                            "height": 94
+                        },
+                        {
+                            "url": "https://i.ytimg.com/vi/c9FF4Tfj2w8/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLABh5Ylb5wbuulOAWLcSYtfYQKiAQ",
+                            "width": 196,
+                            "height": 110
+                        },
+                        {
+                            "url": "https://i.ytimg.com/vi/c9FF4Tfj2w8/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAykmTivOgjlW6a4tKWnLJpL9yqKw",
+                            "width": 246,
+                            "height": 138
+                        },
+                        {
+                            "url": "https://i.ytimg.com/vi/c9FF4Tfj2w8/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC8qRkotPyH9kGGHe29QuyOh-F9KA",
+                            "width": 336,
+                            "height": 188
+                        }
+                    ],
+                    "richThumbnail": {
+                        "url": "https://i.ytimg.com/an_webp/c9FF4Tfj2w8/mqdefault_6s.webp?du=3000&sqp=CPGE-YgG&rs=AOn4CLAJAC5zmDOtySflLFMQpAoaPUqHjA",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "descriptionSnippet": null,
+                    "channel": {
+                        "name": "Good Vibes Music",
+                        "id": "UChCPI0uvKwrkYhTEx8UVrnQ",
+                        "thumbnails": [
+                            {
+                                "url": "https://yt3.ggpht.com/ytc/AKedOLSFYY0mvwL0DbRzddMAQdbgFshM42R5byhI9FiEBQ=s68-c-k-c0x00ffffff-no-rj",
+                                "width": 68,
+                                "height": 68
+                            }
+                        ],
+                        "link": "https://www.youtube.com/channel/UChCPI0uvKwrkYhTEx8UVrnQ"
+                    },
+                    "accessibility": {
+                        "title": "Ascence - About You [NCS 1 HOUR] by Good Vibes Music 1 year ago 1 hour 226,354 views",
+                        "duration": "1 hour"
+                    },
+                    "link": "https://www.youtube.com/watch?v=c9FF4Tfj2w8",
+                    "shelfTitle": null
+                }
+            ]
+        }
+    '''
+    def __init__(self, hashtag: str, limit: int = 60, language: str = 'en', region: str = 'US', timeout: int = None):
+        super().__init__(hashtag, limit, language, region, timeout)
+        self._getComponents()

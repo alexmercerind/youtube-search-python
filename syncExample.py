@@ -133,6 +133,17 @@ suggestions = Suggestions(language = 'en', region = 'US')
 print(suggestions.get('NoCopyrightSounds', mode = ResultMode.json))
 
 
+
+
+'''
+Getting videos by hashtag.
+'''
+hashtag = Hashtag('ncs', limit = 1)
+print(hashtag.result())
+
+
+
+
 channel = ChannelSearch("Watermelon Sugar", "UCZFWPqqPkFlNwIxcpsLOwew")
 
 print(channel.result(mode=ResultMode.json))
