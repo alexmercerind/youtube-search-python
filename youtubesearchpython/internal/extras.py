@@ -468,7 +468,7 @@ class HashtagVideosInternal(ComponentHandler):
         else:
             return False
 
-    def _getParams(self):
+    def _getParams(self) -> None:
         requestBody = copy.deepcopy(requestPayload)
         requestBody['query'] = "#" + self.hashtag
         requestBody['client'] = {
@@ -497,7 +497,7 @@ class HashtagVideosInternal(ComponentHandler):
                 self.params = self._getValue(item[hashtagElementKey], ['onTapCommand', 'browseEndpoint', 'params'])
                 return
 
-    def _makeRequest(self):
+    def _makeRequest(self) -> None:
         if self.params == None:
             return
         requestBody = copy.deepcopy(requestPayload)
@@ -526,7 +526,7 @@ class HashtagVideosInternal(ComponentHandler):
         except:
             raise Exception('ERROR: Could not make request.')
 
-    def _getComponents(self):
+    def _getComponents(self) -> None:
         if self.response == None:
             return
         self.resultComponents = []
