@@ -1738,7 +1738,7 @@ class Playlist:
         return playlist.playlistComponent
 
 
-class HashtagVideos(HashtagVideosInternal):
+class Hashtag(HashtagInternal):
     '''Fetches videos for the given hashtag.
 
     Args:
@@ -1748,8 +1748,8 @@ class HashtagVideos(HashtagVideosInternal):
         region (str, optional): Sets the result region. Defaults to 'US'.
     
     Examples:
-        >>> hashtagVideos = HashtagVideos('ncs', limit = 1)
-        >>> result = await hashtagVideos.next()
+        >>> hashtag = Hashtags('ncs', limit = 1)
+        >>> result = await hashtag.next()
         >>> print(result)
         {
             "result": [

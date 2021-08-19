@@ -424,7 +424,7 @@ class Suggestions:
             raise Exception('ERROR: Could not make request.')
 
 
-class HashtagVideosInternal(ComponentHandler):
+class HashtagInternal(ComponentHandler):
     response = None
     resultComponents = []
 

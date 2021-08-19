@@ -1683,7 +1683,7 @@ class Playlist:
 
 
 
-class HashtagVideos(HashtagVideosInternal):
+class Hashtag(HashtagInternal):
     '''Fetches videos for the given hashtag.
 
     Args:
@@ -1695,8 +1695,8 @@ class HashtagVideos(HashtagVideosInternal):
     Examples:
         Calling `result` method gives the search result.
 
-        >>> hashtagVideos = HashtagVideos('ncs', limit = 1)
-        >>> print(hashtagVideos.result())
+        >>> hashtag = Hashtag('ncs', limit = 1)
+        >>> print(hashtag.result())
         {
             "result": [
                 {
