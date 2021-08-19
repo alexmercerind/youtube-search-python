@@ -2,7 +2,7 @@ from typing import Union, List
 from youtubesearchpython.__future__.internal.json import loads
 import httpx
 from youtubesearchpython.__future__.internal.constants import *
-
+from youtubesearchpython.__future__.handlers.componenthandler import ComponentHandler
 
 class VideoInternal:
     videoId = None
@@ -332,3 +332,116 @@ class SuggestionsInternal:
                 self.response = response.text
         except:
             raise Exception('ERROR: Could not make request.')
+
+
+class HashtagVideosInternal(ComponentHandler):
+    response = None
+    resultComponents = []
+
+    def __init__(self, hashtag: str, limit: int, language: str, region: str, timeout: int):
+        self.hashtag = hashtag
+        self.limit = limit
+        self.language = language
+        self.region = region
+        self.timeout = timeout
+        self.continuationKey = None
+        self.params = None
+
+    async def next(self) -> dict:
+        '''Gets the videos from the next page.
+
+        Returns:
+            dict: Returns dictionary containing the search result.
+        '''
+        self.response = None
+        self.resultComponents = []
+        if self.params is None:
+            await self._getParams()
+        await self._makeRequest()
+        await self._getComponents()
+        return {
+            'result': self.resultComponents,
+        }
+
+    async def _getParams(self) -> None:
+        requestBody = requestPayload
+        requestBody['query'] = "#" + self.hashtag
+        requestBody['client'] = {
+            'hl': self.language,
+            'gl': self.region,
+        }
+        try:
+            async with httpx.AsyncClient() as client:
+                response = await client.post(
+                    'https://www.youtube.com/youtubei/v1/search',
+                    params = {
+                        'key': searchKey,
+                    },
+                    headers = {
+                        'User-Agent': userAgent,
+                    },
+                    json = requestBody,
+                    timeout = self.timeout
+                )
+                self.response = response.json()
+        except:
+            raise Exception('ERROR: Could not make request.')
+        content = await self._getValue(response.json(), contentPath)
+        for item in await self._getValue(content, [0, 'itemSectionRenderer', 'contents']):
+            if hashtagElementKey in item.keys():
+                self.params = await self._getValue(item[hashtagElementKey], ['onTapCommand', 'browseEndpoint', 'params'])
+                return
+
+    async def _makeRequest(self) -> None:
+        if self.params == None:
+            return
+        requestBody = requestPayload
+        requestBody['browseId'] = hashtagBrowseKey
+        requestBody['params'] = self.params
+        requestBody['client'] = {
+            'hl': self.language,
+            'gl': self.region,
+        }
+        if self.continuationKey:
+            requestBody['continuation'] = self.continuationKey
+        try:
+            async with httpx.AsyncClient() as client:
+                response = await client.post(
+                    'https://www.youtube.com/youtubei/v1/browse',
+                    params = {
+                        'key': searchKey,
+                    },
+                    headers = {
+                        'User-Agent': userAgent,
+                    },
+                    json = requestBody,
+                    timeout = self.timeout
+                )
+                self.response = response.json()
+        except:
+            raise Exception('ERROR: Could not make request.')
+
+    async def _getComponents(self) -> None:
+        if self.response == None:
+            return
+        self.resultComponents = []
+        try:
+            if not self.continuationKey:
+                responseSource = await self._getValue(self.response, hashtagVideosPath)
+            else:
+                responseSource = await self._getValue(self.response, hashtagContinuationVideosPath)
+            if responseSource:
+                for element in responseSource:
+                    if richItemKey in element.keys():
+                        richItemElement = await self._getValue(element, [richItemKey, 'content'])
+                        if videoElementKey in richItemElement.keys():
+                            videoComponent = await self._getVideoComponent(richItemElement)
+                            self.resultComponents.append(videoComponent)
+                    if len(self.resultComponents) >= self.limit:
+                        break
+                self.continuationKey = await self._getValue(responseSource[-1], continuationKeyPath)
+            else:
+                # is there any fallback path?
+                raise Exception
+        except:
+            raise Exception('ERROR: Could not parse YouTube response.')
