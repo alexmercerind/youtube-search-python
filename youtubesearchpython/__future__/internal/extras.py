@@ -440,8 +440,5 @@ class HashtagInternal(ComponentHandler):
                     if len(self.resultComponents) >= self.limit:
                         break
                 self.continuationKey = await self._getValue(responseSource[-1], continuationKeyPath)
-            else:
-                # is there any fallback path?
-                raise Exception
         except:
             raise Exception('ERROR: Could not parse YouTube response.')

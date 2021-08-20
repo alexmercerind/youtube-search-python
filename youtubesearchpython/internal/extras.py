@@ -464,9 +464,9 @@ class HashtagInternal(ComponentHandler):
             self.resultComponents = []
             self._makeRequest()
             self._getComponents()
+        if self.resultComponents:
             return True
-        else:
-            return False
+        return False
 
     def _getParams(self) -> None:
         requestBody = copy.deepcopy(requestPayload)
@@ -545,8 +545,5 @@ class HashtagInternal(ComponentHandler):
                     if len(self.resultComponents) >= self.limit:
                         break
                 self.continuationKey = self._getValue(responseSource[-1], continuationKeyPath)
-            else:
-                # is there any fallback path?
-                raise Exception
         except:
             raise Exception('ERROR: Could not parse YouTube response.')
