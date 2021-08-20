@@ -1,6 +1,7 @@
 from typing import Union, List
 from youtubesearchpython.__future__.internal.json import loads
 import httpx
+import copy
 from youtubesearchpython.__future__.internal.constants import *
 from youtubesearchpython.__future__.handlers.componenthandler import ComponentHandler
 
@@ -347,6 +348,8 @@ class HashtagInternal(ComponentHandler):
         self.continuationKey = None
         self.params = None
 
+        self.firstPage = True
+
     async def next(self) -> dict:
         '''Gets the videos from the next page.
 
@@ -395,7 +398,7 @@ class HashtagInternal(ComponentHandler):
     async def _makeRequest(self) -> None:
         if self.params == None:
             return
-        requestBody = requestPayload
+        requestBody = copy.deepcopy(requestPayload)
         requestBody['browseId'] = hashtagBrowseKey
         requestBody['params'] = self.params
         requestBody['client'] = {
@@ -426,7 +429,7 @@ class HashtagInternal(ComponentHandler):
             return
         self.resultComponents = []
         try:
-            if not self.continuationKey:
+            if self.firstPage:
                 responseSource = await self._getValue(self.response, hashtagVideosPath)
             else:
                 responseSource = await self._getValue(self.response, hashtagContinuationVideosPath)
@@ -440,5 +443,6 @@ class HashtagInternal(ComponentHandler):
                     if len(self.resultComponents) >= self.limit:
                         break
                 self.continuationKey = await self._getValue(responseSource[-1], continuationKeyPath)
+                self.firstPage = False
         except:
             raise Exception('ERROR: Could not parse YouTube response.')
