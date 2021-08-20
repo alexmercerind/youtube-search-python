@@ -459,9 +459,9 @@ class HashtagInternal(ComponentHandler):
         Returns:
             Union[str, dict]: Returns True if getting more results was successful.
         '''
+        self.response = None
+        self.resultComponents = []
         if self.continuationKey:
-            self.response = None
-            self.resultComponents = []
             self._makeRequest()
             self._getComponents()
         if self.resultComponents:
