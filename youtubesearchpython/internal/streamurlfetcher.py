@@ -1,10 +1,6 @@
-import httpx
-
 isPyTubeInstalled = False
 
 from urllib.request import urlopen
-from urllib.parse import parse_qs, urlencode
-import json
 try:
     from pytube.extract import apply_descrambler, apply_signature
     from pytube import YouTube, extract
