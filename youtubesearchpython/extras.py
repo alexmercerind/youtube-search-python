@@ -546,8 +546,8 @@ class Playlist:
     def __init__(self, playlistLink: str, timeout: int = None):
         self.timeout = timeout
         self.__playlist = PlaylistInternal(playlistLink, None, ResultMode.dict, self.timeout)
-        self.info = copy.deepcopy(self.__playlist.playlistComponent)
-        self.videos = self.__playlist.playlistComponent['videos']
+        self.info = copy.deepcopy(self.__playlist.result)
+        self.videos = self.__playlist.result['videos']
         self.hasMoreVideos = self.__playlist.continuationKey != None
         self.info.pop('videos')
 

@@ -133,4 +133,4 @@ class StreamURLFetcher(StreamURLFetcherInternal):
             }
         '''
         self._getDecipheredURLs(videoFormats)
-        return {"streams": self.player_response["url_encoded_fmt_stream_map"]}
+        return {"streams": self._player_response}
