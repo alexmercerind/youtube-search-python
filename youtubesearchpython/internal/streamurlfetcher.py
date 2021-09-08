@@ -1,8 +1,6 @@
 isPyTubeInstalled = False
 
 from urllib.request import urlopen
-from urllib.parse import parse_qs, urlencode
-import json
 try:
     from pytube.extract import apply_descrambler, apply_signature
     from pytube import YouTube, extract
@@ -30,26 +28,20 @@ class StreamURLFetcherInternal(YouTube):
     Saving videoFormats inside a dictionary with key "player_response" for apply_descrambler & apply_signature methods.
     '''
     def _getDecipheredURLs(self, videoFormats: dict) -> None:
-        self._player_response = {'player_response': videoFormats}
         if not videoFormats['streamingData']:
             try:
-                ''' For getting streamingData in age restricted video. '''
-                response = urlopen(
-                    'https://youtube.com/get_video_info' + '?' + urlencode({
-                        'video_id': videoFormats['id'],
-                        'eurl': f'https://youtube.googleapis.com/v/{videoFormats["id"]}',
-                        'sts': '',
-                        "c": "TVHTML5",
-                        "cver": "7.20201028"
-                    }),
-                    data = ''.encode('utf_8'),
-                    timeout = None,
-                )
+                self.use_oauth = False
+                self.allow_oauth_cache = False
+                self.video_id = videoFormats["id"]
+                self.bypass_age_gate()
+                r = self._vid_info["streamingData"]
                 ''' Derived from extract.video_info_url_age_restricted '''
                 ''' Google returns content as a query string instead of a JSON. '''
-                self._player_response['player_response'] = json.loads(parse_qs(response.read().decode('utf_8'))["player_response"][0])
             except:
                 raise Exception('ERROR: Could not make request.')
+        else:
+            r = videoFormats["streamingData"]
+        self._player_response = {'player_response': r}
         self.video_id = videoFormats["id"]
         self._decipher()
 
@@ -88,10 +80,12 @@ class StreamURLFetcherInternal(YouTube):
             Used to decipher the stream URLs using player JavaScript & the player_response passed from the getStream method of this derieved class.
             These methods operate on the value of "player_response" key in dictionary of self._player_response & save _deciphered information in the "url_encoded_fmt_stream_map" key.
             '''
-            apply_descrambler(self._player_response, "url_encoded_fmt_stream_map")
+
+            stream = apply_descrambler(self._player_response["player_response"])
             apply_signature(
-                self._player_response, "url_encoded_fmt_stream_map", pytube.__js__
+                stream, self._player_response, pytube.__js__
             )
+            self._streams = stream
         except:
             '''
             Fetch updated player JavaScript to get new cipher algorithm.
