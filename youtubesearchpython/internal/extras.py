@@ -135,6 +135,7 @@ class PlaylistInternal:
         self.timeout = timeout
         statusCode = self.__makeRequest(playlistLink)
         if statusCode == 200:
+            self.__extractFromHTML()
             self.__parseSource()
             self.__getComponents()
         else:
@@ -142,6 +143,7 @@ class PlaylistInternal:
 
     def next(self):
         if self.continuationKey:
+            print("Cont OK")
             statusCode = self.__makeNextRequest()
             if statusCode == 200:
                 self.__parseSource()
@@ -149,14 +151,29 @@ class PlaylistInternal:
             else:
                 raise Exception('ERROR: Invalid status code.')
 
+
+    def __extractFromHTML(self):
+        f1 = "var ytInitialData = "
+        startpoint = self.response.find(f1)
+        f2 = '"}}};</script>'
+        endpoint = self.response.find(f2)
+        if startpoint and endpoint:
+            startpoint += len(f1)
+            endpoint += len(f2)
+            r = self.response[startpoint:endpoint]
+            r = r.replace(";</script>", "")
+            print(json.dumps(json.loads(r), indent=4))
+            self.response = r
+
     def __makeRequest(self, playlistLink: str) -> int:
         playlistLink.strip('/')
         request = Request(
-            playlistLink + '&pbj=1',
+            playlistLink,
             data=urlencode({}).encode('utf_8'),
             headers={
                 'User-Agent': userAgent,
             },
+            method="GET"
         )
         try:
             response = urlopen(request, timeout=self.timeout)
@@ -182,6 +199,7 @@ class PlaylistInternal:
         try:
             response = urlopen(request)
             self.response = response.read(timeout=self.timeout).decode('utf_8')
+            print(self.response)
             return response.getcode()
         except:
             raise Exception('ERROR: Could not make request.')
@@ -193,16 +211,53 @@ class PlaylistInternal:
             raise Exception('ERROR: Could not parse YouTube response.')
 
     def __getComponents(self) -> None:
-        for response in self.responseSource:
-            if 'response' in response.keys():
-                playlistElement = {
-                    'info': self.__getValue(response, playlistInfoPath),
-                    'videos': self.__getValue(response, playlistVideosPath),
+        inforenderer = self.responseSource["sidebar"]["playlistSidebarRenderer"]["items"][0]["playlistSidebarPrimaryInfoRenderer"]
+        channelrenderer = self.responseSource["sidebar"]["playlistSidebarRenderer"]["items"][1]["playlistSidebarSecondaryInfoRenderer"]["videoOwner"]["videoOwnerRenderer"]
+        videorenderer = self.responseSource["contents"]["twoColumnBrowseResultsRenderer"]["tabs"][0]["tabRenderer"]["content"]["sectionListRenderer"]["contents"][0]["itemSectionRenderer"]["contents"][0]["playlistVideoListRenderer"]["contents"]
+        videos = []
+        for video in videorenderer:
+            video = video["playlistVideoRenderer"]
+            j = {
+                "id": self.__getValue(video, ["videoId"]),
+                "thumbnails": self.__getValue(video, ["thumbnail", "thumbnails"]),
+                "title": self.__getValue(video, ["title", "runs", 0, "text"]),
+                "channel": {
+                    "name": self.__getValue(video, ["shortBylineText", "runs", 0, "text"]),
+                    "id": self.__getValue(video, ["shortBylineText", "runs", 0, "navigationEndpoint", "browseEndpoint", "browseId"]),
+                    "link": self.__getValue(video, ["shortBylineText", "runs", 0, "navigationEndpoint", "browseEndpoint", "canonicalBaseUrl"]),
+                },
+                "duration": self.__getValue(video, ["lengthText", "simpleText"]),
+                "accessibility": {
+                    "title": self.__getValue(video, ["title", "accessibility", "accessibilityData", "label"]),
+                    "duration": self.__getValue(video, ["lengthText", "accessibility", "accessibilityData", "label"]),
+                },
+                "link": "https://www.youtube.com" + self.__getValue(video, ["navigationEndpoint", "commandMetadata", "webCommandMetadata", "url"]),
+            }
+            videos.append(j)
+
+        playlistElement = {
+            'info': {
+                "id": self.__getValue(inforenderer, ["title", "runs", 0, "navigationEndpoint", "watchEndpoint", "playlistId"]),
+                "thumbnails": self.__getValue(inforenderer, ["thumbnailRenderer", "playlistVideoThumbnailRenderer", "thumbnail", "thumbnails"]),
+                "title": self.__getValue(inforenderer, ["title", "runs", 0, "text"]),
+                "videoCount": self.__getValue(inforenderer, ["stats", 0, "runs", 0, "text"]),
+                "viewCount": self.__getValue(inforenderer, ["stats", 1, "simpleText"]),
+                "link": self.__getValue(self.responseSource, ["microformat", "microformatDataRenderer", "urlCanonical"]),
+                "channel": {
+                    "id": self.__getValue(channelrenderer, ["title", "runs", 0, "navigationEndpoint", "browseEndpoint", "browseId"]),
+                    "name": self.__getValue(channelrenderer, ["title", "runs", 0, "text"]),
+                    "link": "https_//www.youtube.com" + self.__getValue(channelrenderer, ["title", "runs", 0, "navigationEndpoint", "browseEndpoint", "canonicalBaseUrl"]),
+                    "thumbnails": self.__getValue(channelrenderer, ["thumbnail", "thumbnails"]),
                 }
-                if not playlistElement['info']:
-                    raise Exception('ERROR: Could not parse YouTube response.')
-                self.playlistComponent = self.__getPlaylistComponent(playlistElement, self.componentMode)
-                self.result = self.__result(self.resultMode)
+            },
+            'videos': videos,
+        }
+        if self.componentMode == "getInfo":
+            self.result = playlistElement["info"]
+        elif self.componentMode == "getVideos":
+            self.result = {"videos": videos}
+        else:
+            self.result = playlistElement
 
     def __getNextComponents(self) -> None:
         self.continuationKey = None
