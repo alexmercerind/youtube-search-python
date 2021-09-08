@@ -143,7 +143,6 @@ class PlaylistInternal:
 
     def next(self):
         if self.continuationKey:
-            print("Cont OK")
             statusCode = self.__makeNextRequest()
             if statusCode == 200:
                 self.__parseSource()
@@ -162,7 +161,6 @@ class PlaylistInternal:
             endpoint += len(f2)
             r = self.response[startpoint:endpoint]
             r = r.replace(";</script>", "")
-            print(json.dumps(json.loads(r), indent=4))
             self.response = r
 
     def __makeRequest(self, playlistLink: str) -> int:
