@@ -214,24 +214,27 @@ class PlaylistInternal:
         videorenderer = self.responseSource["contents"]["twoColumnBrowseResultsRenderer"]["tabs"][0]["tabRenderer"]["content"]["sectionListRenderer"]["contents"][0]["itemSectionRenderer"]["contents"][0]["playlistVideoListRenderer"]["contents"]
         videos = []
         for video in videorenderer:
-            video = video["playlistVideoRenderer"]
-            j = {
-                "id": self.__getValue(video, ["videoId"]),
-                "thumbnails": self.__getValue(video, ["thumbnail", "thumbnails"]),
-                "title": self.__getValue(video, ["title", "runs", 0, "text"]),
-                "channel": {
-                    "name": self.__getValue(video, ["shortBylineText", "runs", 0, "text"]),
-                    "id": self.__getValue(video, ["shortBylineText", "runs", 0, "navigationEndpoint", "browseEndpoint", "browseId"]),
-                    "link": self.__getValue(video, ["shortBylineText", "runs", 0, "navigationEndpoint", "browseEndpoint", "canonicalBaseUrl"]),
-                },
-                "duration": self.__getValue(video, ["lengthText", "simpleText"]),
-                "accessibility": {
-                    "title": self.__getValue(video, ["title", "accessibility", "accessibilityData", "label"]),
-                    "duration": self.__getValue(video, ["lengthText", "accessibility", "accessibilityData", "label"]),
-                },
-                "link": "https://www.youtube.com" + self.__getValue(video, ["navigationEndpoint", "commandMetadata", "webCommandMetadata", "url"]),
-            }
-            videos.append(j)
+            try:
+                video = video["playlistVideoRenderer"]
+                j = {
+                    "id": self.__getValue(video, ["videoId"]),
+                    "thumbnails": self.__getValue(video, ["thumbnail", "thumbnails"]),
+                    "title": self.__getValue(video, ["title", "runs", 0, "text"]),
+                    "channel": {
+                        "name": self.__getValue(video, ["shortBylineText", "runs", 0, "text"]),
+                        "id": self.__getValue(video, ["shortBylineText", "runs", 0, "navigationEndpoint", "browseEndpoint", "browseId"]),
+                        "link": self.__getValue(video, ["shortBylineText", "runs", 0, "navigationEndpoint", "browseEndpoint", "canonicalBaseUrl"]),
+                    },
+                    "duration": self.__getValue(video, ["lengthText", "simpleText"]),
+                    "accessibility": {
+                        "title": self.__getValue(video, ["title", "accessibility", "accessibilityData", "label"]),
+                        "duration": self.__getValue(video, ["lengthText", "accessibility", "accessibilityData", "label"]),
+                    },
+                    "link": "https://www.youtube.com" + self.__getValue(video, ["navigationEndpoint", "commandMetadata", "webCommandMetadata", "url"]),
+                }
+                videos.append(j)
+            except:
+                pass
 
         playlistElement = {
             'info': {
