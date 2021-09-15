@@ -13,10 +13,27 @@ class VideoInternal:
         self.resultMode = resultMode
         statusCode = self.__makeRequest(self.__getVideoId(videoLink))
         if statusCode == 200:
+            self.__extractFromHTML()
             self.__parseSource()
-            self.__getComponents(componentMode)
+            self.__getVideoComponent(componentMode)
+            self.result = self.__videoComponent
         else:
             raise Exception('ERROR: Invalid status code.')
+
+    def __extractFromHTML(self):
+        f1 = "var ytInitialPlayerResponse = "
+        startpoint = self.response.find(f1)
+        self.response = self.response[startpoint + len(f1):]
+        f2 = ';var meta = '
+        endpoint = self.response.find(f2)
+        #print(startpoint)
+        #print(endpoint)
+        if startpoint and endpoint:
+            startpoint += len(f1)
+            endpoint += len(f2)
+            r = self.response[:endpoint]
+            r = r.replace(';var meta = ', "")
+            self.response = r
 
     def __getVideoId(self, videoLink: str) -> str:
         if 'youtu.be' in videoLink:
@@ -33,13 +50,12 @@ class VideoInternal:
     def __makeRequest(self, videoId: str) -> int:
         request = Request(
             'https://www.youtube.com/watch' + '?' + urlencode({
-                'v': videoId,
-                'pbj': 1,
+                'v': videoId
             }),
             headers={
                 'User-Agent': userAgent,
             },
-            data=urlencode({}).encode('utf_8'),
+            method="GET"
         )
         try:
             response = urlopen(request, timeout=self.timeout)
@@ -49,26 +65,12 @@ class VideoInternal:
             raise Exception('ERROR: Could not make request.')
 
     def __parseSource(self) -> None:
+        #print(self.response.encode("utf-8"))
         try:
             self.responseSource = json.loads(self.response)
-        except:
+        except Exception as e:
+            print(e)
             raise Exception('ERROR: Could not parse YouTube response.')
-
-    def __getComponents(self, mode: str = None) -> None:
-        for element in self.responseSource:
-            if playerResponseKey in element.keys():
-                if 'videoDetails' in element[playerResponseKey].keys():
-                    '''
-                    Valid video ID.
-                    '''
-                    self.__videoComponent = self.__getVideoComponent(element[playerResponseKey], mode)
-                    self.result = self.__result(self.resultMode)
-                    break
-                else:
-                    '''
-                    Invalid video ID.
-                    '''
-                    self.result = None
 
     def __result(self, mode: int) -> Union[dict, str]:
         if mode == ResultMode.dict:
@@ -76,35 +78,35 @@ class VideoInternal:
         elif mode == ResultMode.json:
             return json.dumps(self.__videoComponent, indent=4)
 
-    def __getVideoComponent(self, element: dict, mode: str) -> dict:
+    def __getVideoComponent(self, mode: str) -> None:
         videoComponent = {}
         if mode in ['getInfo', None]:
             component = {
-                'id': self.__getValue(element, ['videoDetails', 'videoId']),
-                'title': self.__getValue(element, ['videoDetails', 'title']),
+                'id': self.__getValue(self.responseSource, ['videoDetails', 'videoId']),
+                'title': self.__getValue(self.responseSource, ['videoDetails', 'title']),
                 'viewCount': {
-                    'text': self.__getValue(element, ['videoDetails', 'viewCount'])
+                    'text': self.__getValue(self.responseSource, ['videoDetails', 'viewCount'])
                 },
-                'thumbnails': self.__getValue(element, ['videoDetails', 'thumbnail', 'thumbnails']),
-                'description': self.__getValue(element, ['videoDetails', 'shortDescription']),
+                'thumbnails': self.__getValue(self.responseSource, ['videoDetails', 'thumbnail', 'thumbnails']),
+                'description': self.__getValue(self.responseSource, ['videoDetails', 'shortDescription']),
                 'channel': {
-                    'name': self.__getValue(element, ['videoDetails', 'author']),
-                    'id': self.__getValue(element, ['videoDetails', 'channelId']),
+                    'name': self.__getValue(self.responseSource, ['videoDetails', 'author']),
+                    'id': self.__getValue(self.responseSource, ['videoDetails', 'channelId']),
                 },
-                'averageRating': self.__getValue(element, ['videoDetails', 'averageRating']),
-                'keywords': self.__getValue(element, ['videoDetails', 'keywords']),
-                'publishDate': self.__getValue(element, ['microformat', 'playerMicroformatRenderer', 'publishDate']),
-                'uploadDate': self.__getValue(element, ['microformat', 'playerMicroformatRenderer', 'uploadDate']),
+                'averageRating': self.__getValue(self.responseSource, ['videoDetails', 'averageRating']),
+                'keywords': self.__getValue(self.responseSource, ['videoDetails', 'keywords']),
+                'publishDate': self.__getValue(self.responseSource, ['microformat', 'playerMicroformatRenderer', 'publishDate']),
+                'uploadDate': self.__getValue(self.responseSource, ['microformat', 'playerMicroformatRenderer', 'uploadDate']),
             }
             component['link'] = 'https://www.youtube.com/watch?v=' + component['id']
             component['channel']['link'] = 'https://www.youtube.com/channel/' + component['channel']['id']
             videoComponent.update(component)
         if mode in ['getFormats', None]:
             component = {
-                'streamingData': self.__getValue(element, ['streamingData']),
+                'streamingData': self.__getValue(self.responseSource, ['streamingData']),
             }
             videoComponent.update(component)
-        return videoComponent
+        self.__videoComponent = videoComponent
 
     def __getValue(self, source: dict, path: List[str]) -> Union[str, int, dict, None]:
         value = source
