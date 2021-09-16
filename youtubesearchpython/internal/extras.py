@@ -140,6 +140,8 @@ class PlaylistInternal:
             self.__extractFromHTML()
             self.__parseSource()
             self.__getComponents()
+            if resultMode == ResultMode.json:
+                self.result = json.dumps(self.result, indent=4)
         else:
             raise Exception('ERROR: Invalid status code.')
 
@@ -149,6 +151,8 @@ class PlaylistInternal:
             if statusCode == 200:
                 self.__parseSource()
                 self.__getNextComponents()
+                if self.resultMode == ResultMode.json:
+                    self.result = json.dumps(self.playlistComponent, indent=4)
             else:
                 raise Exception('ERROR: Invalid status code.')
 
