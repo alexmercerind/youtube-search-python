@@ -4,11 +4,7 @@
 name: Upload Python Package to PyPI
 
 on:
-  push:
-    paths:
-      - 'setup.py'
-    branches:
-      - "main"
+  release:
 
 jobs:
   deploy:
