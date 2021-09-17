@@ -142,6 +142,8 @@ class PlaylistInternal:
             self.__getComponents()
             if resultMode == ResultMode.json:
                 self.result = json.dumps(self.result, indent=4)
+            else:
+                self.result = self.playlistComponent
         else:
             raise Exception('ERROR: Invalid status code.')
 
@@ -153,6 +155,8 @@ class PlaylistInternal:
                 self.__getNextComponents()
                 if self.resultMode == ResultMode.json:
                     self.result = json.dumps(self.playlistComponent, indent=4)
+                else:
+                    self.result = self.playlistComponent
             else:
                 raise Exception('ERROR: Invalid status code.')
 
@@ -201,9 +205,8 @@ class PlaylistInternal:
             },
         )
         try:
-            response = urlopen(request)
-            self.response = response.read(timeout=self.timeout).decode('utf_8')
-            print(self.response)
+            response = urlopen(request, timeout=self.timeout)
+            self.response = response.read().decode('utf_8')
             return response.getcode()
         except:
             raise Exception('ERROR: Could not make request.')
@@ -260,11 +263,12 @@ class PlaylistInternal:
             'videos': videos,
         }
         if self.componentMode == "getInfo":
-            self.result = playlistElement["info"]
+            self.playlistComponent = playlistElement["info"]
         elif self.componentMode == "getVideos":
-            self.result = {"videos": videos}
+            self.playlistComponent = {"videos": videos}
         else:
-            self.result = playlistElement
+            self.playlistComponent = playlistElement
+        self.continuationKey = self.__getValue(videorenderer, [-1, "continuationItemRenderer", "continuationEndpoint", "continuationCommand", "token"])
 
     def __getNextComponents(self) -> None:
         self.continuationKey = None
@@ -298,9 +302,8 @@ class PlaylistInternal:
                 playlistComponent['videos'].append(
                     videoComponent
                 )
-            if continuationItemKey in videoElement.keys():
-                self.continuationKey = self.__getValue(videoElement, continuationKeyPath)
-        self.playlistComponent['videos'].extend(playlistComponent['videos'])
+            self.continuationKey = self.__getValue(videoElement, continuationKeyPath)
+        self.playlistComponent["videos"].extend(playlistComponent['videos'])
 
     def __getPlaylistComponent(self, element: dict, mode: str) -> dict:
         playlistComponent = {}

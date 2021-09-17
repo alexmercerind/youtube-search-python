@@ -556,7 +556,7 @@ class Playlist:
     '''
     def getNextVideos(self) -> None:
         self.__playlist.next()
-        self.videos = self.__playlist.playlistComponent['videos']
+        self.videos = self.__playlist.result['videos']
         self.hasMoreVideos = self.__playlist.continuationKey != None
 
     @staticmethod
