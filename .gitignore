@@ -10,3 +10,6 @@ dist
 # testing
 
 test.py
+test2.py
+*.json
+*.html

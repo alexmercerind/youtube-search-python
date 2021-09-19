@@ -286,11 +286,13 @@ class PlaylistInternal:
                     'id': self.__getValue(videoElement, [playlistVideoKey, 'videoId']),
                     'title': self.__getValue(videoElement, [playlistVideoKey, 'title', 'runs', 0, 'text']),
                     'thumbnails': self.__getValue(videoElement, [playlistVideoKey, 'thumbnail', 'thumbnails']),
+                    'link': "https://www.youtube.com" + self.__getValue(videoElement, [playlistVideoKey, "navigationEndpoint", "commandMetadata", "webCommandMetadata", "url"]),
                     'channel': {
                         'name': self.__getValue(videoElement, [playlistVideoKey, 'shortBylineText', 'runs', 0, 'text']),
                         'id': self.__getValue(videoElement,
                                               [playlistVideoKey, 'shortBylineText', 'runs', 0, 'navigationEndpoint',
                                                'browseEndpoint', 'browseId']),
+                        "link": "https://www.youtube.com" + self.__getValue(videoElement, [playlistVideoKey, "shortBylineText", "runs", 0, "navigationEndpoint", "browseEndpoint", "canonicalBaseUrl"])
                     },
                     'duration': self.__getValue(videoElement, [playlistVideoKey, 'lengthText', 'simpleText']),
                     'accessibility': {
