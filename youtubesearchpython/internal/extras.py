@@ -141,7 +141,7 @@ class PlaylistInternal:
             self.__parseSource()
             self.__getComponents()
             if resultMode == ResultMode.json:
-                self.result = json.dumps(self.result, indent=4)
+                self.result = json.dumps(self.playlistComponent, indent=4)
             else:
                 self.result = self.playlistComponent
         else:
@@ -172,6 +172,8 @@ class PlaylistInternal:
             r = self.response[startpoint:endpoint]
             r = r.replace(";</script>", "")
             self.response = r
+            print(startpoint)
+            print(endpoint)
 
     def __makeRequest(self, playlistLink: str) -> int:
         playlistLink.strip('/')
@@ -256,7 +258,7 @@ class PlaylistInternal:
                 "channel": {
                     "id": self.__getValue(channelrenderer, ["title", "runs", 0, "navigationEndpoint", "browseEndpoint", "browseId"]),
                     "name": self.__getValue(channelrenderer, ["title", "runs", 0, "text"]),
-                    "link": "https_//www.youtube.com" + self.__getValue(channelrenderer, ["title", "runs", 0, "navigationEndpoint", "browseEndpoint", "canonicalBaseUrl"]),
+                    "link": "https://www.youtube.com" + self.__getValue(channelrenderer, ["title", "runs", 0, "navigationEndpoint", "browseEndpoint", "canonicalBaseUrl"]),
                     "thumbnails": self.__getValue(channelrenderer, ["thumbnail", "thumbnails"]),
                 }
             },
