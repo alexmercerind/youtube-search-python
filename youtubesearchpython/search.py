@@ -1,4 +1,4 @@
-from youtubesearchpython.internal.constants import *
+from youtubesearchpython.core.constants import *
 from youtubesearchpython.internal.search import SearchInternal, ChannelSearchInternal
 
 

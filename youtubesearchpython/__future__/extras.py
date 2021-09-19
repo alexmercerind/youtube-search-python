@@ -1,10 +1,11 @@
-import copy
 from youtubesearchpython.__future__.internal.extras import *
-from youtubesearchpython.__future__.internal.constants import *
+from youtubesearchpython.core import VideoCore
+from youtubesearchpython.core.constants import ResultMode
+
 
 class Video:
     @staticmethod
-    async def get(videoLink: str) -> Union[dict, None]:
+    async def get(videoLink: str, resultMode: int = ResultMode.dict, timeout: int = 2) -> Union[dict, None]:
         '''Fetches information and formats  for the given video link or ID.
         Returns None if video is unavailable.
 
@@ -249,12 +250,12 @@ class Video:
                     ]
                 }
         '''
-        video = VideoInternal(videoLink, None)
-        await video.get()
-        return video.videoComponent
+        video = VideoCore(videoLink, None, resultMode, timeout)
+        await video.async_create()
+        return video.result
     
     @staticmethod
-    async def getInfo(videoLink: str) -> Union[dict, None]:
+    async def getInfo(videoLink: str, resultMode: int = ResultMode.dict, timeout: int = 2) -> Union[dict, None]:
         '''Fetches only information  for the given video link or ID.
         Returns None if video is unavailable.
 
@@ -334,12 +335,12 @@ class Video:
                 "link": "https://www.youtube.com/watch?v=E07s5ZYygMg",
             }
         '''
-        video = VideoInternal(videoLink, 'getInfo')
-        await video.get()
-        return video.videoComponent
+        video = VideoCore(videoLink, "getInfo", resultMode, timeout)
+        await video.async_create()
+        return video.result
 
     @staticmethod
-    async def getFormats(videoLink: str) -> Union[dict, None]:
+    async def getFormats(videoLink: str, resultMode: int = ResultMode.dict, timeout: int = 2) -> Union[dict, None]:
         '''Fetches formats  for the given video link or ID.
         Returns None if video is unavailable.
 
@@ -519,9 +520,9 @@ class Video:
                 }
             }
         '''
-        video = VideoInternal(videoLink, 'getFormats')
-        await video.get()
-        return video.videoComponent
+        video = VideoCore(videoLink, "getFormats", resultMode, timeout)
+        await video.async_create()
+        return video.result
 
 
 class Suggestions:

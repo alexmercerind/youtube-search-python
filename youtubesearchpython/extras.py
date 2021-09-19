@@ -1,8 +1,9 @@
-import copy
+from youtubesearchpython.core import VideoCore
 from youtubesearchpython.internal.extras import *
-from youtubesearchpython.internal.constants import *
+from youtubesearchpython.core.constants import *
 
-class Video(VideoInternal):
+
+class Video:
     @staticmethod
     def get(videoLink: str, mode: int = ResultMode.dict, timeout: int = None) -> Union[dict, str, None]:
         '''Fetches information and formats  for the given video link or ID.
@@ -250,7 +251,9 @@ class Video(VideoInternal):
                     ]
                 }
         '''
-        return Video(videoLink, None, mode, timeout).result
+        vc = VideoCore(videoLink, None, mode, timeout)
+        vc.sync_create()
+        return vc.result
     
     @staticmethod
     def getInfo(videoLink: str, mode: int = ResultMode.dict, timeout: int = None) -> Union[dict, str, None]:
@@ -334,7 +337,9 @@ class Video(VideoInternal):
                 "link": "https://www.youtube.com/watch?v=E07s5ZYygMg",
             }
         '''
-        return Video(videoLink, "getInfo", mode, timeout).result
+        vc = VideoCore(videoLink, "getInfo", mode, timeout)
+        vc.sync_create()
+        return vc.result
 
     @staticmethod
     def getFormats(videoLink: str, mode: int = ResultMode.dict, timeout: int = None) -> Union[dict, str, None]:
@@ -518,7 +523,9 @@ class Video(VideoInternal):
                 }
             }
         '''
-        return Video(videoLink, "getFormats", mode, timeout).result
+        vc = VideoCore(videoLink, "getFormats", mode, timeout)
+        vc.sync_create()
+        return vc.result
 
 
 

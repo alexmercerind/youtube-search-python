@@ -2,7 +2,7 @@ from typing import Union
 import json
 from youtubesearchpython.handlers.requesthandler import RequestHandler
 from youtubesearchpython.handlers.componenthandler import ComponentHandler
-from youtubesearchpython.internal.constants import *
+from youtubesearchpython.core.constants import *
 
 
 class SearchInternal(RequestHandler, ComponentHandler):

@@ -1,5 +1,5 @@
 from typing import List, Union
-from youtubesearchpython.internal.constants import *
+from youtubesearchpython.core.constants import *
 
 
 class ComponentHandler:
