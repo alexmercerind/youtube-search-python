@@ -142,9 +142,9 @@ async def main():
     '''
     Getting videos by hashtag.
     '''
-    hashtag = Hashtag('ncs', limit = 1)
-    result = await hashtag.next()
-    print(result)
+    #hashtag = Hashtag('ncs', limit = 1)
+    #result = await hashtag.next()
+    #print(result)
 
 
 
