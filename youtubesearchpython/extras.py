@@ -1,5 +1,9 @@
+from typing import Union
+
 from youtubesearchpython.core import VideoCore
-from youtubesearchpython.internal.extras import *
+from youtubesearchpython.core.hashtag import HashtagCore
+from youtubesearchpython.core.playlist import PlaylistCore
+from youtubesearchpython.core.suggestions import SuggestionsCore
 from youtubesearchpython.core.constants import *
 
 
@@ -552,7 +556,8 @@ class Playlist:
 
     def __init__(self, playlistLink: str, timeout: int = None):
         self.timeout = timeout
-        self.__playlist = PlaylistInternal(playlistLink, None, ResultMode.dict, self.timeout)
+        self.__playlist = PlaylistCore(playlistLink, None, ResultMode.dict, self.timeout)
+        self.__playlist.sync_create()
         self.info = copy.deepcopy(self.__playlist.result)
         self.videos = self.__playlist.result['videos']
         self.hasMoreVideos = self.__playlist.continuationKey != None
@@ -1116,7 +1121,9 @@ class Playlist:
                 ]
             }
         '''
-        return PlaylistInternal(playlistLink, None, mode, timeout).result
+        pc = PlaylistCore(playlistLink, None, mode, timeout)
+        pc.sync_create()
+        return pc.result
     
     @staticmethod
     def getInfo(playlistLink: str, mode: int = ResultMode.dict, timeout: int = None) -> Union[dict, str, None]:
@@ -1185,7 +1192,9 @@ class Playlist:
                 }
             }
         '''
-        return PlaylistInternal(playlistLink, 'getInfo', mode, timeout).result
+        ps = PlaylistCore(playlistLink, 'getInfo', mode, timeout)
+        ps.sync_create()
+        return ps.result
 
     @staticmethod
     def getVideos(playlistLink: str, mode: int = ResultMode.dict, timeout: int = None) -> Union[dict, str, None]:
@@ -1686,11 +1695,13 @@ class Playlist:
                 ]
             }
         '''
-        return PlaylistInternal(playlistLink, 'getVideos', mode, timeout).result
+        ps = PlaylistCore(playlistLink, 'getVideos', mode, timeout)
+        ps.sync_create()
+        return ps.result
 
 
 
-class Hashtag(HashtagInternal):
+class Hashtag(HashtagCore):
     '''Fetches videos for the given hashtag.
 
     Args:
@@ -1768,4 +1779,15 @@ class Hashtag(HashtagInternal):
     '''
     def __init__(self, hashtag: str, limit: int = 60, language: str = 'en', region: str = 'US', timeout: int = None):
         super().__init__(hashtag, limit, language, region, timeout)
+        self.create_sync()
         self._getComponents()
+
+    def next(self):
+        return self._next()
+
+class Suggestions(SuggestionsCore):
+    def __init__(self, language: str = "en", region: str = "US", timeout: int = None):
+        super().__init__(language, region, timeout)
+
+    def get(self, query: str, mode: int = ResultMode.dict):
+        return self._get(query, mode)

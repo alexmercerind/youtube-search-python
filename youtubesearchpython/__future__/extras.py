@@ -1,6 +1,10 @@
-from youtubesearchpython.__future__.internal.extras import *
+from typing import Union
+
 from youtubesearchpython.core import VideoCore
 from youtubesearchpython.core.constants import ResultMode
+from youtubesearchpython.core.hashtag import HashtagCore
+from youtubesearchpython.core.playlist import PlaylistCore
+from youtubesearchpython.core.suggestions import SuggestionsCore
 
 
 class Video:
@@ -557,7 +561,7 @@ class Suggestions:
         }
     '''
     @staticmethod
-    async def get(query: str, language: str = 'en', region: str = 'US'):
+    async def get(query: str, language: str = 'en', region: str = 'US', mode: int = ResultMode.dict):
         '''Fetches & returns the search suggestions for the given query.
 
         Args:
@@ -567,8 +571,8 @@ class Suggestions:
         Returns:
             Union[str, dict]: Returns JSON or dictionary.
         '''
-        suggestionsInternal = SuggestionsInternal()
-        suggestions = await suggestionsInternal.get(query, language = language, region = region)
+        suggestionsInternal = SuggestionsCore(language = language, region = region)
+        suggestions = await suggestionsInternal._getAsync(query, mode)
         return suggestions
 
 
@@ -602,14 +606,14 @@ class Playlist:
     '''
     async def getNextVideos(self) -> None:
         if not self.info:
-            self.__playlist = PlaylistInternal(self.playlistLink, None)
-            await self.__playlist.get()
+            self.__playlist = PlaylistCore(self.playlistLink, None, ResultMode.dict, 2)
+            await self.__playlist._async_next()
             self.info = copy.deepcopy(self.__playlist.playlistComponent)
             self.videos = self.__playlist.playlistComponent['videos']
             self.hasMoreVideos = self.__playlist.continuationKey != None
             self.info.pop('videos')
         else:
-            await self.__playlist.next()
+            await self.__playlist._async_next()
             self.videos = self.__playlist.playlistComponent['videos']
             self.hasMoreVideos = self.__playlist.continuationKey != None
     
@@ -1162,8 +1166,8 @@ class Playlist:
                 ]
             }
         '''
-        playlist = PlaylistInternal(playlistLink, None)
-        await playlist.get()
+        playlist = PlaylistCore(playlistLink, None, ResultMode.dict, 2)
+        await playlist.async_create()
         return playlist.playlistComponent
     
     @staticmethod
@@ -1232,8 +1236,8 @@ class Playlist:
                 }
             }
         '''
-        playlist = PlaylistInternal(playlistLink, 'getInfo')
-        await playlist.get()
+        playlist = PlaylistCore(playlistLink, 'getInfo', ResultMode.dict, 2)
+        await playlist.async_create()
         return playlist.playlistComponent
 
     @staticmethod
@@ -1734,12 +1738,12 @@ class Playlist:
                 ]
             }
         '''
-        playlist = PlaylistInternal(playlistLink, 'getVideos')
-        await playlist.get()
+        playlist = PlaylistCore(playlistLink, 'getVideos', ResultMode.dict, 2)
+        await playlist.async_create()
         return playlist.playlistComponent
 
 
-class Hashtag(HashtagInternal):
+class Hashtag(HashtagCore):
     '''Fetches videos for the given hashtag.
 
     Args:
@@ -1816,3 +1820,9 @@ class Hashtag(HashtagInternal):
     '''
     def __init__(self, hashtag: str, limit: int = 60, language: str = 'en', region: str = 'US', timeout: int = None):
         super().__init__(hashtag, limit, language, region, timeout)
+
+    async def next(self) -> dict:
+        r = await self._nextAsync()
+        return r
+
+

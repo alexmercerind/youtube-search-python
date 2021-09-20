@@ -1,6 +1,6 @@
 from youtubesearchpython.__future__.handlers.requesthandler import RequestHandler
 from youtubesearchpython.__future__.handlers.componenthandler import ComponentHandler
-from youtubesearchpython.__future__.internal.constants import *
+from youtubesearchpython.core.constants import *
 
 
 class SearchInternal(RequestHandler, ComponentHandler):

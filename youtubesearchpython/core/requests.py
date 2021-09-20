@@ -9,6 +9,7 @@ class RequestCore:
         self.timeout = 2
 
     def syncPostRequest(self) -> httpx.Response:
+        print(self.data)
         return httpx.post(self.url, headers={"User-Agent": userAgent}, data=self.data, timeout=self.timeout)
 
     async def asyncPostRequest(self) -> httpx.Response:

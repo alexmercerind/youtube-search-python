@@ -1,4 +1,4 @@
-from youtubesearchpython.__future__.internal.constants import *
+from youtubesearchpython.core.constants import *
 from youtubesearchpython.__future__.internal.search import SearchInternal
 
 

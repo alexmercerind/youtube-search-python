@@ -1,7 +1,7 @@
 from youtubesearchpython.__future__.search import Search, VideosSearch, ChannelsSearch, PlaylistsSearch, CustomSearch
 from youtubesearchpython.__future__.extras import Video, Playlist, Suggestions, Hashtag
 from youtubesearchpython.__future__.streamurlfetcher import StreamURLFetcher
-from youtubesearchpython.__future__.internal.constants import *
+from youtubesearchpython.core.constants import *
 
 
 __title__        = 'youtube-search-python'

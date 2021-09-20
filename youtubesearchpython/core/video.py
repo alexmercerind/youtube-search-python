@@ -4,7 +4,7 @@ from urllib.parse import urlencode
 
 from youtubesearchpython.core.constants import *
 from youtubesearchpython.core.requests import RequestCore
-from youtubesearchpython.core.componenthandler import getValue
+from youtubesearchpython.core.componenthandler import getValue, getVideoId
 
 
 class VideoCore(RequestCore):
@@ -15,7 +15,7 @@ class VideoCore(RequestCore):
         self.componentMode = componentMode
         self.videoLink = videoLink
         self.url = 'https://www.youtube.com/watch' + '?' + urlencode({
-            'v': self.__getVideoId(self.videoLink)
+            'v': getVideoId(self.videoLink)
         })
 
     def post_request_processing(self):
@@ -52,18 +52,6 @@ class VideoCore(RequestCore):
             r = self.response[:endpoint]
             r = r.replace(';var meta = ', "")
             self.response = r
-
-    def __getVideoId(self, videoLink: str) -> str:
-        if 'youtu.be' in videoLink:
-            if videoLink[-1] == '/':
-                return videoLink.split('/')[-2]
-            return videoLink.split('/')[-1]
-        elif 'youtube.com' in videoLink:
-            if '&' not in videoLink:
-                return videoLink[videoLink.index('v=') + 2:]
-            return videoLink[videoLink.index('v=') + 2: videoLink.index('&')]
-        else:
-            return videoLink
 
     def __parseSource(self) -> None:
         try:

@@ -1,46 +1,76 @@
 import json
-import copy
-from urllib.request import Request, urlopen
-from urllib.parse import urlencode
 from typing import Union, List
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
+
 from youtubesearchpython.core.constants import *
-from youtubesearchpython.handlers.componenthandler import ComponentHandler
+from youtubesearchpython.core.requests import RequestCore
 
-
-class PlaylistInternal:
+class PlaylistCore(RequestCore):
     playlistComponent = None
     result = None
     continuationKey = None
 
     def __init__(self, playlistLink: str, componentMode: str, resultMode: int, timeout: int):
+        super().__init__()
         self.componentMode = componentMode
         self.resultMode = resultMode
         self.timeout = timeout
-        statusCode = self.__makeRequest(playlistLink)
+        self.url = playlistLink
+
+    def post_processing(self):
+        self.__extractFromHTML()
+        self.__parseSource()
+        self.__getComponents()
+        if self.resultMode == ResultMode.json:
+            self.result = json.dumps(self.playlistComponent, indent=4)
+        else:
+            self.result = self.playlistComponent
+
+    def sync_create(self):
+        statusCode = self.__makeRequest()
         if statusCode == 200:
-            self.__extractFromHTML()
-            self.__parseSource()
-            self.__getComponents()
-            if resultMode == ResultMode.json:
-                self.result = json.dumps(self.playlistComponent, indent=4)
-            else:
-                self.result = self.playlistComponent
+            self.post_processing()
         else:
             raise Exception('ERROR: Invalid status code.')
 
-    def next(self):
+    async def async_create(self):
+        # Why do I use sync request in a async function, you might ask
+        # Well, there were some problems with httpx.
+        # Until I solve those problems, it is going to stay this way.
+        statusCode = self.__makeRequest()
+        if statusCode == 200:
+            self.post_processing()
+        else:
+            raise Exception('ERROR: Invalid status code.')
+
+    def next_post_processing(self):
+        self.__parseSource()
+        self.__getNextComponents()
+        if self.resultMode == ResultMode.json:
+            self.result = json.dumps(self.playlistComponent, indent=4)
+        else:
+            self.result = self.playlistComponent
+
+    def _next(self):
+        self.prepare_next_request()
         if self.continuationKey:
-            statusCode = self.__makeNextRequest()
-            if statusCode == 200:
-                self.__parseSource()
-                self.__getNextComponents()
-                if self.resultMode == ResultMode.json:
-                    self.result = json.dumps(self.playlistComponent, indent=4)
-                else:
-                    self.result = self.playlistComponent
+            statusCode = self.syncGetRequest()
+            self.response = statusCode.text
+            if statusCode.status_code == 200:
+                self.next_post_processing()
             else:
                 raise Exception('ERROR: Invalid status code.')
 
+    async def _async_next(self):
+        self.prepare_next_request()
+        if self.continuationKey:
+            statusCode = await self.asyncGetRequest()
+            self.response = statusCode.text
+            if statusCode.status_code == 200:
+                self.next_post_processing()
+            else:
+                raise Exception('ERROR: Invalid status code.')
 
     def __extractFromHTML(self):
         f1 = "var ytInitialData = "
@@ -53,13 +83,11 @@ class PlaylistInternal:
             r = self.response[startpoint:endpoint]
             r = r.replace(";</script>", "")
             self.response = r
-            print(startpoint)
-            print(endpoint)
 
-    def __makeRequest(self, playlistLink: str) -> int:
-        playlistLink.strip('/')
+    def __makeRequest(self) -> int:
+        self.url.strip('/')
         request = Request(
-            playlistLink,
+            self.url,
             data=urlencode({}).encode('utf_8'),
             headers={
                 'User-Agent': userAgent,
@@ -73,24 +101,18 @@ class PlaylistInternal:
         except:
             raise Exception('ERROR: Could not make request.')
 
-    def __makeNextRequest(self, requestBody=requestPayload) -> int:
+    def prepare_next_request(self, requestBody=requestPayload):
         requestBody['continuation'] = self.continuationKey
-        requestBodyBytes = json.dumps(requestBody).encode('utf_8')
-        request = Request(
-            'https://www.youtube.com/youtubei/v1/browse' + '?' + urlencode({
-                'key': searchKey,
-            }),
-            data=requestBodyBytes,
-            headers={
-                'Content-Type': 'application/json; charset=utf-8',
-                'Content-Length': len(requestBodyBytes),
-                'User-Agent': userAgent,
-            },
-        )
+        self.data = json.dumps(requestBody)
+        self.url = 'https://www.youtube.com/youtubei/v1/browse' + '?' + urlencode({
+            'key': searchKey,
+        })
+
+    def __makeNextRequest(self) -> int:
+        response = self.syncPostRequest()
         try:
-            response = urlopen(request, timeout=self.timeout)
-            self.response = response.read().decode('utf_8')
-            return response.getcode()
+            self.response = response.text
+            return response.status_code
         except:
             raise Exception('ERROR: Could not make request.')
 
@@ -287,213 +309,3 @@ class PlaylistInternal:
                     value = None
                     break
         return value
-
-
-class Suggestions:
-    '''Gets search suggestions for the given query.
-
-    Args:
-        language (str, optional): Sets the suggestion language. Defaults to 'en'.
-        region (str, optional): Sets the suggestion region. Defaults to 'US'.
-    
-    Examples:
-        Calling `result` method gives the search result.
-
-        >>> suggestions = Suggestions(language = 'en', region = 'US').get('Harry Styles', mode = ResultMode.json)
-        >>> print(suggestions)
-        {
-            'result': [
-                'harry styles',
-                'harry styles treat people with kindness',
-                'harry styles golden music video',
-                'harry styles interview',
-                'harry styles adore you',
-                'harry styles watermelon sugar',
-                'harry styles snl',
-                'harry styles falling',
-                'harry styles tpwk',
-                'harry styles sign of the times',
-                'harry styles jingle ball 2020',
-                'harry styles christmas',
-                'harry styles live',
-                'harry styles juice'
-            ]
-        }
-    '''
-
-    def __init__(self, language: str = 'en', region: str = 'US', timeout: int = None):
-        self.language = language
-        self.region = region
-        self.timeout = timeout
-
-    def get(self, query: str, mode: int = ResultMode.dict) -> Union[dict, str]:
-        '''Fetches & returns the search suggestions for the given query.
-
-        Args:
-            mode (int, optional): Sets the type of result. Defaults to ResultMode.dict.
-
-        Returns:
-            Union[str, dict]: Returns JSON or dictionary.
-        '''
-        searchSuggestions = []
-        self.__makeRequest(query)
-        self.__parseSource()
-        for element in self.responseSource:
-            if type(element) is list:
-                for searchSuggestionElement in element:
-                    searchSuggestions.append(searchSuggestionElement[0])
-                break
-        if mode == ResultMode.dict:
-            return {'result': searchSuggestions}
-        elif mode == ResultMode.json:
-            return json.dumps({'result': searchSuggestions}, indent=4)
-
-    def __parseSource(self) -> None:
-        try:
-            self.responseSource = json.loads(self.response[self.response.index('(') + 1: self.response.index(')')])
-        except:
-            raise Exception('ERROR: Could not parse YouTube response.')
-
-    def __makeRequest(self, query: str) -> None:
-        request = Request(
-            'https://clients1.google.com/complete/search' + '?' + urlencode({
-                'hl': self.language,
-                'gl': self.region,
-                'q': query,
-                'client': 'youtube',
-                'gs_ri': 'youtube',
-                'ds': 'yt',
-            }),
-            headers={
-                'User-Agent': userAgent,
-            },
-        )
-        try:
-            self.response = urlopen(request, timeout=self.timeout).read().decode('utf_8')
-        except:
-            raise Exception('ERROR: Could not make request.')
-
-
-class HashtagInternal(ComponentHandler):
-    response = None
-    resultComponents = []
-
-    def __init__(self, hashtag: str, limit: int, language: str, region: str, timeout: int):
-        self.hashtag = hashtag
-        self.limit = limit
-        self.language = language
-        self.region = region
-        self.timeout = timeout
-        self.continuationKey = None
-        self.params = None
-        self._getParams()
-        self._makeRequest()
-
-    def result(self, mode: int = ResultMode.dict) -> Union[str, dict]:
-        '''Returns the hashtag videos.
-
-        Args:
-            mode (int, optional): Sets the type of result. Defaults to ResultMode.dict.
-
-        Returns:
-            Union[str, dict]: Returns JSON or dictionary.
-        '''
-        if mode == ResultMode.json:
-            return json.dumps({'result': self.resultComponents}, indent = 4)
-        elif mode == ResultMode.dict:
-            return {'result': self.resultComponents}
-
-    def next(self) -> bool:
-        '''Gets the videos from the next page. Call result
-
-        Returns:
-            Union[str, dict]: Returns True if getting more results was successful.
-        '''
-        self.response = None
-        self.resultComponents = []
-        if self.continuationKey:
-            self._makeRequest()
-            self._getComponents()
-        if self.resultComponents:
-            return True
-        return False
-
-    def _getParams(self) -> None:
-        requestBody = copy.deepcopy(requestPayload)
-        requestBody['query'] = "#" + self.hashtag
-        requestBody['client'] = {
-            'hl': self.language,
-            'gl': self.region,
-        }
-        requestBodyBytes = json.dumps(requestBody).encode('utf_8')
-        request = Request(
-            'https://www.youtube.com/youtubei/v1/search' + '?' + urlencode({
-                'key': searchKey,
-            }),
-            data = requestBodyBytes,
-            headers = {
-                'Content-Type': 'application/json; charset=utf-8',
-                'Content-Length': len(requestBodyBytes),
-                'User-Agent': userAgent,
-            }
-        )
-        try:
-            response = urlopen(request, timeout=self.timeout).read().decode('utf_8')
-        except:
-            raise Exception('ERROR: Could not make request.')
-        content = self._getValue(json.loads(response), contentPath)
-        for item in self._getValue(content, [0, 'itemSectionRenderer', 'contents']):
-            if hashtagElementKey in item.keys():
-                self.params = self._getValue(item[hashtagElementKey], ['onTapCommand', 'browseEndpoint', 'params'])
-                return
-
-    def _makeRequest(self) -> None:
-        if self.params == None:
-            return
-        requestBody = copy.deepcopy(requestPayload)
-        requestBody['browseId'] = hashtagBrowseKey
-        requestBody['params'] = self.params
-        requestBody['client'] = {
-            'hl': self.language,
-            'gl': self.region,
-        }
-        if self.continuationKey:
-            requestBody['continuation'] = self.continuationKey
-        requestBodyBytes = json.dumps(requestBody).encode('utf_8')
-        request = Request(
-            'https://www.youtube.com/youtubei/v1/browse' + '?' + urlencode({
-                'key': searchKey,
-            }),
-            data = requestBodyBytes,
-            headers = {
-                'Content-Type': 'application/json; charset=utf-8',
-                'Content-Length': len(requestBodyBytes),
-                'User-Agent': userAgent,
-            }
-        )
-        try:
-            self.response = urlopen(request, timeout=self.timeout).read().decode('utf_8')
-        except:
-            raise Exception('ERROR: Could not make request.')
-
-    def _getComponents(self) -> None:
-        if self.response == None:
-            return
-        self.resultComponents = []
-        try:
-            if not self.continuationKey:
-                responseSource = self._getValue(json.loads(self.response), hashtagVideosPath)
-            else:
-                responseSource = self._getValue(json.loads(self.response), hashtagContinuationVideosPath)
-            if responseSource:
-                for element in responseSource:
-                    if richItemKey in element.keys():
-                        richItemElement = self._getValue(element, [richItemKey, 'content'])
-                        if videoElementKey in richItemElement.keys():
-                            videoComponent = self._getVideoComponent(richItemElement)
-                            self.resultComponents.append(videoComponent)
-                    if len(self.resultComponents) >= self.limit:
-                        break
-                self.continuationKey = self._getValue(responseSource[-1], continuationKeyPath)
-        except:
-            raise Exception('ERROR: Could not parse YouTube response.')
