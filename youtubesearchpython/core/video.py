@@ -4,10 +4,10 @@ from urllib.parse import urlencode
 
 from youtubesearchpython.core.constants import *
 from youtubesearchpython.core.requests import RequestCore
-from youtubesearchpython.core.componenthandler import ComponentCore
+from youtubesearchpython.core.componenthandler import getValue
 
 
-class VideoCore(RequestCore, ComponentCore):
+class VideoCore(RequestCore):
     def __init__(self, videoLink: str, componentMode: str, resultMode: int, timeout: int):
         super().__init__()
         self.timeout = timeout
@@ -53,6 +53,24 @@ class VideoCore(RequestCore, ComponentCore):
             r = r.replace(';var meta = ', "")
             self.response = r
 
+    def __getVideoId(self, videoLink: str) -> str:
+        if 'youtu.be' in videoLink:
+            if videoLink[-1] == '/':
+                return videoLink.split('/')[-2]
+            return videoLink.split('/')[-1]
+        elif 'youtube.com' in videoLink:
+            if '&' not in videoLink:
+                return videoLink[videoLink.index('v=') + 2:]
+            return videoLink[videoLink.index('v=') + 2: videoLink.index('&')]
+        else:
+            return videoLink
+
+    def __parseSource(self) -> None:
+        try:
+            self.responseSource = json.loads(self.response)
+        except Exception as e:
+            raise Exception('ERROR: Could not parse YouTube response.')
+
     def __result(self, mode: int) -> Union[dict, str]:
         if mode == ResultMode.dict:
             return self.__videoComponent
@@ -63,28 +81,28 @@ class VideoCore(RequestCore, ComponentCore):
         videoComponent = {}
         if mode in ['getInfo', None]:
             component = {
-                'id': self.__getValue(self.responseSource, ['videoDetails', 'videoId']),
-                'title': self.__getValue(self.responseSource, ['videoDetails', 'title']),
+                'id': getValue(self.responseSource, ['videoDetails', 'videoId']),
+                'title': getValue(self.responseSource, ['videoDetails', 'title']),
                 'viewCount': {
-                    'text': self.__getValue(self.responseSource, ['videoDetails', 'viewCount'])
+                    'text': getValue(self.responseSource, ['videoDetails', 'viewCount'])
                 },
-                'thumbnails': self.__getValue(self.responseSource, ['videoDetails', 'thumbnail', 'thumbnails']),
-                'description': self.__getValue(self.responseSource, ['videoDetails', 'shortDescription']),
+                'thumbnails': getValue(self.responseSource, ['videoDetails', 'thumbnail', 'thumbnails']),
+                'description': getValue(self.responseSource, ['videoDetails', 'shortDescription']),
                 'channel': {
-                    'name': self.__getValue(self.responseSource, ['videoDetails', 'author']),
-                    'id': self.__getValue(self.responseSource, ['videoDetails', 'channelId']),
+                    'name': getValue(self.responseSource, ['videoDetails', 'author']),
+                    'id': getValue(self.responseSource, ['videoDetails', 'channelId']),
                 },
-                'averageRating': self.__getValue(self.responseSource, ['videoDetails', 'averageRating']),
-                'keywords': self.__getValue(self.responseSource, ['videoDetails', 'keywords']),
-                'publishDate': self.__getValue(self.responseSource, ['microformat', 'playerMicroformatRenderer', 'publishDate']),
-                'uploadDate': self.__getValue(self.responseSource, ['microformat', 'playerMicroformatRenderer', 'uploadDate']),
+                'averageRating': getValue(self.responseSource, ['videoDetails', 'averageRating']),
+                'keywords': getValue(self.responseSource, ['videoDetails', 'keywords']),
+                'publishDate': getValue(self.responseSource, ['microformat', 'playerMicroformatRenderer', 'publishDate']),
+                'uploadDate': getValue(self.responseSource, ['microformat', 'playerMicroformatRenderer', 'uploadDate']),
             }
             component['link'] = 'https://www.youtube.com/watch?v=' + component['id']
             component['channel']['link'] = 'https://www.youtube.com/channel/' + component['channel']['id']
             videoComponent.update(component)
         if mode in ['getFormats', None]:
             component = {
-                'streamingData': self.__getValue(self.responseSource, ['streamingData']),
+                'streamingData': getValue(self.responseSource, ['streamingData']),
             }
             videoComponent.update(component)
         self.__videoComponent = videoComponent
