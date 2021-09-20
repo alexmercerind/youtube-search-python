@@ -1,7 +1,7 @@
 from typing import Union, List
 
 
-def getValue(self, source: dict, path: List[str]) -> Union[str, int, dict, None]:
+def getValue(source: dict, path: List[str]) -> Union[str, int, dict, None]:
     value = source
     for key in path:
         if type(key) is str:
