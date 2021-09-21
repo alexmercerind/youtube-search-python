@@ -1,4 +1,4 @@
-from youtubesearchpython.__future__.search import Search, VideosSearch, ChannelsSearch, PlaylistsSearch, CustomSearch
+from youtubesearchpython.__future__.search import Search, VideosSearch, ChannelsSearch, PlaylistsSearch, CustomSearch, ChannelSearch
 from youtubesearchpython.__future__.extras import Video, Playlist, Suggestions, Hashtag
 from youtubesearchpython.__future__.streamurlfetcher import StreamURLFetcher
 from youtubesearchpython.core.constants import *

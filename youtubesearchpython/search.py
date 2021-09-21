@@ -1,8 +1,9 @@
 from youtubesearchpython.core.constants import *
-from youtubesearchpython.internal.search import SearchInternal, ChannelSearchInternal
+from youtubesearchpython.core.search import SearchCore
+from youtubesearchpython.core.channelsearch import ChannelSearchCore
 
 
-class Search(SearchInternal):
+class Search(SearchCore):
     '''Searches for videos, channels & playlists in YouTube.
 
     Args:
@@ -70,9 +71,13 @@ class Search(SearchInternal):
     def __init__(self, query: str, limit: int = 20, language: str = 'en', region: str = 'US', timeout: int = None):
         self.searchMode = (True, True, True)
         super().__init__(query, limit, language, region, None, timeout)
+        self.sync_create()
         self._getComponents(*self.searchMode)
 
-class VideosSearch(SearchInternal):
+    def next(self) -> bool:
+        return self._next()
+
+class VideosSearch(SearchCore):
     '''Searches for videos in YouTube.
 
     Args:
@@ -140,10 +145,14 @@ class VideosSearch(SearchInternal):
     def __init__(self, query: str, limit: int = 20, language: str = 'en', region: str = 'US', timeout: int = None):
         self.searchMode = (True, False, False)
         super().__init__(query, limit, language, region, SearchMode.videos, timeout)
+        self.sync_create()
         self._getComponents(*self.searchMode)
 
+    def next(self) -> bool:
+        return self._next()
 
-class ChannelsSearch(SearchInternal):
+
+class ChannelsSearch(SearchCore):
     '''Searches for channels in YouTube.
 
     Args:
@@ -186,10 +195,14 @@ class ChannelsSearch(SearchInternal):
     def __init__(self, query: str, limit: int = 20, language: str = 'en', region: str = 'US', timeout: int = None):
         self.searchMode = (False, True, False)
         super().__init__(query, limit, language, region, SearchMode.channels, timeout)
+        self.sync_create()
         self._getComponents(*self.searchMode)
 
+    def next(self) -> bool:
+        return self._next()
 
-class PlaylistsSearch(SearchInternal):
+
+class PlaylistsSearch(SearchCore):
     '''Searches for playlists in YouTube.
 
     Args:
@@ -245,9 +258,14 @@ class PlaylistsSearch(SearchInternal):
     def __init__(self, query: str, limit: int = 20, language: str = 'en', region: str = 'US', timeout: int = None):
         self.searchMode = (False, False, True)
         super().__init__(query, limit, language, region, SearchMode.playlists, timeout)
+        self.sync_create()
         self._getComponents(*self.searchMode)
 
-class ChannelSearch(ChannelSearchInternal):
+    def next(self) -> bool:
+        return self._next()
+
+
+class ChannelSearch(ChannelSearchCore):
     '''Searches for videos in specific channel in YouTube.
 
     Args:
@@ -321,8 +339,10 @@ class ChannelSearch(ChannelSearchInternal):
 
     def __init__(self, query: str, browseId: str, language: str = 'en', region: str = 'US', searchPreferences: str = "EgZzZWFyY2g%3D", timeout: int = None):
         super().__init__(query, language, region, searchPreferences, browseId, timeout)
+        self.sync_create()
 
-class CustomSearch(SearchInternal):
+
+class CustomSearch(SearchCore):
     '''Performs custom search in YouTube with search filters or sorting orders. 
     Few of the predefined filters and sorting orders are:
 
@@ -401,4 +421,5 @@ class CustomSearch(SearchInternal):
     def __init__(self, query: str, searchPreferences: str, limit: int = 20, language: str = 'en', region: str = 'US', timeout: int = None):
         self.searchMode = (True, True, True)
         super().__init__(query, limit, language, region, searchPreferences, timeout)
+        self.sync_create()
         self._getComponents(*self.searchMode)
