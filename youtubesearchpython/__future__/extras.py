@@ -1822,7 +1822,7 @@ class Hashtag(HashtagCore):
         super().__init__(hashtag, limit, language, region, timeout)
 
     async def next(self) -> dict:
-        r = await self._nextAsync()
-        return r
+        self._getComponents()
+        return self.result()
 
 
