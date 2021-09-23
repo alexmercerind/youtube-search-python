@@ -1,3 +1,4 @@
+from os import environ
 from urllib.request import Request, urlopen
 from urllib.parse import urlencode
 import json
@@ -31,6 +32,8 @@ class RequestHandler(ComponentHandler):
                 'User-Agent': userAgent,
             }
         )
+        http_proxies = environ["HTTP_PROXY"]
+        request.set_proxy(http_proxies, "http")
         try:
             self.response = urlopen(request, timeout=self.timeout).read().decode('utf_8')
         except:
