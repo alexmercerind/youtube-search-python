@@ -23,6 +23,9 @@ class HashtagCore(ComponentHandler):
         self._getParams()
         self._makeRequest()
 
+    def sync_create(self):
+        self._getComponents()
+
     def result(self, mode: int = ResultMode.dict) -> Union[str, dict]:
         '''Returns the hashtag videos.
         Args:
@@ -30,6 +33,7 @@ class HashtagCore(ComponentHandler):
         Returns:
             Union[str, dict]: Returns JSON or dictionary.
         '''
+        self._getComponents()
         if mode == ResultMode.json:
             return json.dumps({'result': self.resultComponents}, indent = 4)
         elif mode == ResultMode.dict:

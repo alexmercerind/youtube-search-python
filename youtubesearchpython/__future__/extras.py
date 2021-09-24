@@ -1822,7 +1822,6 @@ class Hashtag(HashtagCore):
         super().__init__(hashtag, limit, language, region, timeout)
 
     async def next(self) -> dict:
-        self._getComponents()
         return self.result()
 
 

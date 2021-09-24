@@ -17,7 +17,7 @@ jobs:
         python-version: '3.8'
     - name: Install dependencies
       run: python -m pip install httpx pytube
-    - name: Test synchronous functions
+    - name: Sync
       run: python syncExample.py
-    - name: Test asynchronous function
+    - name: Async
       run: python asyncExample.py

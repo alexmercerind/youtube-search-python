@@ -1779,7 +1779,7 @@ class Hashtag(HashtagCore):
     '''
     def __init__(self, hashtag: str, limit: int = 60, language: str = 'en', region: str = 'US', timeout: int = None):
         super().__init__(hashtag, limit, language, region, timeout)
-        self._getComponents()
+        self.sync_create()
 
 class Suggestions(SuggestionsCore):
     def __init__(self, language: str = "en", region: str = "US", timeout: int = None):
