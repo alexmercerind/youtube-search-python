@@ -1,5 +1,5 @@
 from os import environ
-from urllib.request import Request, urlopen, ProxyHandler, install_opener, build_opener
+from urllib.request import Request, urlopen
 from urllib.parse import urlencode, urlparse
 import json
 import copy
