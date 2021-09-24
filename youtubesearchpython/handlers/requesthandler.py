@@ -1,6 +1,6 @@
 from os import environ
-from urllib.request import Request, urlopen
-from urllib.parse import urlencode
+from urllib.request import Request, urlopen, ProxyHandler, install_opener, build_opener
+from urllib.parse import urlencode, urlparse
 import json
 import copy
 from youtubesearchpython.handlers.componenthandler import ComponentHandler
@@ -32,8 +32,12 @@ class RequestHandler(ComponentHandler):
                 'User-Agent': userAgent,
             }
         )
-        http_proxies = environ["HTTP_PROXY"]
-        request.set_proxy(http_proxies, "http")
+        try:
+            http_proxy = environ["HTTP_PROXY"]
+        except KeyError:
+            pass
+        else:
+            request.set_proxy(urlparse(http_proxy).netloc, "http")
         try:
             self.response = urlopen(request, timeout=self.timeout).read().decode('utf_8')
         except:
