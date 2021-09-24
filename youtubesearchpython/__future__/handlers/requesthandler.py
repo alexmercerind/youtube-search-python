@@ -1,6 +1,6 @@
 import httpx
 from youtubesearchpython.__future__.handlers.componenthandler import ComponentHandler
-from youtubesearchpython.__future__.internal.constants import *
+from youtubesearchpython.core.constants import *
 
 
 class RequestHandler(ComponentHandler):

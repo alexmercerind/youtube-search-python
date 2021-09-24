@@ -1,6 +1,8 @@
+from youtubesearchpython.core.requests import RequestCore
+
 isPyTubeInstalled = False
 
-from urllib.request import urlopen
+import httpx
 try:
     from pytube.extract import apply_descrambler, apply_signature
     from pytube import YouTube, extract
@@ -12,7 +14,7 @@ except:
             pass
 
 
-class StreamURLFetcherInternal(YouTube):
+class StreamURLFetcherCore(YouTube):
     '''
     Overrided parent's constructor.
     '''
@@ -20,7 +22,6 @@ class StreamURLFetcherInternal(YouTube):
         if isPyTubeInstalled:
             self._js_url = None
             self._js = None
-            self._getJS()
         else:
             raise Exception('ERROR: PyTube is not installed. To use this functionality of youtube-search-python, PyTube must be installed.')
 
@@ -54,19 +55,38 @@ class StreamURLFetcherInternal(YouTube):
     '''
     def _getJS(self) -> None:
         try:
-            response = urlopen('https://youtube.com/watch', timeout = None)
-            watch_html = response.read().decode('utf_8')
-            age_restricted = extract.is_age_restricted(watch_html)
+            response = httpx.get('https://youtube.com/watch', timeout = None)
+            watch_html = response.text
             self._js_url = extract.js_url(watch_html)
             if pytube.__js_url__ != self._js_url:
-                response = urlopen(self._js_url, timeout = None)
-                self._js = response.read().decode('utf_8')
+                response = httpx.get(self._js_url, timeout = None)
+                self._js = response.text
                 pytube.__js__ = self._js
                 pytube.__js_url__ = self._js_url
             else:
                 self._js = pytube.__js__
         except:
             raise Exception('ERROR: Could not make request.')
+
+    async def _asyncGetJS(self):
+        try:
+            async with httpx.AsyncClient() as client:
+                response = await client.get('https://youtube.com/watch', timeout = None)
+            watch_html = response.text
+            self._js_url = extract.js_url(watch_html)
+            if pytube.__js_url__ != self._js_url:
+                async with httpx.AsyncClient() as client:
+                    response = await client.get(self._js_url, timeout = None)
+                self._js = response.text
+                pytube.__js__ = self._js
+                pytube.__js_url__ = self._js_url
+            else:
+                self._js = pytube.__js__
+        except:
+            raise Exception('ERROR: Could not make request.')
+
+    async def getJavaScript(self):
+        await self._asyncGetJS()
 
     '''
     Not fetching for new player JavaScript if pytube.__js__ is not None or exception is not caused.

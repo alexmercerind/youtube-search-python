@@ -3,7 +3,7 @@ from urllib.parse import urlencode
 import json
 import copy
 from youtubesearchpython.handlers.componenthandler import ComponentHandler
-from youtubesearchpython.internal.constants import *
+from youtubesearchpython.core.constants import *
 
 
 class RequestHandler(ComponentHandler):
