@@ -101,6 +101,7 @@ class LegacySearchInternal(LegacyComponentHandler):
         self.language = language
         self.region = region
         self.continuationKey = None
+        self.timeout = None
     
     def result(self) -> Union[str, dict, list, None]:
         '''Returns the search result.
