@@ -1,3 +1,4 @@
+import copy
 import json
 from typing import Union, List
 from urllib.parse import urlencode
@@ -101,7 +102,8 @@ class PlaylistCore(RequestCore):
         except:
             raise Exception('ERROR: Could not make request.')
 
-    def prepare_next_request(self, requestBody=requestPayload):
+    def prepare_next_request(self):
+        requestBody = copy.deepcopy(requestPayload)
         requestBody['continuation'] = self.continuationKey
         self.data = json.dumps(requestBody)
         self.url = 'https://www.youtube.com/youtubei/v1/browse' + '?' + urlencode({
