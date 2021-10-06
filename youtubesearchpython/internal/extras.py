@@ -172,8 +172,8 @@ class PlaylistInternal:
             r = self.response[startpoint:endpoint]
             r = r.replace(";</script>", "")
             self.response = r
-            print(startpoint)
-            print(endpoint)
+            #print(startpoint)
+            #print(endpoint)
 
     def __makeRequest(self, playlistLink: str) -> int:
         playlistLink.strip('/')
