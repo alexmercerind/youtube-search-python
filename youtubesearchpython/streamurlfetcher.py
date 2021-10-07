@@ -1,8 +1,8 @@
 from typing import Union
-from youtubesearchpython.internal.streamurlfetcher import StreamURLFetcherInternal
+from youtubesearchpython.core.streamurlfetcher import StreamURLFetcherCore
 
 
-class StreamURLFetcher(StreamURLFetcherInternal):
+class StreamURLFetcher(StreamURLFetcherCore):
     '''Gets direct stream URLs for a YouTube video fetched using `Video.get` or `Video.getFormats`.
 
     This class can fetch direct video URLs without any additional network requests (that's really fast).
@@ -27,6 +27,7 @@ class StreamURLFetcher(StreamURLFetcherInternal):
     '''
     def __init__(self):
         super().__init__()
+        self._getJS()
 
     def get(self, videoFormats: dict, itag: int) -> Union[str, None]:
         '''Gets direct stream URL for a YouTube video fetched using `Video.get` or `Video.getFormats`.

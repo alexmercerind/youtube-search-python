@@ -1,10 +1,15 @@
-import copy
-from youtubesearchpython.__future__.internal.extras import *
-from youtubesearchpython.__future__.internal.constants import *
+from typing import Union
+
+from youtubesearchpython.core import VideoCore
+from youtubesearchpython.core.constants import ResultMode
+from youtubesearchpython.core.hashtag import HashtagCore
+from youtubesearchpython.core.playlist import PlaylistCore
+from youtubesearchpython.core.suggestions import SuggestionsCore
+
 
 class Video:
     @staticmethod
-    async def get(videoLink: str) -> Union[dict, None]:
+    async def get(videoLink: str, resultMode: int = ResultMode.dict, timeout: int = 2) -> Union[dict, None]:
         '''Fetches information and formats  for the given video link or ID.
         Returns None if video is unavailable.
 
@@ -249,12 +254,12 @@ class Video:
                     ]
                 }
         '''
-        video = VideoInternal(videoLink, None)
-        await video.get()
-        return video.videoComponent
+        video = VideoCore(videoLink, None, resultMode, timeout)
+        await video.async_create()
+        return video.result
     
     @staticmethod
-    async def getInfo(videoLink: str) -> Union[dict, None]:
+    async def getInfo(videoLink: str, resultMode: int = ResultMode.dict, timeout: int = 2) -> Union[dict, None]:
         '''Fetches only information  for the given video link or ID.
         Returns None if video is unavailable.
 
@@ -334,12 +339,12 @@ class Video:
                 "link": "https://www.youtube.com/watch?v=E07s5ZYygMg",
             }
         '''
-        video = VideoInternal(videoLink, 'getInfo')
-        await video.get()
-        return video.videoComponent
+        video = VideoCore(videoLink, "getInfo", resultMode, timeout)
+        await video.async_create()
+        return video.result
 
     @staticmethod
-    async def getFormats(videoLink: str) -> Union[dict, None]:
+    async def getFormats(videoLink: str, resultMode: int = ResultMode.dict, timeout: int = 2) -> Union[dict, None]:
         '''Fetches formats  for the given video link or ID.
         Returns None if video is unavailable.
 
@@ -519,9 +524,9 @@ class Video:
                 }
             }
         '''
-        video = VideoInternal(videoLink, 'getFormats')
-        await video.get()
-        return video.videoComponent
+        video = VideoCore(videoLink, "getFormats", resultMode, timeout)
+        await video.async_create()
+        return video.result
 
 
 class Suggestions:
@@ -556,7 +561,7 @@ class Suggestions:
         }
     '''
     @staticmethod
-    async def get(query: str, language: str = 'en', region: str = 'US'):
+    async def get(query: str, language: str = 'en', region: str = 'US', mode: int = ResultMode.dict):
         '''Fetches & returns the search suggestions for the given query.
 
         Args:
@@ -566,8 +571,8 @@ class Suggestions:
         Returns:
             Union[str, dict]: Returns JSON or dictionary.
         '''
-        suggestionsInternal = SuggestionsInternal()
-        suggestions = await suggestionsInternal.get(query, language = language, region = region)
+        suggestionsInternal = SuggestionsCore(language = language, region = region)
+        suggestions = await suggestionsInternal._getAsync(query, mode)
         return suggestions
 
 
@@ -601,14 +606,14 @@ class Playlist:
     '''
     async def getNextVideos(self) -> None:
         if not self.info:
-            self.__playlist = PlaylistInternal(self.playlistLink, None)
-            await self.__playlist.get()
+            self.__playlist = PlaylistCore(self.playlistLink, None, ResultMode.dict, 2)
+            await self.__playlist._async_next()
             self.info = copy.deepcopy(self.__playlist.playlistComponent)
             self.videos = self.__playlist.playlistComponent['videos']
             self.hasMoreVideos = self.__playlist.continuationKey != None
             self.info.pop('videos')
         else:
-            await self.__playlist.next()
+            await self.__playlist._async_next()
             self.videos = self.__playlist.playlistComponent['videos']
             self.hasMoreVideos = self.__playlist.continuationKey != None
     
@@ -1161,8 +1166,8 @@ class Playlist:
                 ]
             }
         '''
-        playlist = PlaylistInternal(playlistLink, None)
-        await playlist.get()
+        playlist = PlaylistCore(playlistLink, None, ResultMode.dict, 2)
+        await playlist.async_create()
         return playlist.playlistComponent
     
     @staticmethod
@@ -1231,8 +1236,8 @@ class Playlist:
                 }
             }
         '''
-        playlist = PlaylistInternal(playlistLink, 'getInfo')
-        await playlist.get()
+        playlist = PlaylistCore(playlistLink, 'getInfo', ResultMode.dict, 2)
+        await playlist.async_create()
         return playlist.playlistComponent
 
     @staticmethod
@@ -1733,12 +1738,12 @@ class Playlist:
                 ]
             }
         '''
-        playlist = PlaylistInternal(playlistLink, 'getVideos')
-        await playlist.get()
+        playlist = PlaylistCore(playlistLink, 'getVideos', ResultMode.dict, 2)
+        await playlist.async_create()
         return playlist.playlistComponent
 
 
-class Hashtag(HashtagInternal):
+class Hashtag(HashtagCore):
     '''Fetches videos for the given hashtag.
 
     Args:
@@ -1815,3 +1820,18 @@ class Hashtag(HashtagInternal):
     '''
     def __init__(self, hashtag: str, limit: int = 60, language: str = 'en', region: str = 'US', timeout: int = None):
         super().__init__(hashtag, limit, language, region, timeout)
+
+    async def next(self) -> dict:
+        '''Gets the videos from the next page.
+        Returns:
+            dict: Returns dictionary containing the search result.
+        '''
+        self.response = None
+        self.resultComponents = []
+        if self.params is None:
+            await self._asyncGetParams()
+        await self._asyncMakeRequest()
+        self._getComponents()
+        return {
+            'result': self.resultComponents,
+        }

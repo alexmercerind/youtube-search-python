@@ -63,6 +63,11 @@ async def main():
     print(customResult)
 
 
+    search = ChannelSearch('Watermelon Sugar', "UCZFWPqqPkFlNwIxcpsLOwew")
+    result = await search.next()
+    print(result)
+
+
 
 
     '''

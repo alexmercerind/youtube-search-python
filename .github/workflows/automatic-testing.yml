@@ -1,0 +1,23 @@
+name: Test with Python 3.8
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 5 * * 1"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+    - name: Install dependencies
+      run: python -m pip install httpx pytube
+    - name: Sync
+      run: python syncExample.py
+    - name: Async
+      run: python asyncExample.py

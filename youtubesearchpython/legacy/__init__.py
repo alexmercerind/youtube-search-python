@@ -2,7 +2,7 @@ from typing import List, Union
 import json
 from youtubesearchpython.handlers.componenthandler import ComponentHandler
 from youtubesearchpython.handlers.requesthandler import RequestHandler
-from youtubesearchpython.internal.constants import *
+from youtubesearchpython.core.constants import *
 
 
 def overrides(interface_class):
