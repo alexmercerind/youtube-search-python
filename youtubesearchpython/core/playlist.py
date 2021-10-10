@@ -87,20 +87,9 @@ class PlaylistCore(RequestCore):
 
     def __makeRequest(self) -> int:
         self.url.strip('/')
-        request = Request(
-            self.url,
-            data=urlencode({}).encode('utf_8'),
-            headers={
-                'User-Agent': userAgent,
-            },
-            method="GET"
-        )
-        try:
-            response = urlopen(request, timeout=self.timeout)
-            self.response = response.read().decode('utf_8')
-            return response.getcode()
-        except:
-            raise Exception('ERROR: Could not make request.')
+        request = self.syncGetRequest()
+        self.response = request.text
+        return request.status_code
 
     def prepare_next_request(self):
         requestBody = copy.deepcopy(requestPayload)

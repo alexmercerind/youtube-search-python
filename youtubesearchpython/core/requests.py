@@ -17,9 +17,9 @@ class RequestCore:
             return r
 
     def syncGetRequest(self) -> httpx.Response:
-        return httpx.get(self.url, headers={"User-Agent": userAgent}, timeout=self.timeout)
+        return httpx.get(self.url, headers={"User-Agent": userAgent}, timeout=self.timeout, cookies={'CONSENT': 'YES+1'})
 
     async def asyncGetRequest(self) -> httpx.Response:
         async with httpx.AsyncClient() as client:
-            r = await client.get(self.url, headers={"User-Agent": userAgent}, timeout=self.timeout)
+            r = await client.get(self.url, headers={"User-Agent": userAgent}, timeout=self.timeout, cookies={'CONSENT': 'YES+1'})
             return r
