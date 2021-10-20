@@ -1,3 +1,5 @@
+import urllib.request
+
 from youtubesearchpython.core.requests import RequestCore
 
 isPyTubeInstalled = False
@@ -54,9 +56,9 @@ class StreamURLFetcherCore(YouTube):
     Removed v parameter from the query. (No idea about why PyTube bothered with that)
     '''
     def _getJS(self) -> None:
+        response = urllib.request.urlopen('https://youtube.com/watch')
+        watch_html = response.read().decode()
         try:
-            response = httpx.get('https://youtube.com/watch', timeout = None)
-            watch_html = response.text
             self._js_url = extract.js_url(watch_html)
             if pytube.__js_url__ != self._js_url:
                 response = httpx.get(self._js_url, timeout = None)
@@ -69,21 +71,8 @@ class StreamURLFetcherCore(YouTube):
             raise Exception('ERROR: Could not make request.')
 
     async def _asyncGetJS(self):
-        try:
-            async with httpx.AsyncClient() as client:
-                response = await client.get('https://youtube.com/watch', timeout = None)
-            watch_html = response.text
-            self._js_url = extract.js_url(watch_html)
-            if pytube.__js_url__ != self._js_url:
-                async with httpx.AsyncClient() as client:
-                    response = await client.get(self._js_url, timeout = None)
-                self._js = response.text
-                pytube.__js__ = self._js
-                pytube.__js_url__ = self._js_url
-            else:
-                self._js = pytube.__js__
-        except:
-            raise Exception('ERROR: Could not make request.')
+        # Due to some errors with JS fetching with httpx, we are now using sync urllib
+        self._getJS()
 
     async def getJavaScript(self):
         await self._asyncGetJS()
@@ -102,9 +91,13 @@ class StreamURLFetcherCore(YouTube):
             '''
 
             stream = apply_descrambler(self._player_response["player_response"])
-            apply_signature(
-                stream, self._player_response, pytube.__js__
-            )
+
+            try:
+                apply_signature(
+                    stream, self._player_response, pytube.__js__
+                )
+            except:
+                pass
             self._streams = stream
         except:
             '''
