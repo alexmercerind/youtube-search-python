@@ -58,7 +58,7 @@ class StreamURLFetcherCore(YouTube):
     def _getJS(self) -> None:
         response = urllib.request.urlopen('https://youtube.com/watch')
         watch_html = response.read().decode()
-        print(watch_html)
+        #print(watch_html)
         print("Executing GetJS")
         try:
             self._js_url = extract.js_url(watch_html)
