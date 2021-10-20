@@ -107,12 +107,13 @@ class StreamURLFetcherCore(YouTube):
             '''
 
             stream = apply_descrambler(self._player_response["player_response"])
-            apply_signature(
-                stream, self._player_response, pytube.__js__
-            )
+
+            #apply_signature(
+            #    stream, self._player_response, pytube.__js__
+            #)
             self._streams = stream
         except:
             '''
             Fetch updated player JavaScript to get new cipher algorithm.
             '''
-            self._decipher(retry = True)
+            self._decipher(retry = False)
