@@ -1,3 +1,5 @@
+import urllib.request
+
 from youtubesearchpython.core.requests import RequestCore
 
 isPyTubeInstalled = False
@@ -54,8 +56,8 @@ class StreamURLFetcherCore(YouTube):
     Removed v parameter from the query. (No idea about why PyTube bothered with that)
     '''
     def _getJS(self) -> None:
-        response = httpx.get('https://youtube.com/embed', timeout=None)
-        watch_html = response.text
+        response = urllib.request.urlopen('https://youtube.com/embed')
+        watch_html = response.read().decode()
         print(watch_html)
         print("Executing GetJS")
         try:
