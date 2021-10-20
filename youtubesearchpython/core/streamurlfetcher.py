@@ -56,7 +56,7 @@ class StreamURLFetcherCore(YouTube):
     Removed v parameter from the query. (No idea about why PyTube bothered with that)
     '''
     def _getJS(self) -> None:
-        response = urllib.request.urlopen('https://youtube.com/embed')
+        response = urllib.request.urlopen('https://youtube.com/watch')
         watch_html = response.read().decode()
         print(watch_html)
         print("Executing GetJS")
