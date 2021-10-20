@@ -115,4 +115,4 @@ class StreamURLFetcherCore(YouTube):
             '''
             Fetch updated player JavaScript to get new cipher algorithm.
             '''
-            self._decipher(retry = False)
+            self._decipher(retry = True)
