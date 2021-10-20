@@ -57,6 +57,7 @@ class StreamURLFetcherCore(YouTube):
         response = httpx.get('https://youtube.com/embed', timeout=None)
         watch_html = response.text
         print(watch_html)
+        print("Executing GetJS")
         try:
             self._js_url = extract.js_url(watch_html)
             print(self._js_url)
