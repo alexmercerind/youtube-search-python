@@ -54,11 +54,12 @@ class StreamURLFetcherCore(YouTube):
     Removed v parameter from the query. (No idea about why PyTube bothered with that)
     '''
     def _getJS(self) -> None:
+        response = httpx.get('https://youtube.com/watch', timeout=None, cookies={'CONSENT': 'YES+1'})
+        watch_html = response.text
+        print(watch_html)
         try:
-            response = httpx.get('https://youtube.com/watch', timeout = None, cookies={'CONSENT': 'YES+1'})
-            watch_html = response.text
-            print(watch_html)
             self._js_url = extract.js_url(watch_html)
+            print(self._js_url)
             if pytube.__js_url__ != self._js_url:
                 response = httpx.get(self._js_url, timeout = None)
                 self._js = response.text
