@@ -55,8 +55,9 @@ class StreamURLFetcherCore(YouTube):
     '''
     def _getJS(self) -> None:
         try:
-            response = httpx.get('https://youtube.com/watch', timeout = None)
+            response = httpx.get('https://youtube.com/watch', timeout = None, cookies={'CONSENT': 'YES+1'})
             watch_html = response.text
+            print(watch_html)
             self._js_url = extract.js_url(watch_html)
             if pytube.__js_url__ != self._js_url:
                 response = httpx.get(self._js_url, timeout = None)
