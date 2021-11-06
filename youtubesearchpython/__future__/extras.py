@@ -1,3 +1,4 @@
+import copy
 from typing import Union
 
 from youtubesearchpython.core import VideoCore
