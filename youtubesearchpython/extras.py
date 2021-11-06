@@ -568,7 +568,7 @@ class Playlist:
     `hasMoreVideos` bool indicates whether more videos can be fetched or not.
     '''
     def getNextVideos(self) -> None:
-        self.__playlist.next()
+        self.__playlist._next()
         self.videos = self.__playlist.result['videos']
         self.hasMoreVideos = self.__playlist.continuationKey != None
 

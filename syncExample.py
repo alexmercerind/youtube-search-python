@@ -104,6 +104,18 @@ playlistVideos = Playlist.getVideos('https://www.youtube.com/playlist?list=PLRBp
 print(playlistVideos)
 
 
+playlist = Playlist('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK')
+
+print(f'Videos Retrieved: {len(playlist.videos)}')
+
+while playlist.hasMoreVideos:
+    print('Getting more videos...')
+    playlist.getNextVideos()
+    print(f'Videos Retrieved: {len(playlist.videos)}')
+
+print('Found all the videos.')
+
+
 
 
 '''

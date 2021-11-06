@@ -56,7 +56,7 @@ class PlaylistCore(RequestCore):
     def _next(self):
         self.prepare_next_request()
         if self.continuationKey:
-            statusCode = self.syncGetRequest()
+            statusCode = self.syncPostRequest()
             self.response = statusCode.text
             if statusCode.status_code == 200:
                 self.next_post_processing()
@@ -64,14 +64,16 @@ class PlaylistCore(RequestCore):
                 raise Exception('ERROR: Invalid status code.')
 
     async def _async_next(self):
-        self.prepare_next_request()
         if self.continuationKey:
-            statusCode = await self.asyncGetRequest()
+            self.prepare_next_request()
+            statusCode = await self.asyncPostRequest()
             self.response = statusCode.text
             if statusCode.status_code == 200:
                 self.next_post_processing()
             else:
                 raise Exception('ERROR: Invalid status code.')
+        else:
+            await self.async_create()
 
     def __extractFromHTML(self):
         f1 = "var ytInitialData = "
@@ -94,7 +96,7 @@ class PlaylistCore(RequestCore):
     def prepare_next_request(self):
         requestBody = copy.deepcopy(requestPayload)
         requestBody['continuation'] = self.continuationKey
-        self.data = json.dumps(requestBody)
+        self.data = requestBody
         self.url = 'https://www.youtube.com/youtubei/v1/browse' + '?' + urlencode({
             'key': searchKey,
         })

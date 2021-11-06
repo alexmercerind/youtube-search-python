@@ -17,7 +17,13 @@ class RequestCore:
             self.proxy["https://"] = https_proxy
 
     def syncPostRequest(self) -> httpx.Response:
-        return httpx.post(self.url, headers={"User-Agent": userAgent}, json=self.data, timeout=self.timeout, proxies=self.proxy)
+        return httpx.post(
+            self.url,
+            headers={"User-Agent": userAgent},
+            json=self.data,
+            timeout=self.timeout,
+            proxies=self.proxy
+        )
 
     async def asyncPostRequest(self) -> httpx.Response:
         async with httpx.AsyncClient(proxies=self.proxy) as client:

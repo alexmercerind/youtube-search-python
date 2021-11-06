@@ -41,6 +41,15 @@ async def main():
     print(playlistsResult)
 
 
+    playlist = Playlist('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK')
+    while playlist.hasMoreVideos:
+        print('Getting more videos...')
+        await playlist.getNextVideos()
+        print(f'Videos Retrieved: {len(playlist.videos)}')
+
+    print('Found all the videos.')
+
+
 
 
     '''
