@@ -97,10 +97,12 @@ class StreamURLFetcherCore(YouTube):
                     stream, self._player_response, pytube.__js__
                 )
             except:
-                pass
+                raise Exception("Signature applying failed")
             self._streams = stream
-        except:
+        except Exception as e:
+            if retry:
+                raise e
             '''
             Fetch updated player JavaScript to get new cipher algorithm.
             '''
-            self._decipher(retry = False)
+            self._decipher(retry = True)
