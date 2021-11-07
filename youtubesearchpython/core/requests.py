@@ -21,8 +21,7 @@ class RequestCore:
             self.url,
             headers={"User-Agent": userAgent},
             json=self.data,
-            timeout=self.timeout,
-            proxies=self.proxy
+            timeout=self.timeout
         )
 
     async def asyncPostRequest(self) -> httpx.Response:
@@ -31,7 +30,7 @@ class RequestCore:
             return r
 
     def syncGetRequest(self) -> httpx.Response:
-        return httpx.get(self.url, headers={"User-Agent": userAgent}, timeout=self.timeout, cookies={'CONSENT': 'YES+1'}, proxies=self.proxy)
+        return httpx.get(self.url, headers={"User-Agent": userAgent}, timeout=self.timeout, cookies={'CONSENT': 'YES+1'})
 
     async def asyncGetRequest(self) -> httpx.Response:
         async with httpx.AsyncClient(proxies=self.proxy) as client:
