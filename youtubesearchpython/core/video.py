@@ -14,18 +14,21 @@ class VideoCore(RequestCore):
         self.resultMode = resultMode
         self.componentMode = componentMode
         self.videoLink = videoLink
-        self.url = 'https://www.youtube.com/watch' + '?' + urlencode({
-            'v': getVideoId(self.videoLink)
+        self.url = 'https://www.youtube.com/youtubei/v1/player' + "?" + urlencode({
+            'key': searchKey,
+            'contentCheckOk': True,
+            'racyCheckOk': True,
+            "videoId": getVideoId(self.videoLink)
         })
+        self.data = requestPayload
 
     def post_request_processing(self):
-        self.__extractFromHTML()
         self.__parseSource()
         self.__getVideoComponent(self.componentMode)
         self.result = self.__videoComponent
 
     async def async_create(self):
-        response = await self.asyncGetRequest()
+        response = await self.asyncPostRequest()
         self.response = response.text
         if response.status_code == 200:
             self.post_request_processing()
@@ -33,25 +36,12 @@ class VideoCore(RequestCore):
             raise Exception('ERROR: Invalid status code.')
 
     def sync_create(self):
-        response = self.syncGetRequest()
+        response = self.syncPostRequest()
         self.response = response.text
         if response.status_code == 200:
             self.post_request_processing()
         else:
             raise Exception('ERROR: Invalid status code.')
-
-    def __extractFromHTML(self):
-        f1 = "var ytInitialPlayerResponse = "
-        startpoint = self.response.find(f1)
-        self.response = self.response[startpoint + len(f1):]
-        f2 = ';var meta = '
-        endpoint = self.response.find(f2)
-        if startpoint and endpoint:
-            startpoint += len(f1)
-            endpoint += len(f2)
-            r = self.response[:endpoint]
-            r = r.replace(';var meta = ', "")
-            self.response = r
 
     def __parseSource(self) -> None:
         try:
