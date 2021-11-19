@@ -1,3 +1,4 @@
+import copy
 import json
 from typing import Union, List
 from urllib.parse import urlencode
@@ -20,7 +21,16 @@ class VideoCore(RequestCore):
             'racyCheckOk': True,
             "videoId": getVideoId(self.videoLink)
         })
-        self.data = requestPayload
+        self.data = {
+            'context': {
+                'client': {
+                    'clientName': 'ANDROID',
+                    'clientVersion': '16.20',
+                    'clientScreen': 'EMBED'
+                }
+            },
+            'api_key': 'AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8'
+        }
 
     def post_request_processing(self):
         self.__parseSource()
@@ -46,6 +56,8 @@ class VideoCore(RequestCore):
     def __parseSource(self) -> None:
         try:
             self.responseSource = json.loads(self.response)
+            with open("test.json", "w+", encoding="utf-8") as f:
+                f.write(self.response)
         except Exception as e:
             raise Exception('ERROR: Could not parse YouTube response.')
 
@@ -83,10 +95,5 @@ class VideoCore(RequestCore):
             component['isLiveNow'] = component['isLiveContent'] and component['duration']['secondsText'] == "0"
             component['link'] = 'https://www.youtube.com/watch?v=' + component['id']
             component['channel']['link'] = 'https://www.youtube.com/channel/' + component['channel']['id']
-            videoComponent.update(component)
-        if mode in ['getFormats', None]:
-            component = {
-                'streamingData': getValue(self.responseSource, ['streamingData']),
-            }
-            videoComponent.update(component)
-        self.__videoComponent = videoComponent
+            self.responseSource.update(component)
+        self.__videoComponent = self.responseSource
