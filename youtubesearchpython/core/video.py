@@ -25,8 +25,7 @@ class VideoCore(RequestCore):
             'context': {
                 'client': {
                     'clientName': 'ANDROID',
-                    'clientVersion': '16.20',
-                    'clientScreen': 'EMBED'
+                    'clientVersion': '16.20'
                 }
             },
             'api_key': 'AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8'
@@ -40,6 +39,7 @@ class VideoCore(RequestCore):
     async def async_create(self):
         response = await self.asyncPostRequest()
         self.response = response.text
+        print(self.response)
         if response.status_code == 200:
             self.post_request_processing()
         else:
@@ -56,8 +56,6 @@ class VideoCore(RequestCore):
     def __parseSource(self) -> None:
         try:
             self.responseSource = json.loads(self.response)
-            with open("test.json", "w+", encoding="utf-8") as f:
-                f.write(self.response)
         except Exception as e:
             raise Exception('ERROR: Could not parse YouTube response.')
 
