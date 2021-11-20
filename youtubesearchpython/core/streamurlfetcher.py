@@ -32,8 +32,19 @@ class StreamURLFetcherCore(YouTube):
     Saving videoFormats inside a dictionary with key "player_response" for apply_descrambler & apply_signature methods.
     '''
     def _getDecipheredURLs(self, videoFormats: dict) -> None:
+        # For some reason, we cannot fetch JavaScript the old way, as PyTube's RegEx doesn't like it.
         self.video_id = videoFormats["id"]
         self._player_response = videoFormats
+        if not videoFormats['streamingData']:
+            try:
+                self.use_oauth = False
+                self.allow_oauth_cache = False
+                self.bypass_age_gate()
+                self._player_response = self._vid_info
+            except:
+                raise Exception('ERROR: Could not make request.')
+
+        # We use this to retrieve JavaScript
         url = f"https://www.youtube.com/watch?v={self.video_id}"
         self.youtube = pytube.YouTube(url)
 
@@ -50,7 +61,8 @@ class StreamURLFetcherCore(YouTube):
         self._js = self.youtube.js
 
     async def getJavaScript(self):
-        # we don't wanna break compatibility, so we just pass
+        # we don't wanna break compatibility, so we just pass.
+        # We retrieve Player JavaScript using _getDecipheredURLs()
         pass
 
     '''
@@ -69,9 +81,6 @@ class StreamURLFetcherCore(YouTube):
             Used to decipher the stream URLs using player JavaScript & the player_response passed from the getStream method of this derieved class.
             These methods operate on the value of "player_response" key in dictionary of self._player_response & save _deciphered information in the "url_encoded_fmt_stream_map" key.
             '''
-            #self._player_response = self.youtube.vid_info
-            with open("test2.json", "w+", encoding="utf-8") as f:
-                f.write(json.dumps(self.youtube.vid_info))
 
             stream = apply_descrambler(self._player_response["streamingData"])
             apply_signature(

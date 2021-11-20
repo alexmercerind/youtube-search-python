@@ -25,8 +25,7 @@ class VideoCore(RequestCore):
             'context': {
                 'client': {
                     'clientName': 'ANDROID',
-                    'clientVersion': '16.20',
-                    'clientScreen': 'EMBED'
+                    'clientVersion': '16.20'
                 }
             },
             'api_key': 'AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8'
@@ -56,8 +55,6 @@ class VideoCore(RequestCore):
     def __parseSource(self) -> None:
         try:
             self.responseSource = json.loads(self.response)
-            with open("test.json", "w+", encoding="utf-8") as f:
-                f.write(self.response)
         except Exception as e:
             raise Exception('ERROR: Could not parse YouTube response.')
 
@@ -95,5 +92,11 @@ class VideoCore(RequestCore):
             component['isLiveNow'] = component['isLiveContent'] and component['duration']['secondsText'] == "0"
             component['link'] = 'https://www.youtube.com/watch?v=' + component['id']
             component['channel']['link'] = 'https://www.youtube.com/channel/' + component['channel']['id']
-            self.responseSource.update(component)
-        self.__videoComponent = self.responseSource
+            videoComponent.update(component)
+        if mode in ['getFormats', None]:
+            videoComponent.update(
+                {
+                    "streamingData": getValue(self.responseSource, ["streamingData"])
+                }
+            )
+        self.__videoComponent = videoComponent
