@@ -1,11 +1,18 @@
+import collections
 import copy
+import itertools
 import json
-from typing import Union, List
+from typing import Iterable, Mapping, Tuple, TypeVar, Union, List
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
 from youtubesearchpython.core.constants import *
 from youtubesearchpython.core.requests import RequestCore
+
+
+K = TypeVar("K")
+T = TypeVar("T")
+
 
 class PlaylistCore(RequestCore):
     playlistComponent = None
@@ -118,7 +125,7 @@ class PlaylistCore(RequestCore):
     def __getComponents(self) -> None:
         inforenderer = self.responseSource["sidebar"]["playlistSidebarRenderer"]["items"][0]["playlistSidebarPrimaryInfoRenderer"]
         channelrenderer = self.responseSource["sidebar"]["playlistSidebarRenderer"]["items"][1]["playlistSidebarSecondaryInfoRenderer"]["videoOwner"]["videoOwnerRenderer"]
-        videorenderer = self.responseSource["contents"]["twoColumnBrowseResultsRenderer"]["tabs"][0]["tabRenderer"]["content"]["sectionListRenderer"]["contents"][0]["itemSectionRenderer"]["contents"][0]["playlistVideoListRenderer"]["contents"]
+        videorenderer = self.__getFirstValue(self.responseSource, ["contents", "twoColumnBrowseResultsRenderer", "tabs", None, "tabRenderer", "content", "sectionListRenderer", "contents", None, "itemSectionRenderer", "contents", None, "playlistVideoListRenderer", "contents"])
         videos = []
         for video in videorenderer:
             try:
@@ -286,7 +293,7 @@ class PlaylistCore(RequestCore):
         elif mode == ResultMode.json:
             return json.dumps(self.playlistComponent, indent=4)
 
-    def __getValue(self, source: dict, path: List[str]) -> Union[str, int, dict, None]:
+    def __getValue(self, source: dict, path: Iterable[str]) -> Union[str, int, dict, None]:
         value = source
         for key in path:
             if type(key) is str:
@@ -302,3 +309,33 @@ class PlaylistCore(RequestCore):
                     value = None
                     break
         return value
+
+    def __getAllWithKey(self, source: Iterable[Mapping[K, T]], key: K) -> Iterable[T]:
+        for item in source:
+            if key in item:
+                yield item[key]
+
+    def __getValueEx(self, source: dict, path: List[str]) -> Iterable[Union[str, int, dict, None]]:
+        if len(path) <= 0:
+            yield source
+            return
+        key = path[0]
+        upcoming = path[1:]
+        if key is None:
+            following_key = upcoming[0]
+            upcoming = upcoming[1:]
+            if following_key is None:
+                raise Exception("Cannot search for a key twice consecutive or at the end with no key given")
+            values = self.__getAllWithKey(source, following_key)
+            for val in values:
+                yield from self.__getValueEx(val, path=upcoming)
+        else:
+            val = self.__getValue(source, path=[key])
+            yield from self.__getValueEx(val, path=upcoming)
+
+    def __getFirstValue(self, source: dict, path: Iterable[str]) -> Union[str, int, dict, None]:
+        values = self.__getValueEx(source, list(path))
+        for val in values:
+            if val is not None:
+                return val
+        return None
