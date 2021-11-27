@@ -10,7 +10,7 @@ from youtubesearchpython.core.constants import *
 
 class Video:
     @staticmethod
-    def get(videoLink: str, mode: int = ResultMode.dict, timeout: int = None) -> Union[dict, str, None]:
+    def get(videoLink: str, mode: int = ResultMode.dict, timeout: int = None, enableHTML: bool = False) -> Union[dict, str, None]:
         '''Fetches information and formats  for the given video link or ID.
         Returns None if video is unavailable.
 
@@ -256,12 +256,14 @@ class Video:
                     ]
                 }
         '''
-        vc = VideoCore(videoLink, None, mode, timeout)
+        vc = VideoCore(videoLink, None, mode, timeout, enableHTML)
+        if enableHTML:
+            vc.sync_html_create()
         vc.sync_create()
         return vc.result
     
     @staticmethod
-    def getInfo(videoLink: str, mode: int = ResultMode.dict, timeout: int = None) -> Union[dict, str, None]:
+    def getInfo(videoLink: str, mode: int = ResultMode.dict, timeout: int = None, enableHTML: bool = False) -> Union[dict, str, None]:
         '''Fetches only information for the given video link or ID.
         Returns None if video is unavailable.
 
@@ -342,7 +344,9 @@ class Video:
                 "link": "https://www.youtube.com/watch?v=E07s5ZYygMg",
             }
         '''
-        vc = VideoCore(videoLink, "getInfo", mode, timeout)
+        vc = VideoCore(videoLink, "getInfo", mode, timeout, enableHTML)
+        if enableHTML:
+            vc.sync_html_create()
         vc.sync_create()
         return vc.result
 
@@ -528,7 +532,7 @@ class Video:
                 }
             }
         '''
-        vc = VideoCore(videoLink, "getFormats", mode, timeout)
+        vc = VideoCore(videoLink, "getFormats", mode, timeout, False)
         vc.sync_create()
         return vc.result
 

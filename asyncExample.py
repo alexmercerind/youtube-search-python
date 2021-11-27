@@ -116,7 +116,7 @@ async def main():
 
     You may either pass link or ID, method will take care itself.
     '''
-    video = await Video.get('https://www.youtube.com/watch?v=z0GKGpObgPY')
+    video = await Video.get('https://www.youtube.com/watch?v=z0GKGpObgPY', enableHTML=True)
     print(video)
     videoInfo = await Video.getInfo('https://youtu.be/z0GKGpObgPY')
     print(videoInfo)
