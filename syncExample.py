@@ -126,8 +126,11 @@ Getting information about video or its formats using video link or video ID.
 `Video.getFormats` method will give only formats of the video.
 
 You may either pass link or ID, method will take care itself.
+
+YouTube doesn't provide uploadDate and publishDate in its InnerTube API, thus we have to use HTML requests to get it.
+This is disabled by default as it is very inefficient, but if you really need it, you can explicitly set parameter to Video class: enableHTML=True
 '''
-video = Video.get('https://www.youtube.com/watch?v=z0GKGpObgPY', mode = ResultMode.json)
+video = Video.get('https://www.youtube.com/watch?v=z0GKGpObgPY', mode = ResultMode.json, get_upload_date=True)
 print(video)
 videoInfo = Video.getInfo('https://youtu.be/z0GKGpObgPY', mode = ResultMode.json)
 print(videoInfo)
