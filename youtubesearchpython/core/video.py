@@ -16,6 +16,11 @@ class VideoCore(RequestCore):
         self.componentMode = componentMode
         self.videoLink = videoLink
         self.enableHTML = enableHTML
+    
+    # We call this when we use only HTML
+    def post_request_only_html_processing(self):
+        self.__getVideoComponent(self.componentMode)
+        self.result = self.__videoComponent
 
     def post_request_processing(self):
         self.__parseSource()
@@ -110,27 +115,33 @@ class VideoCore(RequestCore):
     def __getVideoComponent(self, mode: str) -> None:
         videoComponent = {}
         if mode in ['getInfo', None]:
+            try:
+                responseSource = self.responseSource
+            except:
+                responseSource = None
+            if self.enableHTML:
+                responseSource = self.HTMLresponseSource
             component = {
-                'id': getValue(self.responseSource, ['videoDetails', 'videoId']),
-                'title': getValue(self.responseSource, ['videoDetails', 'title']),
+                'id': getValue(responseSource, ['videoDetails', 'videoId']),
+                'title': getValue(responseSource, ['videoDetails', 'title']),
                 'duration': {
-                    'secondsText': getValue(self.responseSource, ['videoDetails', 'lengthSeconds']),
+                    'secondsText': getValue(responseSource, ['videoDetails', 'lengthSeconds']),
                 },
                 'viewCount': {
-                    'text': getValue(self.responseSource, ['videoDetails', 'viewCount'])
+                    'text': getValue(responseSource, ['videoDetails', 'viewCount'])
                 },
-                'thumbnails': getValue(self.responseSource, ['videoDetails', 'thumbnail', 'thumbnails']),
-                'description': getValue(self.responseSource, ['videoDetails', 'shortDescription']),
+                'thumbnails': getValue(responseSource, ['videoDetails', 'thumbnail', 'thumbnails']),
+                'description': getValue(responseSource, ['videoDetails', 'shortDescription']),
                 'channel': {
-                    'name': getValue(self.responseSource, ['videoDetails', 'author']),
-                    'id': getValue(self.responseSource, ['videoDetails', 'channelId']),
+                    'name': getValue(responseSource, ['videoDetails', 'author']),
+                    'id': getValue(responseSource, ['videoDetails', 'channelId']),
                 },
-                'allowRatings': getValue(self.responseSource, ['videoDetails', 'allowRatings']),
-                'averageRating': getValue(self.responseSource, ['videoDetails', 'averageRating']),
-                'keywords': getValue(self.responseSource, ['videoDetails', 'keywords']),
-                'isLiveContent': getValue(self.responseSource, ['videoDetails', 'isLiveContent']),
-                'publishDate': getValue(self.responseSource, ['microformat', 'playerMicroformatRenderer', 'publishDate']),
-                'uploadDate': getValue(self.responseSource, ['microformat', 'playerMicroformatRenderer', 'uploadDate']),
+                'allowRatings': getValue(responseSource, ['videoDetails', 'allowRatings']),
+                'averageRating': getValue(responseSource, ['videoDetails', 'averageRating']),
+                'keywords': getValue(responseSource, ['videoDetails', 'keywords']),
+                'isLiveContent': getValue(responseSource, ['videoDetails', 'isLiveContent']),
+                'publishDate': getValue(responseSource, ['microformat', 'playerMicroformatRenderer', 'publishDate']),
+                'uploadDate': getValue(responseSource, ['microformat', 'playerMicroformatRenderer', 'uploadDate']),
             }
             component['isLiveNow'] = component['isLiveContent'] and component['duration']['secondsText'] == "0"
             component['link'] = 'https://www.youtube.com/watch?v=' + component['id']

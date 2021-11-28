@@ -10,7 +10,7 @@ from youtubesearchpython.core.suggestions import SuggestionsCore
 
 class Video:
     @staticmethod
-    async def get(videoLink: str, resultMode: int = ResultMode.dict, timeout: int = 2, enableHTML: bool = False) -> Union[dict, None]:
+    async def get(videoLink: str, resultMode: int = ResultMode.dict, timeout: int = 2, get_upload_date: bool = False) -> Union[dict, None]:
         '''Fetches information and formats  for the given video link or ID.
         Returns None if video is unavailable.
 
@@ -255,14 +255,14 @@ class Video:
                     ]
                 }
         '''
-        video = VideoCore(videoLink, None, resultMode, timeout, enableHTML)
-        if enableHTML:
+        video = VideoCore(videoLink, None, resultMode, timeout, get_upload_date)
+        if get_upload_date:
             await video.async_html_create()
         await video.async_create()
         return video.result
     
     @staticmethod
-    async def getInfo(videoLink: str, resultMode: int = ResultMode.dict, timeout: int = 2, enableHTML: bool = False) -> Union[dict, None]:
+    async def getInfo(videoLink: str, resultMode: int = ResultMode.dict, timeout: int = 2) -> Union[dict, None]:
         '''Fetches only information  for the given video link or ID.
         Returns None if video is unavailable.
 
@@ -342,10 +342,9 @@ class Video:
                 "link": "https://www.youtube.com/watch?v=E07s5ZYygMg",
             }
         '''
-        video = VideoCore(videoLink, "getInfo", resultMode, timeout, enableHTML)
-        if enableHTML:
-            await video.async_html_create()
-        await video.async_create()
+        video = VideoCore(videoLink, "getInfo", resultMode, timeout, True)
+        await video.async_html_create()
+        video.post_request_only_html_processing()
         return video.result
 
     @staticmethod
