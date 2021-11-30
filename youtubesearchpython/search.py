@@ -423,3 +423,6 @@ class CustomSearch(SearchCore):
         super().__init__(query, limit, language, region, searchPreferences, timeout)
         self.sync_create()
         self._getComponents(*self.searchMode)
+    
+    def next(self):
+        self._next()
