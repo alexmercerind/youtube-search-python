@@ -27,7 +27,6 @@ class PlaylistCore(RequestCore):
         self.url = playlistLink
 
     def post_processing(self):
-        self.__extractFromHTML()
         self.__parseSource()
         self.__getComponents()
         if self.resultMode == ResultMode.json:
@@ -46,7 +45,7 @@ class PlaylistCore(RequestCore):
         # Why do I use sync request in a async function, you might ask
         # Well, there were some problems with httpx.
         # Until I solve those problems, it is going to stay this way.
-        statusCode = self.__makeRequest()
+        statusCode = await self.__makeAsyncRequest()
         if statusCode == 200:
             self.post_processing()
         else:
@@ -81,22 +80,28 @@ class PlaylistCore(RequestCore):
                 raise Exception('ERROR: Invalid status code.')
         else:
             await self.async_create()
-
-    def __extractFromHTML(self):
-        f1 = "var ytInitialData = "
-        startpoint = self.response.find(f1)
-        f2 = '"}}};</script>'
-        endpoint = self.response.find(f2)
-        if startpoint and endpoint:
-            startpoint += len(f1)
-            endpoint += len(f2)
-            r = self.response[startpoint:endpoint]
-            r = r.replace(";</script>", "")
-            self.response = r
+    
+    def prepare_first_request(self):
+        self.url.strip('/')
+        id = self.url.replace("https://www.youtube.com/playlist?list=", "")
+        self.url = 'https://www.youtube.com/youtubei/v1/browse' + '?' + urlencode({
+            'key': searchKey,
+        })
+        browseId = "VL" + id if not id.startswith("VL") else id
+        self.data = {
+            "browseId": browseId,
+        }
+        self.data.update(requestPayload)
 
     def __makeRequest(self) -> int:
-        self.url.strip('/')
-        request = self.syncGetRequest()
+        self.prepare_first_request()
+        request = self.syncPostRequest()
+        self.response = request.text
+        return request.status_code
+    
+    async def __makeAsyncRequest(self) -> int:
+        self.prepare_first_request()
+        request = await self.asyncPostRequest()
         self.response = request.text
         return request.status_code
 
