@@ -91,7 +91,7 @@ class PlaylistCore(RequestCore):
         self.data = {
             "browseId": browseId,
         }
-        self.data.update(requestPayload)
+        self.data.update(copy.deepcopy(requestPayload))
 
     def __makeRequest(self) -> int:
         self.prepare_first_request()
