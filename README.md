@@ -1079,6 +1079,54 @@ print(playlistVideos)
 
 </details>
 
+#### Get all videos of a channel
+You can use a Playlist class for that, alongside some helpful functions.
+```python
+from youtubesearchpython import *
+
+channel_id = "UC_aEa8K-EOJ3D6gOs7HcyNg"
+playlist = Playlist(playlist_from_channel_id(channel_id))
+
+print(f'Videos Retrieved: {len(playlist.videos)}')
+
+while playlist.hasMoreVideos:
+    print('Getting more videos...')
+    playlist.getNextVideos()
+    print(f'Videos Retrieved: {len(playlist.videos)}')
+
+print('Found all the videos.')
+```
+
+<details>
+ <summary> Example Result</summary>
+
+```bash
+Videos Retrieved: 100
+Getting more videos...
+Videos Retrieved: 200
+Getting more videos...
+Videos Retrieved: 300
+Getting more videos...
+Videos Retrieved: 400
+Getting more videos...
+Videos Retrieved: 500
+Getting more videos...
+Videos Retrieved: 600
+Getting more videos...
+Videos Retrieved: 700
+Getting more videos...
+Videos Retrieved: 800
+Getting more videos...
+Videos Retrieved: 900
+Getting more videos...
+Videos Retrieved: 1000
+Getting more videos...
+Videos Retrieved: 1002
+Found all the videos.
+```
+
+</details>
+
 #### More to the playlists
 
 You can directly instanciate the `Playlist` class as follows to access its information & videos in the `info` and `videos` fields respectively.
