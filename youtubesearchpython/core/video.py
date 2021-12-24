@@ -131,6 +131,8 @@ class VideoCore(RequestCore):
                 'isLiveContent': getValue(responseSource, ['videoDetails', 'isLiveContent']),
                 'publishDate': getValue(responseSource, ['microformat', 'playerMicroformatRenderer', 'publishDate']),
                 'uploadDate': getValue(responseSource, ['microformat', 'playerMicroformatRenderer', 'uploadDate']),
+                'isFamilySafe': getValue(responseSource, ['microformat', 'playerMicroformatRenderer', 'isFamilySafe']),
+                'category': getValue(responseSource, ['microformat', 'playerMicroformatRenderer', 'category']),
             }
             component['isLiveNow'] = component['isLiveContent'] and component['duration']['secondsText'] == "0"
             component['link'] = 'https://www.youtube.com/watch?v=' + component['id']
