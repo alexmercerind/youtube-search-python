@@ -44,23 +44,6 @@ class VideoCore(RequestCore):
             'api_key': 'AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8'
         }
 
-    def __extractFromHTML(self):
-        f1 = "var ytInitialPlayerResponse = "
-        startpoint = self.htmlresponse.find(f1)
-        self.htmlresponse = self.htmlresponse[startpoint + len(f1):]
-        f2 = ';var meta = '
-        endpoint = self.htmlresponse.find(f2)
-        if startpoint and endpoint:
-            startpoint += len(f1)
-            endpoint += len(f2)
-            r = self.htmlresponse[:endpoint]
-            r = r.replace(';var meta = ', "")
-            self.htmlresponse = r
-        try:
-            self.HTMLresponseSource = json.loads(self.htmlresponse)
-        except Exception as e:
-            raise Exception('ERROR: Could not parse YouTube response.')
-
     async def async_create(self):
         self.prepare_innertube_request()
         response = await self.asyncPostRequest()
@@ -80,25 +63,31 @@ class VideoCore(RequestCore):
             raise Exception('ERROR: Invalid status code.')
 
     def prepare_html_request(self):
-        self.url = 'https://www.youtube.com/watch' + '?' + urlencode({'v': getVideoId(self.videoLink)})
+        self.url = 'https://www.youtube.com/youtubei/v1/player' + "?" + urlencode({
+            'key': searchKey,
+            'contentCheckOk': True,
+            'racyCheckOk': True,
+            "videoId": getVideoId(self.videoLink)
+        })
+        self.data = {
+            'context': {
+                'client': {
+                    'clientName': 'MWEB',
+                    'clientVersion': '2.20211109.01.00'
+                }
+            },
+            'api_key': 'AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8'
+        }
 
     def sync_html_create(self):
         self.prepare_html_request()
-        response = self.syncGetRequest()
-        self.htmlresponse = response.text
-        if response.status_code == 200:
-            self.__extractFromHTML()
-        else:
-            raise Exception('ERROR: Invalid status code.')
+        response = self.syncPostRequest()
+        self.HTMLresponseSource = response.json()
 
     async def async_html_create(self):
         self.prepare_html_request()
-        response = await self.asyncGetRequest()
-        self.htmlresponse = response.text
-        if response.status_code == 200:
-            self.__extractFromHTML()
-        else:
-            raise Exception('ERROR: Invalid status code.')
+        response = await self.asyncPostRequest()
+        self.HTMLresponseSource = response.json()
 
     def __parseSource(self) -> None:
         try:
