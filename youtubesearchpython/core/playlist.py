@@ -150,6 +150,7 @@ class PlaylistCore(RequestCore):
                         "duration": self.__getValue(video, ["lengthText", "accessibility", "accessibilityData", "label"]),
                     },
                     "link": "https://www.youtube.com" + self.__getValue(video, ["navigationEndpoint", "commandMetadata", "webCommandMetadata", "url"]),
+                    "isPlayable": self.__getValue(video, ["isPlayable"]),
                 }
                 videos.append(j)
             except:
