@@ -201,6 +201,15 @@ print(allUrlsB)
 
 
 
+comments = Comments("_ZdsmLgCVdU")
+
+print(len(comments.comments["result"]))
+
+while len(comments.comments["result"]) < 100:
+    comments.getNextComments()
+    print(len(comments.comments["result"]))
+print("Found all comments")
+
 
 '''
 You may add/omit the optional parameters according to your requirement & use case.

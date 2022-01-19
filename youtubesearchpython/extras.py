@@ -2,6 +2,7 @@ import copy
 from typing import Union
 
 from youtubesearchpython.core import VideoCore
+from youtubesearchpython.core.comments import CommentsCore
 from youtubesearchpython.core.hashtag import HashtagCore
 from youtubesearchpython.core.playlist import PlaylistCore
 from youtubesearchpython.core.suggestions import SuggestionsCore
@@ -10,7 +11,8 @@ from youtubesearchpython.core.constants import *
 
 class Video:
     @staticmethod
-    def get(videoLink: str, mode: int = ResultMode.dict, timeout: int = None, get_upload_date: bool = False) -> Union[dict, str, None]:
+    def get(videoLink: str, mode: int = ResultMode.dict, timeout: int = None, get_upload_date: bool = False) -> Union[
+        dict, str, None]:
         '''Fetches information and formats  for the given video link or ID.
         Returns None if video is unavailable.
 
@@ -261,7 +263,7 @@ class Video:
             vc.sync_html_create()
         vc.sync_create()
         return vc.result
-    
+
     @staticmethod
     def getInfo(videoLink: str, mode: int = ResultMode.dict, timeout: int = None) -> Union[dict, str, None]:
         '''Fetches only information for the given video link or ID.
@@ -536,7 +538,6 @@ class Video:
         return vc.result
 
 
-
 class Playlist:
     '''Fetches information and videos for the given playlist link.
     Returns None if playlist is unavailable.
@@ -570,6 +571,7 @@ class Playlist:
     '''Fetches more susequent videos of the playlist, and appends to the `videos` list.
     `hasMoreVideos` bool indicates whether more videos can be fetched or not.
     '''
+
     def getNextVideos(self) -> None:
         self.__playlist._next()
         self.videos = self.__playlist.result['videos']
@@ -1128,7 +1130,7 @@ class Playlist:
         pc = PlaylistCore(playlistLink, None, mode, timeout)
         pc.sync_create()
         return pc.result
-    
+
     @staticmethod
     def getInfo(playlistLink: str, mode: int = ResultMode.dict, timeout: int = None) -> Union[dict, str, None]:
         '''Fetches only information for the given playlist link.
@@ -1704,7 +1706,6 @@ class Playlist:
         return ps.result
 
 
-
 class Hashtag(HashtagCore):
     '''Fetches videos for the given hashtag.
 
@@ -1781,9 +1782,11 @@ class Hashtag(HashtagCore):
             ]
         }
     '''
+
     def __init__(self, hashtag: str, limit: int = 60, language: str = 'en', region: str = 'US', timeout: int = None):
         super().__init__(hashtag, limit, language, region, timeout)
         self.sync_create()
+
 
 class Suggestions(SuggestionsCore):
     def __init__(self, language: str = "en", region: str = "US", timeout: int = None):
@@ -1791,3 +1794,26 @@ class Suggestions(SuggestionsCore):
 
     def get(self, query: str, mode: int = ResultMode.dict):
         return self._get(query, mode)
+
+
+class Comments:
+    comments = []
+    hasMoreComments = False
+
+    def __init__(self, playlistLink: str, timeout: int = None):
+        self.timeout = timeout
+        self.__comments = CommentsCore(playlistLink)
+        self.__comments.sync_create()
+        self.comments = self.__comments.commentsComponent
+        self.hasMoreComments = self.__comments.continuationKey is not None
+
+    def getNextComments(self) -> None:
+        self.__comments.sync_create_next()
+        self.comments = self.__comments.commentsComponent
+        self.hasMoreComments = self.__comments.continuationKey is not None
+
+    @staticmethod
+    def get(playlistLink: str) -> Union[dict, str, None]:
+        pc = CommentsCore(playlistLink)
+        pc.sync_create()
+        return pc.commentsComponent

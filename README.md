@@ -1381,6 +1381,45 @@ print(url)
 
 </details>
 
+#### Get comments of a video
+You can use a Comments class for that.
+```python
+from youtubesearchpython import *
+
+# You can either pass an ID or a URL
+video_id = "_ZdsmLgCVdU"
+comments = Comments(video_id)
+
+print(f'Comments Retrieved: {len(comments.comments["result"])}')
+
+while comments.hasMoreComments:
+    print('Getting more comments...')
+    comments.getNextComments()
+    print(f'Comments Retrieved: {len(comments.comments["result"])}')
+
+print('Found all the comments.')
+```
+
+<details>
+ <summary> Example Result</summary>
+
+```bash
+Videos Retrieved: 20
+Getting more videos...
+Videos Retrieved: 40
+Getting more videos...
+Videos Retrieved: 60
+Getting more videos...
+Videos Retrieved: 80
+Getting more videos...
+Videos Retrieved: 100
+Getting more videos...
+...
+```
+
+</details>
+
+
 ## License
 
 MIT License
