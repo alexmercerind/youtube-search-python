@@ -2,6 +2,7 @@ import copy
 from typing import Union
 
 from youtubesearchpython.core import VideoCore
+from youtubesearchpython.core.comments import CommentsCore
 from youtubesearchpython.core.constants import ResultMode
 from youtubesearchpython.core.hashtag import HashtagCore
 from youtubesearchpython.core.playlist import PlaylistCore
@@ -1839,3 +1840,28 @@ class Hashtag(HashtagCore):
         return {
             'result': self.resultComponents,
         }
+
+
+class Comments:
+    comments = []
+    hasMoreComments = True
+    __comments = None
+
+    def __init__(self, playlistLink: str, timeout: int = None):
+        self.timeout = timeout
+        self.playlistLink = playlistLink
+
+    async def getNextComments(self) -> None:
+        if self.__comments is None:
+            self.__comments = CommentsCore(self.playlistLink)
+            await self.__comments.async_create()
+        else:
+            await self.__comments.async_create_next()
+        self.comments = self.__comments.commentsComponent
+        self.hasMoreComments = self.__comments.continuationKey is not None
+
+    @staticmethod
+    async def get(playlistLink: str) -> Union[dict, str, None]:
+        pc = CommentsCore(playlistLink)
+        await pc.async_create()
+        return pc.commentsComponent

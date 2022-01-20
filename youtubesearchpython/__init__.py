@@ -1,12 +1,12 @@
 from youtubesearchpython.search import Search, VideosSearch, ChannelsSearch, PlaylistsSearch, CustomSearch, ChannelSearch
-from youtubesearchpython.extras import Video, Playlist, Suggestions, Hashtag
+from youtubesearchpython.extras import Video, Playlist, Suggestions, Hashtag, Comments
 from youtubesearchpython.streamurlfetcher import StreamURLFetcher
 from youtubesearchpython.core.constants import *
 from youtubesearchpython.core.utils import *
 
 
 __title__        = 'youtube-search-python'
-__version__      = '1.4.5'
+__version__      = '1.6.0'
 __author__       = 'alexmercerind'
 __license__      = 'MIT'
 
