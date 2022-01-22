@@ -2,9 +2,11 @@
 
 #### Search for YouTube videos, channels & playlists & get video information using link WITHOUT YouTube Data API v3.
 
+##### Important: As of v1.6.1, we no longer use PyTube (see https://github.com/alexmercerind/youtube-search-python/pull/155). You have to install yt-dlp in order to use StreamURLFetcher: `pip install yt-dlp`
+
 Works without YouTube Data API v3 and has zero dependencies.
 
-Working as of 2021.
+Working as of 2022.
 
 ## Support
 
@@ -922,7 +924,7 @@ Found all the videos.
 
 #### More to the playlists
 
-You can directly instanciate the `Playlist` class as follows to access its information & videos in the `info` and `videos` fields respectively.
+You can directly instantiate the `Playlist` class as follows to access its information & videos in the `info` and `videos` fields respectively.
 
 YouTube offers only 100 videos in a single request, for getting more videos present in the playlist, you can check `hasMoreVideos` bool to see if playlist contains more videos.
 If playlist has more videos, then you can call `getNextVideos` to fetch more videos.
@@ -1073,8 +1075,8 @@ print(result)
 
 This class is able fetch video URLs without any additional web requests (that's fast), as one might already have same response at the time of showing it to the user.
 
-For making use of this functionality, you must install [PyTube](https://github.com/pytube/pytube) as a dependency.
-StreamURLFetcher makes slight improvements & changes to YouTube class from [PyTube](https://github.com/pytube/pytube).
+For making use of this functionality, you must install [yt-dlp](https://github.com/yt-dlp/yt-dlp) as a dependency.
+StreamURLFetcher makes slight improvements & changes to YouTube class from [yt-dlp](https://github.com/yt-dlp/yt-dlp).
 
 ```py
 from youtubesearchpython.__future__ import *

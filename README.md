@@ -2,6 +2,8 @@
 
 ##### Search for YouTube videos, channels & playlists. Get video & playlist information using link. Get search suggestions.
 
+##### Important: As of v1.6.1, we no longer use PyTube (see https://github.com/alexmercerind/youtube-search-python/pull/155). You have to install yt-dlp in order to use StreamURLFetcher: `pip install yt-dlp`
+
 #### WITHOUT YouTube Data API v3.
 
 [![PyPI - Version](https://img.shields.io/pypi/v/youtube-search-python?style=for-the-badge)](https://pypi.org/project/youtube-search-python)
@@ -1355,10 +1357,10 @@ print(search.result(mode = ResultMode.json))
 
 #### Getting direct stream URL of a video
 
-This class is able fetch video URLs without any additional web requests (that's fast), as one might already have same response at the time of showing it to the user.
+This class is able to fetch video URLs without any additional web requests (that's fast), as one might already have same response at the time of showing it to the user.
 
-For making use of this functionality, you must install [PyTube](https://github.com/pytube/pytube) as a dependency.
-StreamURLFetcher makes slight improvements & changes to YouTube class from [PyTube](https://github.com/pytube/pytube).
+For making use of this functionality, you must install [yt-dlp](https://github.com/yt-dlp/yt-dlp) as a dependency.
+StreamURLFetcher makes slight improvements & changes to YouTube class from [yt-dlp](https://github.com/yt-dlp/yt-dlp).
 
 ```py
 from youtubesearchpython import *
