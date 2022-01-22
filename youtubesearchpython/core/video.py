@@ -8,14 +8,47 @@ from youtubesearchpython.core.requests import RequestCore
 from youtubesearchpython.core.componenthandler import getValue, getVideoId
 
 
+CLIENTS = {
+    "MWEB": {
+        'context': {
+            'client': {
+                'clientName': 'MWEB',
+                'clientVersion': '2.20211109.01.00'
+            }
+        },
+        'api_key': 'AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8'
+    },
+    "ANDROID": {
+        'context': {
+            'client': {
+                'clientName': 'ANDROID',
+                'clientVersion': '16.20'
+            }
+        },
+        'api_key': 'AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8'
+    },
+    "ANDROID_EMBED": {
+        'context': {
+            'client': {
+                'clientName': 'ANDROID',
+                'clientVersion': '16.20',
+                'clientScreen': 'EMBED'
+            }
+        },
+        'api_key': 'AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8'
+    }
+}
+
+
 class VideoCore(RequestCore):
-    def __init__(self, videoLink: str, componentMode: str, resultMode: int, timeout: int, enableHTML: bool):
+    def __init__(self, videoLink: str, componentMode: str, resultMode: int, timeout: int, enableHTML: bool, overridedClient: str = "ANDROID"):
         super().__init__()
         self.timeout = timeout
         self.resultMode = resultMode
         self.componentMode = componentMode
         self.videoLink = videoLink
         self.enableHTML = enableHTML
+        self.overridedClient = overridedClient
     
     # We call this when we use only HTML
     def post_request_only_html_processing(self):
@@ -34,15 +67,7 @@ class VideoCore(RequestCore):
             'racyCheckOk': True,
             "videoId": getVideoId(self.videoLink)
         })
-        self.data = {
-            'context': {
-                'client': {
-                    'clientName': 'ANDROID',
-                    'clientVersion': '16.20'
-                }
-            },
-            'api_key': 'AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8'
-        }
+        self.data = CLIENTS[self.overridedClient]
 
     async def async_create(self):
         self.prepare_innertube_request()
@@ -69,15 +94,7 @@ class VideoCore(RequestCore):
             'racyCheckOk': True,
             "videoId": getVideoId(self.videoLink)
         })
-        self.data = {
-            'context': {
-                'client': {
-                    'clientName': 'MWEB',
-                    'clientVersion': '2.20211109.01.00'
-                }
-            },
-            'api_key': 'AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8'
-        }
+        self.data = CLIENTS["MWEB"]
 
     def sync_html_create(self):
         self.prepare_html_request()
