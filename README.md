@@ -2125,6 +2125,64 @@ print(comments)
 
 </details>
 
+## Contributors
+Thanks to everyone contributing to this library, including those not mentioned here.
+
+I included only contributors and people, who we can thank for their extensive reports to make the library better.
+
+Contributors are added irrespective of order.
+
+<ul>
+  <li>
+    <img src='https://avatars.githubusercontent.com/u/28951144?s=80&v=4' height='28' width='28'></img>&nbsp;&nbsp;<strong><a href='https://github.com/alexmercerind'>Hitesh Kumar Saini</a></strong>
+    <ul>
+      <li>Creator of this library, contributed most classes to this library.</li>
+    </ul>
+  </li>
+  <li>
+    <img src='https://avatars.githubusercontent.com/u/52399966?s=80&v=4' height='28' width='28'></img>&nbsp;&nbsp;<strong><a href='https://github.com/mytja'>mytja</a></strong>
+    <ul>
+      <li>Current maintainer of this library. Author of Core classes, Comments class, ytdlp migration</li>
+    </ul>
+  </li>
+  <li>
+    <img src='https://avatars.githubusercontent.com/u/64320078?s=80&v=4' height='28' width='28'></img>&nbsp;&nbsp;<strong><a href='https://github.com/raitonoberu'>Denis</a></strong>
+    <ul>
+      <li>Maintainer and reviewer of PRs. Author of Hashtag class.</li>
+    </ul>
+  </li>
+  <li>
+    <img src='https://avatars.githubusercontent.com/u/1645646?v=4' height='28' width='28'></img>&nbsp;&nbsp;<strong><a href='https://github.com/Zocker1999NET'>Felix Stupp</a></strong>
+    <ul>
+      <li>Video and Playlist class contributor. Extensive issues.</li>
+    </ul>
+  </li>
+  <li>
+    <img src='https://avatars.githubusercontent.com/u/30200788?v=4' height='28' width='28'></img>&nbsp;&nbsp;<strong><a href='https://github.com/dscrofts'>dscrofts</a></strong>
+    <ul>
+      <li>Extensive issues, mostly about Playlist and Video class.</li>
+    </ul>
+  </li>
+  <li>
+    <img src='https://avatars.githubusercontent.com/u/5200252?v=4' height='28' width='28'></img>&nbsp;&nbsp;<strong><a href='https://github.com/AlexandreOuellet'>AlexandreOuellet</a></strong>
+    <ul>
+      <li>Added publishDate and uploadDate to Video class.</li>
+    </ul>
+  </li>
+  <li>
+    <img src='https://avatars.githubusercontent.com/u/52490534?v=4' height='28' width='28'></img>&nbsp;&nbsp;<strong><a href='https://github.com/rking32'>None</a></strong>
+    <ul>
+      <li>Bumped httpx version to 0.14.2.</li>
+    </ul>
+  </li>
+  <li>
+    <img src='https://avatars.githubusercontent.com/u/64990477?v=4' height='28' width='28'></img>&nbsp;&nbsp;<strong><a href='https://github.com/Maple-Elter'>Elter</a></strong>
+    <ul>
+      <li>Fixes to Playlist class.</li>
+    </ul>
+  </li>
+</ul>
+
 
 ## License
 
