@@ -196,6 +196,9 @@ class PlaylistCore(RequestCore):
         continuationElements = self.__getValue(self.responseSource,
                                                ['onResponseReceivedActions', 0, 'appendContinuationItemsAction',
                                                 'continuationItems'])
+        if continuationElements is None:
+            # YouTube Backend issue - See https://github.com/alexmercerind/youtube-search-python/issues/157
+            return
         for videoElement in continuationElements:
             if playlistVideoKey in videoElement.keys():
                 videoComponent = {
