@@ -104,6 +104,15 @@ playlistVideos = Playlist.getVideos('https://www.youtube.com/playlist?list=PLRBp
 print(playlistVideos)
 
 
+'''
+More tests to buggy Playlist class
+'''
+playlist = Playlist.get('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK', mode = ResultMode.json)
+print(playlist)
+playlist = Playlist.get('https://www.youtube.com/watch?v=bplUXwTTgbI&list=PL6edxAMqu2xfxgbf7Q09hSg1qCMfDI7IZ', mode = ResultMode.json)
+print(playlist)
+
+
 playlist = Playlist('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK')
 
 print(f'Videos Retrieved: {len(playlist.videos)}')
