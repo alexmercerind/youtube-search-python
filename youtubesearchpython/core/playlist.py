@@ -86,7 +86,6 @@ class PlaylistCore(RequestCore):
         self.url.strip('/')
 
         id = re.search(r"(?<=list=)([a-zA-Z0-9+/=_-]+)", self.url).group()
-        print(id)
         browseId = "VL" + id if not id.startswith("VL") else id
 
         self.url = 'https://www.youtube.com/youtubei/v1/browse' + '?' + urlencode({
