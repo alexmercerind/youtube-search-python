@@ -2,6 +2,7 @@ import collections
 import copy
 import itertools
 import json
+import re
 from typing import Iterable, Mapping, Tuple, TypeVar, Union, List
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
@@ -83,11 +84,13 @@ class PlaylistCore(RequestCore):
     
     def prepare_first_request(self):
         self.url.strip('/')
-        id = self.url.replace("https://www.youtube.com/playlist?list=", "")
+
+        id = re.search(r"(?<=list=)([a-zA-Z0-9+/=_-]+)", self.url).group()
+        browseId = "VL" + id if not id.startswith("VL") else id
+
         self.url = 'https://www.youtube.com/youtubei/v1/browse' + '?' + urlencode({
             'key': searchKey,
         })
-        browseId = "VL" + id if not id.startswith("VL") else id
         self.data = {
             "browseId": browseId,
         }
@@ -128,9 +131,12 @@ class PlaylistCore(RequestCore):
             raise Exception('ERROR: Could not parse YouTube response.')
 
     def __getComponents(self) -> None:
-        inforenderer = self.responseSource["sidebar"]["playlistSidebarRenderer"]["items"][0]["playlistSidebarPrimaryInfoRenderer"]
-        channelrenderer = self.responseSource["sidebar"]["playlistSidebarRenderer"]["items"][1]["playlistSidebarSecondaryInfoRenderer"]["videoOwner"]["videoOwnerRenderer"]
-        videorenderer = self.__getFirstValue(self.responseSource, ["contents", "twoColumnBrowseResultsRenderer", "tabs", None, "tabRenderer", "content", "sectionListRenderer", "contents", None, "itemSectionRenderer", "contents", None, "playlistVideoListRenderer", "contents"])
+        #print(self.responseSource)
+        sidebar = self.responseSource["sidebar"]["playlistSidebarRenderer"]["items"]
+        inforenderer = sidebar[0]["playlistSidebarPrimaryInfoRenderer"]
+        channel_details_available = len(sidebar) != 1
+        channelrenderer = sidebar[1]["playlistSidebarSecondaryInfoRenderer"]["videoOwner"]["videoOwnerRenderer"] if channel_details_available else None
+        videorenderer: list = self.__getFirstValue(self.responseSource, ["contents", "twoColumnBrowseResultsRenderer", "tabs", None, "tabRenderer", "content", "sectionListRenderer", "contents", None, "itemSectionRenderer", "contents", None, "playlistVideoListRenderer", "contents"])
         videos = []
         for video in videorenderer:
             try:
@@ -165,10 +171,11 @@ class PlaylistCore(RequestCore):
                 "viewCount": self.__getValue(inforenderer, ["stats", 1, "simpleText"]),
                 "link": self.__getValue(self.responseSource, ["microformat", "microformatDataRenderer", "urlCanonical"]),
                 "channel": {
-                    "id": self.__getValue(channelrenderer, ["title", "runs", 0, "navigationEndpoint", "browseEndpoint", "browseId"]),
-                    "name": self.__getValue(channelrenderer, ["title", "runs", 0, "text"]),
-                    "link": "https://www.youtube.com" + self.__getValue(channelrenderer, ["title", "runs", 0, "navigationEndpoint", "browseEndpoint", "canonicalBaseUrl"]),
-                    "thumbnails": self.__getValue(channelrenderer, ["thumbnail", "thumbnails"]),
+                    "id": self.__getValue(channelrenderer, ["title", "runs", 0, "navigationEndpoint", "browseEndpoint", "browseId"]) if channel_details_available else None,
+                    "name": self.__getValue(channelrenderer, ["title", "runs", 0, "text"]) if channel_details_available else None,
+                    "detailsAvailable": channel_details_available,
+                    "link": "https://www.youtube.com" + self.__getValue(channelrenderer, ["title", "runs", 0, "navigationEndpoint", "browseEndpoint", "canonicalBaseUrl"]) if channel_details_available else None,
+                    "thumbnails": self.__getValue(channelrenderer, ["thumbnail", "thumbnails"]) if channel_details_available else None,
                 }
             },
             'videos': videos,
@@ -189,6 +196,9 @@ class PlaylistCore(RequestCore):
         continuationElements = self.__getValue(self.responseSource,
                                                ['onResponseReceivedActions', 0, 'appendContinuationItemsAction',
                                                 'continuationItems'])
+        if continuationElements is None:
+            # YouTube Backend issue - See https://github.com/alexmercerind/youtube-search-python/issues/157
+            return
         for videoElement in continuationElements:
             if playlistVideoKey in videoElement.keys():
                 videoComponent = {
@@ -339,7 +349,7 @@ class PlaylistCore(RequestCore):
             val = self.__getValue(source, path=[key])
             yield from self.__getValueEx(val, path=upcoming)
 
-    def __getFirstValue(self, source: dict, path: Iterable[str]) -> Union[str, int, dict, None]:
+    def __getFirstValue(self, source: dict, path: Iterable[str]) -> Union[str, int, dict, list, None]:
         values = self.__getValueEx(source, list(path))
         for val in values:
             if val is not None:

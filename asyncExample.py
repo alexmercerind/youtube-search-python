@@ -141,6 +141,14 @@ async def main():
     playlistVideos = await Playlist.getVideos('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK')
     print(playlistVideos)
 
+    '''
+    More tests to buggy Playlist class
+    '''
+    playlist = await Playlist.get('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK')
+    print(playlist)
+    playlist = await Playlist.get('https://www.youtube.com/watch?v=bplUXwTTgbI&list=PL6edxAMqu2xfxgbf7Q09hSg1qCMfDI7IZ')
+    print(playlist)
+
 
 
     '''
