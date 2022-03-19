@@ -232,6 +232,9 @@ transcript_2 = Transcript.get(url, transcript_en["languages"][-1]["params"]) # i
 print(transcript_2)
 
 
+print(Channel.get("UC_aEa8K-EOJ3D6gOs7HcyNg"))
+
+
 
 '''
 You may add/omit the optional parameters according to your requirement & use case.

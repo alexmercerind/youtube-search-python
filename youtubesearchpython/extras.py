@@ -7,6 +7,7 @@ from youtubesearchpython.core.hashtag import HashtagCore
 from youtubesearchpython.core.playlist import PlaylistCore
 from youtubesearchpython.core.suggestions import SuggestionsCore
 from youtubesearchpython.core.transcript import TranscriptCore
+from youtubesearchpython.core.channel import ChannelCore
 from youtubesearchpython.core.constants import *
 
 
@@ -1826,4 +1827,11 @@ class Transcript:
         transcript_core = TranscriptCore(videoLink, params)
         transcript_core.sync_create()
         return transcript_core.result
+
+class Channel:
+    @staticmethod
+    def get(channelId: str):
+        channel_core = ChannelCore(channelId)
+        channel_core.sync_create()
+        return channel_core.result
 
