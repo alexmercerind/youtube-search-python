@@ -1822,8 +1822,8 @@ class Comments:
 
 class Transcript:
     @staticmethod
-    def get(videoLink: str):
-        transcript_core = TranscriptCore(videoLink)
+    def get(videoLink: str, params: str = None):
+        transcript_core = TranscriptCore(videoLink, params)
         transcript_core.sync_create()
         return transcript_core.result
 

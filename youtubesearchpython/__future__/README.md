@@ -1843,11 +1843,23 @@ print(comments)
 </details>
 
 #### Retrieve video transcript
-YouTube auto-generates transcripts for videos. You can retrieve those transcripts using Transcript class:
+YouTube auto-generates transcripts (subtitles) for videos. You can retrieve those transcripts using Transcript class:
 ```py
 from youtubesearchpython.__future__ import Transcript
 
-print(await Transcript.get("https://www.youtube.com/watch?v=L7kF4MXXCoA"))
+print(await Transcript.get("https://www.youtube.com/watch?v=-1xu0IP35FI"))
+```
+
+In response, you'll get available languages with `params` parameter. If you want to retrieve a different language, you have to pass the function that parameter. Example:
+```py
+from youtubesearchpython.__future__ import Transcript
+
+url = "https://www.youtube.com/watch?v=-1xu0IP35FI"
+
+transcript_en = await Transcript.get(url)
+# you actually don't have to pass a valid URL in following Transcript call. You can input an empty string, but I do recommend still inputing a valid URL.
+transcript_2 = await Transcript.get(url, transcript_en["languages"][-1]["params"]) # in my case, it'd output Spanish.
+print(transcript_2)
 ```
 
 <details>
@@ -1857,100 +1869,63 @@ print(await Transcript.get("https://www.youtube.com/watch?v=L7kF4MXXCoA"))
 {
    "segments":[
       {
-         "startMs":"490",
-         "endMs":"5240",
-         "text":"[Music]",
+         "startMs":"210",
+         "endMs":"2129",
+         "text":"- When Steve Jobs unveiled the original",
          "startTime":"0:00"
       },
       {
+         "startMs":"2130",
+         "endMs":"3670",
+         "text":"iPhone back in 2007,",
+         "startTime":"0:02"
+      },
+      {
+         "startMs":"3670",
+         "endMs":"4940",
+         "text":"the year I graduated high school,",
+         "startTime":"0:03"
+      },
+      {
+         "startMs":"4940",
+         "endMs":"7610",
+         "text":"he pitched it as a music player, a phone,",
+         "startTime":"0:04"
+      },
+      {
          "startMs":"7610",
-         "endMs":"11868",
-         "text":"[Music]",
+         "endMs":"10760",
+         "text":"and an internet communicator\nall rolled into one.",
          "startTime":"0:07"
       },
       {
-         "startMs":"15139",
-         "endMs":"19080",
-         "text":"like a no sund in my head and because",
-         "startTime":"0:15"
+         "startMs":"10760",
+         "endMs":"11593",
+         "text":"- Are you getting it?",
+         "startTime":"0:10"
+      },
+      ...
+   ],
+   "languages":[
+      {
+         "params":"CgstMXh1MElQMzVGSRIOQ2dBU0FtVnVHZ0ElM0QYASozZW5nYWdlbWVudC1wYW5lbC1zZWFyY2hhYmxlLXRyYW5zY3JpcHQtc2VhcmNoLXBhbmVsMAE%3D",
+         "selected":true,
+         "title":"English"
       },
       {
-         "startMs":"19080",
-         "endMs":"22950",
-         "text":"there are so many things",
-         "startTime":"0:19"
+         "params":"CgstMXh1MElQMzVGSRISQ2dOaGMzSVNBbVZ1R2dBJTNEGAEqM2VuZ2FnZW1lbnQtcGFuZWwtc2VhcmNoYWJsZS10cmFuc2NyaXB0LXNlYXJjaC1wYW5lbDAB",
+         "selected":false,
+         "title":"English (auto-generated)"
       },
       {
-         "startMs":"22950",
-         "endMs":"26450",
-         "text":"left I am",
-         "startTime":"0:22"
+         "params":"CgstMXh1MElQMzVGSRISQ2dBU0JYQjBMVUpTR2dBJTNEGAEqM2VuZ2FnZW1lbnQtcGFuZWwtc2VhcmNoYWJsZS10cmFuc2NyaXB0LXNlYXJjaC1wYW5lbDAB",
+         "selected":false,
+         "title":"Portuguese (Brazil)"
       },
       {
-         "startMs":"43460",
-         "endMs":"46538",
-         "text":"[Music]",
-         "startTime":"0:43"
-      },
-      {
-         "startMs":"51970",
-         "endMs":"55170",
-         "text":"[Music]",
-         "startTime":"0:51"
-      },
-      {
-         "startMs":"63440",
-         "endMs":"78890",
-         "text":"[Music]",
-         "startTime":"1:03"
-      },
-      {
-         "startMs":"82520",
-         "endMs":"105049",
-         "text":"[Music]",
-         "startTime":"1:22"
-      },
-      {
-         "startMs":"105049",
-         "endMs":"111280",
-         "text":"my hide rages around like an ocean",
-         "startTime":"1:45"
-      },
-      {
-         "startMs":"118920",
-         "endMs":"120950",
-         "text":"I",
-         "startTime":"1:58"
-      },
-      {
-         "startMs":"127160",
-         "endMs":"130289",
-         "text":"[Music]",
-         "startTime":"2:07"
-      },
-      {
-         "startMs":"162010",
-         "endMs":"165180",
-         "text":"[Music]",
-         "startTime":"2:42"
-      },
-      {
-         "startMs":"168630",
-         "endMs":"171800",
-         "text":"[Music]",
-         "startTime":"2:48"
-      },
-      {
-         "startMs":"175230",
-         "endMs":"193129",
-         "text":"[Music]",
-         "startTime":"2:55"
-      },
-      {
-         "startMs":"198960",
-         "endMs":"216830",
-         "text":"[Music]",
-         "startTime":"3:18"
+         "params":"CgstMXh1MElQMzVGSRIQQ2dBU0JtVnpMVFF4T1JvQRgBKjNlbmdhZ2VtZW50LXBhbmVsLXNlYXJjaGFibGUtdHJhbnNjcmlwdC1zZWFyY2gtcGFuZWwwAQ%3D%3D",
+         "selected":false,
+         "title":"Spanish (Latin America)"
       }
    ]
 }

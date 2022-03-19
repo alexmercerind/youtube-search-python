@@ -1870,7 +1870,7 @@ class Comments:
 
 class Transcript:
     @staticmethod
-    async def get(videoLink: str):
-        transcript_core = TranscriptCore(videoLink)
+    async def get(videoLink: str, params: str = None):
+        transcript_core = TranscriptCore(videoLink, params)
         await transcript_core.async_create()
         return transcript_core.result
