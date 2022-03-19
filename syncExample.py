@@ -220,6 +220,11 @@ while len(comments.comments["result"]) < 100:
 print("Found all comments")
 
 
+
+print(Transcript.get("https://www.youtube.com/watch?v=L7kF4MXXCoA"))
+
+
+
 '''
 You may add/omit the optional parameters according to your requirement & use case.
 '''

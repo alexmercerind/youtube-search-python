@@ -6,6 +6,7 @@ from youtubesearchpython.core.comments import CommentsCore
 from youtubesearchpython.core.hashtag import HashtagCore
 from youtubesearchpython.core.playlist import PlaylistCore
 from youtubesearchpython.core.suggestions import SuggestionsCore
+from youtubesearchpython.core.transcript import TranscriptCore
 from youtubesearchpython.core.constants import *
 
 
@@ -1817,3 +1818,12 @@ class Comments:
         pc = CommentsCore(playlistLink)
         pc.sync_create()
         return pc.commentsComponent
+
+
+class Transcript:
+    @staticmethod
+    def get(videoLink: str):
+        transcript_core = TranscriptCore(videoLink)
+        transcript_core.sync_create()
+        return transcript_core.result
+

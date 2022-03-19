@@ -2115,6 +2115,122 @@ print(comments)
 
 </details>
 
+#### Retrieve video transcript
+YouTube auto-generates transcripts for videos. You can retrieve those transcripts using Transcript class:
+```py
+from youtubesearchpython import Transcript
+
+print(Transcript.get("https://www.youtube.com/watch?v=L7kF4MXXCoA"))
+```
+
+<details>
+ <summary> Example Result</summary>
+
+```json
+{
+   "segments":[
+      {
+         "startMs":"490",
+         "endMs":"5240",
+         "text":"[Music]",
+         "startTime":"0:00"
+      },
+      {
+         "startMs":"7610",
+         "endMs":"11868",
+         "text":"[Music]",
+         "startTime":"0:07"
+      },
+      {
+         "startMs":"15139",
+         "endMs":"19080",
+         "text":"like a no sund in my head and because",
+         "startTime":"0:15"
+      },
+      {
+         "startMs":"19080",
+         "endMs":"22950",
+         "text":"there are so many things",
+         "startTime":"0:19"
+      },
+      {
+         "startMs":"22950",
+         "endMs":"26450",
+         "text":"left I am",
+         "startTime":"0:22"
+      },
+      {
+         "startMs":"43460",
+         "endMs":"46538",
+         "text":"[Music]",
+         "startTime":"0:43"
+      },
+      {
+         "startMs":"51970",
+         "endMs":"55170",
+         "text":"[Music]",
+         "startTime":"0:51"
+      },
+      {
+         "startMs":"63440",
+         "endMs":"78890",
+         "text":"[Music]",
+         "startTime":"1:03"
+      },
+      {
+         "startMs":"82520",
+         "endMs":"105049",
+         "text":"[Music]",
+         "startTime":"1:22"
+      },
+      {
+         "startMs":"105049",
+         "endMs":"111280",
+         "text":"my hide rages around like an ocean",
+         "startTime":"1:45"
+      },
+      {
+         "startMs":"118920",
+         "endMs":"120950",
+         "text":"I",
+         "startTime":"1:58"
+      },
+      {
+         "startMs":"127160",
+         "endMs":"130289",
+         "text":"[Music]",
+         "startTime":"2:07"
+      },
+      {
+         "startMs":"162010",
+         "endMs":"165180",
+         "text":"[Music]",
+         "startTime":"2:42"
+      },
+      {
+         "startMs":"168630",
+         "endMs":"171800",
+         "text":"[Music]",
+         "startTime":"2:48"
+      },
+      {
+         "startMs":"175230",
+         "endMs":"193129",
+         "text":"[Music]",
+         "startTime":"2:55"
+      },
+      {
+         "startMs":"198960",
+         "endMs":"216830",
+         "text":"[Music]",
+         "startTime":"3:18"
+      }
+   ]
+}
+```
+</details>
+
+
 ## Contributors
 Thanks to everyone contributing to this library, including those not mentioned here.
 
@@ -2132,7 +2248,7 @@ Contributors are added irrespective of order.
   <li>
     <img src='https://avatars.githubusercontent.com/u/52399966?s=80&v=4' height='28' width='28'></img>&nbsp;&nbsp;<strong><a href='https://github.com/mytja'>mytja</a></strong>
     <ul>
-      <li>Current maintainer of this library. Author of Core classes, Comments class, ytdlp migration</li>
+      <li>Current maintainer of this library. Author of Core classes, Comments and Transcript classes, ytdlp migration</li>
     </ul>
   </li>
   <li>
