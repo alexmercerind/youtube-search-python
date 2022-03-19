@@ -74,13 +74,14 @@ class TranscriptCore(RequestCore):
             }
             segments.append(j)
         langs = getValue(response, ["actions", 0, "updateEngagementPanelAction", "content", "transcriptRenderer", "content", "transcriptSearchPanelRenderer", "footer", "transcriptFooterRenderer", "languageMenu", "sortFilterSubMenuRenderer", "subMenuItems"])
-        for language in langs:
-            j = {
-                "params": getValue(language, ["continuation", "reloadContinuationData", "continuation"]),
-                "selected": getValue(language, ["selected"]),
-                "title": getValue(language, ["title"])
-            }
-            languages.append(j)
+        if langs:
+            for language in langs:
+                j = {
+                    "params": getValue(language, ["continuation", "reloadContinuationData", "continuation"]),
+                    "selected": getValue(language, ["selected"]),
+                    "title": getValue(language, ["title"])
+                }
+                languages.append(j)
         self.result = {
             "segments": segments,
             "languages": languages
