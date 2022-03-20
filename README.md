@@ -2115,6 +2115,448 @@ print(comments)
 
 </details>
 
+#### Retrieve video transcript
+YouTube auto-generates transcripts (subtitles) for videos. You can retrieve those transcripts using Transcript class:
+```py
+from youtubesearchpython import Transcript
+
+print(Transcript.get("https://www.youtube.com/watch?v=-1xu0IP35FI"))
+```
+
+In response, you'll get available languages with `params` parameter. If you want to retrieve a different language, you have to pass the function that parameter. Example:
+```py
+from youtubesearchpython import Transcript
+
+url = "https://www.youtube.com/watch?v=-1xu0IP35FI"
+
+transcript_en = Transcript.get(url)
+# you actually don't have to pass a valid URL in following Transcript call. You can input an empty string, but I do recommend still inputing a valid URL.
+transcript_2 = Transcript.get(url, transcript_en["languages"][-1]["params"]) # in my case, it'd output Spanish.
+print(transcript_2)
+```
+
+<details>
+ <summary> Example Result</summary>
+
+```json
+{
+   "segments":[
+      {
+         "startMs":"210",
+         "endMs":"2129",
+         "text":"- When Steve Jobs unveiled the original",
+         "startTime":"0:00"
+      },
+      {
+         "startMs":"2130",
+         "endMs":"3670",
+         "text":"iPhone back in 2007,",
+         "startTime":"0:02"
+      },
+      {
+         "startMs":"3670",
+         "endMs":"4940",
+         "text":"the year I graduated high school,",
+         "startTime":"0:03"
+      },
+      {
+         "startMs":"4940",
+         "endMs":"7610",
+         "text":"he pitched it as a music player, a phone,",
+         "startTime":"0:04"
+      },
+      {
+         "startMs":"7610",
+         "endMs":"10760",
+         "text":"and an internet communicator\nall rolled into one.",
+         "startTime":"0:07"
+      },
+      {
+         "startMs":"10760",
+         "endMs":"11593",
+         "text":"- Are you getting it?",
+         "startTime":"0:10"
+      },
+      ...
+   ],
+   "languages":[
+      {
+         "params":"CgstMXh1MElQMzVGSRIOQ2dBU0FtVnVHZ0ElM0QYASozZW5nYWdlbWVudC1wYW5lbC1zZWFyY2hhYmxlLXRyYW5zY3JpcHQtc2VhcmNoLXBhbmVsMAE%3D",
+         "selected":true,
+         "title":"English"
+      },
+      {
+         "params":"CgstMXh1MElQMzVGSRISQ2dOaGMzSVNBbVZ1R2dBJTNEGAEqM2VuZ2FnZW1lbnQtcGFuZWwtc2VhcmNoYWJsZS10cmFuc2NyaXB0LXNlYXJjaC1wYW5lbDAB",
+         "selected":false,
+         "title":"English (auto-generated)"
+      },
+      {
+         "params":"CgstMXh1MElQMzVGSRISQ2dBU0JYQjBMVUpTR2dBJTNEGAEqM2VuZ2FnZW1lbnQtcGFuZWwtc2VhcmNoYWJsZS10cmFuc2NyaXB0LXNlYXJjaC1wYW5lbDAB",
+         "selected":false,
+         "title":"Portuguese (Brazil)"
+      },
+      {
+         "params":"CgstMXh1MElQMzVGSRIQQ2dBU0JtVnpMVFF4T1JvQRgBKjNlbmdhZ2VtZW50LXBhbmVsLXNlYXJjaGFibGUtdHJhbnNjcmlwdC1zZWFyY2gtcGFuZWwwAQ%3D%3D",
+         "selected":false,
+         "title":"Spanish (Latin America)"
+      }
+   ]
+}
+```
+</details>
+
+
+#### Retrieve channel info
+```py
+from youtubesearchpython import Channel
+
+print(Channel.get("UC_aEa8K-EOJ3D6gOs7HcyNg"))
+```
+
+<details>
+ <summary> Example Result</summary>
+
+```json
+{
+   "id":"UC_aEa8K-EOJ3D6gOs7HcyNg",
+   "url":"https://www.youtube.com/channel/UC_aEa8K-EOJ3D6gOs7HcyNg",
+   "description":"NoCopyrightSounds is a copyright free / stream safe record label, providing free to use music to the content creator community. \n\nWe work with artists from around the world in electronic music, representing genres from House to Dubstep via Trap, Drum & Bass, Electro Pop and more. \n\nNCS Music is free to use for independent Creators and their UGC (User Generated Content) on YouTube & Twitch - always remember to credit the Artist, track and NCS and link back to our original NCS upload.\n\nView our usage policy and some frequently asked questions here: http://ncs.io/UsagePolicy\n\nGrab our new apparel range here: http://ncs.io/Store",
+   "title":"NoCopyrightSounds",
+   "banners":[
+      {
+         "url":"https://yt3.ggpht.com/ZdXDhvCVn73Shu-QkqWFoUS_TlZ9MSkAXb8VJBeI6ZKSN6oH4QBvTG2BCfuFRegjXwdp6qH3=w1060-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj",
+         "width":1060,
+         "height":175
+      },
+      {
+         "url":"https://yt3.ggpht.com/ZdXDhvCVn73Shu-QkqWFoUS_TlZ9MSkAXb8VJBeI6ZKSN6oH4QBvTG2BCfuFRegjXwdp6qH3=w1138-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj",
+         "width":1138,
+         "height":188
+      },
+      {
+         "url":"https://yt3.ggpht.com/ZdXDhvCVn73Shu-QkqWFoUS_TlZ9MSkAXb8VJBeI6ZKSN6oH4QBvTG2BCfuFRegjXwdp6qH3=w1707-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj",
+         "width":1707,
+         "height":283
+      },
+      {
+         "url":"https://yt3.ggpht.com/ZdXDhvCVn73Shu-QkqWFoUS_TlZ9MSkAXb8VJBeI6ZKSN6oH4QBvTG2BCfuFRegjXwdp6qH3=w2120-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj",
+         "width":2120,
+         "height":351
+      },
+      {
+         "url":"https://yt3.ggpht.com/ZdXDhvCVn73Shu-QkqWFoUS_TlZ9MSkAXb8VJBeI6ZKSN6oH4QBvTG2BCfuFRegjXwdp6qH3=w2276-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj",
+         "width":2276,
+         "height":377
+      },
+      {
+         "url":"https://yt3.ggpht.com/ZdXDhvCVn73Shu-QkqWFoUS_TlZ9MSkAXb8VJBeI6ZKSN6oH4QBvTG2BCfuFRegjXwdp6qH3=w2560-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj",
+         "width":2560,
+         "height":424
+      }
+   ],
+   "subscribers":{
+      "simpleText":"32.1M subscribers",
+      "label":"32.1 million subscribers"
+   },
+   "thumbnails":[
+      {
+         "url":"https://yt3.ggpht.com/YIBi8NVC87fMfJHfQ2O0dyzjis7tUlO7VqWLhk1lq1fkIOQTrpX_Ip7G6S_u0IJosXYSe_Z9=s48-c-k-c0x00ffffff-no-rj",
+         "width":48,
+         "height":48
+      },
+      {
+         "url":"https://yt3.ggpht.com/YIBi8NVC87fMfJHfQ2O0dyzjis7tUlO7VqWLhk1lq1fkIOQTrpX_Ip7G6S_u0IJosXYSe_Z9=s88-c-k-c0x00ffffff-no-rj",
+         "width":88,
+         "height":88
+      },
+      {
+         "url":"https://yt3.ggpht.com/YIBi8NVC87fMfJHfQ2O0dyzjis7tUlO7VqWLhk1lq1fkIOQTrpX_Ip7G6S_u0IJosXYSe_Z9=s176-c-k-c0x00ffffff-no-rj",
+         "width":176,
+         "height":176
+      },
+      {
+         "url":"https://yt3.ggpht.com/YIBi8NVC87fMfJHfQ2O0dyzjis7tUlO7VqWLhk1lq1fkIOQTrpX_Ip7G6S_u0IJosXYSe_Z9=s900-c-k-c0x00ffffff-no-rj",
+         "width":900,
+         "height":900
+      },
+      {
+         "url":"https://yt3.ggpht.com/YIBi8NVC87fMfJHfQ2O0dyzjis7tUlO7VqWLhk1lq1fkIOQTrpX_Ip7G6S_u0IJosXYSe_Z9=s200-c-k-c0x00ffffff-no-rj?days_since_epoch=19070",
+         "width":200,
+         "height":200
+      }
+   ],
+   "availableCountryCodes":[
+      "UZ",
+      "RS",
+      "HK",
+      "SZ",
+      "VE",
+      "NG",
+      "ID",
+      "MV",
+      "NU",
+      "ZW",
+      "BL",
+      "AQ",
+      "LU",
+      "MN",
+      "JM",
+      "KN",
+      "KZ",
+      "NR",
+      "RU",
+      "CM",
+      "BR",
+      "ML",
+      "HN",
+      "LS",
+      "BB",
+      "GM",
+      "AL",
+      "MS",
+      "SL",
+      "AO",
+      "NZ",
+      "TO",
+      "US",
+      "BJ",
+      "TN",
+      "VU",
+      "AF",
+      "GI",
+      "CY",
+      "HM",
+      "IR",
+      "FI",
+      "PR",
+      "TV",
+      "UA",
+      "NI",
+      "TW",
+      "KG",
+      "FM",
+      "LC",
+      "KH",
+      "IT",
+      "BW",
+      "CA",
+      "PA",
+      "SS",
+      "KW",
+      "SA",
+      "YT",
+      "RE",
+      "MW",
+      "GQ",
+      "BQ",
+      "GF",
+      "IQ",
+      "SB",
+      "FJ",
+      "ME",
+      "TH",
+      "TT",
+      "MR",
+      "AZ",
+      "GY",
+      "BT",
+      "SE",
+      "KE",
+      "LK",
+      "GS",
+      "TR",
+      "VG",
+      "DE",
+      "PK",
+      "BV",
+      "JP",
+      "MD",
+      "GA",
+      "UG",
+      "WF",
+      "CX",
+      "MF",
+      "SV",
+      "AW",
+      "CH",
+      "VI",
+      "TF",
+      "IO",
+      "EG",
+      "ES",
+      "CU",
+      "SY",
+      "MM",
+      "NP",
+      "JE",
+      "SC",
+      "VA",
+      "GW",
+      "YE",
+      "UY",
+      "LA",
+      "SK",
+      "SR",
+      "AI",
+      "PN",
+      "GP",
+      "PG",
+      "FO",
+      "EC",
+      "GL",
+      "OM",
+      "AS",
+      "MY",
+      "BI",
+      "AU",
+      "MH",
+      "BY",
+      "ZM",
+      "MQ",
+      "TM",
+      "SM",
+      "PH",
+      "NA",
+      "KP",
+      "CV",
+      "EH",
+      "KR",
+      "SI",
+      "SN",
+      "TC",
+      "BH",
+      "PF",
+      "PE",
+      "TG",
+      "MX",
+      "LY",
+      "MC",
+      "CD",
+      "LT",
+      "BS",
+      "SG",
+      "BZ",
+      "JO",
+      "KY",
+      "AD",
+      "CO",
+      "LR",
+      "SX",
+      "DO",
+      "CC",
+      "SJ",
+      "MP",
+      "ZA",
+      "HT",
+      "RO",
+      "ER",
+      "PL",
+      "GH",
+      "IL",
+      "ST",
+      "DJ",
+      "TD",
+      "FR",
+      "BD",
+      "BO",
+      "BN",
+      "MK",
+      "CI",
+      "BM",
+      "KM",
+      "NL",
+      "GD",
+      "CK",
+      "HR",
+      "PS",
+      "SD",
+      "TZ",
+      "GU",
+      "IN",
+      "LI",
+      "PY",
+      "TJ",
+      "PM",
+      "BA",
+      "SH",
+      "NO",
+      "EE",
+      "MT",
+      "BE",
+      "LB",
+      "DZ",
+      "AT",
+      "BG",
+      "GR",
+      "NF",
+      "DK",
+      "IM",
+      "RW",
+      "SO",
+      "TL",
+      "GN",
+      "MZ",
+      "CN",
+      "NC",
+      "LV",
+      "NE",
+      "VN",
+      "CZ",
+      "WS",
+      "CR",
+      "VC",
+      "CW",
+      "AG",
+      "CF",
+      "MA",
+      "FK",
+      "CL",
+      "MO",
+      "BF",
+      "IE",
+      "AX",
+      "MG",
+      "UM",
+      "KI",
+      "GG",
+      "AE",
+      "TK",
+      "PW",
+      "CG",
+      "GT",
+      "IS",
+      "MU",
+      "PT",
+      "QA",
+      "AR",
+      "GB",
+      "DM",
+      "ET",
+      "AM",
+      "GE",
+      "HU"
+   ],
+   "isFamilySafe":true,
+   "keywords":"NoCopyrightSounds ncs no copyright sounds copyrighted music free royalty royaltyfree uncopyrighted copyrightfree",
+   "tags":[
+      "NoCopyrightSounds",
+      "ncs",
+      "no",
+      "copyright",
+      "sounds",
+      "copyrighted",
+      "music",
+      "free",
+      "royalty",
+      "royaltyfree",
+      "uncopyrighted",
+      "copyrightfree"
+   ]
+}
+```
+</details>
+
+
 ## Contributors
 Thanks to everyone contributing to this library, including those not mentioned here.
 
@@ -2132,7 +2574,7 @@ Contributors are added irrespective of order.
   <li>
     <img src='https://avatars.githubusercontent.com/u/52399966?s=80&v=4' height='28' width='28'></img>&nbsp;&nbsp;<strong><a href='https://github.com/mytja'>mytja</a></strong>
     <ul>
-      <li>Current maintainer of this library. Author of Core classes, Comments class, ytdlp migration</li>
+      <li>Current maintainer of this library. Author of Core classes, Comments and Transcript classes, ytdlp migration</li>
     </ul>
   </li>
   <li>

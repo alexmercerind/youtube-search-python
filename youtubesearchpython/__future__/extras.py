@@ -7,6 +7,8 @@ from youtubesearchpython.core.constants import ResultMode
 from youtubesearchpython.core.hashtag import HashtagCore
 from youtubesearchpython.core.playlist import PlaylistCore
 from youtubesearchpython.core.suggestions import SuggestionsCore
+from youtubesearchpython.core.transcript import TranscriptCore
+from youtubesearchpython.core.channel import ChannelCore
 
 
 class Video:
@@ -1865,3 +1867,18 @@ class Comments:
         pc = CommentsCore(playlistLink)
         await pc.async_create()
         return pc.commentsComponent
+
+
+class Transcript:
+    @staticmethod
+    async def get(videoLink: str, params: str = None):
+        transcript_core = TranscriptCore(videoLink, params)
+        await transcript_core.async_create()
+        return transcript_core.result
+
+class Channel:
+    @staticmethod
+    async def get(channelId: str):
+        channel_core = ChannelCore(channelId)
+        await channel_core.async_create()
+        return channel_core.result

@@ -220,6 +220,22 @@ while len(comments.comments["result"]) < 100:
 print("Found all comments")
 
 
+
+print(Transcript.get("https://www.youtube.com/watch?v=L7kF4MXXCoA"))
+
+
+url = "https://www.youtube.com/watch?v=-1xu0IP35FI"
+
+transcript_en = Transcript.get(url)
+# you actually don't have to pass a valid URL in following Transcript call. You can input an empty string, but I do recommend still inputing a valid URL.
+transcript_2 = Transcript.get(url, transcript_en["languages"][-1]["params"]) # in my case, it'd output Spanish.
+print(transcript_2)
+
+
+print(Channel.get("UC_aEa8K-EOJ3D6gOs7HcyNg"))
+
+
+
 '''
 You may add/omit the optional parameters according to your requirement & use case.
 '''
