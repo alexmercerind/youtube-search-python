@@ -46,6 +46,7 @@ class SearchMode:
     videos = 'EgIQAQ%3D%3D'
     channels = 'EgIQAg%3D%3D'
     playlists = 'EgIQAw%3D%3D'
+    livestreams = 'EgJAAQ%3D%3D'
 
 
 class VideoUploadDateFilter:
