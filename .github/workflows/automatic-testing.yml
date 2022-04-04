@@ -17,7 +17,7 @@ jobs:
       with:
         python-version: '3.8'
     - name: Install dependencies
-      run: python -m pip install httpx yt-dlp
+      run: python -m pip install httpx yt-dlp .
     - name: Sync
       run: python tests/sync/extras.py
     - name: Async
@@ -32,7 +32,7 @@ jobs:
       with:
         python-version: '3.8'
     - name: Install dependencies
-      run: python -m pip install httpx
+      run: python -m pip install httpx .
     - name: Sync
       run: python tests/sync/playlists.py
     - name: Async
@@ -47,7 +47,7 @@ jobs:
       with:
         python-version: '3.8'
     - name: Install dependencies
-      run: python -m pip install httpx
+      run: python -m pip install httpx .
     - name: Sync
       run: python tests/sync/search.py
     - name: Async
