@@ -36,6 +36,18 @@ CLIENTS = {
             }
         },
         'api_key': 'AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8'
+    },
+    "TV_EMBED": {
+        "context": {
+            "client": {
+                "clientName": "TVHTML5_SIMPLY_EMBEDDED_PLAYER",
+                "clientVersion": "2.0"
+            },
+            "thirdParty": {
+                "embedUrl": "https://www.youtube.com/",
+            }
+        },
+        'api_key': 'AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8'
     }
 }
 
@@ -67,7 +79,7 @@ class VideoCore(RequestCore):
             'racyCheckOk': True,
             "videoId": getVideoId(self.videoLink)
         })
-        self.data = CLIENTS[self.overridedClient]
+        self.data = copy.deepcopy(CLIENTS[self.overridedClient])
 
     async def async_create(self):
         self.prepare_innertube_request()
