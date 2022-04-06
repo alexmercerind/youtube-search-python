@@ -51,7 +51,7 @@ class StreamURLFetcherCore(RequestCore):
         if not videoFormats["streamingData"]:
             # Video is age-restricted. Try to retrieve it using ANDROID_EMBED client and override old response.
             # This works most time.
-            vc = VideoCore(self.video_id, None, ResultMode.dict, None, False, overridedClient="ANDROID_EMBED")
+            vc = VideoCore(self.video_id, None, ResultMode.dict, None, False, overridedClient="TV_EMBED")
             vc.sync_create()
             videoFormats = vc.result
             if not videoFormats["streamingData"]:
