@@ -31,6 +31,16 @@ class ChannelCore(RequestCore):
         thumbnails.extend(getValue(response, ["metadata", "channelMetadataRenderer", "avatar", "thumbnails"]))
         thumbnails.extend(getValue(response, ["microformat", "microformatDataRenderer", "thumbnail", "thumbnails"]))
 
+        tabData = {}
+
+        for tab in getValue(response, ["contents", "twoColumnBrowseResultsRenderer", "tabs"]):
+            t = getValue(tab, ["tabRenderer", "selected"])
+            if t:
+                tabData = tab["tabRenderer"]
+        
+        metadata = getValue(tabData, ["content", "sectionListRenderer", "contents", 0, "itemSectionRenderer", "contents", 0, "channelAboutFullMetadataRenderer"])
+
+
         self.result = {
             "id": getValue(response, ["metadata", "channelMetadataRenderer", "externalId"]),
             "url": getValue(response, ["metadata", "channelMetadataRenderer", "channelUrl"]),
@@ -45,7 +55,10 @@ class ChannelCore(RequestCore):
             "availableCountryCodes": getValue(response, ["metadata", "channelMetadataRenderer", "availableCountryCodes"]),
             "isFamilySafe": getValue(response, ["metadata", "channelMetadataRenderer", "isFamilySafe"]),
             "keywords": getValue(response, ["metadata", "channelMetadataRenderer", "keywords"]),
-            "tags": getValue(response, ["microformat", "microformatDataRenderer", "tags"])
+            "tags": getValue(response, ["microformat", "microformatDataRenderer", "tags"]),
+            "views": getValue(metadata, ["viewCountText", "simpleText"]),
+            "joinedDate": getValue(metadata, ["joinedDateText", "runs", -1, "text"]),
+            "country": getValue(metadata, ["country", "simpleText"])
         }
 
 
