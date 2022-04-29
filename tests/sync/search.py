@@ -39,3 +39,6 @@ for video in search.result()['result']:
 
 channel = ChannelSearch("Watermelon Sugar", "UCZFWPqqPkFlNwIxcpsLOwew")
 print(channel.result(mode=ResultMode.json))
+
+channel = ChannelSearch('The Beatles - Topic', 'UC2XdaAVUannpujzv32jcouQ')
+print(channel.result(mode=ResultMode.json))

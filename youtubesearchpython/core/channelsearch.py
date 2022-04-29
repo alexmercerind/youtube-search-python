@@ -35,7 +35,15 @@ class ChannelSearchCore(RequestCore, ComponentHandler):
 
     def _parseChannelSearchSource(self) -> None:
         try:
-            self.response = self.response["contents"]["twoColumnBrowseResultsRenderer"]["tabs"][-1]["expandableTabRenderer"]["content"]["sectionListRenderer"]["contents"]
+            last_tab = self.response["contents"]["twoColumnBrowseResultsRenderer"]["tabs"][-1]
+            if 'expandableTabRenderer' in last_tab:
+                self.response = last_tab["expandableTabRenderer"]["content"]["sectionListRenderer"]["contents"]
+            else:
+                tab_renderer = last_tab["tabRenderer"]
+                if 'content' in tab_renderer:
+                    self.response = tab_renderer["content"]["sectionListRenderer"]["contents"]
+                else:
+                    self.response = []
         except:
             raise Exception('ERROR: Could not parse YouTube response.')
 
