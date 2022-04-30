@@ -34,7 +34,6 @@ class ChannelCore(RequestCore):
             "thumbnails": getValue(i, ["thumbnail", "thumbnails"]),
             "title": getValue(i, ["title", "runs", 0, "text"]),
             "videoCount": getValue(i, ["videoCountShortText", "simpleText"]),
-            "viewCount": getValue(i, ["v", 1, "simpleText"]),
             "lastEdited": getValue(i, ["publishedTimeText", "simpleText"]),
         }
 
