@@ -36,7 +36,6 @@ async def main():
     print(result)
 
     """
-    TODO: idk how to get this async
     channel = ChannelPlaylistSearch('PewDiePie', 'UC-lHJZR3Gqxm24_Vd_AJ5Yw')
     result = await channel.next()
     print(result)
