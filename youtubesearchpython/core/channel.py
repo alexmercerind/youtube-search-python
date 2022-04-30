@@ -106,7 +106,9 @@ class ChannelCore(RequestCore):
             if getValue(i, ["continuationItemRenderer"]):
                 self.continuation = getValue(i, ["continuationItemRenderer", "continuationEndpoint", "continuationCommand", "token"])
                 break
-            self.result["playlists"].append(self.playlist_parse(i))
+            elif getValue(i, ['gridPlaylistRenderer']):
+                self.result["playlists"].append(self.playlist_parse(getValue(i, ['gridPlaylistRenderer'])))
+            # TODO: Handle other types like gridShowRenderer
 
     async def async_next(self):
         if not self.continuation:
