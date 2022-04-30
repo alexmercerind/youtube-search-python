@@ -85,12 +85,25 @@ class ComponentHandler:
         for element in elements:
             responsetype = None
 
-            try:
-                element = element["itemSectionRenderer"]["contents"][0]["videoRenderer"]
-                responsetype = "video"
-            except:
-                element = element["itemSectionRenderer"]["contents"][0]["playlistRenderer"]
-                responsetype = "playlist"
+            if 'gridPlaylistRenderer' in element:
+                element = element['gridPlaylistRenderer']
+                responsetype = 'gridplaylist'
+            elif 'itemSectionRenderer' in element:
+                first_content = element["itemSectionRenderer"]["contents"][0]
+                if 'videoRenderer' in first_content:
+                    element = first_content['videoRenderer']
+                    responsetype = "video"
+                elif 'playlistRenderer' in first_content:
+                    element = first_content["playlistRenderer"]
+                    responsetype = "playlist"
+                else:
+                    raise Exception(f'Unexpected first_content {first_content}')
+            elif 'continuationItemRenderer' in element:
+                # for endless scrolling, not needed here
+                # TODO: Implement endless scrolling
+                continue
+            else:
+                raise Exception(f'Unexpected element {element}')
             
             if responsetype == "video":
                 json = {
@@ -118,7 +131,7 @@ class ComponentHandler:
                     },
                     "type":                                  responsetype
                 }
-            else:
+            elif responsetype == 'playlist':
                 json = {
                     "id":                                    self._getValue(element, ["playlistId"]),
                     "videos":                                self._getVideoFromChannelSearch(self._getValue(element, ["videos"])),
@@ -131,6 +144,16 @@ class ComponentHandler:
                         "name":                              self._getValue(element, ["longBylineText", "runs", 0, "text"]),
                     },
                     "type":                                  responsetype
+                }
+            else:
+                json = {
+                    "id":                                    self._getValue(element, ["playlistId"]),
+                    "thumbnails": {
+                        "normal":                            self._getValue(element, ["thumbnail", "thumbnails", 0]),
+                    },
+                    "title":                                 self._getValue(element, ["title", "runs", 0, "text"]),
+                    "uri":                                   self._getValue(element, ["navigationEndpoint", "commandMetadata", "webCommandMetadata", "url"]),
+                    "type":                                  'playlist'
                 }
             channelsearch.append(json)
         return channelsearch

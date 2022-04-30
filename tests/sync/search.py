@@ -42,3 +42,9 @@ print(channel.result(mode=ResultMode.json))
 
 channel = ChannelSearch('The Beatles - Topic', 'UC2XdaAVUannpujzv32jcouQ')
 print(channel.result(mode=ResultMode.json))
+
+channel = ChannelPlaylistSearch('PewDiePie', 'UC-lHJZR3Gqxm24_Vd_AJ5Yw')
+print(channel.result())
+
+channel = ChannelPlaylistSearch('The Beatles - Topic', 'UC2XdaAVUannpujzv32jcouQ')
+print(channel.result())
