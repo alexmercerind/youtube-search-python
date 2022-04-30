@@ -9,12 +9,11 @@ from youtubesearchpython.core.componenthandler import getValue, getVideoId
 
 
 class ChannelCore(RequestCore):
-    result = {}
-
     def __init__(self, channel_id: str, request_params: str):
         super().__init__()
         self.browseId = channel_id
         self.params = request_params
+        self.result = {}
         self.continuation = None
 
     def prepare_request(self):
