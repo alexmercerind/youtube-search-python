@@ -31,6 +31,10 @@ async def main():
     result = await search.next()
     print(result)
 
+    channel = ChannelSearch('The Beatles - Topic', 'UC2XdaAVUannpujzv32jcouQ')
+    result = await search.next()
+    print(result)
+
 
     search = VideosSearch('NoCopyrightSounds')
     index = 0
