@@ -67,3 +67,8 @@ class VideoSortOrder:
     uploadDate = 'CAISAhAB'
     viewCount = 'CAMSAhAB'
     rating = 'CAESAhAB'
+
+
+class ChannelRequestType:
+    info = "EgVhYm91dA%3D%3D"
+    playlists = "EglwbGF5bGlzdHMYAyABcAA%3D"

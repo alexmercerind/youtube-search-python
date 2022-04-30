@@ -235,6 +235,14 @@ print(transcript_2)
 print(Channel.get("UC_aEa8K-EOJ3D6gOs7HcyNg"))
 
 
+# Retrieve playlists of a channel
+channel = Channel("UC_aEa8K-EOJ3D6gOs7HcyNg")
+print(len(channel.result["playlists"]))
+while channel.has_more_playlists():
+    channel.next()
+    print(len(channel.result["playlists"]))
+
+
 
 '''
 You may add/omit the optional parameters according to your requirement & use case.

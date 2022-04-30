@@ -1,6 +1,6 @@
 from youtubesearchpython.core.constants import *
 from youtubesearchpython.core.search import SearchCore
-from youtubesearchpython.core.channelsearch import ChannelSearchCore, ChannelPlaylistSearchCore
+from youtubesearchpython.core.channelsearch import ChannelSearchCore
 
 
 class Search(SearchCore):
@@ -338,46 +338,6 @@ class ChannelSearch(ChannelSearchCore):
     '''
 
     def __init__(self, query: str, browseId: str, language: str = 'en', region: str = 'US', searchPreferences: str = "EgZzZWFyY2g%3D", timeout: int = None):
-        super().__init__(query, language, region, searchPreferences, browseId, timeout)
-        self.sync_create()
-
-
-class ChannelPlaylistSearch(ChannelPlaylistSearchCore):
-    '''Searches for playlists in specific channel in YouTube.
-
-    Args:
-        query (str): Sets the search query.
-        browseId (str): Channel ID
-        language (str, optional): Sets the result language. Defaults to 'en'.
-        region (str, optional): Sets the result region. Defaults to 'US'.
-
-    Examples:
-        Calling `result` method gives the search result.
-
-        >>> search = ChannelPlaylistSearch('The Beatles - Topic', 'UC2XdaAVUannpujzv32jcouQ')
-        >>> print(search.result())
-        {
-            "result": [
-                [
-                    {
-                        "id": "PL9-cZf_sidpkzR4W_LxvZjh4F7YFo4WoG",
-                        "thumbnails": {
-                            "normal": {
-                                "url": "https://i.ytimg.com/vi/A_MjCqQoLLA/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDhOFsMFzMiq2MlFPvnxaP_Mc45Ow",
-                                "width": 480,
-                                "height": 270
-                            }
-                        },
-                        "title": "All Tracks - The Beatles",
-                        "uri": "/watch?v=A_MjCqQoLLA&list=PL9-cZf_sidpkzR4W_LxvZjh4F7YFo4WoG",
-                        "type": "playlist"
-                    }, ...
-                ]
-            ]
-        }
-    '''
-
-    def __init__(self, query: str, browseId: str, language: str = 'en', region: str = 'US', searchPreferences: str = "EglwbGF5bGlzdHM%3D", timeout: int = None):
         super().__init__(query, language, region, searchPreferences, browseId, timeout)
         self.sync_create()
 

@@ -1828,10 +1828,17 @@ class Transcript:
         transcript_core.sync_create()
         return transcript_core.result
 
-class Channel:
+
+class Channel(ChannelCore):
+    def __init__(self, channel_id: str, request_type: str = ChannelRequestType.playlists):
+        super().__init__(channel_id, request_type)
+        self.sync_create()
+
+    def next(self):
+        self.sync_next()
+
     @staticmethod
-    def get(channelId: str):
-        channel_core = ChannelCore(channelId)
+    def get(channel_id: str, request_type: str = ChannelRequestType.info):
+        channel_core = ChannelCore(channel_id, request_type)
         channel_core.sync_create()
         return channel_core.result
-
