@@ -41,10 +41,19 @@ class ChannelCore(RequestCore):
         response = self.data.json()
 
         thumbnails = []
-        thumbnails.extend(getValue(response, ["header", "c4TabbedHeaderRenderer", "avatar", "thumbnails"]))
-        thumbnails.extend(getValue(response, ["metadata", "channelMetadataRenderer", "avatar", "thumbnails"]))
-        thumbnails.extend(getValue(response, ["microformat", "microformatDataRenderer", "thumbnail", "thumbnails"]))
-
+        try:
+            thumbnails.extend(getValue(response, ["header", "c4TabbedHeaderRenderer", "avatar", "thumbnails"]))
+        except:
+            pass
+        try:
+            thumbnails.extend(getValue(response, ["metadata", "channelMetadataRenderer", "avatar", "thumbnails"]))
+        except:
+            pass
+        try:
+            thumbnails.extend(getValue(response, ["microformat", "microformatDataRenderer", "thumbnail", "thumbnails"]))
+        except:
+            pass
+        
         tabData: dict = {}
         playlists: list = []
 
