@@ -3,7 +3,7 @@ from typing import Union
 
 from youtubesearchpython.core import VideoCore
 from youtubesearchpython.core.comments import CommentsCore
-from youtubesearchpython.core.constants import ResultMode
+from youtubesearchpython.core.constants import ResultMode, ChannelRequestType
 from youtubesearchpython.core.hashtag import HashtagCore
 from youtubesearchpython.core.playlist import PlaylistCore
 from youtubesearchpython.core.suggestions import SuggestionsCore
@@ -13,7 +13,8 @@ from youtubesearchpython.core.channel import ChannelCore
 
 class Video:
     @staticmethod
-    async def get(videoLink: str, resultMode: int = ResultMode.dict, timeout: int = 2, get_upload_date: bool = False) -> Union[dict, None]:
+    async def get(videoLink: str, resultMode: int = ResultMode.dict, timeout: int = 2, get_upload_date: bool = False) -> \
+    Union[dict, None]:
         '''Fetches information and formats  for the given video link or ID.
         Returns None if video is unavailable.
 
@@ -263,7 +264,7 @@ class Video:
             await video.async_html_create()
         await video.async_create()
         return video.result
-    
+
     @staticmethod
     async def getInfo(videoLink: str, resultMode: int = ResultMode.dict, timeout: int = 2) -> Union[dict, None]:
         '''Fetches only information  for the given video link or ID.
@@ -567,6 +568,7 @@ class Suggestions:
             ]
         }
     '''
+
     @staticmethod
     async def get(query: str, language: str = 'en', region: str = 'US', mode: int = ResultMode.dict):
         '''Fetches & returns the search suggestions for the given query.
@@ -578,7 +580,7 @@ class Suggestions:
         Returns:
             Union[str, dict]: Returns JSON or dictionary.
         '''
-        suggestionsInternal = SuggestionsCore(language = language, region = region)
+        suggestionsInternal = SuggestionsCore(language=language, region=region)
         suggestions = await suggestionsInternal._getAsync(query, mode)
         return suggestions
 
@@ -611,6 +613,7 @@ class Playlist:
     '''Fetches more susequent videos of the playlist, and appends to the `videos` list.
     `hasMoreVideos` bool indicates whether more videos can be fetched or not.
     '''
+
     async def getNextVideos(self) -> None:
         if not self.info:
             self.__playlist = PlaylistCore(self.playlistLink, None, ResultMode.dict, 2)
@@ -623,7 +626,7 @@ class Playlist:
             await self.__playlist._async_next()
             self.videos = self.__playlist.playlistComponent['videos']
             self.hasMoreVideos = self.__playlist.continuationKey != None
-    
+
     @staticmethod
     async def get(playlistLink: str) -> Union[dict, str, None]:
         '''Fetches information and videos for the given playlist link.
@@ -1176,7 +1179,7 @@ class Playlist:
         playlist = PlaylistCore(playlistLink, None, ResultMode.dict, 2)
         await playlist.async_create()
         return playlist.playlistComponent
-    
+
     @staticmethod
     async def getInfo(playlistLink: str) -> Union[dict, str, None]:
         '''Fetches only information for the given playlist link.
@@ -1825,6 +1828,7 @@ class Hashtag(HashtagCore):
             ]
         }
     '''
+
     def __init__(self, hashtag: str, limit: int = 60, language: str = 'en', region: str = 'US', timeout: int = None):
         super().__init__(hashtag, limit, language, region, timeout)
 
@@ -1876,9 +1880,19 @@ class Transcript:
         await transcript_core.async_create()
         return transcript_core.result
 
-class Channel:
+
+class Channel(ChannelCore):
+    def __init__(self, channel_id: str, request_type: str = ChannelRequestType.playlists):
+        super().__init__(channel_id, request_type)
+
+    async def init(self):
+        await self.async_create()
+
+    async def next(self):
+        await self.async_next()
+
     @staticmethod
-    async def get(channelId: str):
-        channel_core = ChannelCore(channelId)
+    async def get(channel_id: str, request_type: str = ChannelRequestType.playlists):
+        channel_core = ChannelCore(channel_id, request_type)
         await channel_core.async_create()
         return channel_core.result

@@ -7,6 +7,7 @@ from youtubesearchpython.core.requests import RequestCore
 from youtubesearchpython.handlers.componenthandler import ComponentHandler
 from youtubesearchpython.core.constants import *
 
+
 class ChannelSearchCore(RequestCore, ComponentHandler):
     response = None
     responseSource = None
@@ -84,10 +85,8 @@ class ChannelSearchCore(RequestCore, ComponentHandler):
 
     def result(self, mode: int = ResultMode.dict) -> Union[str, dict]:
         '''Returns the search result.
-
         Args:
             mode (int, optional): Sets the type of result. Defaults to ResultMode.dict.
-
         Returns:
             Union[str, dict]: Returns JSON or dictionary.
         '''
@@ -95,3 +94,4 @@ class ChannelSearchCore(RequestCore, ComponentHandler):
             return json.dumps({'result': self.response}, indent=4)
         elif mode == ResultMode.dict:
             return {'result': self.response}
+

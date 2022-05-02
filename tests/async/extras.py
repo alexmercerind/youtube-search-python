@@ -49,5 +49,13 @@ async def main():
 
     print(await Channel.get("UC_aEa8K-EOJ3D6gOs7HcyNg"))
 
+    # Retrieve playlists of a channel
+    channel = Channel("UC_aEa8K-EOJ3D6gOs7HcyNg")
+    await channel.init()
+    print(len(channel.result["playlists"]))
+    while channel.has_more_playlists():
+        await channel.next()
+        print(len(channel.result["playlists"]))
+
 
 asyncio.run(main())
