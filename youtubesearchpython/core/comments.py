@@ -15,7 +15,6 @@ T = TypeVar("T")
 
 
 class CommentsCore(RequestCore):
-    commentsComponent = {"result": []}
     result = None
     continuationKey = None
     isNextRequest = False
@@ -23,6 +22,7 @@ class CommentsCore(RequestCore):
 
     def __init__(self, videoLink: str):
         super().__init__()
+        self.commentsComponent = {"result": []}
         self.responseSource = None
         self.videoLink = videoLink
 
