@@ -1,6 +1,8 @@
+from typing import Any, Optional
+
+from youtubesearchpython.core.channelsearch import ChannelSearchCore
 from youtubesearchpython.core.constants import *
 from youtubesearchpython.core.search import SearchCore
-from youtubesearchpython.core.channelsearch import ChannelSearchCore
 
 
 class Search(SearchCore):
@@ -69,12 +71,12 @@ class Search(SearchCore):
             ]
         }
     '''
-    def __init__(self, query: str, limit: int = 20, language: str = 'en', region: str = 'US', timeout: int = None):
+    def __init__(self, query: str, limit: int = 20, language: str = 'en', region: str = 'US', timeout: Optional[int] = None):
         self.searchMode = (True, True, True)
-        super().__init__(query, limit, language, region, None, timeout)
+        super().__init__(query, limit, language, region, None, timeout)  # type: ignore
 
-    async def next(self):
-        return await self._nextAsync()
+    async def next(self) -> dict[str, Any]:
+        return await self._nextAsync()  # type: ignore
 
 
 class VideosSearch(SearchCore):
@@ -143,12 +145,12 @@ class VideosSearch(SearchCore):
             ]
         }
     '''
-    def __init__(self, query: str, limit: int = 20, language: str = 'en', region: str = 'US', timeout: int = None):
+    def __init__(self, query: str, limit: int = 20, language: str = 'en', region: str = 'US', timeout: Optional[int] = None):
         self.searchMode = (True, False, False)
-        super().__init__(query, limit, language, region, SearchMode.videos, timeout)
+        super().__init__(query, limit, language, region, SearchMode.videos, timeout)  # type: ignore
 
-    async def next(self):
-        return await self._nextAsync()
+    async def next(self) -> dict[str, Any]:
+        return await self._nextAsync()  # type: ignore
 
 
 class ChannelsSearch(SearchCore):
@@ -192,12 +194,12 @@ class ChannelsSearch(SearchCore):
             ]
         }
     '''
-    def __init__(self, query: str, limit: int = 20, language: str = 'en', region: str = 'US', timeout: int = None):
+    def __init__(self, query: str, limit: int = 20, language: str = 'en', region: str = 'US', timeout: Optional[int] = None):
         self.searchMode = (False, True, False)
-        super().__init__(query, limit, language, region, SearchMode.channels, timeout)
+        super().__init__(query, limit, language, region, SearchMode.channels, timeout)  # type: ignore
 
-    async def next(self):
-        return await self._nextAsync()
+    async def next(self) -> dict[str, Any]:
+        return await self._nextAsync()  # type: ignore
 
 
 class PlaylistsSearch(SearchCore):
@@ -254,12 +256,12 @@ class PlaylistsSearch(SearchCore):
             ]
         }
     '''
-    def __init__(self, query: str, limit: int = 20, language: str = 'en', region: str = 'US', timeout: int = None):
+    def __init__(self, query: str, limit: int = 20, language: str = 'en', region: str = 'US', timeout: Optional[int] = None):
         self.searchMode = (False, False, True)
-        super().__init__(query, limit, language, region, SearchMode.playlists, timeout)
+        super().__init__(query, limit, language, region, SearchMode.playlists, timeout)  # type: ignore
 
-    async def next(self):
-        return await self._nextAsync()
+    async def next(self) -> dict[str, Any]:
+        return await self._nextAsync()  # type: ignore
 
 class CustomSearch(SearchCore):
     '''Performs custom search in YouTube with search filters or sorting orders. 
@@ -338,12 +340,12 @@ class CustomSearch(SearchCore):
             ]
         }
     '''
-    def __init__(self, query: str, searchPreferences: str, limit: int = 20, language: str = 'en', region: str = 'US', timeout: int = None):
+    def __init__(self, query: str, searchPreferences: str, limit: int = 20, language: str = 'en', region: str = 'US', timeout: Optional[int] = None):
         self.searchMode = (True, True, True)
-        super().__init__(query, limit, language, region, searchPreferences, timeout)
+        super().__init__(query, limit, language, region, searchPreferences, timeout)  # type: ignore
 
-    async def next(self):
-        return await self._nextAsync()
+    async def next(self) -> dict[str, Any]:
+        return await self._nextAsync()  # type: ignore
 
 class ChannelSearch(ChannelSearchCore):
     '''Searches for videos in specific channel in YouTube.
@@ -418,5 +420,5 @@ class ChannelSearch(ChannelSearchCore):
         }
     '''
 
-    def __init__(self, query: str, browseId: str, language: str = 'en', region: str = 'US', searchPreferences: str = "EgZzZWFyY2g%3D", timeout: int = None):
-        super().__init__(query, language, region, searchPreferences, browseId, timeout)
+    def __init__(self, query: str, browseId: str, language: str = 'en', region: str = 'US', searchPreferences: str = "EgZzZWFyY2g%3D", timeout: Optional[int] = None):
+        super().__init__(query, language, region, searchPreferences, browseId, timeout)  # type: ignore
