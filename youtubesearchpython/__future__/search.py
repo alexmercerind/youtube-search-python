@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any, Dict, Optional
 
 from youtubesearchpython.core.channelsearch import ChannelSearchCore
 from youtubesearchpython.core.constants import *
@@ -75,7 +75,7 @@ class Search(SearchCore):
         self.searchMode = (True, True, True)
         super().__init__(query, limit, language, region, None, timeout)  # type: ignore
 
-    async def next(self) -> dict[str, Any]:
+    async def next(self) -> Dict[str, Any]:
         return await self._nextAsync()  # type: ignore
 
 
@@ -149,7 +149,7 @@ class VideosSearch(SearchCore):
         self.searchMode = (True, False, False)
         super().__init__(query, limit, language, region, SearchMode.videos, timeout)  # type: ignore
 
-    async def next(self) -> dict[str, Any]:
+    async def next(self) -> Dict[str, Any]:
         return await self._nextAsync()  # type: ignore
 
 
@@ -198,7 +198,7 @@ class ChannelsSearch(SearchCore):
         self.searchMode = (False, True, False)
         super().__init__(query, limit, language, region, SearchMode.channels, timeout)  # type: ignore
 
-    async def next(self) -> dict[str, Any]:
+    async def next(self) -> Dict[str, Any]:
         return await self._nextAsync()  # type: ignore
 
 
@@ -260,7 +260,7 @@ class PlaylistsSearch(SearchCore):
         self.searchMode = (False, False, True)
         super().__init__(query, limit, language, region, SearchMode.playlists, timeout)  # type: ignore
 
-    async def next(self) -> dict[str, Any]:
+    async def next(self) -> Dict[str, Any]:
         return await self._nextAsync()  # type: ignore
 
 class CustomSearch(SearchCore):
@@ -344,7 +344,7 @@ class CustomSearch(SearchCore):
         self.searchMode = (True, True, True)
         super().__init__(query, limit, language, region, searchPreferences, timeout)  # type: ignore
 
-    async def next(self) -> dict[str, Any]:
+    async def next(self) -> Dict[str, Any]:
         return await self._nextAsync()  # type: ignore
 
 class ChannelSearch(ChannelSearchCore):
