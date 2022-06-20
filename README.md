@@ -1275,7 +1275,7 @@ print(hashtag.result())
 #### Getting videos and playlists in specific channel
 
 ```python
-from youtubesearchpython import ChannelSearch
+from youtubesearchpython import ChannelSearch,ResultMode
 
 search = ChannelSearch('Watermelon Sugar', "UCZFWPqqPkFlNwIxcpsLOwew")
 print(search.result(mode = ResultMode.json))
