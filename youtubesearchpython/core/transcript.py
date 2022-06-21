@@ -69,7 +69,7 @@ class TranscriptCore(RequestCore):
             j = {
                 "startMs": getValue(segment, ["startMs"]),
                 "endMs": getValue(segment, ["endMs"]),
-                "text": getValue(segment, ["snippet", "simpleText"]),
+                "text": getValue(segment, ["snippet", "runs", 0, "text"]),
                 "startTime": getValue(segment, ["startTimeText", "simpleText"])
             }
             segments.append(j)
