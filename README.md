@@ -1,6 +1,6 @@
 # [youtube-search-python](https://github.com/alexmercerind/youtube-search-python)
 
-## This library will be/is no longer maintained as of 23rd June. Have a look [here](https://github.com/alexmercerind/youtube-search-python/issues/189).
+## This library will be/is no longer maintained as of 23rd June 2022. Have a look [here](https://github.com/alexmercerind/youtube-search-python/issues/189).
 
 ##### Search for YouTube videos, channels & playlists. Get video & playlist information using link. Get search suggestions.
 
